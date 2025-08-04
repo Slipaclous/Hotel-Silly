@@ -2,13 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { Star, Users, ArrowRight } from 'lucide-react';
-import Image from 'next/image';
 
 const rooms = [
   {
     id: 1,
     name: "Suite Présidentielle",
-    description: "Notre suite la plus prestigieuse avec vue panoramique sur Paris",
+    description: "Notre suite la plus prestigieuse avec vue panoramique sur Silly",
     price: "À partir de 1200€",
     capacity: "2-4 personnes",
     rating: 5,
@@ -53,8 +52,8 @@ export default function RoomSection() {
             Nos Chambres & Suites
           </h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Découvrez nos chambres et suites d'exception, conçues pour offrir 
-            le summum du confort et de l'élégance dans un cadre raffiné.
+            Découvrez nos chambres et suites d&apos;exception, conçues pour offrir 
+            le summum du confort et de l&apos;élégance dans un cadre raffiné.
           </p>
         </motion.div>
 
@@ -103,30 +102,26 @@ export default function RoomSection() {
                 {/* Capacity */}
                 <div className="flex items-center space-x-2 text-gray-600 mb-4">
                   <Users className="w-4 h-4" />
-                  <span className="text-sm font-medium">{room.capacity}</span>
+                  <span className="text-sm">{room.capacity}</span>
                 </div>
 
                 {/* Features */}
-                <div className="mb-6">
-                  <div className="flex flex-wrap gap-2">
-                    {room.features.map((feature, i) => (
-                      <span
-                        key={i}
-                        className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
+                <div className="space-y-2 mb-6">
+                  {room.features.map((feature, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+                      <span className="text-sm text-gray-600">{feature}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* CTA Button */}
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-black text-white py-3 rounded-full font-medium transition-all duration-200 flex items-center justify-center space-x-2 group shadow-lg hover:shadow-xl hover:bg-gray-800"
+                  className="w-full bg-black text-white py-3 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:bg-gray-800 flex items-center justify-center space-x-2 group"
                 >
-                  <span>Voir les Détails</span>
+                  <span>Découvrir</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </motion.button>
               </div>
@@ -145,7 +140,7 @@ export default function RoomSection() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-black text-white hover:bg-gray-800 px-8 py-3 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
+            className="bg-white border-2 border-black text-black px-8 py-4 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:bg-black hover:text-white"
           >
             Voir Toutes nos Chambres
           </motion.button>

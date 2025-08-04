@@ -17,7 +17,7 @@ const testimonials = [
     name: "Thomas Müller",
     location: "Berlin, Allemagne",
     rating: 5,
-    text: "La suite présidentielle est tout simplement magnifique. Vue imprenable sur Paris et service impeccable. Un hôtel de luxe authentique.",
+    text: "La suite présidentielle est tout simplement magnifique. Vue imprenable sur Silly et service impeccable. Un hôtel de luxe authentique.",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
   },
   {
@@ -33,7 +33,7 @@ const testimonials = [
     name: "Luca Rossi",
     location: "Milan, Italie",
     rating: 5,
-    text: "Un hôtel qui mérite ses 5 étoiles. Le restaurant gastronomique est exceptionnel et l'emplacement est idéal pour découvrir Paris.",
+    text: "Un hôtel qui mérite ses 5 étoiles. Le restaurant gastronomique est exceptionnel et l'emplacement est idéal pour découvrir la Belgique.",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
   }
 ];
@@ -84,7 +84,7 @@ export default function TestimonialsSection() {
 
               {/* Testimonial Text */}
               <p className="text-cream-200 mb-6 leading-relaxed">
-                "{testimonial.text}"
+                &ldquo;{testimonial.text}&rdquo;
               </p>
 
               {/* Author */}
@@ -106,25 +106,21 @@ export default function TestimonialsSection() {
           ))}
         </div>
 
-        {/* Overall Rating */}
+        {/* View All Reviews Button */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <div className="inline-flex items-center space-x-4 bg-charcoal-800 rounded-full px-8 py-4">
-            <div className="flex items-center space-x-2">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 text-gold-400 fill-current" />
-              ))}
-            </div>
-            <div className="text-left">
-              <div className="text-2xl font-bold text-white">4.9/5</div>
-              <div className="text-sm text-cream-400">Basé sur 247 avis</div>
-            </div>
-          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gold-400 text-charcoal-900 px-8 py-3 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:bg-gold-300"
+          >
+            Voir Tous les Avis
+          </motion.button>
         </motion.div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Phone, MapPin, Star, ChevronDown } from 'lucide-react';
+import { Phone, Star, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Header() {
@@ -79,7 +79,9 @@ export default function Header() {
                 <h1 className="text-2xl font-serif font-bold text-gray-900 group-hover:text-gray-700 transition-colors duration-300">
                   Hôtel de Silly
                 </h1>
-                <p className="text-xs text-gray-600 font-cursive tracking-wider">
+                <p className={`text-xs font-cursive tracking-wider transition-colors duration-300 ${
+                  isScrolled ? 'text-gray-600' : 'text-white'
+                }`}>
                   Expérience Unique
                 </p>
               </div>

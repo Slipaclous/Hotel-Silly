@@ -37,7 +37,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-3 text-gray-200">
                 <MapPin className="w-4 h-4 text-white" />
-                <span className="font-medium">Rue de l'Hôtel, 7830 Silly, Belgique</span>
+                <span className="font-medium">Rue de l&apos;Hôtel, 7830 Silly, Belgique</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-200">
                 <Clock className="w-4 h-4 text-white" />
@@ -125,7 +125,7 @@ export default function Footer() {
                 className="flex-1 px-4 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:border-white/40 transition-colors duration-200"
               />
               <button className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:bg-white/30 transform hover:scale-105">
-                S'abonner
+                S&apos;abonner
               </button>
             </div>
           </div>

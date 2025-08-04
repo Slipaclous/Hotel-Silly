@@ -44,7 +44,7 @@ export default function AboutSection() {
             <p className="text-xl text-gray-700 mb-8 leading-relaxed">
               Notre hôtel de luxe va ouvrir ses portes au printemps 2025 dans le charmant 
               village de Silly, au cœur de la Belgique. Chaque détail a été pensé pour 
-              offrir une expérience inoubliable dans un cadre d'exception.
+              offrir une expérience inoubliable dans un cadre d&apos;exception.
             </p>
             
             <div className="space-y-4 mb-8">
@@ -60,7 +60,7 @@ export default function AboutSection() {
                 <div className="w-2 h-2 bg-gray-400 rounded-full mt-3 flex-shrink-0"></div>
                 <p className="text-gray-700">
                   <strong className="text-black">Service personnalisé :</strong> Notre équipe dédiée 
-                  s'engage à anticiper vos besoins et à rendre votre séjour exceptionnel.
+                  s&apos;engage à anticiper vos besoins et à rendre votre séjour exceptionnel.
                 </p>
               </div>
               <div className="flex items-start space-x-4">
@@ -101,7 +101,7 @@ export default function AboutSection() {
               {/* Floating Stats */}
               <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200">
                 <div className="text-2xl font-serif font-bold text-black">2025</div>
-                <div className="text-sm text-gray-700">Année d'Ouverture</div>
+                <div className="text-sm text-gray-700">Année d&apos;Ouverture</div>
               </div>
             </div>
 
