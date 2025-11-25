@@ -123,7 +123,7 @@ export default function TestimonialsEditor() {
                     <p className="text-sm text-gray-600">{testimonial.location}</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700 italic">"&apos;{testimonial.text}&apos;"</p>
+                <p className="text-sm text-gray-700 italic">&apos;{testimonial.text}&apos;</p>
               </div>
               <div className="flex items-center space-x-2 ml-4">
                 <button
