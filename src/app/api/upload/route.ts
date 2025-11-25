@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes);
 
     // Upload vers Cloudinary via un stream
-    const result = await new Promise<any>((resolve, reject) => {
+    const result = await new Promise<UploadApiResponse>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: 'hotel-silly', // Dossier dans Cloudinary
@@ -55,9 +55,10 @@ export async function POST(request: NextRequest) {
         },
         (error, result) => {
           if (error) {
+            console.error('Erreur Cloudinary:', error);
             reject(error);
           } else {
-            resolve(result);
+            resolve(result as UploadApiResponse);
           }
         }
       );
