@@ -31,7 +31,6 @@ export default function NavigationDots() {
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
             setActiveSection(section.id);
             setIsDarkBackground(section.isDark);
-            console.log(`Section active: ${section.id}, isDark: ${section.isDark}`);
             break;
           }
         }

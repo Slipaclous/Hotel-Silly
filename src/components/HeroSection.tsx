@@ -1,79 +1,113 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Star, MapPin } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+
+interface HeroData {
+  badge: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  location: string;
+  imageUrl: string;
+}
 
 export default function HeroSection() {
+  const [heroData, setHeroData] = useState<HeroData | null>(null);
+
+  useEffect(() => {
+    fetch('/api/hero')
+      .then(res => res.json())
+      .then(data => setHeroData(data))
+      .catch(err => console.error('Erreur chargement hero:', err));
+  }, []);
+
+  const data = heroData || {
+    badge: 'Ouverture 2025',
+    title: "L'Hôtel de Silly",
+    subtitle: 'Bienvenue à',
+    description: 'Découvrez une expérience hôtelière exceptionnelle au cœur de la Belgique, où élégance, confort et service personnalisé se rencontrent.',
+    location: 'Silly, Belgique',
+    imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
+  };
+
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video/Image */}
+      {/* Image de fond */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 via-gray-800/50 to-gray-900/70"></div>
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-50"
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`
+            backgroundImage: `url('${data.imageUrl}')`
           }}
         ></div>
+        {/* Overlay noir subtil */}
+        <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      {/* Contenu */}
+      <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* Badge */}
-          <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-white/20">
-            <Star className="w-4 h-4 text-white" />
-            <span className="text-sm font-medium">Ouverture 2025 - Luxe & Confort</span>
+          {/* Badge discret */}
+          <div className="inline-flex items-center space-x-2 border border-white/30 px-4 py-2 mb-8">
+            <span className="font-body text-xs uppercase tracking-widest">
+              {data.badge}
+            </span>
           </div>
 
-          {/* Main Title */}
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-serif font-bold mb-6 leading-tight">
-            <span className="block">Bienvenue à</span>
-            <span className="block text-white font-cursive text-5xl sm:text-6xl lg:text-8xl mt-2">
-              L&apos;Hôtel de Silly
+          {/* Titre principal */}
+          <h1 className="mb-6">
+            <span className="block font-body text-sm uppercase tracking-widest mb-4 text-white/80">
+              {data.subtitle}
+            </span>
+            <span className="block font-display text-5xl sm:text-6xl lg:text-7xl font-medium">
+              {data.title}
             </span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Découvrez une expérience hôtelière exceptionnelle au cœur de la Belgique, 
-            où élégance, confort et service personnalisé se rencontrent pour créer des 
-            souvenirs inoubliables.
-          </p>
-
-          {/* Location */}
-          <div className="flex items-center justify-center space-x-2 text-gray-300 mb-8">
-            <MapPin className="w-5 h-5" />
-            <span className="text-lg">Silly, Belgique - Région Wallonne</span>
+          {/* Ligne décorative */}
+          <div className="flex items-center justify-center mb-8">
+            <div className="w-16 h-px bg-[var(--color-or)]"></div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-200 flex items-center space-x-2 group shadow-lg hover:shadow-xl hover:bg-white/30"
+          {/* Description */}
+          <p className="font-body text-base sm:text-lg text-white/90 mb-6 max-w-2xl mx-auto leading-relaxed">
+            {data.description}
+          </p>
+
+          {/* Localisation */}
+          <div className="flex items-center justify-center space-x-2 text-white/70 mb-12">
+            <MapPin className="w-4 h-4" />
+            <span className="font-body text-sm">{data.location}</span>
+          </div>
+
+          {/* Boutons CTA */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link
+              href="/contact"
+              className="group font-body text-sm px-8 py-3 bg-white text-[var(--color-noir)] hover:bg-[var(--color-or)] hover:text-white transition-all duration-300 flex items-center space-x-2"
             >
-              <span>Pré-réserver</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-            </motion.button>
-            
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white/10 backdrop-blur-sm border border-white/30 text-white hover:bg-white/20 px-8 py-4 rounded-full text-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
+              <span>Réserver</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+
+            <Link
+              href="/chambres"
+              className="font-body text-sm px-8 py-3 border border-white text-white hover:bg-white hover:text-[var(--color-noir)] transition-all duration-300"
             >
               Découvrir nos Chambres
-            </motion.button>
+            </Link>
           </div>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator - Repositionné plus bas */}
+      {/* Indicateur de scroll minimaliste */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -81,21 +115,11 @@ export default function HeroSection() {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-white rounded-full flex justify-center"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-1 h-3 bg-white rounded-full mt-2"
-          />
-        </motion.div>
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-12 bg-white/40"
+        ></motion.div>
       </motion.div>
-
-      {/* Decorative Elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 border border-white/20 rounded-full"></div>
-      <div className="absolute bottom-20 left-20 w-24 h-24 border border-white/10 rounded-full"></div>
     </section>
   );
 } 

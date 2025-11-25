@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modèle pour l'utilisateur admin
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String   // Mot de passe haché
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Modèle pour la section Hero
+model Hero {
+  id          Int      @id @default(autoincrement())
+  badge       String
+  title       String
+  subtitle    String
+  description String   @db.Text
+  location    String
+  imageUrl    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Modèle pour la section À Propos
+model About {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String   @db.Text
+  keyPoint1Title  String
+  keyPoint1Text   String   @db.Text
+  keyPoint2Title  String
+  keyPoint2Text   String   @db.Text
+  keyPoint3Title  String
+  keyPoint3Text   String   @db.Text
+  openingYear     String
+  imageUrl        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Modèle pour les features de la section À Propos
+model Feature {
+  id          Int      @id @default(autoincrement())
+  icon        String   // Nom de l'icône (Award, Heart, Shield, Star)
+  title       String
+  description String
+  order       Int      // Pour gérer l'ordre d'affichage
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Modèle pour les chambres
+model Room {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String   @db.Text
+  price       String
+  capacity    String
+  rating      Int      @default(5)
+  imageUrl    String
+  features    String[] // Array de fonctionnalités
+  order       Int      // Pour gérer l'ordre d'affichage
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Modèle pour les témoignages
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  location  String
+  rating    Int      @default(5)
+  text      String   @db.Text
+  avatarUrl String
+  order     Int      // Pour gérer l'ordre d'affichage
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Modèle pour les images de la galerie
+model GalleryImage {
+  id        Int      @id @default(autoincrement())
+  url       String
+  category  String   // Chambres, Restaurant, Spa, Intérieur, Extérieur
+  title     String
+  order     Int      // Pour gérer l'ordre d'affichage
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Modèle pour les événements
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  icon        String   // Nom de l'icône (Calendar, Users, MapPin, Clock, Utensils, Microphone, Heart)
+  imageUrl    String
+  capacity    String
+  duration    String
+  order       Int      // Pour gérer l'ordre d'affichage
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Modèle pour les hero des pages
+model PageHero {
+  id          Int      @id @default(autoincrement())
+  page        String   @unique // slug de la page (chambres, galerie, a-propos, evenements)
+  title       String
+  subtitle    String   @db.Text
+  imageUrl    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

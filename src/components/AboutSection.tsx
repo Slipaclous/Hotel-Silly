@@ -2,142 +2,165 @@
 
 import { motion } from 'framer-motion';
 import { Award, Heart, Shield, Star } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
-const features = [
-  {
-    icon: Award,
-    title: "Excellence",
-    description: "Reconnu pour notre service d'exception et notre attention aux détails"
-  },
-  {
-    icon: Heart,
-    title: "Hospitalité",
-    description: "Accueil chaleureux et personnalisé pour chaque client"
-  },
-  {
-    icon: Shield,
-    title: "Sécurité",
-    description: "Environnement sécurisé et protocoles sanitaires rigoureux"
-  },
-  {
-    icon: Star,
-    title: "Luxe",
-    description: "Équipements haut de gamme et décoration raffinée"
-  }
-];
+interface AboutData {
+  title: string;
+  description: string;
+  keyPoint1Title: string;
+  keyPoint1Text: string;
+  keyPoint2Title: string;
+  keyPoint2Text: string;
+  keyPoint3Title: string;
+  keyPoint3Text: string;
+  openingYear: string;
+  imageUrl: string;
+}
+
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const iconMap: { [key: string]: any } = {
+  'Award': Award,
+  'Heart': Heart,
+  'Shield': Shield,
+  'Star': Star,
+};
 
 export default function AboutSection() {
+  const [aboutData, setAboutData] = useState<AboutData | null>(null);
+  const [features, setFeatures] = useState<Feature[]>([]);
+
+  useEffect(() => {
+    Promise.all([
+      fetch('/api/about').then(res => res.json()),
+      fetch('/api/features').then(res => res.json())
+    ]).then(([about, feats]) => {
+      setAboutData(about);
+      setFeatures(feats);
+    }).catch(err => console.error('Erreur chargement about:', err));
+  }, []);
+
+  const data = aboutData || {
+    title: 'Une Expérience Unique',
+    description: "Notre hôtel de luxe va ouvrir ses portes au printemps 2025 dans le charmant village de Silly, au cœur de la Belgique. Chaque détail a été pensé pour offrir une expérience inoubliable dans un cadre d'exception.",
+    keyPoint1Title: 'Emplacement idéal',
+    keyPoint1Text: 'Au cœur de Silly, village pittoresque de la Région Wallonne, à proximité de Bruxelles et des principales attractions belges.',
+    keyPoint2Title: 'Service personnalisé',
+    keyPoint2Text: "Notre équipe dédiée s'engage à anticiper vos besoins et à rendre votre séjour exceptionnel.",
+    keyPoint3Title: 'Équipements de luxe',
+    keyPoint3Text: 'Chambres et suites équipées des dernières technologies et du confort le plus raffiné.',
+    openingYear: '2025',
+    imageUrl: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+  };
+
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-blanc">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Contenu */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-black mb-6">
-              Une Expérience Unique
+            {/* Ligne décorative */}
+            <div className="w-12 h-px bg-or mb-6"></div>
+
+            <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
+              {data.title}
             </h2>
-            <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-              Notre hôtel de luxe va ouvrir ses portes au printemps 2025 dans le charmant 
-              village de Silly, au cœur de la Belgique. Chaque détail a été pensé pour 
-              offrir une expérience inoubliable dans un cadre d&apos;exception.
+
+            <p className="font-body text-lg text-noir/70 mb-10 leading-relaxed">
+              {data.description}
             </p>
-            
-            <div className="space-y-4 mb-8">
+
+            <div className="space-y-6 mb-10">
               <div className="flex items-start space-x-4">
-                <div className="w-2 h-2 bg-gray-400 rounded-full mt-3 flex-shrink-0"></div>
-                <p className="text-gray-700">
-                  <strong className="text-black">Emplacement idéal :</strong> Au cœur de Silly, 
-                  village pittoresque de la Région Wallonne, à proximité de Bruxelles et des 
-                  principales attractions belges.
+                <div className="w-1 h-1 bg-or rounded-full mt-3 flex-shrink-0"></div>
+                <p className="font-body text-base text-noir/80">
+                  <strong className="font-medium text-noir">{data.keyPoint1Title}</strong> — {data.keyPoint1Text}
                 </p>
               </div>
               <div className="flex items-start space-x-4">
-                <div className="w-2 h-2 bg-gray-400 rounded-full mt-3 flex-shrink-0"></div>
-                <p className="text-gray-700">
-                  <strong className="text-black">Service personnalisé :</strong> Notre équipe dédiée 
-                  s&apos;engage à anticiper vos besoins et à rendre votre séjour exceptionnel.
+                <div className="w-1 h-1 bg-or rounded-full mt-3 flex-shrink-0"></div>
+                <p className="font-body text-base text-noir/80">
+                  <strong className="font-medium text-noir">{data.keyPoint2Title}</strong> — {data.keyPoint2Text}
                 </p>
               </div>
               <div className="flex items-start space-x-4">
-                <div className="w-2 h-2 bg-gray-400 rounded-full mt-3 flex-shrink-0"></div>
-                <p className="text-gray-700">
-                  <strong className="text-black">Équipements de luxe :</strong> Chambres et suites 
-                  équipées des dernières technologies et du confort le plus raffiné.
+                <div className="w-1 h-1 bg-or rounded-full mt-3 flex-shrink-0"></div>
+                <p className="font-body text-base text-noir/80">
+                  <strong className="font-medium text-noir">{data.keyPoint3Title}</strong> — {data.keyPoint3Text}
                 </p>
               </div>
             </div>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-black text-white px-8 py-3 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:bg-gray-800"
+            <Link
+              href="/a-propos"
+              className="inline-block font-body text-sm px-8 py-3 border border-noir text-noir hover:bg-noir hover:text-blanc transition-all duration-300"
             >
               Découvrir Notre Histoire
-            </motion.button>
+            </Link>
           </motion.div>
 
           {/* Image */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden">
-              <div 
+            <div className="relative h-[500px] overflow-hidden">
+              <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{
-                  backgroundImage: `url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')`
+                  backgroundImage: `url('${data.imageUrl}')`
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-              
-              {/* Floating Stats */}
-              <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200">
-                <div className="text-2xl font-serif font-bold text-black">2025</div>
-                <div className="text-sm text-gray-700">Année d&apos;Ouverture</div>
+
+              {/* Badge année */}
+              <div className="absolute bottom-8 left-8 bg-blanc shadow-elegant p-6 border border-noir/10">
+                <div className="font-display text-4xl font-medium text-noir mb-1">{data.openingYear}</div>
+                <div className="font-body text-xs uppercase tracking-widest text-noir/60">Année d'Ouverture</div>
               </div>
             </div>
-
-            {/* Decorative Element */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-gray-300 rounded-full opacity-30"></div>
           </motion.div>
         </div>
 
-        {/* Features Grid */}
+        {/* Grille de caractéristiques */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
           viewport={{ once: true }}
-          className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
         >
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="text-center group"
-            >
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-gray-200 transition-colors duration-200 border border-gray-200">
-                <feature.icon className="w-8 h-8 text-gray-700" />
+          {features.map((feature, index) => {
+            const IconComponent = iconMap[feature.icon] || Award;
+            return (
+              <div
+                key={feature.title}
+                className="text-center"
+              >
+                <div className="w-16 h-16 border border-noir/20 flex items-center justify-center mx-auto mb-6 group-hover:border-or transition-colors duration-300">
+                  <IconComponent className="w-7 h-7 text-or" />
+                </div>
+                <h3 className="font-display text-xl font-medium text-noir mb-3">
+                  {feature.title}
+                </h3>
+                <p className="font-body text-sm text-noir/70 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="text-xl font-serif font-bold text-black mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-700 leading-relaxed">
-                {feature.description}
-              </p>
-            </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
       </div>
     </section>

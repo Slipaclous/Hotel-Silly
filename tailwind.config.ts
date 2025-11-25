@@ -9,36 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        'serif': ['Playfair Display', 'serif'],
-        'sans': ['Inter', 'sans-serif'],
-        'cursive': ['Dancing Script', 'cursive'],
+        'display': ['Cormorant Garamond', 'serif'],
+        'body': ['Montserrat', 'sans-serif'],
+        'accent': ['Playfair Display', 'serif'],
       },
       colors: {
-        'gold': {
-          50: '#fefce8',
-          100: '#fef9c3',
-          200: '#fef08a',
-          300: '#fde047',
-          400: '#facc15',
-          500: '#eab308',
-          600: '#ca8a04',
-          700: '#a16207',
-          800: '#854d0e',
-          900: '#713f12',
-        },
-        'cream': {
-          50: '#fefefe',
-          100: '#fdfcfc',
-          200: '#faf8f8',
-          300: '#f6f2f2',
-          400: '#f0ebeb',
-          500: '#e8e0e0',
-          600: '#d4c8c8',
-          700: '#b8a8a8',
-          800: '#9a8888',
-          900: '#7a6a6a',
-        },
-        'charcoal': {
+        'noir': {
+          DEFAULT: '#1a1a1a',
           50: '#f7f7f7',
           100: '#e3e3e3',
           200: '#c8c8c8',
@@ -47,9 +24,38 @@ const config: Config = {
           500: '#666666',
           600: '#515151',
           700: '#434343',
-          800: '#383838',
-          900: '#313131',
-        }
+          800: '#2d2d2d',
+          900: '#1a1a1a',
+        },
+        'blanc': {
+          DEFAULT: '#fafaf9',
+          50: '#ffffff',
+          100: '#fafaf9',
+          200: '#f5f5f4',
+          300: '#e7e5e4',
+          400: '#d6d3d1',
+          500: '#a8a29e',
+          600: '#78716c',
+          700: '#57534e',
+          800: '#44403c',
+          900: '#292524',
+        },
+        'or': {
+          DEFAULT: '#b8985f',
+          50: '#faf8f3',
+          100: '#f5f0e6',
+          200: '#e8dcc4',
+          300: '#dbc8a2',
+          400: '#c8ad7f',
+          500: '#b8985f',
+          600: '#a07d45',
+          700: '#7d6136',
+          800: '#5a4627',
+          900: '#372b18',
+        },
+      },
+      letterSpacing: {
+        'ultra-wide': '0.2em',
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -60,4 +66,4 @@ const config: Config = {
   },
   plugins: [],
 };
-export default config; 
+export default config;
