@@ -123,7 +123,7 @@ export default function TestimonialsEditor() {
                     <p className="text-sm text-gray-600">{testimonial.location}</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700 italic">"{testimonial.text}"</p>
+                <p className="text-sm text-gray-700 italic">"&apos;{testimonial.text}&apos;"</p>
               </div>
               <div className="flex items-center space-x-2 ml-4">
                 <button
@@ -249,7 +249,7 @@ function TestimonialForm({ testimonial, onCancel, onSuccess }: {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Ordre d'affichage
+              Ordre d&apos;affichage
             </label>
             <input
               type="number"

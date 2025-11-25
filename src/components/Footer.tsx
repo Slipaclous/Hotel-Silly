@@ -30,7 +30,7 @@ export default function Footer() {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-4 h-4 text-[var(--color-or)] mt-0.5 flex-shrink-0" />
                 <span className="font-body text-sm text-white/80">
-                  Rue de l'Hôtel, 7830 Silly, Belgique
+                  Rue de l&apos;Hôtel, 7830 Silly, Belgique
                 </span>
               </div>
               <div className="flex items-center space-x-3">

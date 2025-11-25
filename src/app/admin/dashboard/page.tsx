@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LogOut, Home, Info, Star, Bed, MessageSquare, Image, Calendar, ChevronRight } from 'lucide-react';
+import { LogOut, Home, Info, Bed, Image, Calendar, ChevronRight } from 'lucide-react';
 import HeroEditor from '@/components/admin/HeroEditor';
 import AboutEditor from '@/components/admin/AboutEditor';
 import FeaturesEditor from '@/components/admin/FeaturesEditor';
@@ -12,11 +12,16 @@ import GalleryEditor from '@/components/admin/GalleryEditor';
 import EventsEditor from '@/components/admin/EventsEditor';
 import PageHeroEditor from '@/components/admin/PageHeroEditor';
 
+interface Admin {
+  name: string;
+  email: string;
+}
+
 export default function DashboardPage() {
   const router = useRouter();
   const [activePage, setActivePage] = useState<string | null>('accueil');
   const [activeSection, setActiveSection] = useState<string>('hero');
-  const [admin, setAdmin] = useState<any>(null);
+  const [admin, setAdmin] = useState<Admin | null>(null);
 
   useEffect(() => {
     // Vérifier l'authentification

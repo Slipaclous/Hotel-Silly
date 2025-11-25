@@ -164,7 +164,7 @@ export default function ContactPage() {
                 </div>
 
                 <p className="font-body text-xs text-noir/60 leading-relaxed">
-                  Notre équipe est disponible pour répondre à toutes vos questions pendant les horaires d'ouverture.
+                  Notre équipe est disponible pour répondre à toutes vos questions pendant les horaires d&apos;ouverture.
                 </p>
               </div>
             </motion.div>

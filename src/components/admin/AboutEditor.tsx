@@ -202,7 +202,7 @@ export default function AboutEditor() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Année d'Ouverture
+            Année d&apos;ouverture
           </label>
           <input
             type="text"

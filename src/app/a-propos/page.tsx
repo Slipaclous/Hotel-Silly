@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import { Award, Heart, Shield, Star, MapPin, Clock, Users } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { LucideIcon } from 'lucide-react';
 
 interface AboutData {
   title: string;
@@ -25,7 +26,7 @@ interface Feature {
   description: string;
 }
 
-const iconMap: { [key: string]: any } = {
+const iconMap: Record<string, LucideIcon> = {
   'Award': Award,
   'Heart': Heart,
   'Shield': Shield,
@@ -95,10 +96,10 @@ export default function AProposPage() {
           >
             <div className="w-12 h-px bg-or mx-auto mb-6"></div>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium mb-6">
-              {pageHero?.title || 'À Propos de l\'Hôtel'}
+              {pageHero?.title || "À Propos de l&apos;Hôtel"}
             </h1>
             <p className="font-body text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-              {pageHero?.subtitle || 'Découvrez l\'histoire et l\'identité de notre hôtel de luxe'}
+              {pageHero?.subtitle || "Découvrez l&apos;histoire et l&apos;identité de notre hôtel de luxe"}
             </p>
           </motion.div>
         </div>
@@ -166,7 +167,7 @@ export default function AProposPage() {
                 {/* Badge année */}
                 <div className="absolute bottom-8 left-8 bg-blanc shadow-elegant p-6 border border-noir/10">
                   <div className="font-display text-4xl font-medium text-noir mb-1">{data.openingYear}</div>
-                  <div className="font-body text-xs uppercase tracking-widest text-noir/60">Année d'Ouverture</div>
+                  <div className="font-body text-xs uppercase tracking-widest text-noir/60">Année d&apos;Ouverture</div>
                 </div>
               </div>
             </motion.div>
@@ -216,7 +217,7 @@ export default function AProposPage() {
               <p className="font-body text-sm text-noir/70 leading-relaxed">
                 Situé au cœur de Silly, village pittoresque de la Région Wallonne,
                 notre hôtel vous offre un accès privilégié aux principales attractions belges
-                tout en préservant le calme et la sérénité d'un cadre exceptionnel.
+                tout en préservant le calme et la sérénité d&apos;un cadre exceptionnel.
               </p>
             </motion.div>
 
@@ -254,8 +255,8 @@ export default function AProposPage() {
                 Notre Engagement
               </h3>
               <p className="font-body text-sm text-noir/70 leading-relaxed">
-                Notre équipe dédiée s'engage à anticiper vos besoins et à rendre
-                votre séjour exceptionnel. Nous mettons un point d'honneur à offrir
+                Notre équipe dédiée s&apos;engage à anticiper vos besoins et à rendre
+                votre séjour exceptionnel. Nous mettons un point d&apos;honneur à offrir
                 un service personnalisé de qualité supérieure.
               </p>
             </motion.div>

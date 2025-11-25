@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Award, Heart, Shield, Star } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { LucideIcon } from 'lucide-react';
 
 interface AboutData {
   title: string;
@@ -24,7 +25,7 @@ interface Feature {
   description: string;
 }
 
-const iconMap: { [key: string]: any } = {
+const iconMap: Record<string, LucideIcon> = {
   'Award': Award,
   'Heart': Heart,
   'Shield': Shield,

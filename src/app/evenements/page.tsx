@@ -128,9 +128,9 @@ export default function EvenementsPage() {
               Des Espaces pour Tous vos Événements
             </h2>
             <p className="font-body text-lg text-noir/70 leading-relaxed">
-              Que vous organisiez un mariage, un séminaire d'entreprise, un dîner d'affaires
+              Que vous organisiez un mariage, un séminaire d&apos;entreprise, un dîner d&apos;affaires
               ou une célébration privée, notre hôtel offre des espaces polyvalents et élégants,
-              accompagnés d'un service exceptionnel.
+              accompagnés d&apos;un service exceptionnel.
             </p>
           </motion.div>
 

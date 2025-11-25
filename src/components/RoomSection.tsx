@@ -42,8 +42,8 @@ export default function RoomSection() {
             Nos Chambres & Suites
           </h2>
           <p className="font-body text-lg text-noir/70 max-w-3xl mx-auto leading-relaxed">
-            Découvrez un aperçu de nos chambres et suites d'exception,
-            conçues pour offrir le summum du confort et de l'élégance.
+            Découvrez un aperçu de nos chambres et suites d&apos;exception,
+            conçues pour offrir le summum du confort et de l&apos;élégance.
           </p>
         </motion.div>
 
