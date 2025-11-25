@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Users, MapPin, Clock, ArrowRight, Utensils, Heart } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { LucideIcon } from 'lucide-react';
 
 interface Event {
   id: number;
@@ -41,7 +42,7 @@ const services = [
   }
 ];
 
-const iconMap: { [key: string]: any } = {
+const iconMap: Record<string, LucideIcon> = {
   'Calendar': Calendar,
   'Users': Users,
   'MapPin': MapPin,
