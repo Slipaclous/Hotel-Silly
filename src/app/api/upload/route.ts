@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
 
+// Configuration avec l'URL complète Cloudinary
 cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloudinary_url: process.env.CLOUDINARY_URL
 });
 
 export async function POST(request: NextRequest) {
