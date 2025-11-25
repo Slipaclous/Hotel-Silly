@@ -4,13 +4,14 @@ import { prisma } from '@/lib/prisma';
 // PUT - Mettre à jour une image
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id);
+    const { id } = await params;
+    const imageId = parseInt(id);
     const data = await request.json();
     const image = await prisma.galleryImage.update({
-      where: { id },
+      where: { id: imageId },
       data,
     });
     return NextResponse.json(image);
@@ -26,12 +27,13 @@ export async function PUT(
 // DELETE - Supprimer une image
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id);
+    const { id } = await params;
+    const imageId = parseInt(id);
     await prisma.galleryImage.delete({
-      where: { id },
+      where: { id: imageId },
     });
     return NextResponse.json({ success: true });
   } catch (error) {

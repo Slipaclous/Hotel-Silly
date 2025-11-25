@@ -4,13 +4,14 @@ import { prisma } from '@/lib/prisma';
 // PUT - Mettre à jour un événement
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id);
+    const { id } = await params;
+    const eventId = parseInt(id);
     const data = await request.json();
     const event = await prisma.event.update({
-      where: { id },
+      where: { id: eventId },
       data,
     });
     return NextResponse.json(event);
@@ -26,12 +27,13 @@ export async function PUT(
 // DELETE - Supprimer un événement
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id);
+    const { id } = await params;
+    const eventId = parseInt(id);
     await prisma.event.delete({
-      where: { id },
+      where: { id: eventId },
     });
     return NextResponse.json({ success: true });
   } catch (error) {
