@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import { existsSync } from 'fs';
-import path from 'path';
-import sharp from 'sharp';
+import { v2 as cloudinary } from 'cloudinary';
+
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,58 +19,69 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Vérifier que c'est une image
-    if (!file.type.startsWith('image/')) {
+    // Vérifier le type de fichier
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+    if (!allowedTypes.includes(file.type)) {
       return NextResponse.json(
-        { error: 'Le fichier doit être une image' },
+        { error: 'Type de fichier non autorisé. Utilisez JPG, PNG, WEBP ou GIF.' },
         { status: 400 }
       );
     }
 
-    // Créer le dossier images s'il n'existe pas
-    const imagesDir = path.join(process.cwd(), 'public', 'images');
-    if (!existsSync(imagesDir)) {
-      await mkdir(imagesDir, { recursive: true });
+    // Vérifier la taille (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      return NextResponse.json(
+        { error: 'Le fichier est trop volumineux. Taille maximale: 5MB' },
+        { status: 400 }
+      );
     }
 
-    // Générer un nom de fichier unique
-    const timestamp = Date.now();
-    const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const nameWithoutExt = path.parse(originalName).name;
-    const ext = path.parse(originalName).ext || '.jpg';
-    const filename = `${nameWithoutExt}_${timestamp}${ext}`;
-    const filepath = path.join(imagesDir, filename);
-
-    // Lire le fichier en buffer
+    // Convertir le fichier en buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Compresser l'image avec sharp
-    const compressedBuffer = await sharp(buffer)
-      .resize(1920, 1920, {
-        fit: 'inside',
-        withoutEnlargement: true,
-      })
-      .jpeg({ quality: 85, progressive: true })
-      .toBuffer();
+    // Upload vers Cloudinary via un stream
+    const result = await new Promise<any>((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'hotel-silly', // Dossier dans Cloudinary
+          resource_type: 'auto',
+          transformation: [
+            { width: 2000, crop: 'limit' }, // Limite la largeur à 2000px
+            { quality: 'auto' }, // Optimisation automatique
+            { fetch_format: 'auto' } // Format automatique (WebP si supporté)
+          ]
+        },
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        }
+      );
 
-    // Sauvegarder le fichier compressé
-    await writeFile(filepath, compressedBuffer);
-
-    // Retourner le chemin relatif pour l'URL
-    const imageUrl = `/images/${filename}`;
+      uploadStream.end(buffer);
+    });
 
     return NextResponse.json({
-      success: true,
-      url: imageUrl,
-      filename: filename,
+      url: result.secure_url,
+      message: 'Upload réussi',
+      publicId: result.public_id // Utile pour supprimer l'image plus tard
     });
+
   } catch (error) {
     console.error('Erreur upload:', error);
     return NextResponse.json(
-      { error: 'Erreur lors de l\'upload de l\'image' },
+      { error: 'Erreur lors de l\'upload du fichier' },
       { status: 500 }
     );
   }
 }
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
