@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Save } from 'lucide-react';
 import ImageUpload from './ImageUpload';
+import AdminWrapper from './AdminWrapper';
 
 interface PageHero {
   id: number;
@@ -43,7 +43,6 @@ export default function PageHeroEditor({ page, pageLabel }: PageHeroEditorProps)
           imageUrl: data.imageUrl || '',
         });
       } else {
-        // Valeurs par défaut si pas de hero existant
         setFormData({
           title: '',
           subtitle: '',
@@ -58,8 +57,7 @@ export default function PageHeroEditor({ page, pageLabel }: PageHeroEditorProps)
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setSaving(true);
     setMessage('');
 
@@ -77,7 +75,7 @@ export default function PageHeroEditor({ page, pageLabel }: PageHeroEditorProps)
       });
 
       if (response.ok) {
-        setMessage('✅ Sauvegardé avec succès !');
+        setMessage('✅ Bannière mise à jour avec succès');
         setTimeout(() => setMessage(''), 3000);
       } else {
         setMessage('❌ Erreur lors de la sauvegarde');
@@ -97,68 +95,65 @@ export default function PageHeroEditor({ page, pageLabel }: PageHeroEditorProps)
     });
   };
 
+  const inputClasses = "w-full bg-noir/[0.03] border border-noir/10 rounded-xl px-4 py-3 text-noir focus:border-or/50 focus:ring-1 focus:ring-or/50 outline-none transition-all duration-300 font-body text-sm placeholder:text-noir/20 mt-1.5";
+  const labelClasses = "text-xs font-body font-bold text-noir/40 uppercase tracking-widest ml-1";
+
   if (loading) {
-    return <div className="text-gray-600">Chargement...</div>;
+    return (
+      <div className="flex items-center justify-center p-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-or"></div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">
-        Hero - {pageLabel}
-      </h2>
+    <AdminWrapper
+      title={`Bannière : ${pageLabel}`}
+      description={`Personnalisez l'accueil visuel de la page ${pageLabel}. Choisissez un titre impactant et un visuel de haute qualité.`}
+      onSave={handleSubmit}
+      saving={saving}
+      message={message}
+      previewUrl={page === 'accueil' ? '/' : `/${page}`}
+    >
+      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <div className="space-y-6">
+            <div>
+              <label className={labelClasses}>Titre de la page</label>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                required
+                placeholder="ex: Nos Chambres & Suites"
+                className={inputClasses}
+              />
+            </div>
 
-      {message && (
-        <div className={`mb-4 p-4 rounded-lg ${
-          message.includes('✅') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
-        }`}>
-          {message}
+            <div>
+              <label className={labelClasses}>Sous-titre / Accroche</label>
+              <textarea
+                name="subtitle"
+                value={formData.subtitle}
+                onChange={handleChange}
+                rows={5}
+                required
+                placeholder="Décrivez l'ambiance de cette page..."
+                className={`${inputClasses} resize-none`}
+              />
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <ImageUpload
+              value={formData.imageUrl}
+              onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+              label="Visuel de couverture (Haute Résolution)"
+            />
+          </div>
         </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Titre
-          </label>
-          <input
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Sous-titre
-          </label>
-          <textarea
-            name="subtitle"
-            value={formData.subtitle}
-            onChange={handleChange}
-            rows={3}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
-          />
-        </div>
-
-        <ImageUpload
-          value={formData.imageUrl}
-          onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-          label="Image de fond"
-        />
-
-        <button
-          type="submit"
-          disabled={saving}
-          className="flex items-center space-x-2 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
-        >
-          <Save className="w-4 h-4" />
-          <span>{saving ? 'Sauvegarde...' : 'Sauvegarder'}</span>
-        </button>
       </form>
-    </div>
+    </AdminWrapper>
   );
 }

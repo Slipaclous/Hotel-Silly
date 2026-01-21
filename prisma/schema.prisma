@@ -59,21 +59,26 @@ model Feature {
   order       Int      // Pour gérer l'ordre d'affichage
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([order])
 }
 
 // Modèle pour les chambres
 model Room {
-  id          Int      @id @default(autoincrement())
+  id          Int            @id @default(autoincrement())
   name        String
-  description String   @db.Text
+  description String         @db.Text
   price       String
   capacity    String
-  rating      Int      @default(5)
-  imageUrl    String
-  features    String[] // Array de fonctionnalités
-  order       Int      // Pour gérer l'ordre d'affichage
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  rating      Int            @default(5)
+  imageUrl    String         // Image principale (couverture)
+  images      GalleryImage[] // Galerie complète de la chambre
+  features    String[]       // Array de fonctionnalités
+  order       Int            // Pour gérer l'ordre d'affichage
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([order])
 }
 
 // Modèle pour les témoignages
@@ -96,8 +101,14 @@ model GalleryImage {
   category  String   // Chambres, Restaurant, Spa, Intérieur, Extérieur
   title     String
   order     Int      // Pour gérer l'ordre d'affichage
+  roomId    Int?     // Relation optionnelle avec une chambre
+  room      Room?    @relation(fields: [roomId], references: [id], onDelete: SetNull)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([roomId])
+  @@index([category])
+  @@index([order])
 }
 
 // Modèle pour les événements

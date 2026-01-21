@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// GET - Récupérer toutes les chambres
+// GET - Récupérer toutes les chambres avec leurs images
 export async function GET() {
   try {
     const rooms = await prisma.room.findMany({
       orderBy: { order: 'asc' },
+      include: { images: { orderBy: { order: 'asc' } } }
     });
     return NextResponse.json(rooms);
   } catch (error) {
@@ -21,7 +22,22 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
-    const room = await prisma.room.create({ data });
+    const { galleryImages, ...roomData } = data;
+
+    const room = await prisma.room.create({
+      data: {
+        ...roomData,
+        images: {
+          create: galleryImages?.map((url: string, index: number) => ({
+            url,
+            category: 'Chambres',
+            title: roomData.name,
+            order: index
+          })) || []
+        }
+      },
+      include: { images: true }
+    });
     return NextResponse.json(room, { status: 201 });
   } catch (error) {
     console.error('Erreur POST room:', error);

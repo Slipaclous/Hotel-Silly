@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X } from 'lucide-react';
+import { Plus, Edit2, Trash2, Save, X, Image as ImageIcon, Filter } from 'lucide-react';
 import ImageUpload from './ImageUpload';
+import AdminWrapper from './AdminWrapper';
 
 interface GalleryImage {
   id: number;
@@ -17,9 +18,10 @@ export default function GalleryEditor() {
   const [loading, setLoading] = useState(true);
   const [editingImage, setEditingImage] = useState<GalleryImage | null>(null);
   const [isAdding, setIsAdding] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('Toutes');
   const [message, setMessage] = useState('');
 
-  const categories = ['Chambres', 'Restaurant', 'Spa', 'Intérieur', 'Extérieur'];
+  const categories = ['Toutes', 'Chambres', 'Restaurant', 'Spa', 'Intérieur', 'Extérieur'];
 
   useEffect(() => {
     fetchImages();
@@ -46,7 +48,7 @@ export default function GalleryEditor() {
       });
 
       if (response.ok) {
-        setMessage('✅ Image supprimée');
+        setMessage('✅ Image supprimée avec succès');
         fetchImages();
         setTimeout(() => setMessage(''), 3000);
       }
@@ -56,96 +58,134 @@ export default function GalleryEditor() {
     }
   };
 
+  const filteredImages = selectedCategory === 'Toutes'
+    ? images
+    : images.filter(img => img.category === selectedCategory);
+
   if (loading) {
-    return <div className="text-gray-600">Chargement...</div>;
+    return (
+      <div className="flex items-center justify-center p-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-or"></div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-serif font-bold text-gray-900">
-          Galerie Photo
-        </h2>
-        <button
-          onClick={() => setIsAdding(true)}
-          className="flex items-center space-x-2 bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Ajouter une image</span>
-        </button>
+    <AdminWrapper
+      title="Galerie Photographique"
+      description="Gérez les visuels qui subliment votre établissement. Organisez-les par catégories."
+      message={message}
+      previewUrl="/galerie"
+    >
+      <div className="space-y-8">
+        {/* Gallery Controls */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 custom-scrollbar">
+            <Filter className="w-4 h-4 text-noir/20 mr-2 flex-shrink-0" />
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-full text-xs font-body font-bold transition-all duration-300 whitespace-nowrap ${selectedCategory === cat
+                  ? 'bg-or text-white shadow-md'
+                  : 'bg-noir/[0.03] text-noir/40 hover:bg-noir/10 hover:text-noir border border-noir/5'
+                  }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {!isAdding && !editingImage && (
+            <button
+              onClick={() => setIsAdding(true)}
+              className="flex items-center justify-center space-x-2 bg-white border border-noir/5 hover:border-or/50 hover:bg-or/5 text-noir px-6 py-3 rounded-xl transition-all duration-300 group shadow-sm"
+            >
+              <Plus className="w-5 h-5 text-or group-hover:scale-110 transition-transform" />
+              <span className="font-body font-bold text-sm">Ajouter un visuel</span>
+            </button>
+          )}
+        </div>
+
+        {/* Form Overlay-like */}
+        {(isAdding || editingImage) && (
+          <div className="animate-slide-in-top">
+            <GalleryImageForm
+              image={editingImage || undefined}
+              onCancel={() => {
+                setIsAdding(false);
+                setEditingImage(null);
+              }}
+              onSuccess={() => {
+                setIsAdding(false);
+                setEditingImage(null);
+                fetchImages();
+                setMessage(editingImage ? '✅ Visuel mis à jour' : '✅ Nouveau visuel ajouté');
+                setTimeout(() => setMessage(''), 3000);
+              }}
+            />
+          </div>
+        )}
+
+        {/* Images Grid */}
+        {!isAdding && !editingImage && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredImages.length === 0 ? (
+              <div className="col-span-full py-20 text-center border-2 border-dashed border-white/5 rounded-3xl">
+                <ImageIcon className="w-12 h-12 text-white/10 mx-auto mb-4" />
+                <p className="text-white/40 font-body">Aucune image dans cette catégorie.</p>
+              </div>
+            ) : (
+              filteredImages.map((image) => (
+                <div
+                  key={image.id}
+                  className="group relative bg-white border border-noir/5 rounded-2xl overflow-hidden hover:border-or/30 transition-all duration-500 shadow-sm hover:shadow-xl"
+                >
+                  <div className="aspect-square relative overflow-hidden">
+                    <img
+                      src={image.url}
+                      alt={image.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    <div className="absolute inset-0 flex flex-col items-center justify-center space-y-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                      <button
+                        onClick={() => setEditingImage(image)}
+                        className="flex items-center space-x-2 px-4 py-2 bg-white text-noir rounded-xl text-xs font-bold font-body hover:bg-or transition-colors w-32 justify-center"
+                      >
+                        <Edit2 className="w-3.5 h-3.5" />
+                        <span>Modifier</span>
+                      </button>
+                      <button
+                        onClick={() => handleDelete(image.id)}
+                        className="flex items-center space-x-2 px-4 py-2 bg-red-500 text-white rounded-xl text-xs font-bold font-body hover:bg-red-600 transition-colors w-32 justify-center"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>Supprimer</span>
+                      </button>
+                    </div>
+
+                    <div className="absolute top-3 left-3 flex space-x-2 translate-y-[-10px] group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                      <span className="px-3 py-1 bg-white/90 backdrop-blur-md border border-noir/10 text-[10px] text-or font-bold font-body uppercase tracking-wider rounded-lg shadow-lg">
+                        {image.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-4 flex items-center justify-between">
+                    <div className="min-w-0 pr-2">
+                      <h3 className="text-sm font-display text-noir truncate">{image.title}</h3>
+                      <p className="text-[10px] text-noir/30 font-body uppercase mt-1">Ordre {image.order}</p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
-
-      {message && (
-        <div className={`mb-4 p-4 rounded-lg ${
-          message.includes('✅') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
-        }`}>
-          {message}
-        </div>
-      )}
-
-      {isAdding && (
-        <GalleryImageForm
-          onCancel={() => setIsAdding(false)}
-          onSuccess={() => {
-            setIsAdding(false);
-            fetchImages();
-            setMessage('✅ Image ajoutée');
-            setTimeout(() => setMessage(''), 3000);
-          }}
-        />
-      )}
-
-      {editingImage && (
-        <GalleryImageForm
-          image={editingImage}
-          onCancel={() => setEditingImage(null)}
-          onSuccess={() => {
-            setEditingImage(null);
-            fetchImages();
-            setMessage('✅ Image modifiée');
-            setTimeout(() => setMessage(''), 3000);
-          }}
-        />
-      )}
-
-      {!isAdding && !editingImage && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {images.map((image) => (
-            <div key={image.id} className="border border-gray-200 rounded-lg overflow-hidden group">
-              <div className="aspect-video relative overflow-hidden bg-gray-100">
-                <img
-                  src={image.url}
-                  alt={image.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs font-medium">
-                  {image.category}
-                </div>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 mb-1">{image.title}</h3>
-                <p className="text-sm text-gray-500 mb-3">Ordre: {image.order}</p>
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => setEditingImage(image)}
-                    className="flex-1 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded text-sm font-medium transition-colors"
-                  >
-                    <Edit2 className="w-4 h-4 inline mr-1" />
-                    Modifier
-                  </button>
-                  <button
-                    onClick={() => handleDelete(image.id)}
-                    className="p-2 text-red-600 hover:text-red-900 hover:bg-red-50 rounded transition-colors"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+    </AdminWrapper>
   );
 }
 
@@ -193,78 +233,88 @@ function GalleryImageForm({ image, onCancel, onSuccess }: {
     }
   };
 
-  return (
-    <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        {image ? 'Modifier l\'image' : 'Nouvelle image'}
-      </h3>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <ImageUpload
-          value={formData.url}
-          onChange={(url) => setFormData({ ...formData, url })}
-          label="Image"
-        />
+  const inputClasses = "w-full bg-noir/[0.03] border border-noir/10 rounded-xl px-4 py-3 text-noir focus:border-or/50 focus:ring-1 focus:ring-or/50 outline-none transition-all duration-300 font-body text-sm placeholder:text-noir/20 mt-1.5";
+  const labelClasses = "text-xs font-body font-bold text-noir/40 uppercase tracking-widest ml-1";
 
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Catégorie
-            </label>
-            <select
-              value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
-            >
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Ordre d&apos;affichage
-            </label>
-            <input
-              type="number"
-              min="1"
-              value={formData.order}
-              onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
+  return (
+    <div className="bg-blanc-100/50 rounded-3xl p-8 border border-noir/5 relative overflow-hidden group shadow-inner">
+      <div className="absolute top-0 right-0 w-24 h-24 bg-or/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="flex items-center justify-between mb-8">
+        <h3 className="text-2xl font-display text-noir">
+          {image ? 'Modifier le visuel' : 'Ajouter un nouveau visuel'}
+        </h3>
+        <button onClick={onCancel} className="p-2 text-noir/20 hover:text-noir transition-colors">
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="order-2 md:order-1">
+            <ImageUpload
+              value={formData.url}
+              onChange={(url) => setFormData({ ...formData, url })}
+              label="Sélectionner l'image"
             />
           </div>
+
+          <div className="space-y-6 order-1 md:order-2">
+            <div>
+              <label className={labelClasses}>Titre de l&apos;image</label>
+              <input
+                type="text"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                required
+                placeholder="ex: Vue sur les jardins de Silly"
+                className={inputClasses}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={labelClasses}>Catégorie</label>
+                <select
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  required
+                  className={`${inputClasses} appearance-none cursor-pointer`}
+                >
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat} className="bg-white text-noir">{cat}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className={labelClasses}>Ordre</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={formData.order}
+                  onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
+                  className={inputClasses}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Titre
-          </label>
-          <input
-            type="text"
-            value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
-          />
-        </div>
-
-
-        <div className="flex items-center space-x-3 pt-4">
+        <div className="flex items-center space-x-4 pt-4 border-t border-noir/5">
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center space-x-2 bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="flex-1 bg-or text-white font-body font-bold py-4 rounded-xl hover:shadow-[0_10px_30px_rgba(198,173,122,0.3)] transition-all duration-300 disabled:opacity-50 flex items-center justify-center space-x-2"
           >
-            <Save className="w-4 h-4" />
-            <span>{saving ? 'Sauvegarde...' : 'Sauvegarder'}</span>
+            <Save className="w-5 h-5" />
+            <span>{saving ? 'Sauvegarde...' : 'Publier dans la galerie'}</span>
           </button>
           <button
             type="button"
             onClick={onCancel}
-            className="flex items-center space-x-2 bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors"
+            className="px-8 py-4 rounded-xl bg-noir/[0.05] text-noir/60 hover:bg-noir/10 font-body font-bold transition-all"
           >
-            <X className="w-4 h-4" />
-            <span>Annuler</span>
+            Annuler
           </button>
         </div>
       </form>

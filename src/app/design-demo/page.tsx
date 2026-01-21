@@ -82,7 +82,7 @@ export default function DesignSystemDemo() {
                                     <div className="w-16 h-16 rounded-lg bg-noir-900 shadow-luxury"></div>
                                     <div>
                                         <p className="font-sans text-sm font-semibold">noir-900</p>
-                                        <p className="font-mono text-xs text-noir-600">#1a1a1a</p>
+                                        <p className="font-mono text-xs text-noir-600">#2c3840</p>
                                     </div>
                                 </div>
                             </div>

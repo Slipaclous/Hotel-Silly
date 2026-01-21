@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Testimonial {
   id: number;
@@ -14,15 +15,19 @@ interface Testimonial {
   avatarUrl: string;
 }
 
-export default function TestimonialsSection() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+export default function TestimonialsSection({ initialTestimonials }: { initialTestimonials?: Testimonial[] }) {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(initialTestimonials || []);
 
   useEffect(() => {
-    fetch('/api/testimonials')
-      .then(res => res.json())
-      .then(data => setTestimonials(data))
-      .catch(err => console.error('Erreur chargement testimonials:', err));
-  }, []);
+    if (!initialTestimonials) {
+      fetch('/api/testimonials')
+        .then(res => res.json())
+        .then(data => setTestimonials(data))
+        .catch(err => console.error('Erreur chargement testimonials:', err));
+    }
+  }, [initialTestimonials]);
+
+  if (testimonials.length === 0 && !initialTestimonials) return null;
 
   return (
     <section className="py-24 bg-noir text-blanc">
@@ -75,10 +80,15 @@ export default function TestimonialsSection() {
 
               {/* Auteur */}
               <div className="flex items-center space-x-3 pt-6 border-t border-blanc/10">
-                <div
-                  className="w-12 h-12 bg-cover bg-center border border-blanc/20"
-                  style={{ backgroundImage: `url(${testimonial.avatarUrl})` }}
-                />
+                <div className="relative w-12 h-12 overflow-hidden border border-blanc/20">
+                  <Image
+                    src={testimonial.avatarUrl}
+                    alt={testimonial.name}
+                    fill
+                    className="object-cover"
+                    sizes="48px"
+                  />
+                </div>
                 <div>
                   <h4 className="font-body font-medium text-blanc text-sm">
                     {testimonial.name}

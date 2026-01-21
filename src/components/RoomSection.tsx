@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Star, Users, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Room {
   id: number;
@@ -16,15 +17,19 @@ interface Room {
   features: string[];
 }
 
-export default function RoomSection() {
-  const [rooms, setRooms] = useState<Room[]>([]);
+export default function RoomSection({ initialRooms }: { initialRooms?: Room[] }) {
+  const [rooms, setRooms] = useState<Room[]>(initialRooms || []);
 
   useEffect(() => {
-    fetch('/api/rooms')
-      .then(res => res.json())
-      .then(data => setRooms(data.slice(0, 3))) // Limiter à 3 chambres
-      .catch(err => console.error('Erreur chargement rooms:', err));
-  }, []);
+    if (!initialRooms) {
+      fetch('/api/rooms')
+        .then(res => res.json())
+        .then(data => setRooms(data.slice(0, 3)))
+        .catch(err => console.error('Erreur chargement rooms:', err));
+    }
+  }, [initialRooms]);
+
+  if (rooms.length === 0 && !initialRooms) return null;
 
   return (
     <section className="py-24 bg-blanc-200">
@@ -61,9 +66,12 @@ export default function RoomSection() {
               <div className="grid grid-cols-1 lg:grid-cols-2">
                 {/* Image */}
                 <div className="relative h-80 lg:h-96 overflow-hidden">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${room.imageUrl})` }}
+                  <Image
+                    src={room.imageUrl}
+                    alt={room.name}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
 
                   {/* Note en overlay */}
@@ -84,7 +92,7 @@ export default function RoomSection() {
                       {room.name}
                     </h3>
 
-                    <p className="font-body text-base text-noir/70 mb-6 leading-relaxed">
+                    <p className="font-body text-base text-noir/70 mb-6 leading-relaxed whitespace-pre-wrap">
                       {room.description}
                     </p>
 

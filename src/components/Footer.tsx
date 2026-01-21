@@ -12,7 +12,7 @@ export default function Footer() {
           {/* Informations hôtel */}
           <div className="md:col-span-5">
             <h3 className="font-display text-3xl font-medium mb-2">
-              Hôtel de Silly
+              Villa Dolce
             </h3>
             <div className="flex items-center space-x-2 mb-8">
               <div className="w-12 h-px bg-[var(--color-or)]"></div>
@@ -42,7 +42,7 @@ export default function Footer() {
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-[var(--color-or)] flex-shrink-0" />
                 <span className="font-body text-sm text-white/80">
-                  contact@hoteldesilly.be
+                  contact@villadolce.be
                 </span>
               </div>
               <div className="flex items-start space-x-3">
@@ -177,7 +177,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
             <p className="font-body text-xs text-white/50">
-              © 2025 Hôtel de Silly. Tous droits réservés.
+              © 2025 Villa Dolce. Tous droits réservés.
             </p>
             <p className="font-body text-xs text-white/40">
               Conçu avec élégance

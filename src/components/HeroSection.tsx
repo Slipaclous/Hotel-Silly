@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface HeroData {
   badge: string;
@@ -14,35 +15,34 @@ interface HeroData {
   imageUrl: string;
 }
 
-export default function HeroSection() {
-  const [heroData, setHeroData] = useState<HeroData | null>(null);
+export default function HeroSection({ initialData }: { initialData?: HeroData | null }) {
+  const [heroData, setHeroData] = useState<HeroData | null>(initialData || null);
 
   useEffect(() => {
-    fetch('/api/hero')
-      .then(res => res.json())
-      .then(data => setHeroData(data))
-      .catch(err => console.error('Erreur chargement hero:', err));
-  }, []);
+    if (!initialData) {
+      fetch('/api/hero')
+        .then(res => res.json())
+        .then(data => setHeroData(data))
+        .catch(err => console.error('Erreur chargement hero:', err));
+    }
+  }, [initialData]);
 
-  const data = heroData || {
-    badge: 'Ouverture 2025',
-    title: "L'Hôtel de Silly",
-    subtitle: 'Bienvenue à',
-    description: 'Découvrez une expérience hôtelière exceptionnelle au cœur de la Belgique, où élégance, confort et service personnalisé se rencontrent.',
-    location: 'Silly, Belgique',
-    imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
-  };
+  if (!heroData && !initialData) return null;
+
+  const data = heroData || initialData!;
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Image de fond */}
+      {/* Image de fond optimisée */}
       <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('${data.imageUrl}')`
-          }}
-        ></div>
+        <Image
+          src={data.imageUrl}
+          alt={data.title}
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
         {/* Overlay noir subtil */}
         <div className="absolute inset-0 bg-black/40"></div>
       </div>

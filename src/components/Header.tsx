@@ -74,7 +74,7 @@ export default function Header() {
             <div className="flex flex-col">
               <h1 className={`font-display text-2xl font-medium tracking-tight transition-colors duration-300 ${(isHomePage && !isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-noir)]'
                 }`}>
-                Hôtel de Silly
+                Villa Dolce
               </h1>
               <div className="flex items-center space-x-2 mt-0.5">
                 <div className="w-8 h-px bg-[var(--color-or)]"></div>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Award, Heart, Shield, Star } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { LucideIcon } from 'lucide-react';
 
 interface AboutData {
@@ -32,32 +33,25 @@ const iconMap: Record<string, LucideIcon> = {
   'Star': Star,
 };
 
-export default function AboutSection() {
-  const [aboutData, setAboutData] = useState<AboutData | null>(null);
-  const [features, setFeatures] = useState<Feature[]>([]);
+export default function AboutSection({ initialAbout, initialFeatures }: { initialAbout?: AboutData | null, initialFeatures?: Feature[] }) {
+  const [aboutData, setAboutData] = useState<AboutData | null>(initialAbout || null);
+  const [features, setFeatures] = useState<Feature[]>(initialFeatures || []);
 
   useEffect(() => {
-    Promise.all([
-      fetch('/api/about').then(res => res.json()),
-      fetch('/api/features').then(res => res.json())
-    ]).then(([about, feats]) => {
-      setAboutData(about);
-      setFeatures(feats);
-    }).catch(err => console.error('Erreur chargement about:', err));
-  }, []);
+    if (!initialAbout || !initialFeatures) {
+      Promise.all([
+        fetch('/api/about').then(res => res.json()),
+        fetch('/api/features').then(res => res.json())
+      ]).then(([about, feats]) => {
+        setAboutData(about);
+        setFeatures(feats);
+      }).catch(err => console.error('Erreur chargement about:', err));
+    }
+  }, [initialAbout, initialFeatures]);
 
-  const data = aboutData || {
-    title: 'Une Expérience Unique',
-    description: "Notre hôtel de luxe va ouvrir ses portes au printemps 2025 dans le charmant village de Silly, au cœur de la Belgique. Chaque détail a été pensé pour offrir une expérience inoubliable dans un cadre d'exception.",
-    keyPoint1Title: 'Emplacement idéal',
-    keyPoint1Text: 'Au cœur de Silly, village pittoresque de la Région Wallonne, à proximité de Bruxelles et des principales attractions belges.',
-    keyPoint2Title: 'Service personnalisé',
-    keyPoint2Text: "Notre équipe dédiée s'engage à anticiper vos besoins et à rendre votre séjour exceptionnel.",
-    keyPoint3Title: 'Équipements de luxe',
-    keyPoint3Text: 'Chambres et suites équipées des dernières technologies et du confort le plus raffiné.',
-    openingYear: '2025',
-    imageUrl: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-  };
+  if (!aboutData && !initialAbout) return null;
+
+  const data = aboutData || initialAbout!;
 
   return (
     <section className="py-24 bg-blanc">
@@ -119,11 +113,12 @@ export default function AboutSection() {
             className="relative"
           >
             <div className="relative h-[500px] overflow-hidden">
-              <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: `url('${data.imageUrl}')`
-                }}
+              <Image
+                src={data.imageUrl}
+                alt={data.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
 
               {/* Badge année */}

@@ -9,9 +9,23 @@ export async function PUT(
   try {
     const { id } = await params;
     const data = await request.json();
+    const { galleryImages, ...roomData } = data;
+
     const room = await prisma.room.update({
       where: { id: parseInt(id) },
-      data,
+      data: {
+        ...roomData,
+        images: {
+          deleteMany: {}, // Supprimer les anciennes images liées
+          create: galleryImages?.map((url: string, index: number) => ({
+            url,
+            category: 'Chambres',
+            title: roomData.name,
+            order: index
+          })) || []
+        }
+      },
+      include: { images: true }
     });
     return NextResponse.json(room);
   } catch (error) {

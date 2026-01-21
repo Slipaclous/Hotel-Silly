@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Save } from 'lucide-react';
 import ImageUpload from './ImageUpload';
+import AdminWrapper from './AdminWrapper';
 
 export default function HeroEditor() {
   const [loading, setLoading] = useState(true);
@@ -43,8 +43,7 @@ export default function HeroEditor() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setSaving(true);
     setMessage('');
 
@@ -78,106 +77,100 @@ export default function HeroEditor() {
     });
   };
 
+  const inputClasses = "w-full bg-noir/[0.03] border border-noir/10 rounded-xl px-4 py-3 text-noir focus:border-or/50 focus:ring-1 focus:ring-or/50 outline-none transition-all duration-300 font-body text-sm placeholder:text-noir/20 mt-1.5";
+  const labelClasses = "text-xs font-body font-bold text-noir/40 uppercase tracking-widest ml-1";
+
   if (loading) {
-    return <div className="text-gray-600">Chargement...</div>;
+    return (
+      <div className="flex items-center justify-center p-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-or"></div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">
-        Section Hero
-      </h2>
+    <AdminWrapper
+      title="Section Hero"
+      description="Modifiez l'accroche principale de votre site web. C'est la première chose que vos visiteurs verront."
+      onSave={handleSubmit}
+      saving={saving}
+      message={message}
+      previewUrl="/"
+    >
+      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div>
+              <label className={labelClasses}>Badge</label>
+              <input
+                type="text"
+                name="badge"
+                value={formData.badge}
+                onChange={handleChange}
+                placeholder="ex: Ouverture 2025"
+                className={inputClasses}
+              />
+            </div>
 
-      {message && (
-        <div className={`mb-4 p-4 rounded-lg ${
-          message.includes('✅') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
-        }`}>
-          {message}
+            <div>
+              <label className={labelClasses}>Sous-titre</label>
+              <input
+                type="text"
+                name="subtitle"
+                value={formData.subtitle}
+                onChange={handleChange}
+                placeholder="ex: Bienvenue à"
+                className={inputClasses}
+              />
+            </div>
+
+            <div>
+              <label className={labelClasses}>Titre Principal</label>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="ex: L'Hôtel de Silly"
+                className={inputClasses}
+              />
+            </div>
+
+            <div>
+              <label className={labelClasses}>Localisation</label>
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="ex: Silly, Belgique"
+                className={inputClasses}
+              />
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div>
+              <label className={labelClasses}>Description</label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                rows={4}
+                placeholder="Décrivez brièvement l'expérience proposée..."
+                className={`${inputClasses} resize-none`}
+              />
+            </div>
+
+            <ImageUpload
+              value={formData.imageUrl}
+              onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+              label="Image de fond (Hero)"
+            />
+          </div>
         </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Badge
-          </label>
-          <input
-            type="text"
-            name="badge"
-            value={formData.badge}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Sous-titre
-          </label>
-          <input
-            type="text"
-            name="subtitle"
-            value={formData.subtitle}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Titre Principal
-          </label>
-          <input
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Description
-          </label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows={4}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Localisation
-          </label>
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none text-gray-900"
-          />
-        </div>
-
-        <ImageUpload
-          value={formData.imageUrl}
-          onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-          label="Image de fond"
-        />
-
-        <button
-          type="submit"
-          disabled={saving}
-          className="flex items-center space-x-2 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
-        >
-          <Save className="w-4 h-4" />
-          <span>{saving ? 'Sauvegarde...' : 'Sauvegarder'}</span>
-        </button>
       </form>
-    </div>
+    </AdminWrapper>
   );
 }
 
