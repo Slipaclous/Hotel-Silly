@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface GalleryLightboxProps {
     images: string[];
@@ -67,10 +68,12 @@ export default function GalleryLightbox({ images, isOpen, onClose, roomName }: G
                         transition={{ duration: 0.4 }}
                         className="w-full h-full relative"
                     >
-                        <img
+                        <Image
                             src={images[currentIndex].startsWith('/') ? images[currentIndex] : `/${images[currentIndex]}`}
                             alt={`${roomName} view ${currentIndex + 1}`}
-                            className="w-full h-full object-contain"
+                            fill
+                            className="object-contain"
+                            priority
                         />
                     </motion.div>
 
@@ -94,10 +97,12 @@ export default function GalleryLightbox({ images, isOpen, onClose, roomName }: G
                             className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${currentIndex === idx ? 'border-or scale-110' : 'border-transparent opacity-40 hover:opacity-100'
                                 }`}
                         >
-                            <img
+                            <Image
                                 src={img.startsWith('/') ? img : `/${img}`}
                                 alt="thumb"
-                                className="w-full h-full object-cover"
+                                fill
+                                className="object-cover"
+                                sizes="80px"
                             />
                         </button>
                     ))}

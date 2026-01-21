@@ -1,16 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import ImageUpload from './ImageUpload';
 import AdminWrapper from './AdminWrapper';
 
-interface PageHero {
-  id: number;
-  page: string;
-  title: string;
-  subtitle: string;
-  imageUrl: string;
-}
 
 interface PageHeroEditorProps {
   page: string;
@@ -27,11 +20,7 @@ export default function PageHeroEditor({ page, pageLabel }: PageHeroEditorProps)
     imageUrl: '',
   });
 
-  useEffect(() => {
-    fetchPageHero();
-  }, [page]);
-
-  const fetchPageHero = async () => {
+  const fetchPageHero = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch(`/api/page-hero/${page}`);
@@ -55,7 +44,11 @@ export default function PageHeroEditor({ page, pageLabel }: PageHeroEditorProps)
     } finally {
       setLoading(false);
     }
-  };
+  }, [page]);
+
+  useEffect(() => {
+    fetchPageHero();
+  }, [fetchPageHero]);
 
   const handleSubmit = async () => {
     setSaving(true);
@@ -109,7 +102,7 @@ export default function PageHeroEditor({ page, pageLabel }: PageHeroEditorProps)
   return (
     <AdminWrapper
       title={`Bannière : ${pageLabel}`}
-      description={`Personnalisez l'accueil visuel de la page ${pageLabel}. Choisissez un titre impactant et un visuel de haute qualité.`}
+      description={`Personnalisez l&apos;accueil visuel de la page ${pageLabel}. Choisissez un titre impactant et un visuel de haute qualité.`}
       onSave={handleSubmit}
       saving={saving}
       message={message}

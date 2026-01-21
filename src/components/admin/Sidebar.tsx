@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Info, Bed, Image, Calendar, ChevronRight, LogOut, LayoutDashboard, Settings, User } from 'lucide-react';
+import { Home, Info, Bed, Image, Calendar, ChevronRight, LogOut, LayoutDashboard, User } from 'lucide-react';
 
 interface SidebarProps {
     activePage: string | null;
@@ -152,17 +152,17 @@ export default function Sidebar({
                             <User className="w-4 h-4 text-or" />
                         </div>
                         <div className="min-w-0 ">
-                            <p className="text-xs text-black font-display font-medium text-white truncate">{adminName}</p>
-                            <p className="text-[8px] font-body text-black/30 uppercase tracking-widest font-bold">Administrateur</p>
+                            <p className="text-xs font-display font-medium text-white truncate">{adminName}</p>
+                            <p className="text-[8px] font-body text-white/30 uppercase tracking-widest font-bold">Administrateur</p>
                         </div>
                     </div>
 
                     <button
                         onClick={onLogout}
-                        className="w-full flex text-black items-center justify-center space-x-2 px-4 py-2.5 rounded-lg bg-white/5 text-white/60 hover:bg-white hover:text-noir transition-all duration-300 font-bold text-[9px] uppercase tracking-widest"
+                        className="w-full flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg bg-white/5 text-white/60 hover:bg-white hover:text-noir transition-all duration-300 font-bold text-[9px] uppercase tracking-widest"
                     >
-                        <LogOut className=" text-black w-3.5 h-3.5" />
-                        <span className='text-black'>Log-out</span>
+                        <LogOut className="w-3.5 h-3.5" />
+                        <span>Log-out</span>
                     </button>
                 </div>
             </div>

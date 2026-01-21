@@ -138,7 +138,7 @@ export default function AboutSection({ initialAbout, initialFeatures }: { initia
           viewport={{ once: true }}
           className="mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
         >
-          {features.map((feature, index) => {
+          {features.map((feature) => {
             const IconComponent = iconMap[feature.icon] || Award;
             return (
               <div

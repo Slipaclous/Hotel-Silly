@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Save, X, Image as ImageIcon, Filter } from 'lucide-react';
 import ImageUpload from './ImageUpload';
 import AdminWrapper from './AdminWrapper';
+import Image from 'next/image';
 
 interface GalleryImage {
   id: number;
@@ -142,10 +143,12 @@ export default function GalleryEditor() {
                   className="group relative bg-white border border-noir/5 rounded-2xl overflow-hidden hover:border-or/30 transition-all duration-500 shadow-sm hover:shadow-xl"
                 >
                   <div className="aspect-square relative overflow-hidden">
-                    <img
+                    <Image
                       src={image.url}
                       alt={image.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 

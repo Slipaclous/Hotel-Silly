@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Upload, X, ImageIcon, Loader2, Plus } from 'lucide-react';
+import { X, Loader2, Plus } from 'lucide-react';
+import Image from 'next/image';
 
 interface MultiImageUploadProps {
     values: string[];
@@ -9,7 +10,7 @@ interface MultiImageUploadProps {
     label?: string;
 }
 
-export default function MultiImageUpload({ values, onChange, label = 'Galerie d\'images' }: MultiImageUploadProps) {
+export default function MultiImageUpload({ values, onChange, label = 'Galerie d&apos;images' }: MultiImageUploadProps) {
     const [uploading, setUploading] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -57,10 +58,12 @@ export default function MultiImageUpload({ values, onChange, label = 'Galerie d\
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {values.map((url, index) => (
                     <div key={index} className="relative aspect-square rounded-xl overflow-hidden border border-noir/5 shadow-sm group">
-                        <img
+                        <Image
                             src={url.startsWith('/') ? url : `/${url}`}
                             alt={`Gallery image ${index + 1}`}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                         />
                         <button
                             onClick={() => removeImage(index)}

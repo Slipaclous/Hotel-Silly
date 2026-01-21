@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, ReactNode } from 'react';
-import { Save, Eye, Info, ChevronRight, Layout, Monitor, Tablet, Smartphone, Maximize2, ExternalLink } from 'lucide-react';
+import { Save, Eye, Info, ChevronRight, Layout, Monitor, Tablet, Smartphone, ExternalLink } from 'lucide-react';
 
 interface AdminWrapperProps {
     title: string;
@@ -135,7 +135,7 @@ export default function AdminWrapper({
                         {/* Device Selector - Visibilité Maximale */}
                         <div className="h-16 bg-noir flex items-center justify-between px-8 border-b border-white/10">
                             <div className="flex items-center space-x-6">
-                                <span className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Format d'affichage</span>
+                                <span className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Format d&apos;affichage</span>
                                 <div className="flex bg-white/5 p-1 rounded-xl border border-white/5">
                                     <button
                                         onClick={() => setDevice('desktop')}

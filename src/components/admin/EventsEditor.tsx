@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X, Calendar, Users, MapPin, Clock, Utensils, Mic, Heart } from 'lucide-react';
+import { Plus, Edit2, Trash2, Save, X, Calendar, Users, MapPin, Clock, Utensils, Mic, Heart, LucideIcon } from 'lucide-react';
 import ImageUpload from './ImageUpload';
 import AdminWrapper from './AdminWrapper';
+import Image from 'next/image';
 
 interface Event {
   id: number;
@@ -16,7 +17,7 @@ interface Event {
   order: number;
 }
 
-const iconMap: { [key: string]: any } = {
+const iconMap: { [key: string]: LucideIcon } = {
   Calendar,
   Users,
   MapPin,
@@ -131,10 +132,12 @@ export default function EventsEditor() {
                     className="group relative bg-white border border-noir/5 rounded-2xl overflow-hidden hover:border-or/30 transition-all duration-500 shadow-sm hover:shadow-xl"
                   >
                     <div className="aspect-[21/9] relative overflow-hidden">
-                      <img
+                      <Image
                         src={event.imageUrl || '/placeholder-event.jpg'}
                         alt={event.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-noir/60 via-noir/20 to-transparent" />
                       <div className="absolute top-4 right-4 flex space-x-2">
@@ -250,7 +253,7 @@ function EventForm({ event, onCancel, onSuccess }: {
 
       <div className="flex items-center justify-between mb-8">
         <h3 className="text-2xl font-display text-noir">
-          {event ? 'Modifier l\'activité' : 'Nouvelle découverte régionale'}
+          {event ? 'Modifier l&apos;activité' : 'Nouvelle découverte régionale'}
         </h3>
         <button onClick={onCancel} className="p-2 text-noir/20 hover:text-noir transition-colors">
           <X className="w-5 h-5" />
@@ -354,7 +357,7 @@ function EventForm({ event, onCancel, onSuccess }: {
             className="flex-1 bg-or text-white font-body font-bold py-4 rounded-xl hover:shadow-[0_10px_30px_rgba(198,173,122,0.3)] transition-all duration-300 disabled:opacity-50 flex items-center justify-center space-x-2"
           >
             <Save className="w-5 h-5" />
-            <span>{saving ? 'Enregistrement...' : 'Enregistrer l\'activité'}</span>
+            <span>{saving ? 'Enregistrement...' : 'Enregistrer l&apos;activité'}</span>
           </button>
           <button
             type="button"

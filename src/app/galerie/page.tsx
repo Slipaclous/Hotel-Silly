@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import { ZoomIn, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface GalleryImage {
   id: number;
@@ -79,7 +80,7 @@ export default function GaleriePage() {
               {pageHero?.title || 'Galerie Photo'}
             </h1>
             <p className="font-body text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-              {pageHero?.subtitle || 'Découvrez les espaces et l\'ambiance unique de notre hôtel'}
+              {pageHero?.subtitle || 'Découvrez les espaces et l&apos;ambiance unique de notre hôtel'}
             </p>
           </motion.div>
         </div>
@@ -94,8 +95,8 @@ export default function GaleriePage() {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`font-body text-sm px-6 py-2 transition-all duration-300 ${selectedCategory === category
-                    ? 'bg-noir text-blanc'
-                    : 'bg-blanc text-noir border border-noir/20 hover:border-or'
+                  ? 'bg-noir text-blanc'
+                  : 'bg-blanc text-noir border border-noir/20 hover:border-or'
                   }`}
               >
                 {category}
@@ -128,11 +129,13 @@ export default function GaleriePage() {
                   className="relative group cursor-pointer overflow-hidden card-hover"
                   onClick={() => setSelectedImage(image)}
                 >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
+                  <div className="aspect-[4/3] relative overflow-hidden">
+                    <Image
                       src={image.url}
                       alt={image.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   </div>
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300">
@@ -172,11 +175,15 @@ export default function GaleriePage() {
             >
               <X className="w-6 h-6 text-noir" />
             </button>
-            <img
-              src={selectedImage.url}
-              alt={selectedImage.title}
-              className="w-full h-full object-contain"
-            />
+            <div className="relative w-full h-full min-h-[50vh]">
+              <Image
+                src={selectedImage.url}
+                alt={selectedImage.title}
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
             <div className="absolute bottom-0 left-0 right-0 bg-black/80 p-6 text-white">
               <div className="font-body text-xs uppercase tracking-widest mb-1 text-white/60">{selectedImage.category}</div>
               <div className="font-display text-2xl font-medium">{selectedImage.title}</div>

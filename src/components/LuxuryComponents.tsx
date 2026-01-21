@@ -242,7 +242,7 @@ export const StatusBadge = ({
     );
 };
 
-export default {
+const LuxuryComponents = {
     LuxuryDivider,
     PremiumBadge,
     SectionTitle,
@@ -253,3 +253,5 @@ export default {
     GlowEffect,
     StatusBadge
 };
+
+export default LuxuryComponents;

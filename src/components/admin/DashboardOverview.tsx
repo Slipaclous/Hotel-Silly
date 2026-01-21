@@ -11,8 +11,15 @@ import {
     ShieldCheck,
     BarChart3,
     ExternalLink,
-    Zap
+    Zap,
+    LucideIcon
 } from 'lucide-react';
+
+interface RecentActivity {
+    section: string;
+    action: string;
+    icon: LucideIcon;
+}
 
 export default function DashboardOverview() {
     const [stats, setStats] = useState({
@@ -21,7 +28,7 @@ export default function DashboardOverview() {
         gallery: 0,
         events: 0,
     });
-    const [recentActivities, setRecentActivities] = useState<any[]>([]);
+    const [recentActivities, setRecentActivities] = useState<RecentActivity[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -42,9 +49,9 @@ export default function DashboardOverview() {
                 });
 
                 const activities = [
-                    ...(rooms.slice(0, 1).map((r: any) => ({ section: 'Chambres', action: `Dernière modif : ${r.title}`, icon: Bed }))),
-                    ...(testimonials.slice(0, 1).map((t: any) => ({ section: 'Témoignages', action: `Dernier avis : ${t.name}`, icon: Star }))),
-                    ...(gallery.slice(0, 1).map((g: any) => ({ section: 'Galerie', action: `Dernier ajout : ${g.category}`, icon: ImageIcon }))),
+                    ...(rooms.slice(0, 1).map((r: { title?: string; name?: string }) => ({ section: 'Chambres', action: `Dernière modif : ${r.title || r.name}`, icon: Bed }))),
+                    ...(testimonials.slice(0, 1).map((t: { name: string }) => ({ section: 'Témoignages', action: `Dernier avis : ${t.name}`, icon: Star }))),
+                    ...(gallery.slice(0, 1).map((g: { category: string }) => ({ section: 'Galerie', action: `Dernier ajout : ${g.category}`, icon: ImageIcon }))),
                 ];
                 setRecentActivities(activities);
 
@@ -162,7 +169,7 @@ export default function DashboardOverview() {
                         <div className="absolute top-0 right-0 w-32 h-32 bg-or/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                         <h3 className="text-xl font-display mb-4 relative z-10 italic">Villa Dolce en direct</h3>
                         <p className="text-white/60 text-xs font-body mb-8 relative z-10 leading-relaxed">
-                            Vérifiez le rendu de vos modifications sur l'interface publique.
+                            Vérifiez le rendu de vos modifications sur l&apos;interface publique.
                         </p>
                         <a
                             href="/"
