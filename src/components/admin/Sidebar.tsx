@@ -1,6 +1,7 @@
 'use client';
 
-import { Home, Info, Bed, Image, Calendar, ChevronRight, LogOut, LayoutDashboard, User } from 'lucide-react';
+import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard, User } from 'lucide-react';
+import Image from 'next/image';
 
 interface SidebarProps {
     activePage: string | null;
@@ -63,7 +64,7 @@ export default function Sidebar({
         {
             id: 'galerie',
             label: 'Page Galerie',
-            icon: Image,
+            icon: ImageIcon,
             section: 'hero-galerie',
             subItems: [
                 { id: 'hero-galerie', label: 'Hero' },
@@ -86,10 +87,14 @@ export default function Sidebar({
         <aside className="w-72 h-screen bg-white border-r border-noir/5 flex flex-col fixed left-0 top-0 z-20 shadow-sm font-body">
             {/* Brand Section */}
             <div className="p-8 lg:p-10 relative">
-                <h1 className="text-2xl font-display text-noir tracking-tighter leading-none mb-1">
-                    Villa <br />
-                    <span className="text-or">Dolce</span>
-                </h1>
+                <div className="relative h-12 w-32 mb-1">
+                    <Image
+                        src="/images/logo.png"
+                        alt="Villa Dolce"
+                        fill
+                        className="object-contain object-left"
+                    />
+                </div>
                 <div className="flex items-center space-x-2 mt-4 opacity-70">
                     <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
                     <p className="text-[8px] font-body text-noir/60 font-medium uppercase tracking-[0.3em]">

@@ -55,20 +55,22 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Badge discret */}
-          <div className="inline-flex items-center space-x-2 border border-white/30 px-4 py-2 mb-8">
-            <span className="font-body text-xs uppercase tracking-widest">
-              {data.badge}
-            </span>
-          </div>
+
 
           {/* Titre principal */}
           <h1 className="mb-6">
             <span className="block font-body text-sm uppercase tracking-widest mb-4 text-white/80">
               {data.subtitle}
             </span>
-            <span className="block font-display text-5xl sm:text-6xl lg:text-7xl font-medium">
-              {data.title}
-            </span>
+            <div className="relative h-88 w-full max-w-md mx-auto mb-2 brightness-0 invert">
+              <Image
+                src="/images/logo.png"
+                alt={data.title}
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </h1>
 
           {/* Ligne décorative */}

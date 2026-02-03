@@ -23,6 +23,11 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Hôtel de Silly - Luxe & Raffinement",
   description: "Découvrez notre hôtel de luxe où élégance et confort se rencontrent pour créer une expérience inoubliable.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({

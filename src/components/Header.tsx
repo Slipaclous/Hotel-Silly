@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Phone } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -31,12 +32,12 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isMenuOpen
-          ? 'bg-white shadow-elegant'
-          : isHomePage
-            ? isScrolled
-              ? 'bg-white/98 backdrop-blur-sm shadow-elegant'
-              : 'bg-transparent'
-            : 'bg-white/98 backdrop-blur-sm shadow-elegant'
+        ? 'bg-white shadow-elegant'
+        : isHomePage
+          ? isScrolled
+            ? 'bg-white/98 backdrop-blur-sm shadow-elegant'
+            : 'bg-transparent'
+          : 'bg-white/98 backdrop-blur-sm shadow-elegant'
         }`}
     >
       {/* Barre supérieure discrète */}
@@ -72,17 +73,17 @@ export default function Header() {
           {/* Logo minimaliste */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="flex flex-col">
-              <h1 className={`font-display text-2xl font-medium tracking-tight transition-colors duration-300 ${(isHomePage && !isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-noir)]'
+              <div className={`relative h-32 w-32 transition-all duration-300 ${(isHomePage && !isScrolled && !isMenuOpen) ? 'invert brightness-0' : ''
                 }`}>
-                Villa Dolce
-              </h1>
-              <div className="flex items-center space-x-2 mt-0.5">
-                <div className="w-8 h-px bg-[var(--color-or)]"></div>
-                <span className={`font-body text-[10px] uppercase tracking-widest transition-colors duration-300 ${(isHomePage && !isScrolled && !isMenuOpen) ? 'text-white/80' : 'text-[var(--color-gris)]'
-                  }`}>
-                  Luxe & Raffinement
-                </span>
+                <Image
+                  src="/images/logo-simple.png"
+                  alt="Villa Dolce"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
+              
             </div>
           </Link>
 
@@ -93,8 +94,8 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 className={`font-body text-sm font-light tracking-wide link-underline transition-colors duration-300 ${(isHomePage && !isScrolled && !isMenuOpen)
-                    ? 'text-white hover:text-white/80'
-                    : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
+                  ? 'text-white hover:text-white/80'
+                  : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
                   }`}
               >
                 {item.name}
@@ -107,8 +108,8 @@ export default function Header() {
             <Link
               href="/contact"
               className={`font-body text-sm font-normal px-6 py-2.5 border transition-all duration-300 ${(isHomePage && !isScrolled && !isMenuOpen)
-                  ? 'border-white text-white hover:bg-white hover:text-[var(--color-noir)]'
-                  : 'border-[var(--color-noir)] text-[var(--color-noir)] hover:bg-[var(--color-noir)] hover:text-white'
+                ? 'border-white text-white hover:bg-white hover:text-[var(--color-noir)]'
+                : 'border-[var(--color-noir)] text-[var(--color-noir)] hover:bg-[var(--color-noir)] hover:text-white'
                 }`}
             >
               Réserver

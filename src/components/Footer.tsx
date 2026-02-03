@@ -2,6 +2,7 @@
 
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -11,14 +12,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Informations hôtel */}
           <div className="md:col-span-5">
-            <h3 className="font-display text-3xl font-medium mb-2">
-              Villa Dolce
-            </h3>
-            <div className="flex items-center space-x-2 mb-8">
-              <div className="w-12 h-px bg-[var(--color-or)]"></div>
-              <span className="font-body text-[10px] uppercase tracking-widest text-white/60">
-                Luxe & Raffinement
-              </span>
+            <div className="relative h-46 w-46 mb-4 brightness-0 invert">
+              <Image
+                src="/images/logo.png"
+                alt="Villa Dolce"
+                fill
+                className="object-contain"
+              />
             </div>
             <p className="font-body text-sm text-white/70 leading-relaxed mb-8 max-w-md">
               Découvrez notre hôtel de luxe au cœur de Silly, où élégance et confort
@@ -55,7 +55,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation */}
-          <div className="md:col-span-3">
+          <div className="md:col-span-3 ">
             <h4 className="font-display text-lg font-medium mb-6">Navigation</h4>
             <ul className="space-y-3">
               <li>
