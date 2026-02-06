@@ -3,15 +3,60 @@
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function Footer() {
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [newsletterMessage, setNewsletterMessage] = useState('');
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setNewsletterStatus('loading');
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newsletterEmail })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setNewsletterStatus('success');
+        setNewsletterMessage('Inscription réussie !');
+        setNewsletterEmail('');
+        setTimeout(() => {
+          setNewsletterStatus('idle');
+          setNewsletterMessage('');
+        }, 3000);
+      } else {
+        setNewsletterStatus('error');
+        setNewsletterMessage(data.error || 'Une erreur est survenue');
+        setTimeout(() => {
+          setNewsletterStatus('idle');
+          setNewsletterMessage('');
+        }, 3000);
+      }
+    } catch (error) {
+      setNewsletterStatus('error');
+      setNewsletterMessage('Erreur de connexion');
+      setTimeout(() => {
+        setNewsletterStatus('idle');
+        setNewsletterMessage('');
+      }, 3000);
+    }
+  };
+
   return (
     <footer className="bg-[var(--color-noir)] text-white">
       {/* Contenu principal */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Informations hôtel */}
-          <div className="md:col-span-5">
+          <div className="md:col-span-4">
+
             <div className="relative h-46 w-46 mb-4 brightness-0 invert">
               <Image
                 src="/images/logo.png"
@@ -54,9 +99,9 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navigation */}
-          <div className="md:col-span-3 ">
-            <h4 className="font-display text-lg font-medium mb-6">Navigation</h4>
+          {/* Navigation principale */}
+          <div className="md:col-span-2">
+            <h4 className="font-display text-lg font-medium mb-6 mt-16">Navigation</h4>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -84,14 +129,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/evenements"
-                  className="font-body text-sm text-white/70 hover:text-[var(--color-or)] transition-colors duration-300 link-underline"
-                >
-                  Événements
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/a-propos"
                   className="font-body text-sm text-white/70 hover:text-[var(--color-or)] transition-colors duration-300 link-underline"
                 >
@@ -109,10 +146,38 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Informations légales */}
-          <div className="md:col-span-4">
-            <h4 className="font-display text-lg font-medium mb-6">Informations</h4>
-            <ul className="space-y-3 mb-8">
+          {/* Nos Services */}
+          <div className="md:col-span-2">
+            <h4 className="font-display text-lg font-medium mb-6 mt-16">Nos Services</h4>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  href="/evenements"
+                  className="font-body text-sm text-white/70 hover:text-[var(--color-or)] transition-colors duration-300 link-underline"
+                >
+                  Événements
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/seminaires"
+                  className="font-body text-sm text-white/70 hover:text-[var(--color-or)] transition-colors duration-300 link-underline"
+                >
+                  Séminaires
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/carte-cadeau"
+                  className="font-body text-sm text-white/70 hover:text-[var(--color-or)] transition-colors duration-300 link-underline"
+                >
+                  Carte-Cadeau
+                </Link>
+              </li>
+            </ul>
+
+            <h4 className="font-display text-lg font-medium mb-6 mt-8">Informations</h4>
+            <ul className="space-y-3">
               <li>
                 <Link
                   href="/mentions-legales"
@@ -138,6 +203,44 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
+          </div>
+
+          {/* Newsletter & Réseaux sociaux */}
+          <div className="md:col-span-4">
+            <h4 className="font-display text-lg font-medium mb-6 mt-16">Restez Connecté</h4>
+
+            {/* Newsletter */}
+            <div className="mb-8">
+              <h5 className="font-body text-xs uppercase tracking-widest text-white/60 mb-4">
+                Restez informé
+              </h5>
+              <p className="font-body text-sm text-white/70 mb-4 leading-relaxed">
+                Recevez les dernières mises à jour sur nos offres et activités
+              </p>
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col space-y-3">
+                <input
+                  type="email"
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  placeholder="Votre email"
+                  required
+                  disabled={newsletterStatus === 'loading'}
+                  className="px-4 py-2 bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[var(--color-or)] transition-colors duration-300 font-body text-sm disabled:opacity-50"
+                />
+                <button
+                  type="submit"
+                  disabled={newsletterStatus === 'loading'}
+                  className="px-4 py-2 bg-[var(--color-or)] text-white font-body text-sm font-medium hover:bg-[var(--color-or)]/90 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {newsletterStatus === 'loading' ? 'Envoi...' : 'Enregistrez-moi'}
+                </button>
+                {newsletterMessage && (
+                  <p className={`font-body text-xs ${newsletterStatus === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                    {newsletterMessage}
+                  </p>
+                )}
+              </form>
+            </div>
 
             {/* Réseaux sociaux */}
             <div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Phone } from 'lucide-react';
+import { Phone, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 export default function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isServicesOpen, setServicesOpen] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
@@ -24,9 +25,14 @@ export default function Header() {
     { name: 'Accueil', href: '/' },
     { name: 'Chambres & Suites', href: '/chambres' },
     { name: 'Galerie', href: '/galerie' },
-    { name: 'Événements', href: '/evenements' },
     { name: 'À Propos', href: '/a-propos' },
     { name: 'Contact', href: '/contact' },
+  ];
+
+  const servicesMenu = [
+    { name: 'Événements', href: '/evenements' },
+    { name: 'Séminaires', href: '/seminaires' },
+    { name: 'Carte-Cadeau', href: '/carte-cadeau' },
   ];
 
   return (
@@ -73,17 +79,17 @@ export default function Header() {
           {/* Logo minimaliste */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="flex flex-col">
-              <div className={`relative h-32 w-32 transition-all duration-300 ${(isHomePage && !isScrolled && !isMenuOpen) ? 'invert brightness-0' : ''
+              <div className={`relative h-62 w-62 transition-all duration-300 ${(isHomePage && !isScrolled && !isMenuOpen) ? 'invert brightness-0' : ''
                 }`}>
                 <Image
-                  src="/images/logo-simple.png"
+                  src="/images/logo-clef.png"
                   alt="Villa Dolce"
                   fill
                   className="object-contain"
                   priority
                 />
               </div>
-              
+
             </div>
           </Link>
 
@@ -101,6 +107,40 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
+
+            {/* Menu déroulant Services */}
+            <div
+              className="relative"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                className={`font-body text-sm font-light tracking-wide transition-colors duration-300 flex items-center space-x-1 ${(isHomePage && !isScrolled && !isMenuOpen)
+                  ? 'text-white hover:text-white/80'
+                  : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
+                  }`}
+              >
+                <span>Services</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown menu */}
+              {isServicesOpen && (
+                <div className="absolute top-full left-0 pt-2 z-50">
+                  <div className="bg-white shadow-elegant border border-noir/10 py-2 w-48">
+                    {servicesMenu.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className="block px-4 py-2 font-body text-sm text-noir hover:bg-[var(--color-blanc-200)] hover:text-[var(--color-or)] transition-colors duration-300"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Bouton réservation */}
@@ -147,6 +187,33 @@ export default function Header() {
                   {item.name}
                 </Link>
               ))}
+
+              {/* Services accordéon mobile */}
+              <div>
+                <button
+                  onClick={() => setServicesOpen(!isServicesOpen)}
+                  className="w-full flex items-center justify-between font-body text-sm text-[var(--color-noir)] hover:text-[var(--color-or)] transition-colors"
+                >
+                  <span>Services</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {isServicesOpen && (
+                  <div className="mt-2 ml-4 space-y-2">
+                    {servicesMenu.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className="block font-body text-sm text-[var(--color-noir)]/70 hover:text-[var(--color-or)] transition-colors"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <Link
                 href="/contact"
                 className="font-body text-sm border border-[var(--color-noir)] text-[var(--color-noir)] hover:bg-[var(--color-noir)] hover:text-white transition-all px-6 py-2.5 text-center mt-4"

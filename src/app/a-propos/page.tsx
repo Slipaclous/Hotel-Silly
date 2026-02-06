@@ -199,6 +199,97 @@ export default function AProposPage() {
             })}
           </motion.div>
 
+          {/* Section Accès & Activités */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="mb-24"
+          >
+            <div className="text-center mb-16">
+              <div className="w-12 h-px bg-or mx-auto mb-6"></div>
+              <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
+                Accès & Activités
+              </h2>
+              <p className="font-body text-lg text-noir/70 max-w-2xl mx-auto leading-relaxed">
+                Découvrez comment nous rejoindre et les nombreuses activités à proximité
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+              {/* Accès à l'hôtel */}
+              <div className="bg-blanc border border-noir/10 p-8">
+                <h3 className="font-display text-2xl font-medium text-noir mb-6 flex items-center">
+                  <MapPin className="w-6 h-6 text-[var(--color-or)] mr-3" />
+                  Comment nous rejoindre
+                </h3>
+
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-body text-base font-medium text-noir mb-3 flex items-center">
+                      <div className="w-2 h-2 bg-[var(--color-or)] rounded-full mr-3"></div>
+                      En train
+                    </h4>
+                    <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed">
+                      <strong>Gare SNCB Silly</strong> - À 2 km de l'hôtel<br />
+                      • À pied : 20-30 minutes<br />
+                      • À vélo : 10 minutes
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-body text-base font-medium text-noir mb-3 flex items-center">
+                      <div className="w-2 h-2 bg-[var(--color-or)] rounded-full mr-3"></div>
+                      En voiture
+                    </h4>
+                    <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed">
+                      Accès facile par autoroute<br />
+                      Parking privé disponible
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-body text-base font-medium text-noir mb-3 flex items-center">
+                      <div className="w-2 h-2 bg-[var(--color-or)] rounded-full mr-3"></div>
+                      En bus
+                    </h4>
+                    <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed">
+                      Arrêt de bus <strong>"Silly centre"</strong> à proximité
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Activités à proximité */}
+              <div className="bg-[var(--color-blanc-200)] p-8">
+                <h3 className="font-display text-2xl font-medium text-noir mb-6 flex items-center">
+                  <Star className="w-6 h-6 text-[var(--color-or)] mr-3" />
+                  À proximité
+                </h3>
+
+                <div className="grid grid-cols-1 gap-3">
+                  {[
+                    'Bois de Silly (promenades)',
+                    'Circuit des fées de Silly',
+                    'Parc d\'Enghien',
+                    'Pairi Daiza',
+                    'Visite de la brasserie de Silly',
+                    'Airport de Charleroi/BXL',
+                    'SHAPE',
+                    'Golf d\'Enghien',
+                    'Shopping Bastion et Grand Prez'
+                  ].map((activity, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <div className="w-1.5 h-1.5 bg-[var(--color-or)] rounded-full mt-2 flex-shrink-0"></div>
+                      <span className="font-body text-sm text-noir/80">{activity}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Section Valeurs */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div

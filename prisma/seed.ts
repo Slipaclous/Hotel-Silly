@@ -300,6 +300,27 @@ async function main() {
   }
   console.log('✅ Événements créés');
 
+  // Créer les page heroes
+  const pageHeros = [
+    {
+      page: 'carte-cadeau',
+      title: 'Carte-Cadeau Villa Dolce',
+      subtitle: 'Offrez une expérience inoubliable',
+      imageUrl: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    },
+    {
+      page: 'seminaires',
+      title: 'Réunions & Séminaires',
+      subtitle: 'Un espace professionnel et élégant',
+      imageUrl: 'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    },
+  ];
+
+  for (const pageHero of pageHeros) {
+    await prisma.pageHero.create({ data: pageHero });
+  }
+  console.log('✅ Page heroes créés');
+
   console.log('🎉 Seeding terminé avec succès !');
 }
 
