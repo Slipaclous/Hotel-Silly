@@ -23,6 +23,13 @@ interface Room {
   images?: GalleryImage[];
   features: string[];
   order: number;
+  surface?: string;
+  bedding?: string;
+  bathroom?: string;
+  price1Person?: string;
+  price2Persons?: string;
+  price3Persons?: string;
+  petsAllowed?: boolean;
 }
 
 export default function RoomsEditor() {
@@ -208,13 +215,13 @@ function RoomForm({ room, onCancel, onSuccess }: {
     capacity: room?.capacity || '',
 
     // Nouveaux champs
-    surface: (room as any)?.surface || '',
-    bedding: (room as any)?.bedding || '',
-    bathroom: (room as any)?.bathroom || '',
-    price1Person: (room as any)?.price1Person || '',
-    price2Persons: (room as any)?.price2Persons || '',
-    price3Persons: (room as any)?.price3Persons || '',
-    petsAllowed: (room as any)?.petsAllowed ?? true,
+    surface: room?.surface || '',
+    bedding: room?.bedding || '',
+    bathroom: room?.bathroom || '',
+    price1Person: room?.price1Person || '',
+    price2Persons: room?.price2Persons || '',
+    price3Persons: room?.price3Persons || '',
+    petsAllowed: room?.petsAllowed ?? true,
 
     rating: room?.rating || 5,
     imageUrl: room?.imageUrl || '',
@@ -281,7 +288,7 @@ function RoomForm({ room, onCancel, onSuccess }: {
             />
           </div>
           <div>
-            <label className={labelClasses}>Prix "à partir de"</label>
+            <label className={labelClasses}>Prix &quot;à partir de&quot;</label>
             <input
               type="text"
               value={formData.price}

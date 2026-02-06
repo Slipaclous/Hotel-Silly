@@ -4,8 +4,15 @@ import { motion } from 'framer-motion';
 import { Users, Wifi, Monitor, Coffee, Clock, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 
+interface PageHero {
+    page: string;
+    title: string;
+    subtitle: string;
+    imageUrl: string;
+}
+
 interface SeminairesContentProps {
-    pageHero: any;
+    pageHero: PageHero | null;
 }
 
 export default function SeminairesContent({ pageHero }: SeminairesContentProps) {
@@ -59,7 +66,7 @@ export default function SeminairesContent({ pageHero }: SeminairesContentProps) 
 
                             <p className="font-body text-lg text-noir/70 mb-8 leading-relaxed">
                                 Possibilité de louer un espace pour vos réunions dans un cadre exceptionnel
-                                alliant confort et professionnalisme. Notre salle peut accueillir jusqu'à 20 personnes
+                                alliant confort et professionnalisme. Notre salle peut accueillir jusqu&apos;à 20 personnes
                                 et dispose de tous les équipements nécessaires pour garantir le succès de vos événements.
                             </p>
 
@@ -232,7 +239,7 @@ export default function SeminairesContent({ pageHero }: SeminairesContentProps) 
 
                             <p className="font-body text-base text-noir/70 text-center mb-10 leading-relaxed max-w-2xl mx-auto">
                                 Mise à disposition de rafraîchissements pendant votre réunion pour maintenir
-                                l'énergie et la concentration de vos équipes.
+                                l&apos;énergie et la concentration de vos équipes.
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

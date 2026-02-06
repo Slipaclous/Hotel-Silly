@@ -20,8 +20,8 @@ export default async function GaleriePage() {
     <main className="min-h-screen bg-blanc">
       <Header />
       <GalerieContent
-        initialImages={images as any}
-        pageHero={pageHero as any}
+        initialImages={images}
+        pageHero={pageHero}
       />
       <Footer />
     </main>

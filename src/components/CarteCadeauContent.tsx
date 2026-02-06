@@ -4,8 +4,15 @@ import { motion } from 'framer-motion';
 import { Gift, Heart, Star, Check } from 'lucide-react';
 import Link from 'next/link';
 
+interface PageHero {
+    page: string;
+    title: string;
+    subtitle: string;
+    imageUrl: string;
+}
+
 interface CarteCadeauContentProps {
-    pageHero: any;
+    pageHero: PageHero | null;
 }
 
 export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps) {
@@ -73,9 +80,9 @@ export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps
                             </h2>
 
                             <p className="font-body text-lg text-noir/70 mb-8 leading-relaxed">
-                                À la recherche d'un cadeau original ? La carte-cadeau VILLA DOLCE est le cadeau
-                                parfait ! Avec cela, le destinataire peut profiter à tout moment d'une nuitée,
-                                ou d'un petit déjeuner dans notre magnifique hôtel.
+                                À la recherche d&apos;un cadeau original ? La carte-cadeau VILLA DOLCE est le cadeau
+                                parfait ! Avec cela, le destinataire peut profiter à tout moment d&apos;une nuitée,
+                                ou d&apos;un petit déjeuner dans notre magnifique hôtel.
                             </p>
 
                             {/* Benefits List */}
@@ -140,7 +147,7 @@ export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps
                                 Une Nuitée
                             </h3>
                             <p className="font-body text-sm text-noir/60 mb-6 leading-relaxed">
-                                Une nuit inoubliable dans l'une de nos chambres de luxe
+                                Une nuit inoubliable dans l&apos;une de nos chambres de luxe
                             </p>
                             <div className="font-display text-3xl font-medium text-[var(--color-or)] mb-6">
                                 À partir de 150€

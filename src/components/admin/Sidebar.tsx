@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard, User } from 'lucide-react';
+import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard } from 'lucide-react';
 import Image from 'next/image';
 
 interface SidebarProps {

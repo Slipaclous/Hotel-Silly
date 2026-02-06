@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, ReactNode } from 'react';
-import { Save, Eye, Info, ChevronRight, Layout, Monitor, Tablet, Smartphone, ExternalLink } from 'lucide-react';
+import { Save, Eye, Info, Layout, Monitor, Tablet, Smartphone, ExternalLink } from 'lucide-react';
 
 interface AdminWrapperProps {
     title: string;
@@ -92,8 +92,8 @@ export default function AdminWrapper({
                 {/* Status Message */}
                 {message && (
                     <div className={`mb-6 p-4 rounded-lg border flex items-center space-x-3 animate-fade-in ${message.includes('✅')
-                            ? 'bg-green-50 border-green-200 text-green-700'
-                            : 'bg-red-50 border-red-200 text-red-700'
+                        ? 'bg-green-50 border-green-200 text-green-700'
+                        : 'bg-red-50 border-red-200 text-red-700'
                         }`}>
                         <Info className="w-5 h-5 shrink-0" />
                         <span className="font-medium text-sm">{message}</span>

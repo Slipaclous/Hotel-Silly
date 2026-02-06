@@ -140,7 +140,7 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                 {/* Badge année */}
                                 <div className="absolute bottom-8 left-8 bg-blanc shadow-elegant p-6 border border-noir/10">
                                     <div className="font-display text-4xl font-medium text-noir mb-1">{data.openingYear}</div>
-                                    <div className="font-body text-xs uppercase tracking-widest text-noir/60">Année d'Ouverture</div>
+                                    <div className="font-body text-xs uppercase tracking-widest text-noir/60">Année d&apos;Ouverture</div>
                                 </div>
                             </div>
                         </motion.div>
@@ -205,7 +205,7 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                             En train
                                         </h4>
                                         <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed">
-                                            <strong>Gare SNCB Silly</strong> - À 2 km de l'hôtel<br />
+                                            <strong>Gare SNCB Silly</strong> - À 2 km de l&apos;hôtel<br />
                                             • À pied : 20-30 minutes<br />
                                             • À vélo : 10 minutes
                                         </p>
@@ -228,7 +228,7 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                             En bus
                                         </h4>
                                         <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed">
-                                            Arrêt de bus <strong>"Silly centre"</strong> à proximité
+                                            Arrêt de bus <strong>&quot;Silly centre&quot;</strong> à proximité
                                         </p>
                                     </div>
                                 </div>
@@ -281,7 +281,7 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                             <p className="font-body text-sm text-noir/70 leading-relaxed">
                                 Situé au cœur de Silly, village pittoresque de la Région Wallonne,
                                 notre hôtel vous offre un accès privilégié aux principales attractions belges
-                                tout en préservant le calme et la sérénité d'un cadre exceptionnel.
+                                tout en préservant le calme et la sérénité d&apos;un cadre exceptionnel.
                             </p>
                         </motion.div>
 
@@ -319,8 +319,8 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                 Notre Engagement
                             </h3>
                             <p className="font-body text-sm text-noir/70 leading-relaxed">
-                                Notre équipe dédiée s'engage à anticiper vos besoins et à rendre
-                                votre séjour exceptionnel. Nous mettons un point d'honneur à offrir
+                                Notre équipe dédiée s&apos;engage à anticiper vos besoins et à rendre
+                                votre séjour exceptionnel. Nous mettons un point d&apos;honneur à offrir
                                 un service personnalisé de qualité supérieure.
                             </p>
                         </motion.div>

@@ -21,9 +21,9 @@ export default async function AProposPage() {
     <main className="min-h-screen bg-blanc">
       <Header />
       <AboutContent
-        aboutData={aboutData as any}
-        features={features as any}
-        pageHero={pageHero as any}
+        aboutData={aboutData}
+        features={features}
+        pageHero={pageHero}
       />
       <Footer />
     </main>

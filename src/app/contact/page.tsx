@@ -194,7 +194,7 @@ export default function ContactPage() {
                   >
                     <option value="">Choisir un sujet...</option>
                     <option value="reservation">Réservation de chambre</option>
-                    <option value="event">Organisation d'événement</option>
+                    <option value="event">Organisation d&apos;événement</option>
                     <option value="question">Informations générales</option>
                     <option value="other">Autre demande</option>
                   </select>

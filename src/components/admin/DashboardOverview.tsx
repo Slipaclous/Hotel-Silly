@@ -6,7 +6,6 @@ import {
     Image as ImageIcon,
     Calendar,
     Star,
-    ArrowUpRight,
     TrendingUp,
     ShieldCheck,
     BarChart3,
