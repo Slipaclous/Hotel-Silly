@@ -65,7 +65,7 @@ export default function RoomSection({ initialRooms }: { initialRooms?: Room[] })
               Hébergement
             </span>
             <h2 className="font-display text-4xl lg:text-5xl lg:leading-tight font-medium text-noir mb-8">
-              L&apos;Art du Repos <br /> <span className="text-or italic">à l'Italienne</span>
+              L&apos;Art du Repos <br /> <span className="text-or italic">à l&apos;Italienne</span>
             </h2>
             <div className="w-12 h-px bg-or mb-8"></div>
             <p className="font-body text-base lg:text-lg text-noir/70 mb-10 leading-relaxed max-w-md">
