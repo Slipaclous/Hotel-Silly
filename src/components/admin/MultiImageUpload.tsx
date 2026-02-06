@@ -51,23 +51,25 @@ export default function MultiImageUpload({ values, onChange, label = 'Galerie d&
 
     return (
         <div className="space-y-4">
-            <label className="text-xs font-body font-bold text-noir/40 uppercase tracking-widest ml-1">
+            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide ml-0.5">
                 {label}
             </label>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {values.map((url, index) => (
-                    <div key={index} className="relative aspect-square rounded-xl overflow-hidden border border-noir/5 shadow-sm group">
+                    <div key={index} className="relative aspect-square rounded-xl overflow-hidden border border-gray-200 shadow-sm group bg-gray-100">
                         <Image
                             src={url.startsWith('/') ? url : `/${url}`}
                             alt={`Gallery image ${index + 1}`}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                             sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                         />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200" />
                         <button
                             onClick={() => removeImage(index)}
-                            className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                            className="absolute top-2 right-2 p-1.5 bg-white text-gray-400 hover:text-red-500 rounded-lg opacity-0 group-hover:opacity-100 transition-all shadow-sm hover:shadow-md transform scale-90 group-hover:scale-100"
+                            title="Supprimer"
                         >
                             <X className="w-3.5 h-3.5" />
                         </button>
@@ -77,17 +79,17 @@ export default function MultiImageUpload({ values, onChange, label = 'Galerie d&
                 <button
                     onClick={() => inputRef.current?.click()}
                     disabled={uploading}
-                    className="relative aspect-square rounded-xl border-2 border-dashed border-noir/10 bg-noir/[0.02] hover:bg-noir/[0.04] hover:border-or/30 transition-all flex flex-col items-center justify-center space-y-2 group"
+                    className="relative aspect-square rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-gray-300 transition-all flex flex-col items-center justify-center space-y-2 group"
                     type="button"
                 >
                     {uploading ? (
                         <Loader2 className="w-6 h-6 text-or animate-spin" />
                     ) : (
                         <>
-                            <div className="p-2 rounded-full bg-white border border-noir/5 group-hover:bg-or group-hover:text-white transition-all">
-                                <Plus className="w-5 h-5 text-noir/20 group-hover:text-white" />
+                            <div className="p-2 rounded-full bg-white border border-gray-200 group-hover:scale-110 transition-transform shadow-sm">
+                                <Plus className="w-5 h-5 text-gray-400 group-hover:text-gray-600" />
                             </div>
-                            <span className="text-[10px] font-body text-noir/40 uppercase tracking-widest">Ajouter</span>
+                            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide group-hover:text-gray-600">Ajouter</span>
                         </>
                     )}
                 </button>

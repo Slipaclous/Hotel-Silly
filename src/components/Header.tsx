@@ -11,7 +11,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setServicesOpen] = useState(false);
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,32 +39,30 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isMenuOpen
         ? 'bg-white shadow-elegant'
-        : isHomePage
-          ? isScrolled
-            ? 'bg-white/98 backdrop-blur-sm shadow-elegant'
-            : 'bg-transparent'
-          : 'bg-white/98 backdrop-blur-sm shadow-elegant'
+        : isScrolled
+          ? 'bg-white/98 backdrop-blur-sm shadow-elegant'
+          : 'bg-transparent'
         }`}
     >
       {/* Barre supérieure discrète */}
-      <div className={`border-b transition-all duration-300 ${(isHomePage && !isScrolled && !isMenuOpen) ? 'border-white/20' : 'border-[var(--color-gris-clair)]'
+      <div className={`border-b transition-all duration-300 ${(!isScrolled && !isMenuOpen) ? 'border-white/20' : 'border-[var(--color-gris-clair)]'
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-10">
             <div className="flex items-center space-x-6 text-xs">
-              <span className={`font-body font-light ${(isHomePage && !isScrolled && !isMenuOpen) ? 'text-white/90' : 'text-[var(--color-gris)]'
+              <span className={`font-body font-light ${(!isScrolled && !isMenuOpen) ? 'text-white/90' : 'text-[var(--color-gris)]'
                 }`}>
                 Silly, Belgique
               </span>
-              <span className={`hidden sm:inline font-body font-light ${(isHomePage && !isScrolled && !isMenuOpen) ? 'text-white/90' : 'text-[var(--color-gris)]'
+              <span className={`hidden sm:inline font-body font-light ${(!isScrolled && !isMenuOpen) ? 'text-white/90' : 'text-[var(--color-gris)]'
                 }`}>
                 Ouverture Printemps 2025
               </span>
             </div>
             <div className="flex items-center space-x-2">
-              <Phone className={`w-3 h-3 ${(isHomePage && !isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-or)]'
+              <Phone className={`w-3 h-3 ${(!isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-or)]'
                 }`} />
-              <span className={`text-xs font-body font-light ${(isHomePage && !isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-noir)]'
+              <span className={`text-xs font-body font-light ${(!isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-noir)]'
                 }`}>
                 +32 2 123 45 67
               </span>
@@ -79,7 +77,7 @@ export default function Header() {
           {/* Logo minimaliste */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="flex flex-col">
-              <div className={`relative h-62 w-62 transition-all duration-300 ${(isHomePage && !isScrolled && !isMenuOpen) ? 'invert brightness-0' : ''
+              <div className={`relative h-62 w-62 transition-all duration-300 ${(!isScrolled && !isMenuOpen) ? 'invert brightness-0' : ''
                 }`}>
                 <Image
                   src="/images/logo-clef.png"
@@ -99,7 +97,7 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`font-body text-sm font-light tracking-wide link-underline transition-colors duration-300 ${(isHomePage && !isScrolled && !isMenuOpen)
+                className={`font-body text-sm font-light tracking-wide link-underline transition-colors duration-300 ${(!isScrolled && !isMenuOpen)
                   ? 'text-white hover:text-white/80'
                   : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
                   }`}
@@ -115,7 +113,7 @@ export default function Header() {
               onMouseLeave={() => setServicesOpen(false)}
             >
               <button
-                className={`font-body text-sm font-light tracking-wide transition-colors duration-300 flex items-center space-x-1 ${(isHomePage && !isScrolled && !isMenuOpen)
+                className={`font-body text-sm font-light tracking-wide transition-colors duration-300 flex items-center space-x-1 ${(!isScrolled && !isMenuOpen)
                   ? 'text-white hover:text-white/80'
                   : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
                   }`}
@@ -147,7 +145,7 @@ export default function Header() {
           <div className="hidden lg:block">
             <Link
               href="/contact"
-              className={`font-body text-sm font-normal px-6 py-2.5 border transition-all duration-300 ${(isHomePage && !isScrolled && !isMenuOpen)
+              className={`font-body text-sm font-normal px-6 py-2.5 border transition-all duration-300 ${(!isScrolled && !isMenuOpen)
                 ? 'border-white text-white hover:bg-white hover:text-[var(--color-noir)]'
                 : 'border-[var(--color-noir)] text-[var(--color-noir)] hover:bg-[var(--color-noir)] hover:text-white'
                 }`}
@@ -164,11 +162,11 @@ export default function Header() {
           >
             <div className="w-5 h-4 flex flex-col justify-between">
               <span className={`block h-px w-full transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''
-                } ${(isHomePage && !isScrolled && !isMenuOpen) ? 'bg-white' : 'bg-[var(--color-noir)]'}`}></span>
+                } ${(!isScrolled && !isMenuOpen) ? 'bg-white' : 'bg-[var(--color-noir)]'}`}></span>
               <span className={`block h-px w-full transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'
-                } ${(isHomePage && !isScrolled && !isMenuOpen) ? 'bg-white' : 'bg-[var(--color-noir)]'}`}></span>
+                } ${(!isScrolled && !isMenuOpen) ? 'bg-white' : 'bg-[var(--color-noir)]'}`}></span>
               <span className={`block h-px w-full transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
-                } ${(isHomePage && !isScrolled && !isMenuOpen) ? 'bg-white' : 'bg-[var(--color-noir)]'}`}></span>
+                } ${(!isScrolled && !isMenuOpen) ? 'bg-white' : 'bg-[var(--color-noir)]'}`}></span>
             </div>
           </button>
         </div>

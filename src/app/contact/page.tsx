@@ -3,7 +3,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 
 export default function ContactPage() {
@@ -46,234 +46,186 @@ export default function ContactPage() {
     <main className="min-h-screen bg-blanc">
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden mt-[120px]">
-        <div className="absolute inset-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')`
-            }}
-          ></div>
-          <div className="absolute inset-0 bg-black/40"></div>
-        </div>
-
-        <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      {/* Hero Section - Compact & Elegant */}
+      {/* Hero Section - Compact & Elegant */}
+      <section className="relative h-[40vh] flex items-end justify-center pb-12 overflow-hidden bg-[#2c3840]">
+        <div className="relative z-10 text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.8 }}
           >
-            <div className="w-12 h-px bg-or mx-auto mb-6"></div>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium mb-6">
-              Contactez-Nous
-            </h1>
-            <p className="font-body text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Nous sommes à votre écoute pour répondre à toutes vos questions
-            </p>
+            <h1 className="font-display text-5xl lg:text-7xl font-medium mb-4 text-[#C6ad7a]">Contact</h1>
+            <p className="font-body text-white/80 text-lg font-light tracking-wide">Une question ? Un désir particulier ?</p>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-24 bg-blanc">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Cartes d'information */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="bg-blanc border border-noir/10 p-8 card-hover"
-            >
-              <div className="w-12 h-12 border border-or flex items-center justify-center mb-6">
-                <Phone className="w-6 h-6 text-or" />
-              </div>
-              <h3 className="font-display text-xl font-medium text-noir mb-3">Téléphone</h3>
-              <p className="font-body text-sm text-noir/60 mb-4">Appelez-nous directement</p>
-              <a href="tel:+32212345678" className="font-body text-base font-medium text-noir hover:text-or transition-colors">
-                +32 (0)2 123 45 67
-              </a>
-            </motion.div>
+      <section className="relative z-20 -mt-8 mb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row shadow-2xl bg-white">
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-              viewport={{ once: true }}
-              className="bg-blanc border border-noir/10 p-8 card-hover"
-            >
-              <div className="w-12 h-12 border border-or flex items-center justify-center mb-6">
-                <Mail className="w-6 h-6 text-or" />
-              </div>
-              <h3 className="font-display text-xl font-medium text-noir mb-3">Email</h3>
-              <p className="font-body text-sm text-noir/60 mb-4">Envoyez-nous vos questions</p>
-              <a href="mailto:info@hoteldesilly.be" className="font-body text-base font-medium text-noir hover:text-or transition-colors break-all">
-                info@hoteldesilly.be
-              </a>
-            </motion.div>
+          {/* Left Side: Contact Info (Dark) */}
+          <div className="lg:w-2/5 bg-noir text-white p-12 lg:p-16 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-or/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-blanc border border-noir/10 p-8 card-hover"
-            >
-              <div className="w-12 h-12 border border-or flex items-center justify-center mb-6">
-                <MapPin className="w-6 h-6 text-or" />
+            <div className="relative z-10 space-y-12">
+              <div>
+                <h3 className="font-display text-2xl mb-2 text-or">Nos Coordonnées</h3>
+                <p className="font-body text-sm text-white/60 mb-8">Nous sommes à votre entière disposition.</p>
+
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <MapPin className="w-5 h-5 text-or mt-1" />
+                    <div>
+                      <p className="font-display text-lg">Hôtel de Silly</p>
+                      <p className="font-body text-sm text-white/60 leading-relaxed">
+                        Place de la Ville, 1<br />
+                        7830 Silly, Belgique
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <Phone className="w-5 h-5 text-or mt-1" />
+                    <div>
+                      <p className="font-display text-lg">Téléphone</p>
+                      <a href="tel:+32212345678" className="font-body text-sm text-white/60 hover:text-or transition-colors">
+                        +32 (0)2 123 45 67
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <Mail className="w-5 h-5 text-or mt-1" />
+                    <div>
+                      <p className="font-display text-lg">Email</p>
+                      <a href="mailto:info@hoteldesilly.be" className="font-body text-sm text-white/60 hover:text-or transition-colors">
+                        info@hoteldesilly.be
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="font-display text-xl font-medium text-noir mb-3">Adresse</h3>
-              <p className="font-body text-sm text-noir/60 mb-4">Visitez-nous à</p>
-              <p className="font-body text-base font-medium text-noir">
-                Silly, Belgique
-              </p>
-            </motion.div>
+
+              <div className="border-t border-white/10 pt-8">
+                <div className="flex items-start space-x-4">
+                  <Clock className="w-5 h-5 text-or mt-1" />
+                  <div>
+                    <h3 className="font-display text-xl mb-4">Horaires Réception</h3>
+                    <ul className="space-y-2 font-body text-sm text-white/60">
+                      <li className="flex justify-between w-48">
+                        <span>Lun - Ven</span>
+                        <span className="text-white">09:00 - 18:00</span>
+                      </li>
+                      <li className="flex justify-between w-48">
+                        <span>Samedi</span>
+                        <span className="text-white">10:00 - 16:00</span>
+                      </li>
+                      <li className="flex justify-between w-48">
+                        <span>Dimanche</span>
+                        <span className="text-white">Fermé</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Horaires et Formulaire */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Horaires */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="lg:col-span-1"
-            >
-              <div className="bg-blanc border border-noir/10 p-8 h-full">
-                <div className="w-12 h-12 border border-or flex items-center justify-center mb-6">
-                  <Clock className="w-6 h-6 text-or" />
+          {/* Right Side: Form (Light) */}
+          <div className="lg:w-3/5 bg-white p-12 lg:p-16">
+            <h2 className="font-display text-3xl sm:text-4xl text-noir mb-8">Envoyez-nous un message</h2>
+
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="bg-or/10 border border-or/30 p-8 text-center"
+              >
+                <h3 className="font-display text-2xl text-noir mb-2">Message reçu</h3>
+                <p className="font-body text-noir/70">Merci de nous avoir contactés. Nous reviendrons vers vous très prochainement.</p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="mt-6 text-sm underline hover:text-or"
+                >
+                  Envoyer un autre message
+                </button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-noir/60">Nom Complet</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full border-b border-noir/20 py-2 text-noir font-body bg-transparent focus:outline-none focus:border-or transition-colors"
+                      placeholder="Jean Dupont"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-noir/60">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full border-b border-noir/20 py-2 text-noir font-body bg-transparent focus:outline-none focus:border-or transition-colors"
+                      placeholder="jean@exemple.com"
+                    />
+                  </div>
                 </div>
-                <h3 className="font-display text-xl font-medium text-noir mb-6">Horaires</h3>
 
-                <div className="space-y-4 mb-8">
-                  <div className="flex justify-between pb-3 border-b border-noir/10">
-                    <span className="font-body text-sm text-noir/60">Lundi - Vendredi</span>
-                    <span className="font-body text-sm font-medium text-noir">09:00 - 18:00</span>
-                  </div>
-                  <div className="flex justify-between pb-3 border-b border-noir/10">
-                    <span className="font-body text-sm text-noir/60">Samedi</span>
-                    <span className="font-body text-sm font-medium text-noir">10:00 - 16:00</span>
-                  </div>
-                  <div className="flex justify-between pb-3 border-b border-noir/10">
-                    <span className="font-body text-sm text-noir/60">Dimanche</span>
-                    <span className="font-body text-sm font-medium text-noir">Fermé</span>
-                  </div>
+                <div className="space-y-2">
+                  <label htmlFor="subject" className="text-xs font-bold uppercase tracking-widest text-noir/60">Sujet</label>
+                  <select
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="w-full border-b border-noir/20 py-2 text-noir font-body bg-transparent focus:outline-none focus:border-or transition-colors appearance-none cursor-pointer"
+                  >
+                    <option value="">Choisir un sujet...</option>
+                    <option value="reservation">Réservation de chambre</option>
+                    <option value="event">Organisation d'événement</option>
+                    <option value="question">Informations générales</option>
+                    <option value="other">Autre demande</option>
+                  </select>
                 </div>
 
-                <p className="font-body text-xs text-noir/60 leading-relaxed">
-                  Notre équipe est disponible pour répondre à toutes vos questions pendant les horaires d&apos;ouverture.
-                </p>
-              </div>
-            </motion.div>
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-noir/60">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={4}
+                    className="w-full border-b border-noir/20 py-2 text-noir font-body bg-transparent focus:outline-none focus:border-or transition-colors resize-none"
+                    placeholder="Dites-nous en plus..."
+                  />
+                </div>
 
-            {/* Formulaire de Contact */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-              viewport={{ once: true }}
-              className="lg:col-span-2"
-            >
-              <div className="bg-blanc border border-noir/10 p-8 shadow-elegant">
-                <h2 className="font-display text-2xl font-medium text-noir mb-8">
-                  {submitted ? 'Merci !' : 'Formulaire de Contact'}
-                </h2>
-
-                {submitted ? (
-                  <div className="bg-blanc border border-or/30 p-8 text-center">
-                    <p className="font-body text-base font-medium text-noir mb-2">
-                      Message envoyé avec succès !
-                    </p>
-                    <p className="font-body text-sm text-noir/60">
-                      Nous vous répondrons dans les plus brefs délais.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                      <label htmlFor="name" className="block font-body text-sm font-medium text-noir mb-2">
-                        Nom complet
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-noir/20 focus:outline-none focus:border-or transition-colors duration-300 font-body text-sm"
-                        placeholder="Votre nom"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="email" className="block font-body text-sm font-medium text-noir mb-2">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-noir/20 focus:outline-none focus:border-or transition-colors duration-300 font-body text-sm"
-                        placeholder="votre@email.com"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="subject" className="block font-body text-sm font-medium text-noir mb-2">
-                        Sujet
-                      </label>
-                      <select
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-noir/20 focus:outline-none focus:border-or transition-colors duration-300 font-body text-sm"
-                      >
-                        <option value="">Sélectionnez un sujet</option>
-                        <option value="reservation">Réservation</option>
-                        <option value="event">Événement</option>
-                        <option value="question">Question générale</option>
-                        <option value="feedback">Avis et suggestions</option>
-                        <option value="other">Autre</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="block font-body text-sm font-medium text-noir mb-2">
-                        Message
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={5}
-                        className="w-full px-4 py-3 border border-noir/20 focus:outline-none focus:border-or transition-colors duration-300 resize-none font-body text-sm"
-                        placeholder="Votre message..."
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full bg-noir text-blanc font-body text-sm font-medium py-3 transition-all duration-300 hover:bg-or disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
-                    >
-                      <Send className="w-4 h-4" />
-                      <span>{loading ? 'Envoi...' : 'Envoyer le message'}</span>
-                    </button>
-                  </form>
-                )}
-              </div>
-            </motion.div>
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full md:w-auto bg-noir text-white px-8 py-4 font-body text-sm uppercase tracking-widest hover:bg-or transition-all duration-300 flex items-center justify-center space-x-3 disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    <span>{loading ? 'Envoi...' : 'Envoyer ma demande'}</span>
+                    {!loading && <ArrowRight className="w-4 h-4" />}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </section>

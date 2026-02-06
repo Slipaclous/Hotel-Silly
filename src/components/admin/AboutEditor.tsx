@@ -86,8 +86,8 @@ export default function AboutEditor() {
     });
   };
 
-  const inputClasses = "w-full bg-noir/[0.03] border border-noir/10 rounded-xl px-4 py-3 text-noir focus:border-or/50 focus:ring-1 focus:ring-or/50 outline-none transition-all duration-300 font-body text-sm placeholder:text-noir/20 mt-1.5";
-  const labelClasses = "text-xs font-body font-bold text-noir/40 uppercase tracking-widest ml-1";
+  const inputClasses = "w-full bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-gray-900 focus:border-or focus:ring-1 focus:ring-or outline-none transition-all duration-200 text-sm placeholder:text-gray-400 mt-1.5";
+  const labelClasses = "text-xs font-semibold text-gray-500 uppercase tracking-wide ml-0.5";
 
   if (loading) {
     return (
@@ -106,67 +106,73 @@ export default function AboutEditor() {
       message={message}
       previewUrl="/#about"
     >
-      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <div className="space-y-6">
-            <div>
-              <label className={labelClasses}>Titre de la section</label>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                placeholder="ex: Un Héritage de Prestige"
-                className={inputClasses}
-              />
-            </div>
-
-            <div>
-              <label className={labelClasses}>Récit historique (Description)</label>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                rows={6}
-                placeholder="Partagez l'âme de l'hôtel..."
-                className={`${inputClasses} resize-none`}
-              />
-            </div>
-
-            <div>
-              <label className={labelClasses}>Année d&apos;ouverture / Fondation</label>
-              <div className="relative group">
-                <History className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-noir/20 group-focus-within:text-or transition-colors" />
+      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-8">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <div className="p-6 border-b border-gray-100 bg-gray-50/50">
+            <h3 className="text-lg font-bold text-gray-900">Information Principales</h3>
+          </div>
+          <div className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div className="space-y-6">
+              <div>
+                <label className={labelClasses}>Titre de la section</label>
                 <input
                   type="text"
-                  name="openingYear"
-                  value={formData.openingYear}
+                  name="title"
+                  value={formData.title}
                   onChange={handleChange}
-                  placeholder="ex: 1892"
-                  className={`${inputClasses} pl-12`}
+                  placeholder="ex: Un Héritage de Prestige"
+                  className={inputClasses}
                 />
               </div>
-            </div>
-          </div>
 
-          <div className="space-y-6">
-            <ImageUpload
-              value={formData.imageUrl}
-              onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-              label="Visuel représentatif"
-            />
+              <div>
+                <label className={labelClasses}>Récit historique (Description)</label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  rows={6}
+                  placeholder="Partagez l'âme de l'hôtel..."
+                  className={`${inputClasses} resize-y min-h-[150px]`}
+                />
+              </div>
+
+              <div>
+                <label className={labelClasses}>Année d&apos;ouverture</label>
+                <div className="relative">
+                  <History className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="text"
+                    name="openingYear"
+                    value={formData.openingYear}
+                    onChange={handleChange}
+                    placeholder="ex: 1892"
+                    className={`${inputClasses} pl-10`}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <ImageUpload
+                value={formData.imageUrl}
+                onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+                label="Visuel représentatif"
+              />
+            </div>
           </div>
         </div>
 
-        <div className="pt-6 border-t border-noir/5">
-          <h3 className="text-sm font-body font-bold text-noir/20 uppercase tracking-[0.3em] mb-8">Points d&apos;Excellence</h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <div className="p-6 border-b border-gray-100 bg-gray-50/50">
+            <h3 className="text-lg font-bold text-gray-900">Points d&apos;Excellence</h3>
+          </div>
+          <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Point 1 */}
-            <div className="bg-white border border-noir/5 p-6 rounded-2xl space-y-4 hover:border-or/20 transition-all shadow-sm">
-              <div className="flex items-center space-x-3 text-or font-bold">
+            <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl space-y-4 hover:border-gray-300 transition-all">
+              <div className="flex items-center space-x-2 text-or font-bold mb-2">
                 < Award className="w-5 h-5" />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-noir/30">Point Clé 1</span>
+                <span className="text-xs uppercase tracking-wider text-gray-500">Point Clé 1</span>
               </div>
               <input
                 type="text"
@@ -180,17 +186,17 @@ export default function AboutEditor() {
                 name="keyPoint1Text"
                 value={formData.keyPoint1Text}
                 onChange={handleChange}
-                placeholder="Quelques mots..."
-                rows={2}
+                placeholder="Description courte..."
+                rows={3}
                 className={`${inputClasses} resize-none`}
               />
             </div>
 
             {/* Point 2 */}
-            <div className="bg-white border border-noir/5 p-6 rounded-2xl space-y-4 hover:border-or/20 transition-all shadow-sm">
-              <div className="flex items-center space-x-3 text-or font-bold">
+            <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl space-y-4 hover:border-gray-300 transition-all">
+              <div className="flex items-center space-x-2 text-or font-bold mb-2">
                 <Sparkles className="w-5 h-5" />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-noir/30">Point Clé 2</span>
+                <span className="text-xs uppercase tracking-wider text-gray-500">Point Clé 2</span>
               </div>
               <input
                 type="text"
@@ -204,17 +210,17 @@ export default function AboutEditor() {
                 name="keyPoint2Text"
                 value={formData.keyPoint2Text}
                 onChange={handleChange}
-                placeholder="Quelques mots..."
-                rows={2}
+                placeholder="Description courte..."
+                rows={3}
                 className={`${inputClasses} resize-none`}
               />
             </div>
 
             {/* Point 3 */}
-            <div className="bg-white border border-noir/5 p-6 rounded-2xl space-y-4 hover:border-or/20 transition-all shadow-sm">
-              <div className="flex items-center space-x-3 text-or font-bold">
+            <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl space-y-4 hover:border-gray-300 transition-all">
+              <div className="flex items-center space-x-2 text-or font-bold mb-2">
                 <History className="w-5 h-5" />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-noir/30">Point Clé 3</span>
+                <span className="text-xs uppercase tracking-wider text-gray-500">Point Clé 3</span>
               </div>
               <input
                 type="text"
@@ -228,8 +234,8 @@ export default function AboutEditor() {
                 name="keyPoint3Text"
                 value={formData.keyPoint3Text}
                 onChange={handleChange}
-                placeholder="Quelques mots..."
-                rows={2}
+                placeholder="Description courte..."
+                rows={3}
                 className={`${inputClasses} resize-none`}
               />
             </div>

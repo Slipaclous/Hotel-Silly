@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const GalleryLightbox = dynamic(() => import('./GalleryLightbox'));
 
@@ -23,6 +24,15 @@ interface Room {
     imageUrl: string;
     images?: GalleryImage[];
     features: string[];
+
+    // Nouveaux champs
+    surface?: string;
+    bedding?: string;
+    bathroom?: string;
+    price1Person?: string;
+    price2Persons?: string;
+    price3Persons?: string;
+    petsAllowed?: boolean;
 }
 
 interface PageHero {
@@ -31,8 +41,6 @@ interface PageHero {
     subtitle: string;
     imageUrl: string;
 }
-
-import { motion } from 'framer-motion';
 
 export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pageHero: PageHero | null }) {
     const [selectedRoomGallery, setSelectedRoomGallery] = useState<{ images: string[], name: string } | null>(null);
@@ -46,184 +54,201 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                 roomName={selectedRoomGallery?.name || ''}
             />
 
-            {/* Hero Section */}
-            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden mt-[120px]">
-                <div className="absolute inset-0">
-                    {pageHero?.imageUrl && (
-                        <Image
-                            src={pageHero.imageUrl}
-                            alt={pageHero.title}
-                            fill
-                            priority
-                            className="object-cover"
-                            sizes="100vw"
-                        />
-                    )}
-                    <div className="absolute inset-0 bg-black/40"></div>
-                </div>
+            {/* Hero Section - Full Height & Immersive */}
+            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+                {/* Decorative Pattern - Optional/Subtle */}
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
-                <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+                <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
                     >
-                        <div className="w-12 h-px bg-or mx-auto mb-6"></div>
-                        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium mb-6">
+                        <span className="font-body text-sm tracking-[0.3em] uppercase text-white/60 mb-6 block">
+                            Villa Dolce
+                        </span>
+                        <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl font-medium mb-8 leading-none text-[#C6ad7a]">
                             {pageHero?.title || 'Chambres & Suites'}
                         </h1>
-                        <p className="font-body text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-                            {pageHero?.subtitle || 'Découvrez nos chambres et suites d\'exception, conçues pour offrir le summum du confort et de l\'élégance.'}
+                        <p className="font-body text-lg sm:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
+                            {pageHero?.subtitle || 'Une collection exclusive de refuges urbains où le luxe rencontre la sérénité.'}
                         </p>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Rooms Section */}
-            <section className="py-24 bg-blanc">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {rooms.map((room, index) => (
-                            <motion.div
-                                key={room.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                                className="bg-blanc border border-noir/10 overflow-hidden card-hover group"
-                            >
-                                {/* Image */}
-                                <div className="relative h-72 overflow-hidden">
+            {/* Rooms Section - Alternating Layout */}
+            <section className="py-24 lg:py-32 bg-blanc overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32">
+                    {rooms.map((room, index) => (
+                        <motion.div
+                            key={room.id}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            className={`flex flex-col lg:flex-row gap-12 lg:gap-20 items-start ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                            id={`room-${room.id}`}
+                        >
+                            {/* Image Side */}
+                            <div className="w-full lg:w-1/2 relative group sticky top-32">
+                                <div className="relative h-[400px] lg:h-[600px] overflow-hidden shadow-elegant-lg">
                                     <Image
                                         src={room.imageUrl}
                                         alt={room.name}
                                         fill
-                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        sizes="(max-width: 1024px) 100vw, 50vw"
                                     />
 
-                                    {/* Overlay Galerie si présente */}
+                                    {/* Gallery overlay button */}
                                     {room.images && room.images.length > 0 && (
-                                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                                        <div className="absolute bottom-8 right-8 z-10">
                                             <button
                                                 onClick={() => setSelectedRoomGallery({
                                                     images: [room.imageUrl, ...(room.images?.map(img => img.url) || [])],
                                                     name: room.name
                                                 })}
-                                                className="bg-white/90 backdrop-blur-md text-noir px-6 py-3 rounded-full font-body text-[10px] font-bold uppercase tracking-widest flex items-center space-x-2 hover:bg-or hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-500"
+                                                className="bg-white/10 backdrop-blur-md text-white border border-white/30 px-6 py-3 rounded-full font-body text-xs font-bold uppercase tracking-widest flex items-center space-x-3 hover:bg-white hover:text-noir transition-all duration-300 transform translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0"
                                             >
-                                                <Maximize2 className="w-4 h-4" />
-                                                <span>Explorer la galerie</span>
+                                                <Images className="w-4 h-4" />
+                                                <span>Galerie ({room.images.length + 1})</span>
                                             </button>
                                         </div>
                                     )}
-
-                                    {/* Badge prix */}
-                                    <div className="absolute top-6 right-6 bg-blanc border border-noir/10 text-noir px-4 py-2 text-sm font-body shadow-elegant">
-                                        {room.price}
-                                    </div>
-
-                                    {/* Note & Count */}
-                                    <div className="absolute bottom-6 left-6 flex items-center justify-between w-[calc(100%-3rem)]">
-                                        <div className="flex items-center space-x-1">
-                                            {[...Array(room.rating)].map((_, i) => (
-                                                <Star key={i} className="w-3.5 h-3.5 text-or fill-current" />
-                                            ))}
-                                        </div>
-                                        {room.images && room.images.length > 0 && (
-                                            <div className="flex items-center space-x-2 text-white/80 bg-noir/40 backdrop-blur-sm px-2 py-1 rounded text-[10px]">
-                                                <Images className="w-3 h-3" />
-                                                <span>{room.images.length + 1}</span>
-                                            </div>
-                                        )}
-                                    </div>
                                 </div>
+                                {/* Decorative elements */}
+                                <div className={`absolute -bottom-6 -z-10 w-2/3 h-2/3 border border-or/30 ${index % 2 === 0 ? '-left-6' : '-right-6'}`}></div>
+                            </div>
 
-                                {/* Contenu */}
-                                <div className="p-8">
-                                    <h3 className="font-display text-2xl font-medium text-noir mb-3">
-                                        {room.name}
-                                    </h3>
-
-                                    <p className="font-body text-sm text-noir/70 mb-6 leading-relaxed whitespace-pre-wrap">
-                                        {room.description}
-                                    </p>
-
-                                    {/* Capacité */}
-                                    <div className="flex items-center space-x-2 text-noir/60 mb-6 pb-6 border-b border-noir/10">
-                                        <Users className="w-4 h-4" />
-                                        <span className="font-body text-sm">{room.capacity}</span>
-                                    </div>
-
-                                    {/* Caractéristiques */}
-                                    <div className="space-y-3 mb-8">
-                                        {room.features.map((feature, idx) => (
-                                            <div key={idx} className="flex items-center space-x-3">
-                                                <div className="w-1 h-1 bg-or rounded-full"></div>
-                                                <span className="font-body text-sm text-noir/70">{feature}</span>
-                                            </div>
+                            {/* Content Side */}
+                            <div className="w-full lg:w-1/2">
+                                <div className="mb-4 flex items-center space-x-2">
+                                    <div className="flex text-or">
+                                        {[...Array(room.rating)].map((_, i) => (
+                                            <Star key={i} className="w-4 h-4 fill-current" />
                                         ))}
                                     </div>
-
-                                    {/* Bouton CTA */}
-                                    <Link
-                                        href={`/contact?room=${room.id}`}
-                                        className="group/btn w-full border border-noir text-noir hover:bg-noir hover:text-blanc py-3 font-body text-sm transition-all duration-300 flex items-center justify-center space-x-2"
-                                    >
-                                        <span>Réserver maintenant</span>
-                                        <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                                    </Link>
+                                    <span className="text-noir/40 font-body text-sm">|</span>
+                                    <span className="text-noir/60 font-body text-sm">{room.capacity}</span>
+                                    {room.petsAllowed && (
+                                        <>
+                                            <span className="text-noir/40 font-body text-sm">|</span>
+                                            <span className="text-noir/60 font-body text-sm">Animaux bienvenus</span>
+                                        </>
+                                    )}
                                 </div>
-                            </motion.div>
-                        ))}
-                    </div>
+
+                                <h2 className="font-display text-4xl lg:text-5xl font-medium text-noir mb-6">
+                                    {room.name}
+                                </h2>
+
+                                {/* Technical Specs Grid */}
+                                <div className="grid grid-cols-3 gap-4 mb-8 border-b border-noir/10 pb-6">
+                                    {room.surface && (
+                                        <div>
+                                            <span className="block text-xs font-body text-noir/40 uppercase tracking-widest mb-1">Surface</span>
+                                            <span className="block font-display text-lg text-noir">{room.surface}</span>
+                                        </div>
+                                    )}
+                                    {room.bedding && (
+                                        <div className="col-span-2">
+                                            <span className="block text-xs font-body text-noir/40 uppercase tracking-widest mb-1">Literie</span>
+                                            <span className="block font-display text-lg text-noir">{room.bedding}</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <p className="font-body text-lg text-noir/70 mb-8 leading-relaxed font-light">
+                                    {room.description}
+                                </p>
+
+                                {/* Features Grid */}
+                                <div className="grid grid-cols-2 gap-y-3 gap-x-8 mb-8">
+                                    {room.features.slice(0, 8).map((feature, idx) => (
+                                        <div key={idx} className="flex items-center space-x-3">
+                                            <div className="w-1.5 h-1.5 bg-or rounded-full"></div>
+                                            <span className="font-body text-sm text-noir/80">{feature}</span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Pricing Breakdown */}
+                                <div className="bg-gray-50 p-6 rounded-lg mb-8">
+                                    <h3 className="font-display text-lg text-noir mb-4">Tarifs par nuit</h3>
+                                    <div className="space-y-2">
+                                        {room.price1Person && (
+                                            <div className="flex justify-between items-center bg-white p-3 rounded border border-gray-100">
+                                                <span className="font-body text-sm text-noir/70">1 Personne</span>
+                                                <span className="font-display text-lg text-or">{room.price1Person}</span>
+                                            </div>
+                                        )}
+                                        {room.price2Persons && (
+                                            <div className="flex justify-between items-center bg-white p-3 rounded border border-gray-100">
+                                                <span className="font-body text-sm text-noir/70">2 Personnes</span>
+                                                <span className="font-display text-lg text-or">{room.price2Persons}</span>
+                                            </div>
+                                        )}
+                                        {room.price3Persons && (
+                                            <div className="flex justify-between items-center bg-white p-3 rounded border border-gray-100">
+                                                <span className="font-body text-sm text-noir/70">3+ Personnes</span>
+                                                <span className="font-display text-lg text-or">{room.price3Persons}</span>
+                                            </div>
+                                        )}
+                                        <div className="text-xs text-noir/40 mt-2 font-body italic text-center">
+                                            {room.petsAllowed ? 'Supplément chien: 10€ / nuit' : ''}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <Link
+                                        href={`/contact?room=${room.id}&subject=reservation`}
+                                        className="bg-noir text-blanc px-8 py-4 font-body text-sm uppercase tracking-widest hover:bg-or transition-colors duration-300 text-center"
+                                    >
+                                        Réserver ce séjour
+                                    </Link>
+
+                                    {room.images && room.images.length > 0 && (
+                                        <button
+                                            onClick={() => setSelectedRoomGallery({
+                                                images: [room.imageUrl, ...(room.images?.map(img => img.url) || [])],
+                                                name: room.name
+                                            })}
+                                            className="border border-noir text-noir px-8 py-4 font-body text-sm uppercase tracking-widest hover:bg-noir hover:text-blanc transition-all duration-300 flex items-center justify-center space-x-2"
+                                        >
+                                            <Maximize2 className="w-4 h-4" />
+                                            <span>Voir Photos</span>
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
             </section>
 
-            {/* Services Section */}
-            <section className="py-24 bg-blanc-200">
+            {/* Services Highlight */}
+            <section className="py-24 bg-neutre-clair">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true }}
-                        className="text-center mb-16"
-                    >
-                        <div className="w-12 h-px bg-or mx-auto mb-6"></div>
-                        <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
-                            Services & Équipements
-                        </h2>
-                        <p className="font-body text-lg text-noir/70 max-w-3xl mx-auto leading-relaxed">
-                            Profitez de nos équipements de luxe et de nos services personnalisés
-                        </p>
-                    </motion.div>
+                    <div className="text-center mb-16">
+                        <span className="font-body text-xs text-or tracking-[0.2em] uppercase block mb-4">Confort Absolu</span>
+                        <h3 className="font-display text-4xl text-noir">Services Inclus</h3>
+                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         {[
-                            { icon: Wifi, title: 'WiFi Premium', description: 'Connexion haut débit dans toutes les chambres' },
-                            { icon: Coffee, title: 'Room Service', description: 'Service 24h/24 pour votre confort' },
-                            { icon: Car, title: 'Parking Privé', description: 'Parking sécurisé gratuit' },
-                            { icon: CalendarIcon, title: 'Réservation', description: 'Annulation gratuite jusqu\'à 48h avant' },
-                        ].map((service, index) => (
-                            <motion.div
-                                key={service.title}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                                className="text-center"
-                            >
-                                <div className="w-16 h-16 border border-noir/20 flex items-center justify-center mx-auto mb-6 hover:border-or transition-colors duration-300">
-                                    <service.icon className="w-7 h-7 text-or" />
-                                </div>
-                                <h3 className="font-display text-xl font-medium text-noir mb-3">
-                                    {service.title}
-                                </h3>
-                                <p className="font-body text-sm text-noir/70 leading-relaxed">
-                                    {service.description}
-                                </p>
-                            </motion.div>
+                            { icon: Wifi, title: 'WiFi Haut Débit', desc: 'Connexion fibre optique' },
+                            { icon: Coffee, title: 'Petit Déjeuner', desc: 'Produits locaux et frais' },
+                            { icon: Car, title: 'Parking Privé', desc: 'Sécurisé et gratuit' },
+                            { icon: CalendarIcon, title: 'Conciergerie', desc: 'À votre service 24/7' },
+                        ].map((item, idx) => (
+                            <div key={idx} className="bg-white p-8 border border-noir/5 text-center group hover:border-or/30 transition-colors duration-300">
+                                <item.icon className="w-8 h-8 text-noir mx-auto mb-6 group-hover:text-or transition-colors duration-300" />
+                                <h4 className="font-display text-xl mb-2">{item.title}</h4>
+                                <p className="font-body text-sm text-noir/60">{item.desc}</p>
+                            </div>
                         ))}
                     </div>
                 </div>

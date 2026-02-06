@@ -60,29 +60,16 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
     return (
         <>
             {/* Hero Section */}
-            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden mt-[120px]">
-                <div className="absolute inset-0">
-                    {pageHero?.imageUrl && (
-                        <Image
-                            src={pageHero.imageUrl}
-                            alt={pageHero.title}
-                            fill
-                            priority
-                            className="object-cover"
-                            sizes="100vw"
-                        />
-                    )}
-                    <div className="absolute inset-0 bg-black/40"></div>
-                </div>
-
+            {/* Hero Section */}
+            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
                     >
-                        <div className="w-12 h-px bg-or mx-auto mb-6"></div>
-                        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium mb-6">
+                        <div className="w-12 h-px bg-[#C6ad7a] mx-auto mb-6"></div>
+                        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium mb-6 text-[#C6ad7a]">
                             {pageHero?.title || 'Vie Locale & Découvertes'}
                         </h1>
                         <p className="font-body text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">

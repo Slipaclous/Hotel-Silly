@@ -32,64 +32,44 @@ export default function AdminWrapper({
     };
 
     return (
-        <div className="space-y-6 animate-fade-in font-body pb-20">
-            {/* Grain Background Texture */}
-            <div className="fixed inset-0 bg-grain pointer-events-none z-0" />
-
-            {/* Breadcrumbs */}
-            <div className="relative z-10 flex items-center space-x-2 text-[10px] uppercase tracking-[0.2em] text-noir/30 font-bold mb-2">
-                <span>Administration</span>
-                <ChevronRight className="w-3 h-3" />
-                <span className="text-or">Éditeur</span>
-                <ChevronRight className="w-3 h-3" />
-                <span className="text-noir/60">{title}</span>
-                <div className="ml-auto flex items-center space-x-4">
-                    <span className="flex items-center space-x-1.5 text-emerald-500/60">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>Système Actif</span>
-                    </span>
-                </div>
-            </div>
-
-            {/* Premium Header - Contrast & Visibilité Renforcés */}
-            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white border border-noir/15 p-6 lg:p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] overflow-hidden">
-                <div className="flex items-center space-x-6">
-                    <div className="w-14 h-14 rounded-2xl bg-noir flex items-center justify-center shadow-xl shrink-0 group">
-                        <Layout className="w-6 h-6 text-or transition-transform group-hover:scale-110" />
-                    </div>
-                    <div>
-                        <h2 className="text-3xl font-display text-noir tracking-tight leading-none mb-2">{title}</h2>
-                        {description && (
-                            <p className="text-noir/50 font-body text-[11px] max-w-lg leading-relaxed italic">
-                                {description}
-                            </p>
-                        )}
-                    </div>
+        <div className="font-body min-h-screen bg-gray-50 pb-20 pl-64">
+            {/* Header Section */}
+            <div className="bg-white border-b border-gray-200 px-8 py-6 mb-8 sticky top-0 z-40 flex items-center justify-between shadow-sm">
+                <div>
+                    <h2 className="text-2xl font-bold text-gray-900 font-display">{title}</h2>
+                    {description && (
+                        <p className="text-sm text-gray-500 mt-1">{description}</p>
+                    )}
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center space-x-3">
                     {previewUrl && (
-                        <div className="flex  items-center bg-noir/[0.04] p-1.5 rounded-2xl border border-noir/10">
+                        <div className="flex bg-gray-100 p-1 rounded-lg border border-gray-200">
                             <button
-                                onClick={() => setView(view === 'editor' ? 'preview' : 'editor')}
-                                className={`px-6 py-3 rounded-xl transition-all flex items-center space-x-3 text-sm font-bold shadow-sm ${view === 'preview'
-                                    ? 'bg-or text-white shadow-lg shadow-or/30 hover:bg-or/90'
-                                    : 'bg-noir text-black shadow-lg shadow-noir/20 hover:bg-noir/90'
-                                    }`}
+                                onClick={() => setView('editor')}
+                                className={`px-4 py-2 rounded-md text-xs font-bold transition-all ${view === 'editor' ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5' : 'text-gray-500 hover:text-gray-900'}`}
                             >
-                                {view === 'preview' ? <Layout className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                                <span className="uppercase tracking-widest text-[10px]">
-                                    {view === 'preview' ? 'Retour à l\'édition' : 'Voir le rendu'}
-                                </span>
+                                <div className="flex items-center space-x-2">
+                                    <Layout className="w-3.5 h-3.5" />
+                                    <span>Éditeur</span>
+                                </div>
+                            </button>
+                            <button
+                                onClick={() => setView('preview')}
+                                className={`px-4 py-2 rounded-md text-xs font-bold transition-all ${view === 'preview' ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5' : 'text-gray-500 hover:text-gray-900'}`}
+                            >
+                                <div className="flex items-center space-x-2">
+                                    <Eye className="w-3.5 h-3.5" />
+                                    <span>Aperçu</span>
+                                </div>
                             </button>
                             <a
                                 href={previewUrl}
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-3 rounded-xl text-noir/60 hover:text-or hover:bg-white transition-all ml-1 shadow-sm border border-transparent hover:border-noir/5"
-                                title="Nouvel onglet"
+                                className="px-3 flex items-center text-gray-400 hover:text-gray-600 border-l border-gray-200 ml-1 pl-2"
+                                title="Ouvrir dans un nouvel onglet"
                             >
-                                <ExternalLink className="w-4 h-4" />
+                                <ExternalLink className="w-3.5 h-3.5" />
                             </a>
                         </div>
                     )}
@@ -98,83 +78,56 @@ export default function AdminWrapper({
                         <button
                             onClick={onSave}
                             disabled={saving}
-                            className="px-8 py-4 rounded-xl bg-or text-white font-body font-bold flex items-center space-x-3 hover:shadow-[0_15px_30px_rgba(198,173,122,0.3)] transition-all duration-300 disabled:opacity-50 shadow-md active:scale-95 border border-or/20"
+                            className="bg-or hover:bg-black text-white px-6 py-2.5 rounded-lg flex items-center space-x-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium text-sm shadow-sm"
                         >
                             <Save className={`w-4 h-4 ${saving ? 'animate-spin' : ''}`} />
-                            <span className="uppercase tracking-widest text-[10px]">{saving ? 'Publication...' : 'Enregistrer'}</span>
+                            <span>{saving ? 'Enregistrement...' : 'Enregistrer'}</span>
                         </button>
                     )}
                 </div>
             </div>
 
             {/* Content Area */}
-            <div className="relative z-10 min-h-[500px]">
-                {view === 'editor' ? (
-                    <div className="animate-fade-in max-w-5xl mx-auto lg:mx-0">
-                        {/* Status Message */}
-                        {message && (
-                            <div className={`mb-6 p-4 rounded-xl border shadow-sm ${message.includes('✅')
-                                ? 'bg-emerald-50 border-emerald-100 text-emerald-700'
-                                : 'bg-red-50 border-red-100 text-red-700'
-                                }`}>
-                                <div className="flex items-center space-x-3">
-                                    <Info className="w-4 h-4 shrink-0" />
-                                    <span className="text-xs font-bold">{message}</span>
-                                </div>
-                            </div>
-                        )}
+            <div className="px-8 max-w-7xl mx-auto">
+                {/* Status Message */}
+                {message && (
+                    <div className={`mb-6 p-4 rounded-lg border flex items-center space-x-3 animate-fade-in ${message.includes('✅')
+                            ? 'bg-green-50 border-green-200 text-green-700'
+                            : 'bg-red-50 border-red-200 text-red-700'
+                        }`}>
+                        <Info className="w-5 h-5 shrink-0" />
+                        <span className="font-medium text-sm">{message}</span>
+                    </div>
+                )}
 
-                        <div className="bg-white border border-noir/5 rounded-[2.5rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.02)]">
-                            <div className="p-8 lg:p-12">
-                                {children}
-                            </div>
+                {view === 'editor' ? (
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div className="p-8">
+                            {children}
                         </div>
                     </div>
                 ) : (
-                    <div className="animate-slide-in-right bg-noir rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-noir/10 ring-1 ring-noir/20 flex flex-col h-[calc(100vh-180px)]">
-                        {/* Device Selector - Visibilité Maximale */}
-                        <div className="h-16 bg-noir flex items-center justify-between px-8 border-b border-white/10">
-                            <div className="flex items-center space-x-6">
-                                <span className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Format d&apos;affichage</span>
-                                <div className="flex bg-white/5 p-1 rounded-xl border border-white/5">
-                                    <button
-                                        onClick={() => setDevice('desktop')}
-                                        className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${device === 'desktop' ? 'bg-or text-white shadow-lg' : 'text-white/40 hover:text-white hover:bg-white/5'}`}
-                                    >
-                                        <Monitor className="w-4 h-4 text-black" />
-                                        <span className="text-[10px] font-bold text-black uppercase tracking-wider">Desktop</span>
-                                    </button>
-                                    <button
-                                        onClick={() => setDevice('tablet')}
-                                        className={`flex items-center space-x-2 px-4 py-2 text-black rounded-lg transition-all ${device === 'tablet' ? 'bg-or text-white shadow-lg' : 'text-white/40 hover:text-white hover:bg-white/5'}`}
-                                    >
-                                        <Tablet className="w-4 text-black h-4" />
-                                        <span className="text-[10px] font-bold text-black uppercase tracking-wider">Tablette</span>
-                                    </button>
-                                    <button
-                                        onClick={() => setDevice('mobile')}
-                                        className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${device === 'mobile' ? 'bg-or text-white shadow-lg' : 'text-white/40 hover:text-white hover:bg-white/5'}`}
-                                    >
-                                        <Smartphone className="w-4 h-4 text-black" />
-                                        <span className="text-[10px] font-bold text-black uppercase tracking-wider">Mobile</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="hidden md:flex items-center space-x-3">
-                                <div className="flex items-center space-x-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                    <span className="text-[9px] text-emerald-500 font-bold uppercase tracking-widest">Temps Réel</span>
-                                </div>
-                            </div>
+                    <div className="flex flex-col h-[calc(100vh-200px)]">
+                        {/* Device Toolbar */}
+                        <div className="bg-gray-800 text-white p-2 rounded-t-xl flex justify-center space-x-4">
+                            <button onClick={() => setDevice('desktop')} className={`p-2 rounded hover:bg-white/10 ${device === 'desktop' ? 'text-or bg-white/10' : 'text-gray-400'}`}>
+                                <Monitor className="w-5 h-5" />
+                            </button>
+                            <button onClick={() => setDevice('tablet')} className={`p-2 rounded hover:bg-white/10 ${device === 'tablet' ? 'text-or bg-white/10' : 'text-gray-400'}`}>
+                                <Tablet className="w-5 h-5" />
+                            </button>
+                            <button onClick={() => setDevice('mobile')} className={`p-2 rounded hover:bg-white/10 ${device === 'mobile' ? 'text-or bg-white/10' : 'text-gray-400'}`}>
+                                <Smartphone className="w-5 h-5" />
+                            </button>
                         </div>
 
-                        {/* Preview Iframe */}
-                        <div className="flex-1 bg-noir/40 flex items-start justify-center overflow-auto custom-scrollbar p-6 lg:p-12">
-                            <div className={`transition-all duration-700 h-full bg-white shadow-[0_50px_100px_rgba(0,0,0,0.5)] mx-auto overflow-hidden relative rounded-2xl ${deviceWidths[device]}`}>
+                        {/* Preview Frame */}
+                        <div className="flex-1 bg-gray-100 border-x border-b border-gray-200 rounded-b-xl flex justify-center p-8 overflow-auto">
+                            <div className={`bg-white shadow-2xl transition-all duration-300 ${deviceWidths[device]} h-full`}>
                                 <iframe
                                     src={previewUrl}
-                                    className="w-full h-full border-none min-h-[1000px] pointer-events-auto"
-                                    title="Site Preview"
+                                    className="w-full h-full border-none"
+                                    title="Aperçu mobile"
                                 />
                             </div>
                         </div>

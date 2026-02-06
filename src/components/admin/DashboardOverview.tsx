@@ -81,45 +81,34 @@ export default function DashboardOverview() {
     }
 
     return (
-        <div className="space-y-12 animate-fade-in pb-10">
+        <div className="space-y-8 pb-10">
             {/* Header Pro */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h2 className="text-4xl font-display text-noir mb-1 tracking-tight italic">Portfolio Manager</h2>
-                    <p className="text-noir/30 font-body text-[10px] font-bold uppercase tracking-[0.4em] ml-1">Système de Direction Opérationnelle</p>
-                </div>
-                <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2 bg-emerald-500/10 px-4 py-2 rounded-full border border-emerald-500/20">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-widest font-body">Portail Actif</span>
-                    </div>
+                    <h2 className="text-3xl font-bold text-gray-900 font-display">Vue d&apos;ensemble</h2>
+                    <p className="text-gray-500 text-sm mt-1">Bienvenue sur votre espace de gestion.</p>
                 </div>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {statCards.map((stat, index) => (
                     <div
                         key={index}
-                        className="group relative p-8 rounded-[2.5rem] bg-white border border-noir/5 hover:border-or/30 transition-all duration-700 hover:shadow-2xl shadow-sm overflow-hidden"
+                        className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200"
                     >
-                        <div className="absolute bottom-0 right-0 w-24 h-24 bg-or/5 rounded-full translate-y-12 translate-x-12 blur-2xl group-hover:bg-or/10 transition-colors" />
-
-                        <div className="flex items-start justify-between mb-8 relative z-10">
-                            <div className={`w-14 h-14 rounded-2xl ${stat.bg} flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                        <div className="flex items-start justify-between mb-4">
+                            <div className={`w-12 h-12 rounded-lg ${stat.bg} flex items-center justify-center`}>
                                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
                             </div>
-                            <div className="flex flex-col items-end">
-                                <div className="flex items-center text-emerald-500 space-x-1">
-                                    <TrendingUp className="w-3 h-3" />
-                                    <span className="text-[10px] font-bold font-body uppercase tracking-tighter">Actif</span>
-                                </div>
-                            </div>
+                            <span className="flex items-center text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                                <TrendingUp className="w-3 h-3 mr-1" />
+                                Actif
+                            </span>
                         </div>
-
-                        <div className="relative z-10">
-                            <p className="text-5xl font-display text-noir mb-2 leading-none tracking-tighter">{stat.value}</p>
-                            <p className="text-[10px] font-body text-noir/60 uppercase tracking-[0.2em] font-bold border-l border-or/50 pl-3 ml-1 mt-3">{stat.label}</p>
+                        <div>
+                            <p className="text-3xl font-bold text-gray-900 font-display">{stat.value}</p>
+                            <p className="text-sm text-gray-500 font-medium mt-1">{stat.label}</p>
                         </div>
                     </div>
                 ))}
@@ -128,35 +117,28 @@ export default function DashboardOverview() {
             {/* Activités & Actions */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Dernières Activités */}
-                <div className="lg:col-span-2 rounded-[2.5rem] bg-white border border-noir/5 p-10 shadow-sm relative overflow-hidden">
-                    <div className="flex items-center justify-between mb-8">
-                        <div>
-                            <h3 className="text-2xl font-display text-noir tracking-tight">Activités Récentes</h3>
-                            <p className="text-[10px] font-body text-noir/40 uppercase tracking-widest mt-1">Dernières modifications sur le site</p>
-                        </div>
-                        <div className="p-3 bg-noir/[0.02] rounded-2xl border border-noir/5">
-                            <BarChart3 className="w-5 h-5 text-or" />
-                        </div>
+                <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+                        <h3 className="text-lg font-bold text-gray-900 font-display">Activités Récentes</h3>
+                        <BarChart3 className="w-5 h-5 text-gray-400" />
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="divide-y divide-gray-100">
                         {recentActivities.map((activity, i) => (
-                            <div key={i} className="flex items-center justify-between p-5 rounded-[1.5rem] bg-noir/[0.01] hover:bg-white hover:shadow-xl hover:shadow-noir/5 transition-all duration-500 border border-transparent hover:border-noir/5 group">
-                                <div className="flex items-center space-x-5">
-                                    <div className="w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center text-or group-hover:bg-noir group-hover:text-white transition-all duration-500">
+                            <div key={i} className="flex items-center justify-between p-6 hover:bg-gray-50 transition-colors">
+                                <div className="flex items-center space-x-4">
+                                    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
                                         <activity.icon className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <div className="flex items-center space-x-3 mb-1">
-                                            <span className="text-[8px] font-bold text-or uppercase tracking-[0.2em] border border-or/20 px-2 py-0.5 rounded">
-                                                {activity.section}
-                                            </span>
-                                        </div>
-                                        <h4 className="text-md font-display text-noir group-hover:translate-x-1 transition-transform">{activity.action}</h4>
+                                        <span className="text-xs font-bold text-or uppercase tracking-wider mb-0.5 block">
+                                            {activity.section}
+                                        </span>
+                                        <p className="text-sm font-medium text-gray-900">{activity.action}</p>
                                     </div>
                                 </div>
-                                <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600">
-                                    <ShieldCheck className="w-4 h-4" />
+                                <div className="text-gray-300">
+                                    <ShieldCheck className="w-5 h-5" />
                                 </div>
                             </div>
                         ))}
@@ -164,30 +146,30 @@ export default function DashboardOverview() {
                 </div>
 
                 {/* Quick Utilities */}
-                <div className="flex flex-col gap-8">
-                    <div className="p-10 rounded-[2.5rem] bg-[#2c3840] text-white shadow-xl relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-or/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                        <h3 className="text-xl font-display mb-4 relative z-10 italic">Villa Dolce en direct</h3>
-                        <p className="text-white/60 text-xs font-body mb-8 relative z-10 leading-relaxed">
-                            Vérifiez le rendu de vos modifications sur l&apos;interface publique.
+                <div className="flex flex-col gap-6">
+                    <div className="p-6 rounded-xl bg-[#2c3840] text-white shadow-lg relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                        <h3 className="text-lg font-bold mb-2 relative z-10 font-display">Accès Rapide</h3>
+                        <p className="text-white/70 text-sm mb-6 relative z-10">
+                            Consultez le site en direct pour vérifier vos modifications.
                         </p>
                         <a
                             href="/"
                             target="_blank"
-                            className="flex items-center justify-between p-4 rounded-xl bg-white/10 hover:bg-white text-white hover:text-noir transition-all group/btn border border-white/5 shadow-lg"
+                            className="flex items-center justify-center w-full py-3 rounded-lg bg-white text-[#2c3840] hover:bg-gray-100 transition-colors font-bold text-sm shadow-sm"
                         >
-                            <span className="text-[10px] font-bold uppercase tracking-widest leading-none">Visiter le site</span>
-                            <ExternalLink className="w-4 h-4 group-hover/btn:rotate-45 transition-transform" />
+                            <span>Visiter le site</span>
+                            <ExternalLink className="w-4 h-4 ml-2" />
                         </a>
                     </div>
 
-                    <div className="p-10 rounded-[2.5rem] bg-white border border-noir/5 shadow-sm">
-                        <div className="w-10 h-10 rounded-xl bg-or/10 flex items-center justify-center mb-6">
+                    <div className="p-6 rounded-xl bg-white border border-gray-200 shadow-sm">
+                        <div className="flex items-center space-x-3 mb-3">
                             <Zap className="w-5 h-5 text-or" />
+                            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">Conseil</h3>
                         </div>
-                        <h3 className="text-lg font-display text-noir mb-2">Conseil Expert</h3>
-                        <p className="text-noir/40 font-body text-[11px] leading-relaxed italic">
-                            Un site mis à jour régulièrement est mieux référencé. Pensez à renouveler vos visuels.
+                        <p className="text-gray-500 text-sm leading-relaxed">
+                            Pensez à mettre à jour vos photos de chambres régulièrement pour maximiser les réservations.
                         </p>
                     </div>
                 </div>

@@ -77,21 +77,24 @@ export default function RoomsEditor() {
 
   return (
     <AdminWrapper
-      title="Catalogue des Chambres"
-      description="Gérez les suites et chambres de l'hôtel. Présentez vos plus beaux atouts."
+      title="Gestions des Chambres"
+      description="Ajoutez et modifiez les chambres et suites de l'hôtel."
       message={message}
       previewUrl="/chambres"
     >
-      <div className="space-y-8">
+      <div className="space-y-6">
         {/* Header Actions */}
-        <div className="flex justify-end">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-lg font-bold text-gray-900 font-display">
+            {isAdding ? 'Ajouter une chambre' : editingRoom ? 'Modifier la chambre' : 'Liste des chambres'}
+          </h3>
           {!isAdding && !editingRoom && (
             <button
               onClick={() => setIsAdding(true)}
-              className="flex items-center space-x-2 bg-white border border-noir/5 hover:border-or/50 hover:bg-or/5 text-noir px-6 py-3 rounded-xl transition-all duration-300 group shadow-sm"
+              className="flex items-center space-x-2 bg-or hover:bg-black text-white px-4 py-2 rounded-lg transition-all duration-200 shadow-sm font-medium text-sm"
             >
-              <Plus className="w-5 h-5 text-or group-hover:scale-110 transition-transform" />
-              <span className="font-body font-bold text-sm">Ajouter une suite</span>
+              <Plus className="w-4 h-4" />
+              <span>Ajouter</span>
             </button>
           )}
         </div>
@@ -118,74 +121,68 @@ export default function RoomsEditor() {
 
         {/* Rooms Grid */}
         {!isAdding && !editingRoom && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {rooms.length === 0 ? (
-              <div className="col-span-full py-20 text-center border-2 border-dashed border-white/5 rounded-3xl">
-                <Bed className="w-12 h-12 text-white/10 mx-auto mb-4" />
-                <p className="text-white/40 font-body">Aucune chambre pour le moment.</p>
+              <div className="col-span-full py-16 text-center border-2 border-dashed border-gray-200 rounded-xl bg-gray-50">
+                <Bed className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+                <p className="text-gray-500 font-medium text-sm">Aucune chambre pour le moment.</p>
               </div>
             ) : (
               rooms.map((room) => (
                 <div
                   key={room.id}
-                  className="group relative bg-white border border-noir/5 rounded-2xl overflow-hidden hover:border-or/30 transition-all duration-500 shadow-sm hover:shadow-xl"
+                  className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group"
                 >
-                  <div className="aspect-video relative overflow-hidden">
+                  <div className="aspect-[4/3] relative overflow-hidden bg-gray-100">
                     <Image
                       src={room.imageUrl || '/placeholder-room.jpg'}
                       alt={room.name}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-noir/40 via-transparent to-transparent opacity-60" />
-                    <div className="absolute top-4 right-4 flex space-x-2">
+                    <div className="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                       <button
                         onClick={() => setEditingRoom(room)}
-                        className="p-2.5 bg-white/90 backdrop-blur-md rounded-xl text-noir hover:bg-or hover:text-white transition-all duration-300 shadow-lg"
+                        className="p-2 bg-white rounded-lg text-gray-700 hover:text-or shadow-sm hover:shadow-md transition-all"
+                        title="Modifier"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(room.id)}
-                        className="p-2.5 bg-white/90 backdrop-blur-md rounded-xl text-noir hover:bg-red-500 hover:text-white transition-all duration-300 shadow-lg"
+                        className="p-2 bg-white rounded-lg text-gray-700 hover:text-red-600 shadow-sm hover:shadow-md transition-all"
+                        title="Supprimer"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
-                    {room.images && room.images.length > 0 && (
-                      <div className="absolute bottom-4 left-4 px-3 py-1.5 bg-noir/60 backdrop-blur-md rounded-lg text-white text-[10px] font-body flex items-center space-x-2">
-                        <Images className="w-3.5 h-3.5 text-or" />
-                        <span>{room.images.length} photos</span>
-                      </div>
-                    )}
+                    <div className="absolute bottom-3 left-3 px-2 py-1 bg-black/60 backdrop-blur-sm rounded-md text-white text-[10px] font-medium flex items-center space-x-1.5">
+                      <Images className="w-3 h-3" />
+                      <span>{room.images?.length || 0}</span>
+                    </div>
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-5">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-xl font-display text-noir">{room.name}</h3>
-                      <div className="flex items-center text-or font-bold">
-                        <Star className="w-3 h-3 fill-or mr-1" />
-                        <span className="text-xs">{room.rating}/5</span>
+                      <h4 className="font-bold text-gray-900 line-clamp-1">{room.name}</h4>
+                      <div className="flex items-center bg-gray-50 px-2 py-1 rounded text-xs font-semibold text-gray-600">
+                        <Star className="w-3 h-3 text-or mr-1 fill-or" />
+                        {room.rating}
                       </div>
                     </div>
 
-                    <p className="text-sm text-noir/50 font-body line-clamp-2 mb-6">
+                    <p className="text-sm text-gray-500 line-clamp-2 mb-4 h-10">
                       {room.description}
                     </p>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-noir/5">
-                      <div className="flex items-center space-x-4">
-                        <div className="flex items-center space-x-1.5 text-noir/30 text-xs font-body">
-                          <Users className="w-3.5 h-3.5" />
-                          <span>{room.capacity}</span>
-                        </div>
-                        <div className="flex items-center space-x-1.5 text-or text-xs font-bold font-body">
-                          <span>{room.price}</span>
-                        </div>
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-4">
+                      <div className="text-or font-bold text-sm">
+                        {room.price}
                       </div>
-                      <div className="text-[10px] font-body text-noir/20 uppercase tracking-widest bg-noir/[0.03] px-2 py-1 rounded-md">
-                        Ordre: {room.order}
+                      <div className="text-xs text-gray-400 flex items-center">
+                        <Users className="w-3 h-3 mr-1" />
+                        {room.capacity}
                       </div>
                     </div>
                   </div>
@@ -209,6 +206,16 @@ function RoomForm({ room, onCancel, onSuccess }: {
     description: room?.description || '',
     price: room?.price || '',
     capacity: room?.capacity || '',
+
+    // Nouveaux champs
+    surface: (room as any)?.surface || '',
+    bedding: (room as any)?.bedding || '',
+    bathroom: (room as any)?.bathroom || '',
+    price1Person: (room as any)?.price1Person || '',
+    price2Persons: (room as any)?.price2Persons || '',
+    price3Persons: (room as any)?.price3Persons || '',
+    petsAllowed: (room as any)?.petsAllowed ?? true,
+
     rating: room?.rating || 5,
     imageUrl: room?.imageUrl || '',
     galleryImages: room?.images?.map(img => img.url) || [] as string[],
@@ -246,24 +253,22 @@ function RoomForm({ room, onCancel, onSuccess }: {
     }
   };
 
-  const inputClasses = "w-full bg-noir/[0.03] border border-noir/10 rounded-xl px-4 py-3 text-noir focus:border-or/50 focus:ring-1 focus:ring-or/50 outline-none transition-all duration-300 font-body text-sm placeholder:text-noir/20 mt-1.5";
-  const labelClasses = "text-xs font-body font-bold text-noir/40 uppercase tracking-widest ml-1";
+  const inputClasses = "w-full bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-gray-900 focus:border-or focus:ring-1 focus:ring-or outline-none transition-all duration-200 text-sm placeholder:text-gray-400 mt-1.5";
+  const labelClasses = "text-xs font-semibold text-gray-500 uppercase tracking-wide ml-0.5";
 
   return (
-    <div className="bg-blanc-100/50 rounded-3xl p-8 border border-noir/5 relative overflow-hidden group shadow-inner">
-      <div className="absolute top-0 left-0 w-1.5 h-full bg-or" />
-
-      <div className="flex items-center justify-between mb-8">
-        <h3 className="text-2xl font-display text-noir">
-          {room ? 'Éditer la suite' : 'Nouvelle suite de luxe'}
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 relative overflow-hidden">
+      <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+        <h3 className="text-xl font-bold text-gray-900 font-display">
+          {room ? 'Éditer la chambre' : 'Nouvelle chambre'}
         </h3>
-        <button onClick={onCancel} className="p-2 text-noir/20 hover:text-noir transition-colors">
+        <button onClick={onCancel} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all">
           <X className="w-5 h-5" />
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="p-8 space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <label className={labelClasses}>Nom de la chambre</label>
             <input
@@ -276,27 +281,119 @@ function RoomForm({ room, onCancel, onSuccess }: {
             />
           </div>
           <div>
-            <label className={labelClasses}>Prix par nuit</label>
+            <label className={labelClasses}>Prix "à partir de"</label>
             <input
               type="text"
               value={formData.price}
               onChange={(e) => setFormData({ ...formData, price: e.target.value })}
               required
-              placeholder="ex: À partir de 850€"
+              placeholder="ex: 850€"
               className={inputClasses}
             />
           </div>
         </div>
 
+        {/* Spécifications Techniques */}
+        <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+          <h4 className="font-bold text-sm text-gray-900 mb-4 flex items-center uppercase tracking-wide">
+            <Bed className="w-4 h-4 mr-2 text-or" />
+            Détails techniques
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label className={labelClasses}>Surface (m²)</label>
+              <input
+                type="text"
+                value={formData.surface}
+                onChange={(e) => setFormData({ ...formData, surface: e.target.value })}
+                placeholder="ex: 35m²"
+                className={inputClasses}
+              />
+            </div>
+            <div>
+              <label className={labelClasses}>Literie</label>
+              <input
+                type="text"
+                value={formData.bedding}
+                onChange={(e) => setFormData({ ...formData, bedding: e.target.value })}
+                placeholder="ex: King Size (180x200)"
+                className={inputClasses}
+              />
+            </div>
+            <div>
+              <label className={labelClasses}>Salle de bain</label>
+              <input
+                type="text"
+                value={formData.bathroom}
+                onChange={(e) => setFormData({ ...formData, bathroom: e.target.value })}
+                placeholder="ex: Douche à l'italienne"
+                className={inputClasses}
+              />
+            </div>
+            <div className="md:col-span-3 flex items-center mt-2 px-1">
+              <input
+                type="checkbox"
+                id="petsAllowed"
+                checked={formData.petsAllowed}
+                onChange={(e) => setFormData({ ...formData, petsAllowed: e.target.checked })}
+                className="w-4 h-4 text-or border-gray-300 rounded focus:ring-or cursor-pointer"
+              />
+              <label htmlFor="petsAllowed" className="ml-2 text-sm text-gray-600 cursor-pointer select-none">
+                Animaux de compagnie acceptés
+              </label>
+            </div>
+          </div>
+        </div>
+
+        {/* Grille Tarifs */}
+        <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+          <h4 className="font-bold text-sm text-gray-900 mb-4 flex items-center uppercase tracking-wide">
+            <Star className="w-4 h-4 mr-2 text-or" />
+            Grille Tarifaire (Détails)
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label className={labelClasses}>1 Personne</label>
+              <input
+                type="text"
+                value={formData.price1Person}
+                onChange={(e) => setFormData({ ...formData, price1Person: e.target.value })}
+                placeholder="ex: 150€"
+                className={inputClasses}
+              />
+            </div>
+            <div>
+              <label className={labelClasses}>2 Personnes</label>
+              <input
+                type="text"
+                value={formData.price2Persons}
+                onChange={(e) => setFormData({ ...formData, price2Persons: e.target.value })}
+                placeholder="ex: 180€"
+                className={inputClasses}
+              />
+            </div>
+            <div>
+              <label className={labelClasses}>3+ Personnes</label>
+              <input
+                type="text"
+                value={formData.price3Persons}
+                onChange={(e) => setFormData({ ...formData, price3Persons: e.target.value })}
+                placeholder="ex: 220€"
+                className={inputClasses}
+              />
+            </div>
+          </div>
+        </div>
+
         <div>
-          <label className={labelClasses}>Description détaillée</label>
+          <label className={labelClasses}>Description</label>
           <textarea
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             required
-            rows={6}
-            className={`${inputClasses} resize-y min-h-[150px]`}
-            placeholder="Décrivez les atouts majeurs de cette chambre. Les retours à la ligne seront conservés sur le site."
+            rows={5}
+            className={`${inputClasses} resize-y min-h-[120px]`}
+            placeholder="Description détaillée..."
           />
         </div>
 
@@ -313,7 +410,7 @@ function RoomForm({ room, onCancel, onSuccess }: {
             />
           </div>
           <div>
-            <label className={labelClasses}>Classement (1-5)</label>
+            <label className={labelClasses}>Note (1-5)</label>
             <input
               type="number"
               min="1"
@@ -325,7 +422,7 @@ function RoomForm({ room, onCancel, onSuccess }: {
             />
           </div>
           <div>
-            <label className={labelClasses}>Ordre d&apos;affichage</label>
+            <label className={labelClasses}>Ordre</label>
             <input
               type="number"
               min="1"
@@ -342,7 +439,7 @@ function RoomForm({ room, onCancel, onSuccess }: {
             type="text"
             value={formData.features}
             onChange={(e) => setFormData({ ...formData, features: e.target.value })}
-            placeholder="Vue mer, Balcon, WiFi, Climatisation, Mini-bar..."
+            placeholder="Vue mer, Balcon, WiFi, Climatisation..."
             className={inputClasses}
           />
         </div>
@@ -351,30 +448,30 @@ function RoomForm({ room, onCancel, onSuccess }: {
           <ImageUpload
             value={formData.imageUrl}
             onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-            label="Image de couverture (Principale)"
+            label="Image Principale"
           />
           <MultiImageUpload
             values={formData.galleryImages}
             onChange={(urls) => setFormData({ ...formData, galleryImages: urls })}
-            label="Galerie photos de la suite"
+            label="Galerie Photos"
           />
         </div>
 
-        <div className="flex items-center space-x-4 pt-6">
-          <button
-            type="submit"
-            disabled={saving}
-            className="flex-1 bg-or text-white font-body font-bold py-4 rounded-xl hover:shadow-[0_10px_30px_rgba(198,173,122,0.3)] transition-all duration-300 disabled:opacity-50 flex items-center justify-center space-x-2"
-          >
-            <Save className="w-5 h-5" />
-            <span>{saving ? 'Enregistrement...' : 'Enregistrer les modifications'}</span>
-          </button>
+        <div className="flex items-center space-x-4 pt-6 border-t border-gray-100">
           <button
             type="button"
             onClick={onCancel}
-            className="px-8 py-4 rounded-xl bg-noir/[0.05] text-noir/60 hover:bg-noir/10 font-body font-bold transition-all"
+            className="px-6 py-2.5 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium transition-all text-sm"
           >
             Annuler
+          </button>
+          <button
+            type="submit"
+            disabled={saving}
+            className="px-6 py-2.5 bg-or text-white font-bold rounded-lg hover:bg-black transition-all duration-200 disabled:opacity-50 flex items-center space-x-2 text-sm ml-auto shadow-sm"
+          >
+            <Save className="w-4 h-4" />
+            <span>{saving ? 'Enregistrement...' : 'Enregistrer'}</span>
           </button>
         </div>
       </form>

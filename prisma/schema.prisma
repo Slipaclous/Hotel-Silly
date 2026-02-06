@@ -68,8 +68,22 @@ model Room {
   id          Int            @id @default(autoincrement())
   name        String
   description String         @db.Text
-  price       String
+  price       String         // Prix "à partir de"
   capacity    String
+  
+  // Nouvelles spécifications techniques
+  surface     String?        // ex: "25m²"
+  bedding     String?        // ex: "Lit King Size"
+  bathroom    String?        // ex: "Douche à l'italienne"
+  
+  // Détail des Tarifs
+  price1Person  String?
+  price2Persons String?
+  price3Persons String?
+  
+  // Options
+  petsAllowed   Boolean        @default(true) 
+  
   rating      Int            @default(5)
   imageUrl    String         // Image principale (couverture)
   images      GalleryImage[] // Galerie complète de la chambre

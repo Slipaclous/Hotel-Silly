@@ -68,8 +68,8 @@ export default function ImageUpload({ value, onChange, label = 'Image' }: ImageU
   };
 
   return (
-    <div className="space-y-3">
-      <label className="text-xs font-body font-bold text-noir/40 uppercase tracking-widest ml-1">
+    <div className="space-y-2">
+      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide ml-0.5">
         {label}
       </label>
 
@@ -80,9 +80,9 @@ export default function ImageUpload({ value, onChange, label = 'Image' }: ImageU
           onDragOver={handleDrag}
           onDrop={handleDrop}
           onClick={() => inputRef.current?.click()}
-          className={`relative aspect-video rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer flex flex-col items-center justify-center space-y-4 group overflow-hidden ${dragActive
-            ? 'border-or bg-or/5 shadow-inner'
-            : 'border-noir/10 bg-noir/[0.02] hover:bg-noir/[0.04] hover:border-or/30 shadow-sm'
+          className={`relative aspect-video rounded-xl border-2 border-dashed transition-all duration-200 cursor-pointer flex flex-col items-center justify-center space-y-3 group overflow-hidden ${dragActive
+            ? 'border-or bg-orange-50'
+            : 'border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-gray-300'
             }`}
         >
           <input
@@ -93,46 +93,46 @@ export default function ImageUpload({ value, onChange, label = 'Image' }: ImageU
             className="hidden"
           />
 
-          <div className="p-4 rounded-full bg-white border border-noir/5 group-hover:scale-110 group-hover:bg-or transition-all duration-500 shadow-sm">
+          <div className="p-3 rounded-full bg-white border border-gray-200 group-hover:scale-110 transition-transform duration-300 shadow-sm">
             {uploading ? (
-              <Loader2 className="w-8 h-8 text-or animate-spin" />
+              <Loader2 className="w-5 h-5 text-or animate-spin" />
             ) : (
-              <Upload className="w-8 h-8 text-noir/20 group-hover:text-white transition-colors" />
+              <Upload className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
             )}
           </div>
 
-          <div className="text-center px-6">
-            <p className="text-sm font-body text-noir/60 group-hover:text-noir transition-colors font-medium">
-              {uploading ? 'Téléchargement...' : 'Cliquez ou glissez une image ici'}
+          <div className="text-center px-4">
+            <p className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">
+              {uploading ? 'Téléchargement...' : 'Cliquez ou glissez une image'}
             </p>
-            <p className="text-[10px] font-body text-noir/30 uppercase tracking-tighter mt-1">
-              JPG, PNG ou WEBP jusqu&apos;à 10MB
+            <p className="text-xs text-gray-400 mt-1">
+              JPG, PNG, WEBP (max 10MB)
             </p>
           </div>
         </div>
       ) : (
-        <div className="relative aspect-video rounded-2xl overflow-hidden border border-noir/5 shadow-md group">
+        <div className="relative aspect-video rounded-xl overflow-hidden border border-gray-200 shadow-sm group bg-gray-100">
           <Image
             src={value.startsWith('data:') ? value : value.startsWith('/') ? value : `/${value}`}
             alt="Upload preview"
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center space-x-3 backdrop-blur-[2px]">
             <button
               onClick={() => inputRef.current?.click()}
-              className="p-3 rounded-full bg-white text-noir hover:scale-110 transition-transform"
-              title="Modifier"
+              className="p-2 rounded-lg bg-white text-gray-700 hover:text-blue-600 transition-colors shadow-lg"
+              title="Remplacer"
             >
-              <ImageIcon className="w-5 h-5" />
+              <ImageIcon className="w-4 h-4" />
             </button>
             <button
               onClick={clearImage}
-              className="p-3 rounded-full bg-red-500 text-white hover:scale-110 transition-transform"
+              className="p-2 rounded-lg bg-white text-gray-700 hover:text-red-600 transition-colors shadow-lg"
               title="Supprimer"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
           <input
@@ -143,8 +143,8 @@ export default function ImageUpload({ value, onChange, label = 'Image' }: ImageU
             className="hidden"
           />
           {uploading && (
-            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-              <Loader2 className="w-10 h-10 text-or animate-spin" />
+            <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-or animate-spin" />
             </div>
           )}
         </div>
