@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   },
 };
 
+import Header from "@/components/Header";
+import NavigationDots from "@/components/NavigationDots";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,6 +42,7 @@ export default function RootLayout({
     <html lang="fr" className={`${cormorant.variable} ${montserrat.variable} ${playfair.variable}`}>
       <body className="font-body antialiased">
         {children}
+        <NavigationDots />
       </body>
     </html>
   );

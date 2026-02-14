@@ -5,6 +5,7 @@ import { Phone, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -108,12 +109,12 @@ export default function Header() {
 
             {/* Menu déroulant Services */}
             <div
-              className="relative"
+              className={`relative h-full flex items-center`}
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
               <button
-                className={`font-body text-sm font-light tracking-wide transition-colors duration-300 flex items-center space-x-1 ${(!isScrolled && !isMenuOpen)
+                className={`font-body text-sm font-light tracking-wide transition-colors duration-300 flex items-center space-x-1 h-full ${(!isScrolled && !isMenuOpen)
                   ? 'text-white hover:text-white/80'
                   : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
                   }`}
@@ -123,21 +124,29 @@ export default function Header() {
               </button>
 
               {/* Dropdown menu */}
-              {isServicesOpen && (
-                <div className="absolute top-full left-0 pt-2 z-50">
-                  <div className="bg-white shadow-elegant border border-noir/10 py-2 w-48">
-                    {servicesMenu.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="block px-4 py-2 font-body text-sm text-noir hover:bg-[var(--color-blanc-200)] hover:text-[var(--color-or)] transition-colors duration-300"
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <AnimatePresence>
+                {isServicesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 pt-4 z-50"
+                  >
+                    <div className="bg-white shadow-elegant border border-noir/10 py-2 w-48 rounded-sm overflow-hidden">
+                      {servicesMenu.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          className="block px-4 py-3 font-body text-sm text-noir hover:bg-noir/[0.02] hover:text-or transition-colors duration-300"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </nav>
 
@@ -154,74 +163,99 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Menu mobile */}
           <button
             onClick={() => setMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2"
+            className="lg:hidden p-2 z-[60] relative group"
             aria-label="Menu"
           >
-            <div className="w-5 h-4 flex flex-col justify-between">
-              <span className={`block h-px w-full transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''
-                } ${(!isScrolled && !isMenuOpen) ? 'bg-white' : 'bg-[var(--color-noir)]'}`}></span>
-              <span className={`block h-px w-full transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'
-                } ${(!isScrolled && !isMenuOpen) ? 'bg-white' : 'bg-[var(--color-noir)]'}`}></span>
-              <span className={`block h-px w-full transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
-                } ${(!isScrolled && !isMenuOpen) ? 'bg-white' : 'bg-[var(--color-noir)]'}`}></span>
+            <div className="w-6 h-5 flex flex-col justify-between relative">
+              <span className={`block h-0.5 w-full transition-all duration-300 transform origin-center ${isMenuOpen
+                  ? 'rotate-45 translate-y-[9px] bg-[#2c3840]'
+                  : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
+                }`}></span>
+              <span className={`block h-0.5 w-full transition-all duration-300 ${isMenuOpen
+                  ? 'opacity-0'
+                  : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
+                }`}></span>
+              <span className={`block h-0.5 w-full transition-all duration-300 transform origin-center ${isMenuOpen
+                  ? '-rotate-45 -translate-y-[9px] bg-[#2c3840]'
+                  : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
+                }`}></span>
             </div>
           </button>
         </div>
 
-        {/* Menu mobile */}
-        {isMenuOpen && (
-          <div className="lg:hidden pb-6 border-t border-[var(--color-gris-clair)]">
-            <nav className="flex flex-col space-y-4 pt-6">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="font-body text-sm text-[var(--color-noir)] hover:text-[var(--color-or)] transition-colors"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+        {/* Menu mobile Full Screen Overlay */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ type: "tween", duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+              className="fixed inset-0 bg-white z-[55] flex flex-col pt-32 px-8 lg:hidden"
+            >
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-or/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+              <div className="absolute bottom-0 left-0 w-80 h-80 bg-noir/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
 
-              {/* Services accordéon mobile */}
-              <div>
-                <button
-                  onClick={() => setServicesOpen(!isServicesOpen)}
-                  className="w-full flex items-center justify-between font-body text-sm text-[var(--color-noir)] hover:text-[var(--color-or)] transition-colors"
-                >
-                  <span>Services</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
-                </button>
+              <nav className="flex flex-col space-y-6 relative z-10">
+                {navigation.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + index * 0.1 }}
+                  >
+                    <Link
+                      href={item.href}
+                      className="font-display text-4xl text-noir hover:text-or transition-colors block"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  </motion.div>
+                ))}
 
-                {isServicesOpen && (
-                  <div className="mt-2 ml-4 space-y-2">
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="pt-6 border-t border-noir/10 mt-6"
+                >
+                  <p className="font-body text-xs font-bold uppercase tracking-widest text-noir/40 mb-4">Services</p>
+                  <div className="space-y-3">
                     {servicesMenu.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="block font-body text-sm text-[var(--color-noir)]/70 hover:text-[var(--color-or)] transition-colors"
+                        className="block font-body text-lg text-noir/70 hover:text-or transition-colors"
                         onClick={() => setMenuOpen(false)}
                       >
                         {item.name}
                       </Link>
                     ))}
                   </div>
-                )}
-              </div>
+                </motion.div>
 
-              <Link
-                href="/contact"
-                className="font-body text-sm border border-[var(--color-noir)] text-[var(--color-noir)] hover:bg-[var(--color-noir)] hover:text-white transition-all px-6 py-2.5 text-center mt-4"
-                onClick={() => setMenuOpen(false)}
-              >
-                Réserver
-              </Link>
-            </nav>
-          </div>
-        )}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="pt-8"
+                >
+                  <Link
+                    href="/contact"
+                    className="w-full block bg-noir text-white text-center py-4 font-body text-sm uppercase tracking-widest hover:bg-or transition-all"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Réserver votre séjour
+                  </Link>
+                </motion.div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

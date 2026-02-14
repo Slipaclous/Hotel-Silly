@@ -134,6 +134,7 @@ model Event {
   imageUrl    String
   capacity    String
   duration    String
+  date        DateTime? // Pour gérer l'affichage (passé/futur)
   order       Int      // Pour gérer l'ordre d'affichage
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

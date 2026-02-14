@@ -26,13 +26,13 @@ interface Room {
     features: string[];
 
     // Nouveaux champs
-    surface?: string;
-    bedding?: string;
-    bathroom?: string;
-    price1Person?: string;
-    price2Persons?: string;
-    price3Persons?: string;
-    petsAllowed?: boolean;
+    surface?: string | null;
+    bedding?: string | null;
+    bathroom?: string | null;
+    price1Person?: string | null;
+    price2Persons?: string | null;
+    price3Persons?: string | null;
+    petsAllowed?: boolean | null;
 }
 
 interface PageHero {
@@ -55,7 +55,7 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
             />
 
             {/* Hero Section - Full Height & Immersive */}
-            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+            <section id="hero" data-nav-section="Bienvenue" data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
                 {/* Decorative Pattern - Optional/Subtle */}
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
@@ -230,7 +230,7 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
             </section>
 
             {/* Services Highlight */}
-            <section className="py-24 bg-neutre-clair">
+            <section id="services" data-nav-section="Services" className="py-24 bg-neutre-clair">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <span className="font-body text-xs text-or tracking-[0.2em] uppercase block mb-4">Confort Absolu</span>
@@ -252,6 +252,7 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                         ))}
                     </div>
                 </div>
+                <div id="footer" data-nav-section="Infos" data-nav-is-dark="true"></div>
             </section>
         </>
     );

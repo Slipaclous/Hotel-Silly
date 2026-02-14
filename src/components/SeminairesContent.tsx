@@ -34,7 +34,7 @@ export default function SeminairesContent({ pageHero }: SeminairesContentProps) 
     return (
         <>
             {/* Hero Section */}
-            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+            <section id="hero" data-nav-section="Bienvenue" data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -56,7 +56,7 @@ export default function SeminairesContent({ pageHero }: SeminairesContentProps) 
             <section className="py-24 bg-blanc">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Introduction */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                    <div id="space" data-nav-section="L'Espace" className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
                         <div>
                             <div className="w-12 h-px bg-or mb-6"></div>
 
@@ -123,6 +123,8 @@ export default function SeminairesContent({ pageHero }: SeminairesContentProps) 
 
                     {/* Features Grid */}
                     <div
+                        id="features"
+                        data-nav-section="Équipements"
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24"
                     >
                         {features.map((feature, index) => {
@@ -144,7 +146,7 @@ export default function SeminairesContent({ pageHero }: SeminairesContentProps) 
                     </div>
 
                     {/* Pricing Options */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24">
+                    <div id="pricing" data-nav-section="Tarifs" className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24">
                         {/* Demi-journée */}
                         <div className="bg-blanc border border-noir/10 p-10 shadow-elegant">
                             <div className="flex items-center justify-between mb-6">
@@ -227,7 +229,7 @@ export default function SeminairesContent({ pageHero }: SeminairesContentProps) 
                     </div>
 
                     {/* Coffee Corner Section */}
-                    <div className="bg-[var(--color-blanc-200)] p-12">
+                    <div id="coffee" data-nav-section="Coffee" className="bg-[var(--color-blanc-200)] p-12">
                         <div className="max-w-4xl mx-auto">
                             <div className="flex items-center justify-center mb-8">
                                 <Coffee className="w-12 h-12 text-[var(--color-or)]" />
@@ -261,6 +263,7 @@ export default function SeminairesContent({ pageHero }: SeminairesContentProps) 
                             </div>
                         </div>
                     </div>
+                    <div id="footer" data-nav-section="Infos" data-nav-is-dark="true"></div>
                 </div>
             </section>
         </>

@@ -4,10 +4,6 @@ import AboutSection from '@/components/AboutSection';
 import RoomSection from '@/components/RoomSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import Footer from '@/components/Footer';
-import dynamic from 'next/dynamic';
-
-const NavigationDots = dynamic(() => import('@/components/NavigationDots'));
-
 import { prisma } from '@/lib/prisma';
 
 export default async function Home() {
@@ -26,22 +22,21 @@ export default async function Home() {
   return (
     <main className="min-h-screen">
       <Header />
-      <div id="hero">
+      <div id="hero" data-nav-section="Accueil" data-nav-is-dark="true">
         <HeroSection initialData={heroData} />
       </div>
-      <div id="about">
+      <div id="about" data-nav-section="À propos">
         <AboutSection initialAbout={aboutData} initialFeatures={featuresData} />
       </div>
-      <div id="rooms">
+      <div id="rooms" data-nav-section="Chambres">
         <RoomSection initialRooms={roomsData.slice(0, 3)} />
       </div>
-      <div id="testimonials">
+      <div id="testimonials" data-nav-section="Témoignages" data-nav-is-dark="true">
         <TestimonialsSection initialTestimonials={testimonialsData} />
       </div>
-      <div id="footer">
+      <div id="footer" data-nav-section="Contact" data-nav-is-dark="true">
         <Footer />
       </div>
-      <NavigationDots />
     </main>
   );
 }

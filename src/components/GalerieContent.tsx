@@ -38,7 +38,7 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
     return (
         <>
             {/* Hero Section */}
-            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+            <section id="hero" data-nav-section="Bienvenue" data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -57,7 +57,7 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
             </section>
 
             {/* Section Filtres */}
-            <section className="py-12 bg-blanc-200">
+            <section id="filters" className="py-12 bg-blanc-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-wrap justify-center gap-4">
                         {categories.map((category) => (
@@ -77,7 +77,7 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
             </section>
 
             {/* Grille Galerie */}
-            <section className="py-24 bg-blanc">
+            <section id="grid" data-nav-section="Photos" className="py-24 bg-blanc">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {filteredImages.length === 0 ? (
                         <div className="text-center py-20">
@@ -121,6 +121,8 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
                     )}
                 </div>
             </section>
+
+            <div id="footer" data-nav-section="Infos" data-nav-is-dark="true"></div>
 
             {/* Modal Lightbox */}
             {selectedImage && (

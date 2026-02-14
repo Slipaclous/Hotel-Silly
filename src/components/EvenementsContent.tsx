@@ -14,6 +14,7 @@ interface Event {
     imageUrl: string;
     capacity: string;
     duration: string;
+    date?: string | Date | null;
     order: number;
 }
 
@@ -61,7 +62,7 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
         <>
             {/* Hero Section */}
             {/* Hero Section */}
-            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+            <section id="hero" data-nav-section="Bienvenue" data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -80,7 +81,7 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
             </section>
 
             {/* Introduction */}
-            <section className="py-24 bg-blanc">
+            <section id="agenda" data-nav-section="Agenda" className="py-24 bg-blanc">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -100,74 +101,49 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                         </p>
                     </motion.div>
 
-                    {/* Grille Événements */}
+                    {/* Grille Événements À Venir */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
-                        {events.map((event, index) => {
+                        {events.filter(e => !e.date || new Date(e.date) >= new Date()).map((event, index) => {
                             const IconComponent = iconMap[event.icon] || CalendarIcon;
                             return (
-                                <motion.div
-                                    key={event.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                    className="bg-blanc border border-noir/10 overflow-hidden card-hover group"
-                                >
-                                    {/* Image */}
-                                    <div className="relative h-64 overflow-hidden">
-                                        <Image
-                                            src={event.imageUrl}
-                                            alt={event.title}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                        />
-
-                                        {/* Icône */}
-                                        <div className="absolute top-6 left-6 bg-blanc p-3 shadow-elegant">
-                                            <IconComponent className="w-6 h-6 text-or" />
-                                        </div>
-                                    </div>
-
-                                    {/* Contenu */}
-                                    <div className="p-8">
-                                        <h3 className="font-display text-2xl font-medium text-noir mb-3">
-                                            {event.title}
-                                        </h3>
-                                        <p className="font-body text-sm text-noir/70 mb-6 leading-relaxed whitespace-pre-wrap">
-                                            {event.description}
-                                        </p>
-
-                                        {/* Infos */}
-                                        <div className="space-y-3 mb-8 pb-6 border-b border-noir/10">
-                                            <div className="flex items-center space-x-3 text-noir/60">
-                                                <MapPin className="w-4 h-4" />
-                                                <span className="font-body text-sm">{event.capacity}</span>
-                                            </div>
-                                            <div className="flex items-center space-x-3 text-noir/60">
-                                                <CalendarIcon className="w-4 h-4" />
-                                                <span className="font-body text-sm">{event.duration}</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Bouton CTA */}
-                                        <Link
-                                            href="/contact"
-                                            className="group/btn w-full border border-noir text-noir hover:bg-noir hover:text-blanc py-3 font-body text-sm transition-all duration-300 flex items-center justify-center space-x-2"
-                                        >
-                                            <span>En savoir plus</span>
-                                            <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                                        </Link>
-                                    </div>
-                                </motion.div>
+                                <EventCard key={event.id} event={event} IconComponent={IconComponent} index={index} />
                             );
                         })}
                     </div>
+
+                    {/* Section Événements Passés (si existants) */}
+                    {events.some(e => e.date && new Date(e.date) < new Date()) && (
+                        <div className="mt-24 pt-24 border-t border-noir/10">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease: "easeOut" }}
+                                viewport={{ once: true }}
+                                className="text-center mb-16"
+                            >
+                                <h3 className="font-display text-3xl font-medium text-noir/60 mb-4">
+                                    Événements Passés
+                                </h3>
+                                <p className="font-body text-noir/50">
+                                    Retour sur les moments forts de la région
+                                </p>
+                            </motion.div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 opacity-75 grayscale hover:grayscale-0 transition-all duration-500">
+                                {events.filter(e => e.date && new Date(e.date) < new Date()).map((event, index) => {
+                                    const IconComponent = iconMap[event.icon] || CalendarIcon;
+                                    return (
+                                        <EventCard key={event.id} event={event} IconComponent={IconComponent} index={index} compact />
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </section>
 
             {/* Section Services */}
-            <section className="py-24 bg-blanc-200">
+            <section id="curiosities" data-nav-section="Curiosités" className="py-24 bg-blanc-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -237,6 +213,80 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                     </motion.div>
                 </div>
             </section>
+            <div id="footer" data-nav-section="Infos" data-nav-is-dark="true"></div>
         </>
+    );
+}
+
+function EventCard({ event, IconComponent, index, compact = false }: { event: Event, IconComponent: LucideIcon, index: number, compact?: boolean }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
+            viewport={{ once: true }}
+            className={`bg-blanc border border-noir/10 overflow-hidden card-hover group ${compact ? 'text-sm' : ''}`}
+        >
+            {/* Image */}
+            <div className={`relative ${compact ? 'h-48' : 'h-64'} overflow-hidden`}>
+                <Image
+                    src={event.imageUrl}
+                    alt={event.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                />
+
+                {/* Icône */}
+                <div className={`absolute top-6 left-6 bg-blanc ${compact ? 'p-2' : 'p-3'} shadow-elegant`}>
+                    <IconComponent className={`${compact ? 'w-4 h-4' : 'w-6 h-6'} text-or`} />
+                </div>
+            </div>
+
+            {/* Contenu */}
+            <div className={`${compact ? 'p-6' : 'p-8'}`}>
+                <h3 className={`font-display ${compact ? 'text-lg' : 'text-2xl'} font-medium text-noir mb-3`}>
+                    {event.title}
+                </h3>
+                <p className={`font-body ${compact ? 'text-xs' : 'text-sm'} text-noir/70 mb-6 leading-relaxed whitespace-pre-wrap`}>
+                    {event.description}
+                </p>
+
+                {/* Infos */}
+                <div className={`space-y-3 mb-8 pb-6 border-b border-noir/10`}>
+                    <div className="flex items-center space-x-3 text-noir/60">
+                        <MapPin className="w-4 h-4" />
+                        <span className="font-body text-sm">{event.capacity}</span>
+                    </div>
+                    <div className="flex items-center space-x-3 text-noir/60">
+                        <CalendarIcon className="w-4 h-4" />
+                        <span className="font-body text-sm">{event.duration}</span>
+                    </div>
+                    {event.date && (
+                        <div className="flex items-center space-x-3 text-noir/40 italic">
+                            <Clock className="w-3 h-3" />
+                            <span className="font-body text-xs">
+                                {new Date(event.date).toLocaleDateString('fr-FR', {
+                                    day: 'numeric',
+                                    month: 'long',
+                                    year: 'numeric'
+                                })}
+                            </span>
+                        </div>
+                    )}
+                </div>
+
+                {/* Bouton CTA */}
+                {!compact && (
+                    <Link
+                        href="/contact"
+                        className="group/btn w-full border border-noir text-noir hover:bg-noir hover:text-blanc py-3 font-body text-sm transition-all duration-300 flex items-center justify-center space-x-2"
+                    >
+                        <span>En savoir plus</span>
+                        <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                    </Link>
+                )}
+            </div>
+        </motion.div>
     );
 }

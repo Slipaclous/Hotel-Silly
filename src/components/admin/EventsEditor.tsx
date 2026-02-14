@@ -14,6 +14,8 @@ interface Event {
   imageUrl: string;
   capacity: string;
   duration: string;
+  countDownDate?: string | null; // Use a distinct name for the optional date field if needed, but 'date' matches schema
+  date?: string | null;
   order: number;
 }
 
@@ -206,6 +208,7 @@ function EventForm({ event, onCancel, onSuccess }: {
     imageUrl: event?.imageUrl || '',
     capacity: event?.capacity || '',
     duration: event?.duration || '',
+    date: event?.date ? new Date(event.date).toISOString().slice(0, 16) : '', // Format for datetime-local
     order: event?.order || 1,
   });
   const [saving, setSaving] = useState(false);
@@ -231,7 +234,10 @@ function EventForm({ event, onCancel, onSuccess }: {
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          date: formData.date ? new Date(formData.date).toISOString() : null
+        }),
       });
 
       if (response.ok) {
@@ -347,6 +353,18 @@ function EventForm({ event, onCancel, onSuccess }: {
               placeholder="Ex: Tous les dimanches matin"
               className={inputClasses}
             />
+          </div>
+          <div>
+            <label className={labelClasses}>Date précise (Optionnel)</label>
+            <input
+              type="datetime-local"
+              value={formData.date || ''}
+              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+              className={inputClasses}
+            />
+            <p className="text-[10px] text-noir/40 mt-1 ml-1 font-body">
+              Pour le tri (Passés / À venir)
+            </p>
           </div>
         </div>
 

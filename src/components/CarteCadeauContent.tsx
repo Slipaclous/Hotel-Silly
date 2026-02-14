@@ -28,7 +28,7 @@ export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps
     return (
         <>
             {/* Hero Section */}
-            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+            <section id="hero" data-nav-section="Cadeau" data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -51,7 +51,7 @@ export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps
             {/* Main Content */}
             <section className="py-24 bg-blanc">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                    <div id="intro" data-nav-section="Découverte" className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
                         {/* Image */}
                         <div className="relative">
                             <div className="relative h-[500px] overflow-hidden shadow-elegant">
@@ -112,7 +112,7 @@ export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps
                     </div>
 
                     {/* Gift Card Options */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div id="options" data-nav-section="Options" className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {/* Option 1 */}
                         <div className="bg-blanc border border-noir/10 p-8 card-hover text-center">
                             <div className="w-16 h-16 border-2 border-[var(--color-or)] flex items-center justify-center mx-auto mb-6">
@@ -182,6 +182,7 @@ export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps
                             </Link>
                         </div>
                     </div>
+                    <div id="footer" data-nav-section="Infos" data-nav-is-dark="true"></div>
                 </div>
             </section>
         </>
