@@ -301,7 +301,12 @@ export default function TranslationsManager() {
         }
     ].filter(p => p.rows.length > 0);
 
-    const currentPageData = pages.find(p => p.pageKey === activePage) || pages[0];
+    const currentPageData = pages.find(p => p.pageKey === activePage) || pages[0] || {
+        pageName: 'Aucune page',
+        pageKey: 'none',
+        icon: Info,
+        rows: []
+    };
 
     // Apply incomplete filter
     const filteredRows = showOnlyIncomplete

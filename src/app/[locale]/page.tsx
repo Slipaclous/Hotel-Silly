@@ -10,16 +10,27 @@ export default async function Home() {
   const t = await getTranslations('nav');
 
   // Récupération de toutes les données sur le serveur (SSR)
-  const [heroData, aboutData, roomsData, featuresData, testimonialsData] = await Promise.all([
-    prisma.hero.findFirst(),
-    prisma.about.findFirst(),
-    prisma.room.findMany({
-      orderBy: { order: 'asc' },
-      take: 3
-    }),
-    prisma.feature.findMany(),
-    prisma.testimonial.findMany(),
-  ]);
+  let heroData = null;
+  let aboutData = null;
+  let roomsData = [];
+  let featuresData = [];
+  let testimonialsData = [];
+
+  try {
+    [heroData, aboutData, roomsData, featuresData, testimonialsData] = await Promise.all([
+      prisma.hero.findFirst(),
+      prisma.about.findFirst(),
+      prisma.room.findMany({
+        orderBy: { order: 'asc' },
+        take: 3
+      }),
+      prisma.feature.findMany(),
+      prisma.testimonial.findMany(),
+    ]);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    // Les valeurs par défaut sont déjà définies ci-dessus
+  }
 
   return (
     <main className="min-h-screen">
