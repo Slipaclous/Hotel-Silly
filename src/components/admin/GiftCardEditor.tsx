@@ -62,11 +62,13 @@ export default function GiftCardEditor() {
                 fetch('/api/gift-card-page'),
                 fetch('/api/gift-card-packages'),
             ]);
+
             const pData = await pageRes.json();
             const pkgs = await pkgsRes.json();
 
-            if (pData) setPageData(pData);
-            if (pkgs) setPackages(pkgs);
+            // S'assurer que les données ne sont pas des objets d'erreur
+            if (pData && !pData.error) setPageData(pData);
+            if (Array.isArray(pkgs)) setPackages(pkgs);
         } catch (error) {
             console.error(error);
         } finally {

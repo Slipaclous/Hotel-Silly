@@ -69,9 +69,14 @@ export default function SeminarEditor() {
                 fetch('/api/seminar-features'),
                 fetch('/api/seminar-packages'),
             ]);
-            setPageData(await pageRes.json() || pageData);
-            setFeatures(await featRes.json() || []);
-            setPackages(await pkgsRes.json() || []);
+
+            const pData = await pageRes.json();
+            const fData = await featRes.json();
+            const pkgData = await pkgsRes.json();
+
+            if (pData && !pData.error) setPageData(pData);
+            if (Array.isArray(fData)) setFeatures(fData);
+            if (Array.isArray(pkgData)) setPackages(pkgData);
         } catch (error) {
             console.error(error);
         } finally {
