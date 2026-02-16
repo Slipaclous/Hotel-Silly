@@ -5,15 +5,15 @@ import { prisma } from '@/lib/prisma';
 export const revalidate = 3600;
 
 export default async function CarteCadeauPage() {
-    // Récupération des données sur le serveur (SSR)
+    // Récupération sécurisée des données sur le serveur (SSR)
     const [pageHero, giftCardPage, giftCardPackages] = await Promise.all([
         prisma.pageHero.findFirst({
             where: { page: 'carte-cadeau' },
         }),
-        (prisma as any).giftCardPage.findFirst(),
-        (prisma as any).giftCardPackage.findMany({
+        (prisma as any).giftCardPage?.findFirst() || null,
+        (prisma as any).giftCardPackage?.findMany({
             orderBy: { order: 'asc' },
-        }),
+        }) || [],
     ]);
 
     return (

@@ -4,8 +4,8 @@ import { revalidatePath } from 'next/cache';
 
 export async function GET() {
     try {
-        const page = await (prisma as any).seminarPage.findFirst();
-        return NextResponse.json(page);
+        const page = await (prisma as any).seminarPage?.findFirst();
+        return NextResponse.json(page || null);
     } catch (error) {
         console.error('Erreur GET seminar-page:', error);
         return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
@@ -15,13 +15,16 @@ export async function GET() {
 export async function PUT(request: NextRequest) {
     try {
         const data = await request.json();
-        const page = await (prisma as any).seminarPage.findFirst();
+        const model = (prisma as any).seminarPage;
+        if (!model) throw new Error('Modèle SeminarPage non disponible');
+
+        const page = await model.findFirst();
 
         let result;
         if (!page) {
-            result = await (prisma as any).seminarPage.create({ data });
+            result = await model.create({ data });
         } else {
-            result = await (prisma as any).seminarPage.update({
+            result = await model.update({
                 where: { id: page.id },
                 data,
             });

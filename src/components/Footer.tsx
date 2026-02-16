@@ -2,7 +2,7 @@
 
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link } from '@/i18n/routing';
+import { Link, usePathname } from '@/i18n/routing';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
@@ -10,8 +10,13 @@ import { useTranslations } from 'next-intl';
 export default function Footer() {
   const t = useTranslations('footer');
   const n = useTranslations('nav');
+  const pathname = usePathname();
 
   const [newsletterEmail, setNewsletterEmail] = useState('');
+
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
   const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [newsletterMessage, setNewsletterMessage] = useState('');
 

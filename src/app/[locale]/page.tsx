@@ -18,7 +18,7 @@ export default async function Home() {
   let roomSectionData: any = null;
 
   try {
-    [heroData, aboutData, roomsData, featuresData, testimonialsData] = await Promise.all([
+    [heroData, aboutData, roomsData, featuresData, testimonialsData, roomSectionData] = await Promise.all([
       prisma.hero.findFirst(),
       prisma.about.findFirst(),
       prisma.room.findMany({
@@ -27,7 +27,7 @@ export default async function Home() {
       }),
       prisma.feature.findMany(),
       prisma.testimonial.findMany(),
-      (prisma as any).homeRoomSection.findFirst(),
+      (prisma as any).homeRoomSection?.findFirst() || null,
     ]);
   } catch (error) {
     console.error('Error fetching data:', error);
