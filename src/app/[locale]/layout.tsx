@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Montserrat, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "../globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -18,14 +18,6 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "600"],
   variable: "--font-body",
-  display: 'swap',
-  preload: true,
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["500", "700"],
-  variable: "--font-accent",
   display: 'swap',
   preload: true,
 });
@@ -53,7 +45,7 @@ export default async function RootLayout({
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as 'fr' | 'en' | 'nl')) {
     notFound();
   }
 
@@ -62,8 +54,8 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${cormorant.variable} ${montserrat.variable} ${playfair.variable}`}>
-      <body className="font-body antialiased">
+    <html lang={locale} className={`${cormorant.variable} ${montserrat.variable}`}>
+      <body className="font-body antialiased transition-colors duration-300">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Header />
           <div className="min-h-screen">

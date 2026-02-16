@@ -27,7 +27,6 @@
   /* Typographie */
   --font-display: 'Cormorant Garamond', serif;
   --font-body: 'Montserrat', sans-serif;
-  --font-accent: 'Playfair Display', serif;
 
   /* Espacements */
   --spacing-xs: 0.5rem;
@@ -93,10 +92,6 @@ h6 {
 
 .font-body {
   font-family: var(--font-body);
-}
-
-.font-accent {
-  font-family: var(--font-accent);
 }
 
 /* ========================================
