@@ -59,7 +59,7 @@ export default function Header() {
               </span>
               <span className={`hidden sm:inline font-body font-light ${(!isScrolled && !isMenuOpen) ? 'text-white/90' : 'text-[var(--color-gris)]'
                 }`}>
-                 Hôtel Villa Dolce ★★★
+                Hôtel Villa Dolce ★★★
               </span>
             </div>
             <div className="flex items-center space-x-6">
@@ -159,16 +159,21 @@ export default function Header() {
 
           {/* Bouton réservation */}
           <div className="hidden lg:block">
-            <Link
-              href="/#booking-widget"
-              prefetch={true}
-              className={`font-body text-sm font-normal px-6 py-2.5 border transition-all duration-300 ${(!isScrolled && !isMenuOpen)
-                ? 'border-white text-white hover:bg-white hover:text-[var(--color-noir)]'
-                : 'border-[var(--color-noir)] text-[var(--color-noir)] hover:bg-[var(--color-noir)] hover:text-white'
-                }`}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {c('book')}
-            </Link>
+              <Link
+                href="/#booking-widget"
+                prefetch={true}
+                className={`font-body text-xs font-bold uppercase tracking-widest px-8 py-3 border transition-all duration-500 shadow-md hover:shadow-lg ${(!isScrolled && !isMenuOpen)
+                  ? 'border-white text-white hover:bg-white hover:text-[#2c3840] hover:border-white'
+                  : 'border-[#2c3840] text-white bg-[#2c3840] hover:bg-[#C6ad7a] hover:border-[#C6ad7a]'
+                  }`}
+              >
+                {c('book')}
+              </Link>
+            </motion.div>
           </div>
 
           <button
@@ -257,7 +262,7 @@ export default function Header() {
                   <Link
                     href="/#booking-widget"
                     prefetch={true}
-                    className="w-full block bg-noir text-white text-center py-4 font-body text-sm uppercase tracking-widest hover:bg-or transition-all"
+                    className="w-full block bg-[#2c3840] text-white text-center py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 shadow-lg"
                     onClick={() => setMenuOpen(false)}
                   >
                     {c('bookStay')}

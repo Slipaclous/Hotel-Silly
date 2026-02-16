@@ -15,6 +15,7 @@ export default async function Home() {
   let roomsData: any[] = [];
   let featuresData: any[] = [];
   let testimonialsData: any[] = [];
+  let roomSectionData: any = null;
 
   try {
     [heroData, aboutData, roomsData, featuresData, testimonialsData] = await Promise.all([
@@ -26,6 +27,7 @@ export default async function Home() {
       }),
       prisma.feature.findMany(),
       prisma.testimonial.findMany(),
+      (prisma as any).homeRoomSection.findFirst(),
     ]);
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -42,7 +44,7 @@ export default async function Home() {
         <AboutSection initialAbout={aboutData} initialFeatures={featuresData} />
       </div>
       <div id="rooms" data-nav-section={t('rooms')}>
-        <RoomSection initialRooms={roomsData.slice(0, 3)} />
+        <RoomSection initialRooms={roomsData.slice(0, 3)} initialData={roomSectionData} />
       </div>
       <div id="testimonials" data-nav-section={t('testimonials')} data-nav-is-dark="true">
         <TestimonialsSection initialTestimonials={testimonialsData} />

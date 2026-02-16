@@ -86,16 +86,18 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-wrap justify-center gap-4">
                         {categories.map((category) => (
-                            <button
+                            <motion.button
+                                whileHover={{ y: -2 }}
+                                whileTap={{ scale: 0.95 }}
                                 key={category.id}
                                 onClick={() => setSelectedCategory(category.id)}
-                                className={`font-body text-sm px-6 py-2 transition-all duration-300 ${selectedCategory === category.id
-                                    ? 'bg-noir text-blanc'
-                                    : 'bg-blanc text-noir border border-noir/20 hover:border-or'
+                                className={`font-body text-xs font-bold uppercase tracking-widest px-8 py-3 transition-all duration-500 shadow-sm hover:shadow-md ${selectedCategory === category.id
+                                    ? 'bg-[#C6ad7a] text-white border border-[#C6ad7a]'
+                                    : 'bg-white text-[#2c3840] border border-[#2c3840]/20 hover:border-[#C6ad7a] hover:text-[#C6ad7a]'
                                     }`}
                             >
                                 {category.label}
-                            </button>
+                            </motion.button>
                         ))}
                     </div>
                 </div>

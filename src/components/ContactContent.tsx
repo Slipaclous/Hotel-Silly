@@ -231,14 +231,16 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                                 </div>
 
                                 <div className="pt-4">
-                                    <button
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full md:w-auto bg-[#2c3840] text-white px-8 py-4 font-body text-sm uppercase tracking-widest hover:bg-or transition-all duration-300 flex items-center justify-center space-x-3 disabled:opacity-70 disabled:cursor-not-allowed"
+                                        className="w-full md:w-auto bg-[#2c3840] text-white px-10 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 flex items-center justify-center space-x-3 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg hover:shadow-xl border border-[#2c3840] hover:border-[#C6ad7a]"
                                     >
                                         <span>{loading ? t('submitting') : t('submit')}</span>
-                                        {!loading && <ArrowRight className="w-4 h-4" />}
-                                    </button>
+                                        {!loading && <ArrowRight className="w-5 h-5" />}
+                                    </motion.button>
                                 </div>
                             </form>
                         )}

@@ -13,6 +13,9 @@ import GalleryEditor from '@/components/admin/GalleryEditor';
 import EventsEditor from '@/components/admin/EventsEditor';
 import TranslationsManager from '@/components/admin/TranslationsManager';
 import PageHeroEditor from '@/components/admin/PageHeroEditor';
+import HomeRoomSectionEditor from '@/components/admin/HomeRoomSectionEditor';
+import GiftCardEditor from '@/components/admin/GiftCardEditor';
+import SeminarEditor from '@/components/admin/SeminarEditor';
 
 interface Admin {
   name: string;
@@ -86,7 +89,9 @@ export default function DashboardPage() {
             {activeSection === 'hero' && <HeroEditor />}
             {activeSection === 'about' && <AboutEditor />}
             {activeSection === 'features' && <FeaturesEditor />}
-            {activeSection === 'rooms' && <RoomsEditor />}
+            {activeSection === 'rooms' && (
+              activePage === 'accueil' ? <HomeRoomSectionEditor /> : <RoomsEditor />
+            )}
             {activeSection === 'testimonials' && <TestimonialsEditor />}
             {activeSection === 'gallery' && <GalleryEditor />}
             {activeSection === 'events' && <EventsEditor />}
@@ -95,8 +100,12 @@ export default function DashboardPage() {
             {activeSection === 'hero-a-propos' && <PageHeroEditor page="a-propos" pageLabel="Page À Propos" />}
             {activeSection === 'hero-galerie' && <PageHeroEditor page="galerie" pageLabel="Page Galerie" />}
             {activeSection === 'hero-evenements' && <PageHeroEditor page="evenements" pageLabel="Page Événements" />}
-            {activeSection === 'hero-carte-cadeau' && <PageHeroEditor page="carte-cadeau" pageLabel="Page Carte Cadeau" />}
-            {activeSection === 'hero-seminaires' && <PageHeroEditor page="seminaires" pageLabel="Page Séminaires" />}
+            {activeSection === 'hero-carte-cadeau' && (
+              activePage === 'carte-cadeau' ? <GiftCardEditor /> : <PageHeroEditor page="carte-cadeau" pageLabel="Page Carte Cadeau" />
+            )}
+            {activeSection === 'hero-seminaires' && (
+              activePage === 'seminaires' ? <SeminarEditor /> : <PageHeroEditor page="seminaires" pageLabel="Page Séminaires" />
+            )}
           </div>
         </div>
       </main>

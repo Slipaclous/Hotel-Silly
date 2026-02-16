@@ -235,25 +235,37 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col sm:flex-row gap-4">
-                                        <Link
-                                            href={`/contact?room=${room.id}&subject=reservation`}
-                                            className="bg-noir text-blanc px-8 py-4 font-body text-sm uppercase tracking-widest hover:bg-or transition-colors duration-300 text-center"
+                                    <div className="flex flex-col sm:flex-row gap-6 mt-8">
+                                        <motion.div
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="flex-1"
                                         >
-                                            {c('bookStay')}
-                                        </Link>
+                                            <Link
+                                                href={`/contact?room=${room.id}&subject=reservation`}
+                                                className="block w-full bg-[#2c3840] text-white px-8 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 text-center shadow-lg hover:shadow-xl border border-[#2c3840] hover:border-[#C6ad7a]"
+                                            >
+                                                {c('bookStay')}
+                                            </Link>
+                                        </motion.div>
 
                                         {room.images && room.images.length > 0 && (
-                                            <button
-                                                onClick={() => setSelectedRoomGallery({
-                                                    images: [room.imageUrl, ...(room.images?.map(img => img.url) || [])],
-                                                    name: roomName
-                                                })}
-                                                className="border border-noir text-noir px-8 py-4 font-body text-sm uppercase tracking-widest hover:bg-noir hover:text-blanc transition-all duration-300 flex items-center justify-center space-x-2"
+                                            <motion.div
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                className="flex-1"
                                             >
-                                                <Maximize2 className="w-4 h-4" />
-                                                <span>{c('seePhotos')}</span>
-                                            </button>
+                                                <button
+                                                    onClick={() => setSelectedRoomGallery({
+                                                        images: [room.imageUrl, ...(room.images?.map(img => img.url) || [])],
+                                                        name: roomName
+                                                    })}
+                                                    className="w-full border border-[#2c3840] text-[#2c3840] px-8 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#2c3840] hover:text-white transition-all duration-500 flex items-center justify-center space-x-3 shadow-md hover:shadow-lg"
+                                                >
+                                                    <Maximize2 className="w-4 h-4" />
+                                                    <span>{c('seePhotos')}</span>
+                                                </button>
+                                            </motion.div>
                                         )}
                                     </div>
                                 </div>

@@ -128,12 +128,18 @@ export default function AboutSection({ initialAbout, initialFeatures }: { initia
               </div>
             </div>
 
-            <Link
-              href="/a-propos"
-              className="inline-block font-body text-sm px-8 py-3 border border-noir text-noir hover:bg-noir hover:text-blanc transition-all duration-300"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block"
             >
-              {t('discoverHistory')}
-            </Link>
+              <Link
+                href="/a-propos"
+                className="inline-block font-body text-xs font-bold uppercase tracking-widest px-10 py-4 bg-[#2c3840] text-white hover:bg-[#C6ad7a] transition-all duration-500 shadow-lg hover:shadow-xl border border-[#2c3840] hover:border-[#C6ad7a]"
+              >
+                {t('discoverHistory')}
+              </Link>
+            </motion.div>
           </div>
 
           {/* Image */}

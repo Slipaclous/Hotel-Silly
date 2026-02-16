@@ -78,13 +78,15 @@ export default function BookingWidget() {
                     </div>
 
                     {/* Bouton de recherche */}
-                    <button
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={handleSearch}
-                        className="flex items-center justify-center space-x-2 bg-[var(--color-noir)] hover:bg-[var(--color-or)] text-white px-8 py-4 md:py-3 rounded-xl transition-all duration-300 font-body text-xs uppercase tracking-widest font-bold group"
+                        className="flex items-center justify-center space-x-3 bg-[#2c3840] text-white px-10 py-5 font-body text-xs uppercase tracking-widest font-bold group shadow-lg hover:shadow-xl hover:bg-[#C6ad7a] border border-[#2c3840] hover:border-[#C6ad7a] transition-all duration-500 rounded-xl"
                     >
                         <span>Vérifier</span>
-                        <Search className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                    </button>
+                        <Search className="w-4 h-4 group-hover:rotate-12 transition-transform duration-500" />
+                    </motion.button>
                 </div>
             </motion.div>
         </div>

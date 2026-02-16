@@ -16,11 +16,47 @@ interface PageHero {
     imageUrl: string;
 }
 
-interface CarteCadeauContentProps {
-    pageHero: PageHero | null;
+interface GiftCardPageData {
+    introTitle: string;
+    introTitleEn?: string | null;
+    introTitleNl?: string | null;
+    introDesc: string;
+    introDescEn?: string | null;
+    introDescNl?: string | null;
+    imageUrl: string;
+    badgeText1: string;
+    badgeText1En?: string | null;
+    badgeText1Nl?: string | null;
+    badgeText2: string;
+    badgeText2En?: string | null;
+    badgeText2Nl?: string | null;
+    benefits: string[];
+    benefitsEn: string[];
+    benefitsNl: string[];
 }
 
-export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps) {
+interface GiftCardPackageData {
+    id: number;
+    title: string;
+    titleEn?: string | null;
+    titleNl?: string | null;
+    description: string;
+    descriptionEn?: string | null;
+    descriptionNl?: string | null;
+    price: string;
+    priceEn?: string | null;
+    priceNl?: string | null;
+    icon: string;
+    isPopular: boolean;
+}
+
+interface CarteCadeauContentProps {
+    pageHero: PageHero | null;
+    initialData?: GiftCardPageData | null;
+    initialPackages?: GiftCardPackageData[];
+}
+
+export default function CarteCadeauContent({ pageHero, initialData, initialPackages }: CarteCadeauContentProps) {
     const locale = useLocale();
     const t = useTranslations('giftCard');
 
@@ -30,19 +66,33 @@ export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps
         return fr;
     };
 
-    const benefits = [
-        t('benefits.stay'),
-        t('benefits.anytime'),
-        t('benefits.original'),
-        t('benefits.custom'),
-        t('benefits.validity'),
-        t('benefits.transfer')
-    ];
+    const benefits = initialData ?
+        (locale === 'en' ? (initialData.benefitsEn.length > 0 ? initialData.benefitsEn : initialData.benefits) :
+            locale === 'nl' ? (initialData.benefitsNl.length > 0 ? initialData.benefitsNl : initialData.benefits) :
+                initialData.benefits) :
+        [
+            t('benefits.stay'),
+            t('benefits.anytime'),
+            t('benefits.original'),
+            t('benefits.custom'),
+            t('benefits.validity'),
+            t('benefits.transfer')
+        ];
 
     return (
         <>
             {/* Hero Section */}
             <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')} data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+                {pageHero?.imageUrl && (
+                    <div className="absolute inset-0 z-0">
+                        <div className="absolute inset-0 bg-noir/40 z-10" />
+                        <img
+                            src={pageHero.imageUrl}
+                            alt="Hero background"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                )}
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -63,36 +113,40 @@ export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps
             {/* Main Content */}
             <section className="py-24 bg-blanc">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div id="intro" data-nav-section={t('introTitle')} className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                    <div id="intro" data-nav-section={initialData ? getLocalized(initialData.introTitle, initialData.introTitleEn, initialData.introTitleNl) : t('introTitle')} className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
                         {/* Image */}
                         <div className="relative">
                             <div className="relative h-[500px] overflow-hidden shadow-elegant">
                                 <div
-                                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 hover:scale-105"
                                     style={{
-                                        backgroundImage: `url('https://images.unsplash.com/photo-1513885535751-8b9238bd345a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')`
+                                        backgroundImage: `url('${initialData?.imageUrl || 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'}')`
                                     }}
                                 />
 
                                 {/* Badge décoratif */}
-                                <div className="absolute top-8 right-8 bg-or text-white p-6 shadow-elegant">
+                                <div className="absolute top-8 right-8 bg-[#C6ad7a] text-white p-6 shadow-elegant z-10">
                                     <Heart className="w-8 h-8 mb-2" />
-                                    <div className="font-display text-sm font-medium">{t('badge.gift')}</div>
-                                    <div className="font-display text-sm font-medium">{t('badge.perfect')}</div>
+                                    <div className="font-display text-sm font-medium">
+                                        {initialData ? getLocalized(initialData.badgeText1, initialData.badgeText1En, initialData.badgeText1Nl) : t('badge.gift')}
+                                    </div>
+                                    <div className="font-display text-sm font-medium">
+                                        {initialData ? getLocalized(initialData.badgeText2, initialData.badgeText2En, initialData.badgeText2Nl) : t('badge.perfect')}
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Content */}
                         <div>
-                            <div className="w-12 h-px bg-or mb-6"></div>
+                            <div className="w-12 h-px bg-[#C6ad7a] mb-6"></div>
 
-                            <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
-                                {t('introTitle')}
+                            <h2 className="font-display text-4xl sm:text-5xl font-medium text-[#2c3840] mb-6">
+                                {initialData ? getLocalized(initialData.introTitle, initialData.introTitleEn, initialData.introTitleNl) : t('introTitle')}
                             </h2>
 
-                            <p className="font-body text-lg text-noir/70 mb-8 leading-relaxed">
-                                {t('introDesc')}
+                            <p className="font-body text-lg text-[#2c3840]/70 mb-8 leading-relaxed">
+                                {initialData ? getLocalized(initialData.introDesc, initialData.introDescEn, initialData.introDescNl) : t('introDesc')}
                             </p>
 
                             {/* Benefits List */}
@@ -102,95 +156,85 @@ export default function CarteCadeauContent({ pageHero }: CarteCadeauContentProps
                                         key={index}
                                         className="flex items-start space-x-3"
                                     >
-                                        <div className="w-6 h-6 border border-or flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <Check className="w-4 h-4 text-or" />
+                                        <div className="w-6 h-6 border border-[#C6ad7a] flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <Check className="w-4 h-4 text-[#C6ad7a]" />
                                         </div>
-                                        <span className="font-body text-base text-noir/80">{benefit}</span>
+                                        <span className="font-body text-base text-[#2c3840]/80">{benefit}</span>
                                     </div>
                                 ))}
                             </div>
 
                             {/* CTA Button */}
-                            <Link
-                                href="/contact"
-                                className="inline-flex items-center space-x-3 bg-noir text-white px-8 py-4 font-body text-sm font-medium hover:bg-or hover:text-white transition-all duration-300 shadow-elegant group"
+                            <motion.div
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="inline-block"
                             >
-                                <Gift className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                                <span>{t('ctaMain')}</span>
-                            </Link>
+                                <Link
+                                    href="/contact"
+                                    className="inline-flex items-center space-x-3 bg-[#2c3840] text-white px-10 py-5 font-body text-sm font-medium hover:bg-[#C6ad7a] transition-all duration-500 shadow-lg hover:shadow-xl border border-[#2c3840] hover:border-[#C6ad7a] group"
+                                >
+                                    <Gift className="w-5 h-5 group-hover:rotate-12 transition-transform duration-500" />
+                                    <span className="tracking-widest uppercase">{t('ctaMain')}</span>
+                                </Link>
+                            </motion.div>
                         </div>
                     </div>
 
                     {/* Gift Card Options */}
                     <div id="options" data-nav-section={t('optionsTitle')} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Option 1 */}
-                        <div className="bg-blanc border border-noir/10 p-8 card-hover text-center">
-                            <div className="w-16 h-16 border-2 border-or flex items-center justify-center mx-auto mb-6">
-                                <Star className="w-8 h-8 text-or" />
-                            </div>
-                            <h3 className="font-display text-2xl font-medium text-noir mb-3">
-                                {t('package1.title')}
-                            </h3>
-                            <p className="font-body text-sm text-noir/60 mb-6 leading-relaxed">
-                                {t('package1.desc')}
-                            </p>
-                            <div className="font-display text-3xl font-medium text-or mb-6">
-                                {t('package1.price')}
-                            </div>
-                            <Link
-                                href="/contact"
-                                className="inline-block w-full bg-noir text-white px-6 py-3 font-body text-sm font-medium hover:bg-or transition-colors duration-300"
-                            >
-                                {t('ctaOrder')}
-                            </Link>
-                        </div>
-
-                        {/* Option 2 */}
-                        <div className="bg-blanc border-2 border-or p-8 card-hover text-center relative">
-                            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-or text-white px-4 py-1 font-body text-xs font-medium uppercase tracking-wider">
-                                {t('badge.popular')}
-                            </div>
-                            <div className="w-16 h-16 bg-or flex items-center justify-center mx-auto mb-6">
-                                <Star className="w-8 h-8 text-white" />
-                            </div>
-                            <h3 className="font-display text-2xl font-medium text-noir mb-3">
-                                {t('package2.title')}
-                            </h3>
-                            <p className="font-body text-sm text-noir/60 mb-6 leading-relaxed">
-                                {t('package2.desc')}
-                            </p>
-                            <div className="font-display text-3xl font-medium text-or mb-6">
-                                {t('package2.price')}
-                            </div>
-                            <Link
-                                href="/contact"
-                                className="inline-block w-full bg-or text-white px-6 py-3 font-body text-sm font-medium hover:bg-noir transition-colors duration-300"
-                            >
-                                {t('ctaOrder')}
-                            </Link>
-                        </div>
-
-                        {/* Option 3 */}
-                        <div className="bg-blanc border border-noir/10 p-8 card-hover text-center">
-                            <div className="w-16 h-16 border-2 border-or flex items-center justify-center mx-auto mb-6">
-                                <Heart className="w-8 h-8 text-or" />
-                            </div>
-                            <h3 className="font-display text-2xl font-medium text-noir mb-3">
-                                {t('package3.title')}
-                            </h3>
-                            <p className="font-body text-sm text-noir/60 mb-6 leading-relaxed">
-                                {t('package3.desc')}
-                            </p>
-                            <div className="font-display text-3xl font-medium text-or mb-6">
-                                {t('package3.price')}
-                            </div>
-                            <Link
-                                href="/contact"
-                                className="inline-block w-full bg-noir text-white px-6 py-3 font-body text-sm font-medium hover:bg-or transition-colors duration-300"
-                            >
-                                {t('ctaOrder')}
-                            </Link>
-                        </div>
+                        {(initialPackages && initialPackages.length > 0) ? (
+                            initialPackages.map((pkg) => (
+                                <div
+                                    key={pkg.id}
+                                    className={`bg-white p-8 card-hover text-center relative border transition-all duration-500 ${pkg.isPopular ? 'border-[#C6ad7a] border-2 shadow-xl' : 'border-[#2c3840]/10 shadow-sm'}`}
+                                >
+                                    {pkg.isPopular && (
+                                        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#C6ad7a] text-white px-4 py-1 font-body text-xs font-medium uppercase tracking-wider">
+                                            {t('badge.popular')}
+                                        </div>
+                                    )}
+                                    <div className={`w-16 h-16 flex items-center justify-center mx-auto mb-6 transition-colors duration-500 ${pkg.isPopular ? 'bg-[#C6ad7a]' : 'border-2 border-[#C6ad7a]'}`}>
+                                        {pkg.icon === 'Star' ? (
+                                            <Star className={`w-8 h-8 ${pkg.isPopular ? 'text-white' : 'text-[#C6ad7a]'}`} />
+                                        ) : (
+                                            <Heart className={`w-8 h-8 ${pkg.isPopular ? 'text-white' : 'text-[#C6ad7a]'}`} />
+                                        )}
+                                    </div>
+                                    <h3 className="font-display text-2xl font-medium text-[#2c3840] mb-3">
+                                        {getLocalized(pkg.title, pkg.titleEn, pkg.titleNl)}
+                                    </h3>
+                                    <p className="font-body text-sm text-[#2c3840]/60 mb-6 leading-relaxed">
+                                        {getLocalized(pkg.description, pkg.descriptionEn, pkg.descriptionNl)}
+                                    </p>
+                                    <div className="font-display text-3xl font-medium text-[#C6ad7a] mb-6">
+                                        {getLocalized(pkg.price, pkg.priceEn, pkg.priceNl)}
+                                    </div>
+                                    <motion.div
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        <Link
+                                            href="/contact"
+                                            className={`inline-block w-full px-6 py-4 font-body text-xs font-bold uppercase tracking-widest transition-all duration-500 shadow-md hover:shadow-lg text-center border ${pkg.isPopular
+                                                    ? 'bg-[#C6ad7a] text-white hover:bg-[#2c3840] border-[#C6ad7a] hover:border-[#2c3840]'
+                                                    : 'bg-[#2c3840] text-white hover:bg-[#C6ad7a] border-[#2c3840] hover:border-[#C6ad7a]'
+                                                }`}
+                                        >
+                                            {t('ctaOrder')}
+                                        </Link>
+                                    </motion.div>
+                                </div>
+                            ))
+                        ) : (
+                            // Fallback items (previous hardcoded items) if no dynamic data
+                            <>
+                                {/* Rest of the previous hardcoded items can stay as fallback or just empty */}
+                                <div className="text-center col-span-full py-20 text-[#2c3840]/40 font-body text-sm italic">
+                                    Aucun forfait disponible pour le moment.
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </section>

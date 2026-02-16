@@ -210,3 +210,114 @@ model PageHero {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+// Modèle pour la section Chambres de la page d'accueil (Teaser)
+model HomeRoomSection {
+  id               Int      @id @default(autoincrement())
+  title            String
+  titleEn          String?
+  titleNl          String?
+  titleItalic      String
+  titleItalicEn    String?
+  titleItalicNl    String?
+  description      String   @db.Text
+  descriptionEn    String?  @db.Text
+  descriptionNl    String?  @db.Text
+  imageUrl         String
+  ctaText          String?
+  ctaTextEn        String?
+  ctaTextNl        String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// Modèle pour la page Carte Cadeau
+model GiftCardPage {
+  id              Int      @id @default(autoincrement())
+  introTitle      String
+  introTitleEn    String?
+  introTitleNl    String?
+  introDesc       String   @db.Text
+  introDescEn     String?  @db.Text
+  introDescNl     String?  @db.Text
+  imageUrl        String
+  badgeText1      String
+  badgeText1En    String?
+  badgeText1Nl    String?
+  badgeText2      String
+  badgeText2En    String?
+  badgeText2Nl    String?
+  benefits        String[]
+  benefitsEn      String[]
+  benefitsNl      String[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Modèle pour les forfaits Carte Cadeau
+model GiftCardPackage {
+  id            Int      @id @default(autoincrement())
+  title         String
+  titleEn       String?
+  titleNl       String?
+  description   String   @db.Text
+  descriptionEn String?  @db.Text
+  descriptionNl String?  @db.Text
+  price         String
+  priceEn       String?
+  priceNl       String?
+  icon          String   // Star ou Heart
+  isPopular     Boolean  @default(false)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Modèle pour la page Séminaires
+model SeminarPage {
+  id              Int      @id @default(autoincrement())
+  introTitle      String
+  introTitleEn    String?
+  introTitleNl    String?
+  introDesc       String   @db.Text
+  introDescEn     String?  @db.Text
+  introDescNl     String?  @db.Text
+  imageUrl        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Modèle pour les atouts/points de vérification Séminaires
+model SeminarFeature {
+  id            Int      @id @default(autoincrement())
+  title         String
+  titleEn       String?
+  titleNl       String?
+  description   String   @db.Text
+  descriptionEn String?  @db.Text
+  descriptionNl String?  @db.Text
+  icon          String   // Nom de l'icône
+  type          String   // 'atout' ou 'checkpoint'
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Modèle pour les forfaits Séminaires
+model SeminarPackage {
+  id            Int      @id @default(autoincrement())
+  title         String
+  titleEn       String?
+  titleNl       String?
+  description   String   @db.Text
+  descriptionEn String?  @db.Text
+  descriptionNl String?  @db.Text
+  price         String?
+  details       String[]
+  detailsEn     String[]
+  detailsNl     String[]
+  isRecommended Boolean  @default(false)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

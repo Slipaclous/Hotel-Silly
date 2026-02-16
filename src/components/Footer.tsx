@@ -1,6 +1,7 @@
 'use client';
 
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -95,7 +96,7 @@ export default function Footer() {
                   info@dolcehotel-silly.com
                 </span>
               </div>
-              
+
             </div>
           </div>
 
@@ -227,13 +228,15 @@ export default function Footer() {
                   disabled={newsletterStatus === 'loading'}
                   className="px-4 py-2 bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[var(--color-or)] transition-colors duration-300 font-body text-sm disabled:opacity-50"
                 />
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={newsletterStatus === 'loading'}
-                  className="px-4 py-2 bg-[var(--color-or)] text-white font-body text-sm font-medium hover:bg-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-3 bg-[#C6ad7a] text-white font-body text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#2c3840] transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed border border-[#C6ad7a] hover:border-white shadow-lg"
                 >
                   {newsletterStatus === 'loading' ? t('newsletterLoading') : t('newsletterButton')}
-                </button>
+                </motion.button>
                 {newsletterMessage && (
                   <p className={`font-body text-xs ${newsletterStatus === 'success' ? 'text-green-400' : 'text-red-400'}`}>
                     {newsletterMessage}

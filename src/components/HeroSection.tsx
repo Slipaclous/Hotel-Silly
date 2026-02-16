@@ -113,21 +113,31 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
           </div>
 
           {/* Boutons CTA */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="#booking-widget"
-              className="group font-body text-sm px-8 py-3 bg-white text-[var(--color-noir)] hover:bg-[var(--color-or)] hover:text-white transition-all duration-300 flex items-center space-x-2"
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <span>{ct('book')}</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-            </a>
+              <a
+                href="#booking-widget"
+                className="group font-body text-xs font-bold uppercase tracking-widest px-10 py-4 bg-[#C6ad7a] text-white hover:bg-white hover:text-[#2c3840] transition-all duration-500 flex items-center space-x-3 shadow-lg hover:shadow-2xl border border-[#C6ad7a] hover:border-white"
+              >
+                <span>{ct('book')}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" />
+              </a>
+            </motion.div>
 
-            <Link
-              href="/chambres"
-              className="font-body text-sm px-8 py-3 border border-white text-white hover:bg-white hover:text-[var(--color-noir)] transition-all duration-300"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {ct('discoverRooms')}
-            </Link>
+              <Link
+                href="/chambres"
+                className="font-body text-xs font-bold uppercase tracking-widest px-10 py-4 border border-white text-white hover:bg-white hover:text-[#2c3840] transition-all duration-500 shadow-lg hover:shadow-2xl"
+              >
+                {ct('discoverRooms')}
+              </Link>
+            </motion.div>
           </div>
         </motion.div>
       </div>

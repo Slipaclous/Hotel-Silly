@@ -190,13 +190,19 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                         <p className="font-body text-lg text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
                             {t('ctaDesc')}
                         </p>
-                        <Link
-                            href="/contact"
-                            className="inline-flex items-center space-x-2 bg-white text-noir px-8 py-3 font-body text-sm hover:bg-or hover:text-white transition-all duration-300"
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="inline-block"
                         >
-                            <span>{t('ctaButton')}</span>
-                            <ArrowRight className="w-4 h-4" />
-                        </Link>
+                            <Link
+                                href="/contact"
+                                className="inline-flex items-center space-x-3 bg-[#C6ad7a] text-white px-10 py-5 font-body text-sm font-medium hover:bg-white hover:text-[#2c3840] transition-all duration-500 shadow-lg hover:shadow-2xl border border-[#C6ad7a] hover:border-white group"
+                            >
+                                <span className="tracking-widest uppercase">{t('ctaButton')}</span>
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-500" />
+                            </Link>
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -273,13 +279,18 @@ function EventCard({
 
                 {/* Bouton CTA */}
                 {!compact && (
-                    <Link
-                        href="/contact"
-                        className="group/btn w-full border border-noir text-noir hover:bg-noir hover:text-white py-3 font-body text-sm transition-all duration-300 flex items-center justify-center space-x-2"
+                    <motion.div
+                        whileHover={{ y: -2 }}
+                        whileTap={{ scale: 0.98 }}
                     >
-                        <span>{t('learnMore')}</span>
-                        <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                    </Link>
+                        <Link
+                            href="/contact"
+                            className="group/btn w-full bg-[#2c3840] text-white py-4 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 flex items-center justify-center space-x-3 shadow-md hover:shadow-lg border border-[#2c3840] hover:border-[#C6ad7a]"
+                        >
+                            <span>{t('learnMore')}</span>
+                            <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-500" />
+                        </Link>
+                    </motion.div>
                 )}
             </div>
         </div>
