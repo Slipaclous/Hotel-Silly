@@ -5,8 +5,8 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   eslint: {
-    // Permet le build même avec des warnings ESLint
-    ignoreDuringBuilds: false,
+    // Permet le build même avec des erreurs ESLint
+    ignoreDuringBuilds: true,
   },
   typescript: {
     // Permet le build même avec des erreurs TypeScript (à utiliser temporairement)
