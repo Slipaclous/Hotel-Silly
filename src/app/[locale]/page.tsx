@@ -10,11 +10,11 @@ export default async function Home() {
   const t = await getTranslations('nav');
 
   // Récupération de toutes les données sur le serveur (SSR)
-  let heroData = null;
-  let aboutData = null;
-  let roomsData = [];
-  let featuresData = [];
-  let testimonialsData = [];
+  let heroData: any = null;
+  let aboutData: any = null;
+  let roomsData: any[] = [];
+  let featuresData: any[] = [];
+  let testimonialsData: any[] = [];
 
   try {
     [heroData, aboutData, roomsData, featuresData, testimonialsData] = await Promise.all([
