@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Link } from '@/i18n/routing';

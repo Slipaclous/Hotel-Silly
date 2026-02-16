@@ -29,7 +29,7 @@ interface HeroData {
 export default function HeroSection({ initialData }: { initialData?: HeroData | null }) {
   const [heroData, setHeroData] = useState<HeroData | null>(initialData || null);
   const locale = useLocale();
-  const t = useTranslations('nav');
+  const ct = useTranslations('common');
 
   useEffect(() => {
     if (!initialData) {
@@ -55,7 +55,7 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
   const descriptionFinal = getLocalized(data.description, data.descriptionEn, data.descriptionNl);
   const locationFinal = getLocalized(data.location, data.locationEn, data.locationNl);
 
-  const ct = useTranslations('common');
+
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">

@@ -4,6 +4,14 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
+  eslint: {
+    // Permet le build même avec des warnings ESLint
+    ignoreDuringBuilds: false,
+  },
+  typescript: {
+    // Permet le build même avec des erreurs TypeScript (à utiliser temporairement)
+    ignoreBuildErrors: false,
+  },
   images: {
     remotePatterns: [
       {

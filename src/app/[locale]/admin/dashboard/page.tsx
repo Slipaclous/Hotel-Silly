@@ -95,6 +95,8 @@ export default function DashboardPage() {
             {activeSection === 'hero-a-propos' && <PageHeroEditor page="a-propos" pageLabel="Page À Propos" />}
             {activeSection === 'hero-galerie' && <PageHeroEditor page="galerie" pageLabel="Page Galerie" />}
             {activeSection === 'hero-evenements' && <PageHeroEditor page="evenements" pageLabel="Page Événements" />}
+            {activeSection === 'hero-carte-cadeau' && <PageHeroEditor page="carte-cadeau" pageLabel="Page Carte Cadeau" />}
+            {activeSection === 'hero-seminaires' && <PageHeroEditor page="seminaires" pageLabel="Page Séminaires" />}
           </div>
         </div>
       </main>

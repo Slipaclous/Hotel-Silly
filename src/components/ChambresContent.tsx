@@ -1,5 +1,5 @@
 "use client";
-import { Star, Users, ArrowRight, Wifi, Coffee, Car, Calendar as CalendarIcon, Images, Maximize2 } from 'lucide-react';
+import { Star, Wifi, Coffee, Car, Calendar as CalendarIcon, Images, Maximize2 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
