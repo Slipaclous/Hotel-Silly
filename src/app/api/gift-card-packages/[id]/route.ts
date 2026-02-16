@@ -4,13 +4,14 @@ import { revalidatePath } from 'next/cache';
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const id = parseInt(params.id);
+        const { id } = await params;
+        const numericId = parseInt(id);
         const data = await request.json();
         const result = await (prisma as any).giftCardPackage.update({
-            where: { id },
+            where: { id: numericId },
             data,
         });
         revalidatePath('/[locale]/carte-cadeau', 'page');
@@ -22,12 +23,13 @@ export async function PUT(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const id = parseInt(params.id);
+        const { id } = await params;
+        const numericId = parseInt(id);
         await (prisma as any).giftCardPackage.delete({
-            where: { id },
+            where: { id: numericId },
         });
         revalidatePath('/[locale]/carte-cadeau', 'page');
         return NextResponse.json({ success: true });
