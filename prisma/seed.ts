@@ -300,7 +300,7 @@ async function main() {
   }
   console.log('✅ Événements créés');
 
-  // Créer les page heroes
+  // Créer les page heroes - UNIQUEMENT LA GALERIE EST TRADUITE
   const pageHeros = [
     {
       page: 'carte-cadeau',
@@ -313,6 +313,16 @@ async function main() {
       title: 'Réunions & Séminaires',
       subtitle: 'Un espace professionnel et élégant',
       imageUrl: 'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    },
+    {
+      page: 'galerie',
+      title: 'Galerie Photo',
+      titleEn: 'Photo Gallery',
+      titleNl: 'Fotogalerij',
+      subtitle: 'Découvrez les espaces et l\'ambiance unique de notre hôtel',
+      subtitleEn: 'Discover the unique spaces and atmosphere of our hotel',
+      subtitleNl: 'Ontdek de unieke ruimtes en sfeer van ons hotel',
+      imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
     },
   ];
 

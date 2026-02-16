@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard } from 'lucide-react';
+import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard, Globe, Gift, Users } from 'lucide-react';
 import Image from 'next/image';
 
 interface SidebarProps {
@@ -73,13 +73,37 @@ export default function Sidebar({
         },
         {
             id: 'evenements',
-            label: 'Vie Régionale',
+            label: 'Événements et Réunions',
             icon: Calendar,
             section: 'hero-evenements',
             subItems: [
                 { id: 'hero-evenements', label: 'Hero' },
                 { id: 'events', label: 'Découvertes' },
             ],
+        },
+        {
+            id: 'carte-cadeau',
+            label: 'Page Carte Cadeau',
+            icon: Gift,
+            section: 'hero-carte-cadeau',
+            subItems: [
+                { id: 'hero-carte-cadeau', label: 'Hero' },
+            ],
+        },
+        {
+            id: 'seminaires',
+            label: 'Page Séminaires',
+            icon: Users,
+            section: 'hero-seminaires',
+            subItems: [
+                { id: 'hero-seminaires', label: 'Hero' },
+            ],
+        },
+        {
+            id: 'translations',
+            label: 'Traductions',
+            icon: Globe,
+            section: 'global-translations',
         },
     ];
 

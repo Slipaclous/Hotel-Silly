@@ -3,16 +3,33 @@
 import { motion } from 'framer-motion';
 import { Award, Heart, Shield, Star, MapPin, Clock, Users } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface AboutData {
     title: string;
+    titleEn?: string | null;
+    titleNl?: string | null;
     description: string;
+    descriptionEn?: string | null;
+    descriptionNl?: string | null;
     keyPoint1Title: string;
+    keyPoint1TitleEn?: string | null;
+    keyPoint1TitleNl?: string | null;
     keyPoint1Text: string;
+    keyPoint1TextEn?: string | null;
+    keyPoint1TextNl?: string | null;
     keyPoint2Title: string;
+    keyPoint2TitleEn?: string | null;
+    keyPoint2TitleNl?: string | null;
     keyPoint2Text: string;
+    keyPoint2TextEn?: string | null;
+    keyPoint2TextNl?: string | null;
     keyPoint3Title: string;
+    keyPoint3TitleEn?: string | null;
+    keyPoint3TitleNl?: string | null;
     keyPoint3Text: string;
+    keyPoint3TextEn?: string | null;
+    keyPoint3TextNl?: string | null;
     openingYear: string;
     imageUrl: string;
 }
@@ -20,13 +37,21 @@ interface AboutData {
 interface Feature {
     icon: string;
     title: string;
+    titleEn?: string | null;
+    titleNl?: string | null;
     description: string;
+    descriptionEn?: string | null;
+    descriptionNl?: string | null;
 }
 
 interface PageHero {
     page: string;
     title: string;
+    titleEn?: string | null;
+    titleNl?: string | null;
     subtitle: string;
+    subtitleEn?: string | null;
+    subtitleNl?: string | null;
     imageUrl: string;
 }
 
@@ -44,6 +69,16 @@ interface AboutContentProps {
 }
 
 export default function AboutContent({ aboutData, features, pageHero }: AboutContentProps) {
+    const locale = useLocale();
+    const t = useTranslations('about');
+    const c = useTranslations('common');
+
+    const getLocalized = (fr: string, en?: string | null, nl?: string | null) => {
+        if (locale === 'nl') return nl || fr;
+        if (locale === 'en') return en || fr;
+        return fr;
+    };
+
     const data = aboutData || {
         title: 'Une Expérience Unique',
         description: "Notre hôtel de luxe va ouvrir ses portes au printemps 2025 dans le charmant village de Silly, au cœur de la Belgique. Chaque détail a été pensé pour offrir une expérience inoubliable dans un cadre d'exception.",
@@ -57,10 +92,19 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
         imageUrl: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     };
 
+    const title = getLocalized(data.title, data.titleEn, data.titleNl);
+    const description = getLocalized(data.description, data.descriptionEn, data.descriptionNl);
+    const kp1Title = getLocalized(data.keyPoint1Title, data.keyPoint1TitleEn, data.keyPoint1TitleNl);
+    const kp1Text = getLocalized(data.keyPoint1Text, data.keyPoint1TextEn, data.keyPoint1TextNl);
+    const kp2Title = getLocalized(data.keyPoint2Title, data.keyPoint2TitleEn, data.keyPoint2TitleNl);
+    const kp2Text = getLocalized(data.keyPoint2Text, data.keyPoint2TextEn, data.keyPoint2TextNl);
+    const kp3Title = getLocalized(data.keyPoint3Title, data.keyPoint3TitleEn, data.keyPoint3TitleNl);
+    const kp3Text = getLocalized(data.keyPoint3Text, data.keyPoint3TextEn, data.keyPoint3TextNl);
+
     return (
         <>
             {/* Hero Section */}
-            <section id="hero" data-nav-section="Notre Histoire" data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+            <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')} data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -69,66 +113,55 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                     >
                         <div className="w-12 h-px bg-[#C6ad7a] mx-auto mb-6"></div>
                         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium mb-6 text-[#C6ad7a]">
-                            {pageHero?.title || "À Propos de l'Hôtel"}
+                            {pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
                         </h1>
                         <p className="font-body text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-                            {pageHero?.subtitle || "Découvrez l'histoire et l'identité de notre hôtel de luxe"}
+                            {pageHero ? (locale === 'en' ? (pageHero.subtitleEn || pageHero.subtitle) : locale === 'nl' ? (pageHero.subtitleNl || pageHero.subtitle) : pageHero.subtitle) : t('heroSubtitle')}
                         </p>
                     </motion.div>
                 </div>
             </section>
 
             {/* Contenu Principal */}
-            <section id="overview" data-nav-section="Découverte" className="py-24 bg-blanc">
+            <section id="overview" data-nav-section={t('discovery')} className="py-24 bg-blanc">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
                         {/* Contenu */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}
-                            viewport={{ once: true }}
-                        >
+                        <div>
                             <div className="w-12 h-px bg-or mb-6"></div>
 
                             <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
-                                {data.title}
+                                {title}
                             </h2>
 
                             <p className="font-body text-lg text-noir/70 mb-10 leading-relaxed">
-                                {data.description}
+                                {description}
                             </p>
 
                             <div className="space-y-6">
                                 <div className="flex items-start space-x-4">
                                     <div className="w-1 h-1 bg-or rounded-full mt-3 flex-shrink-0"></div>
                                     <p className="font-body text-base text-noir/80">
-                                        <strong className="font-medium text-noir">{data.keyPoint1Title}</strong> — {data.keyPoint1Text}
+                                        <strong className="font-medium text-noir">{kp1Title}</strong> — {kp1Text}
                                     </p>
                                 </div>
                                 <div className="flex items-start space-x-4">
                                     <div className="w-1 h-1 bg-or rounded-full mt-3 flex-shrink-0"></div>
                                     <p className="font-body text-base text-noir/80">
-                                        <strong className="font-medium text-noir">{data.keyPoint2Title}</strong> — {data.keyPoint2Text}
+                                        <strong className="font-medium text-noir">{kp2Title}</strong> — {kp2Text}
                                     </p>
                                 </div>
                                 <div className="flex items-start space-x-4">
                                     <div className="w-1 h-1 bg-or rounded-full mt-3 flex-shrink-0"></div>
                                     <p className="font-body text-base text-noir/80">
-                                        <strong className="font-medium text-noir">{data.keyPoint3Title}</strong> — {data.keyPoint3Text}
+                                        <strong className="font-medium text-noir">{kp3Title}</strong> — {kp3Text}
                                     </p>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
 
                         {/* Image */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-                            viewport={{ once: true }}
-                            className="relative"
-                        >
+                        <div className="relative">
                             <div className="relative h-[500px] overflow-hidden">
                                 <div
                                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -136,57 +169,42 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                         backgroundImage: `url('${data.imageUrl}')`
                                     }}
                                 />
-
-                                {/* Badge année */}
-                                <div className="absolute bottom-8 left-8 bg-blanc shadow-elegant p-6 border border-noir/10">
-                                    <div className="font-display text-4xl font-medium text-noir mb-1">{data.openingYear}</div>
-                                    <div className="font-body text-xs uppercase tracking-widest text-noir/60">Année d&apos;Ouverture</div>
-                                </div>
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* Grille de caractéristiques */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-24"
-                    >
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-24">
                         {features.map((feature) => {
                             const IconComponent = iconMap[feature.icon] || Award;
+                            const fTitle = getLocalized(feature.title, feature.titleEn, feature.titleNl);
+                            const fDesc = getLocalized(feature.description, feature.descriptionEn, feature.descriptionNl);
                             return (
-                                <div key={feature.title} className="text-center">
+                                <div key={fTitle} className="text-center">
                                     <div className="w-16 h-16 border border-noir/20 flex items-center justify-center mx-auto mb-6 hover:border-or transition-colors duration-300">
                                         <IconComponent className="w-7 h-7 text-or" />
                                     </div>
                                     <h3 className="font-display text-xl font-medium text-noir mb-3">
-                                        {feature.title}
+                                        {fTitle}
                                     </h3>
                                     <p className="font-body text-sm text-noir/70 leading-relaxed">
-                                        {feature.description}
+                                        {fDesc}
                                     </p>
                                 </div>
                             );
                         })}
-                    </motion.div>
+                    </div>
 
                     {/* Section Accès & Activités */}
-                    <div id="access" data-nav-section="Accès" className="mb-24">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}
-                            viewport={{ once: true }}
-                        >
+                    <div id="access" data-nav-section={t('access')} className="mb-24">
+                        <div>
                             <div className="text-center mb-16">
                                 <div className="w-12 h-px bg-or mx-auto mb-6"></div>
                                 <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
-                                    Accès & Activités
+                                    {t('accessTitle')}
                                 </h2>
                                 <p className="font-body text-lg text-noir/70 max-w-2xl mx-auto leading-relaxed">
-                                    Découvrez comment nous rejoindre et les nombreuses activités à proximité
+                                    {t('accessDesc')}
                                 </p>
                             </div>
 
@@ -195,40 +213,37 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                 <div className="bg-blanc border border-noir/10 p-8">
                                     <h3 className="font-display text-2xl font-medium text-noir mb-6 flex items-center">
                                         <MapPin className="w-6 h-6 text-[var(--color-or)] mr-3" />
-                                        Comment nous rejoindre
+                                        {t('howToReach')}
                                     </h3>
 
                                     <div className="space-y-6">
                                         <div>
                                             <h4 className="font-body text-base font-medium text-noir mb-3 flex items-center">
                                                 <div className="w-2 h-2 bg-[var(--color-or)] rounded-full mr-3"></div>
-                                                En train
+                                                {t('byTrain')}
                                             </h4>
-                                            <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed">
-                                                <strong>Gare SNCB Silly</strong> - À 2 km de l&apos;hôtel<br />
-                                                • À pied : 20-30 minutes<br />
-                                                • À vélo : 10 minutes
+                                            <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed whitespace-pre-wrap">
+                                                {t('byTrainDesc')}
                                             </p>
                                         </div>
 
                                         <div>
                                             <h4 className="font-body text-base font-medium text-noir mb-3 flex items-center">
                                                 <div className="w-2 h-2 bg-[var(--color-or)] rounded-full mr-3"></div>
-                                                En voiture
+                                                {t('byCar')}
                                             </h4>
-                                            <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed">
-                                                Accès facile par autoroute<br />
-                                                Parking privé disponible
+                                            <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed whitespace-pre-wrap">
+                                                {t('byCarDesc')}
                                             </p>
                                         </div>
 
                                         <div>
                                             <h4 className="font-body text-base font-medium text-noir mb-3 flex items-center">
                                                 <div className="w-2 h-2 bg-[var(--color-or)] rounded-full mr-3"></div>
-                                                En bus
+                                                {t('byBus')}
                                             </h4>
-                                            <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed">
-                                                Arrêt de bus <strong>&quot;Silly centre&quot;</strong> à proximité
+                                            <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed whitespace-pre-wrap">
+                                                {t('byBusDesc')}
                                             </p>
                                         </div>
                                     </div>
@@ -238,93 +253,59 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                 <div className="bg-[var(--color-blanc-200)] p-8">
                                     <h3 className="font-display text-2xl font-medium text-noir mb-6 flex items-center">
                                         <Star className="w-6 h-6 text-[var(--color-or)] mr-3" />
-                                        À proximité
+                                        {t('nearby')}
                                     </h3>
 
                                     <div className="grid grid-cols-1 gap-3">
-                                        {[
-                                            'Bois de Silly (promenades)',
-                                            'Circuit des fées de Silly',
-                                            'Parc d\'Enghien',
-                                            'Pairi Daiza',
-                                            'Visite de la brasserie de Silly',
-                                            'Airport de Charleroi/BXL',
-                                            'SHAPE',
-                                            'Golf d\'Enghien',
-                                            'Shopping Bastion et Grand Prez'
-                                        ].map((activity, index) => (
-                                            <div key={index} className="flex items-start space-x-3">
-                                                <div className="w-1.5 h-1.5 bg-[var(--color-or)] rounded-full mt-2 flex-shrink-0"></div>
-                                                <span className="font-body text-sm text-noir/80">{activity}</span>
+                                        {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                                            <div key={i} className="flex items-start space-x-3">
+                                                <div className="w-1.5 h-1.5 bg-or rounded-full mt-2 flex-shrink-0"></div>
+                                                <span className="font-body text-sm text-noir/80">{t(`activities.${i}`)}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* Section Valeurs */}
-                    <div id="values" data-nav-section="Nos Valeurs" className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}
-                            viewport={{ once: true }}
-                            className="bg-blanc-200 p-8"
-                        >
+                    <div id="values" data-nav-section={t('values')} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="bg-blanc-200 p-8">
                             <div className="w-12 h-12 bg-noir flex items-center justify-center mb-6">
                                 <MapPin className="w-6 h-6 text-blanc" />
                             </div>
                             <h3 className="font-display text-2xl font-medium text-noir mb-4">
-                                Notre Emplacement
+                                {t('locationTitle')}
                             </h3>
                             <p className="font-body text-sm text-noir/70 leading-relaxed">
-                                Situé au cœur de Silly, village pittoresque de la Région Wallonne,
-                                notre hôtel vous offre un accès privilégié aux principales attractions belges
-                                tout en préservant le calme et la sérénité d&apos;un cadre exceptionnel.
+                                {t('locationDesc')}
                             </p>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-                            viewport={{ once: true }}
-                            className="bg-blanc-200 p-8"
-                        >
+                        <div className="bg-blanc-200 p-8">
                             <div className="w-12 h-12 bg-noir flex items-center justify-center mb-6">
                                 <Clock className="w-6 h-6 text-blanc" />
                             </div>
                             <h3 className="font-display text-2xl font-medium text-noir mb-4">
-                                Notre Histoire
+                                {t('historyTitle')}
                             </h3>
                             <p className="font-body text-sm text-noir/70 leading-relaxed">
-                                Fondé en {data.openingYear}, notre hôtel allie tradition et modernité
-                                pour offrir une expérience unique où chaque détail a été pensé
-                                pour votre confort et votre bien-être.
+                                {t('historyDesc', { year: data.openingYear })}
                             </p>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-                            viewport={{ once: true }}
-                            className="bg-blanc-200 p-8"
-                        >
+                        <div className="bg-blanc-200 p-8">
                             <div className="w-12 h-12 bg-noir flex items-center justify-center mb-6">
                                 <Users className="w-6 h-6 text-blanc" />
                             </div>
                             <h3 className="font-display text-2xl font-medium text-noir mb-4">
-                                Notre Engagement
+                                {t('engagementTitle')}
                             </h3>
                             <p className="font-body text-sm text-noir/70 leading-relaxed">
-                                Notre équipe dédiée s&apos;engage à anticiper vos besoins et à rendre
-                                votre séjour exceptionnel. Nous mettons un point d&apos;honneur à offrir
-                                un service personnalisé de qualité supérieure.
+                                {t('engagementDesc')}
                             </p>
-                        </motion.div>
+                        </div>
                     </div>
                     <div id="footer" data-nav-section="Infos" data-nav-is-dark="true"></div>
                 </div>

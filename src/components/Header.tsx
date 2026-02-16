@@ -2,17 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import { Phone, ChevronDown } from 'lucide-react';
-import Link from 'next/link';
+import { Link, usePathname } from '@/i18n/routing';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 export default function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setServicesOpen] = useState(false);
   const pathname = usePathname();
-
+  const t = useTranslations('nav');
+  const c = useTranslations('common');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,17 +25,17 @@ export default function Header() {
   }, []);
 
   const navigation = [
-    { name: 'Accueil', href: '/' },
-    { name: 'Chambres & Suites', href: '/chambres' },
-    { name: 'Galerie', href: '/galerie' },
-    { name: 'À Propos', href: '/a-propos' },
-    { name: 'Contact', href: '/contact' },
+    { name: t('home'), href: '/' },
+    { name: t('rooms'), href: '/chambres' },
+    { name: t('gallery'), href: '/galerie' },
+    { name: t('about'), href: '/a-propos' },
+    { name: t('contact'), href: '/contact' },
   ];
 
   const servicesMenu = [
-    { name: 'Événements', href: '/evenements' },
-    { name: 'Séminaires', href: '/seminaires' },
-    { name: 'Carte-Cadeau', href: '/carte-cadeau' },
+    { name: t('events'), href: '/evenements' },
+    { name: t('seminars'), href: '/seminaires' },
+    { name: t('giftCard'), href: '/carte-cadeau' },
   ];
 
   return (
@@ -57,16 +59,19 @@ export default function Header() {
               </span>
               <span className={`hidden sm:inline font-body font-light ${(!isScrolled && !isMenuOpen) ? 'text-white/90' : 'text-[var(--color-gris)]'
                 }`}>
-                Ouverture Printemps 2025
+                 Hôtel Villa Dolce ★★★
               </span>
             </div>
-            <div className="flex items-center space-x-2">
-              <Phone className={`w-3 h-3 ${(!isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-or)]'
-                }`} />
-              <span className={`text-xs font-body font-light ${(!isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-noir)]'
-                }`}>
-                +32 2 123 45 67
-              </span>
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center space-x-2">
+                <Phone className={`w-3 h-3 ${(!isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-or)]'
+                  }`} />
+                <span className={`text-xs font-body font-light ${(!isScrolled && !isMenuOpen) ? 'text-white' : 'text-[var(--color-noir)]'
+                  }`}>
+                  +32 470 13 73 13
+                </span>
+              </div>
+              <LanguageSwitcher isScrolled={isScrolled} isMenuOpen={isMenuOpen} />
             </div>
           </div>
         </div>
@@ -96,8 +101,9 @@ export default function Header() {
           <nav className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link
-                key={item.name}
-                href={item.href}
+                key={item.href}
+                href={item.href as any}
+                prefetch={true}
                 className={`font-body text-sm font-light tracking-wide link-underline transition-colors duration-300 ${(!isScrolled && !isMenuOpen)
                   ? 'text-white hover:text-white/80'
                   : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
@@ -119,7 +125,7 @@ export default function Header() {
                   : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
                   }`}
               >
-                <span>Services</span>
+                <span>{t('services')}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -136,8 +142,9 @@ export default function Header() {
                     <div className="bg-white shadow-elegant border border-noir/10 py-2 w-48 rounded-sm overflow-hidden">
                       {servicesMenu.map((item) => (
                         <Link
-                          key={item.name}
-                          href={item.href}
+                          key={item.href}
+                          href={item.href as any}
+                          prefetch={true}
                           className="block px-4 py-3 font-body text-sm text-noir hover:bg-noir/[0.02] hover:text-or transition-colors duration-300"
                         >
                           {item.name}
@@ -153,13 +160,14 @@ export default function Header() {
           {/* Bouton réservation */}
           <div className="hidden lg:block">
             <Link
-              href="/contact"
+              href="/#booking-widget"
+              prefetch={true}
               className={`font-body text-sm font-normal px-6 py-2.5 border transition-all duration-300 ${(!isScrolled && !isMenuOpen)
                 ? 'border-white text-white hover:bg-white hover:text-[var(--color-noir)]'
                 : 'border-[var(--color-noir)] text-[var(--color-noir)] hover:bg-[var(--color-noir)] hover:text-white'
                 }`}
             >
-              Réserver
+              {c('book')}
             </Link>
           </div>
 
@@ -170,16 +178,16 @@ export default function Header() {
           >
             <div className="w-6 h-5 flex flex-col justify-between relative">
               <span className={`block h-0.5 w-full transition-all duration-300 transform origin-center ${isMenuOpen
-                  ? 'rotate-45 translate-y-[9px] bg-[#2c3840]'
-                  : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
+                ? 'rotate-45 translate-y-[9px] bg-[#2c3840]'
+                : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
                 }`}></span>
               <span className={`block h-0.5 w-full transition-all duration-300 ${isMenuOpen
-                  ? 'opacity-0'
-                  : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
+                ? 'opacity-0'
+                : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
                 }`}></span>
               <span className={`block h-0.5 w-full transition-all duration-300 transform origin-center ${isMenuOpen
-                  ? '-rotate-45 -translate-y-[9px] bg-[#2c3840]'
-                  : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
+                ? '-rotate-45 -translate-y-[9px] bg-[#2c3840]'
+                : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
                 }`}></span>
             </div>
           </button>
@@ -202,13 +210,14 @@ export default function Header() {
               <nav className="flex flex-col space-y-6 relative z-10">
                 {navigation.map((item, index) => (
                   <motion.div
-                    key={item.name}
+                    key={item.href}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + index * 0.1 }}
                   >
                     <Link
-                      href={item.href}
+                      href={item.href as any}
+                      prefetch={true}
                       className="font-display text-4xl text-noir hover:text-or transition-colors block"
                       onClick={() => setMenuOpen(false)}
                     >
@@ -223,12 +232,13 @@ export default function Header() {
                   transition={{ delay: 0.5 }}
                   className="pt-6 border-t border-noir/10 mt-6"
                 >
-                  <p className="font-body text-xs font-bold uppercase tracking-widest text-noir/40 mb-4">Services</p>
+                  <p className="font-body text-xs font-bold uppercase tracking-widest text-noir/40 mb-4">{t('services')}</p>
                   <div className="space-y-3">
                     {servicesMenu.map((item) => (
                       <Link
-                        key={item.name}
-                        href={item.href}
+                        key={item.href}
+                        href={item.href as any}
+                        prefetch={true}
                         className="block font-body text-lg text-noir/70 hover:text-or transition-colors"
                         onClick={() => setMenuOpen(false)}
                       >
@@ -245,11 +255,12 @@ export default function Header() {
                   className="pt-8"
                 >
                   <Link
-                    href="/contact"
+                    href="/#booking-widget"
+                    prefetch={true}
                     className="w-full block bg-noir text-white text-center py-4 font-body text-sm uppercase tracking-widest hover:bg-or transition-all"
                     onClick={() => setMenuOpen(false)}
                   >
-                    Réserver votre séjour
+                    {c('bookStay')}
                   </Link>
                 </motion.div>
               </nav>
@@ -259,4 +270,4 @@ export default function Header() {
       </div>
     </header>
   );
-} 
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { Lock, Mail, Loader2, ChevronRight } from 'lucide-react';
 
 export default function AdminLoginPage() {

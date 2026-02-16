@@ -6,6 +6,9 @@ import Image from 'next/image';
 import ImageUpload from './ImageUpload';
 import MultiImageUpload from './MultiImageUpload';
 import AdminWrapper from './AdminWrapper';
+import LanguageTabs from './LanguageTabs';
+
+type Locale = 'fr' | 'en' | 'nl';
 
 interface GalleryImage {
   id: number;
@@ -15,17 +18,29 @@ interface GalleryImage {
 interface Room {
   id: number;
   name: string;
+  nameEn?: string;
+  nameNl?: string;
   description: string;
+  descriptionEn?: string;
+  descriptionNl?: string;
   price: string;
   capacity: string;
+  capacityEn?: string;
+  capacityNl?: string;
   rating: number;
   imageUrl: string;
   images?: GalleryImage[];
   features: string[];
   order: number;
   surface?: string;
+  surfaceEn?: string;
+  surfaceNl?: string;
   bedding?: string;
+  beddingEn?: string;
+  beddingNl?: string;
   bathroom?: string;
+  bathroomEn?: string;
+  bathroomNl?: string;
   price1Person?: string;
   price2Persons?: string;
   price3Persons?: string;
@@ -38,6 +53,7 @@ export default function RoomsEditor() {
   const [editingRoom, setEditingRoom] = useState<Room | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [message, setMessage] = useState('');
+  const [activeLocale, setActiveLocale] = useState<Locale>('fr');
 
   useEffect(() => {
     fetchRooms();
@@ -96,13 +112,16 @@ export default function RoomsEditor() {
             {isAdding ? 'Ajouter une chambre' : editingRoom ? 'Modifier la chambre' : 'Liste des chambres'}
           </h3>
           {!isAdding && !editingRoom && (
-            <button
-              onClick={() => setIsAdding(true)}
-              className="flex items-center space-x-2 bg-or hover:bg-black text-white px-4 py-2 rounded-lg transition-all duration-200 shadow-sm font-medium text-sm"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Ajouter</span>
-            </button>
+            <div className="flex items-center space-x-4">
+              <LanguageTabs currentLocale={activeLocale} onChange={setActiveLocale} />
+              <button
+                onClick={() => setIsAdding(true)}
+                className="flex items-center space-x-2 bg-or hover:bg-black text-white px-4 py-2 rounded-lg transition-all duration-200 shadow-sm font-medium text-sm"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Ajouter</span>
+              </button>
+            </div>
           )}
         </div>
 
@@ -111,6 +130,8 @@ export default function RoomsEditor() {
           <div className="animate-slide-in-top">
             <RoomForm
               room={editingRoom || undefined}
+              activeLocale={activeLocale}
+              onLocaleChange={setActiveLocale}
               onCancel={() => {
                 setIsAdding(false);
                 setEditingRoom(null);
@@ -172,7 +193,9 @@ export default function RoomsEditor() {
 
                   <div className="p-5">
                     <div className="flex justify-between items-start mb-2">
-                      <h4 className="font-bold text-gray-900 line-clamp-1">{room.name}</h4>
+                      <h4 className="font-bold text-gray-900 line-clamp-1">
+                        {activeLocale === 'fr' ? room.name : (activeLocale === 'en' ? (room.nameEn || room.name) : (room.nameNl || room.name))}
+                      </h4>
                       <div className="flex items-center bg-gray-50 px-2 py-1 rounded text-xs font-semibold text-gray-600">
                         <Star className="w-3 h-3 text-or mr-1 fill-or" />
                         {room.rating}
@@ -180,7 +203,7 @@ export default function RoomsEditor() {
                     </div>
 
                     <p className="text-sm text-gray-500 line-clamp-2 mb-4 h-10">
-                      {room.description}
+                      {activeLocale === 'fr' ? room.description : (activeLocale === 'en' ? (room.descriptionEn || room.description) : (room.descriptionNl || room.description))}
                     </p>
 
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-4">
@@ -189,7 +212,7 @@ export default function RoomsEditor() {
                       </div>
                       <div className="text-xs text-gray-400 flex items-center">
                         <Users className="w-3 h-3 mr-1" />
-                        {room.capacity}
+                        {activeLocale === 'fr' ? room.capacity : (activeLocale === 'en' ? (room.capacityEn || room.capacity) : (room.capacityNl || room.capacity))}
                       </div>
                     </div>
                   </div>
@@ -203,21 +226,36 @@ export default function RoomsEditor() {
   );
 }
 
-function RoomForm({ room, onCancel, onSuccess }: {
+function RoomForm({ room, activeLocale, onLocaleChange, onCancel, onSuccess }: {
   room?: Room;
+  activeLocale: Locale;
+  onLocaleChange: (locale: Locale) => void;
   onCancel: () => void;
   onSuccess: () => void;
 }) {
   const [formData, setFormData] = useState({
     name: room?.name || '',
+    nameEn: room?.nameEn || '',
+    nameNl: room?.nameNl || '',
     description: room?.description || '',
+    descriptionEn: room?.descriptionEn || '',
+    descriptionNl: room?.descriptionNl || '',
     price: room?.price || '',
     capacity: room?.capacity || '',
+    capacityEn: room?.capacityEn || '',
+    capacityNl: room?.capacityNl || '',
 
     // Nouveaux champs
     surface: room?.surface || '',
+    surfaceEn: room?.surfaceEn || '',
+    surfaceNl: room?.surfaceNl || '',
     bedding: room?.bedding || '',
+    beddingEn: room?.beddingEn || '',
+    beddingNl: room?.beddingNl || '',
     bathroom: room?.bathroom || '',
+    bathroomEn: room?.bathroomEn || '',
+    bathroomNl: room?.bathroomNl || '',
+
     price1Person: room?.price1Person || '',
     price2Persons: room?.price2Persons || '',
     price3Persons: room?.price3Persons || '',
@@ -260,15 +298,32 @@ function RoomForm({ room, onCancel, onSuccess }: {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const getFieldName = (base: string) => {
+    if (activeLocale === 'fr') return base;
+    return `${base}${activeLocale.charAt(0).toUpperCase()}${activeLocale.slice(1)}`;
+  };
+
   const inputClasses = "w-full bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-gray-900 focus:border-or focus:ring-1 focus:ring-or outline-none transition-all duration-200 text-sm placeholder:text-gray-400 mt-1.5";
   const labelClasses = "text-xs font-semibold text-gray-500 uppercase tracking-wide ml-0.5";
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 relative overflow-hidden">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 relative overflow-hidden mb-12">
       <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
-        <h3 className="text-xl font-bold text-gray-900 font-display">
-          {room ? 'Éditer la chambre' : 'Nouvelle chambre'}
-        </h3>
+        <div className="flex items-center space-x-6">
+          <h3 className="text-xl font-bold text-gray-900 font-display">
+            {room ? 'Éditer la chambre' : 'Nouvelle chambre'}
+          </h3>
+          <div className="translate-y-4">
+            <LanguageTabs currentLocale={activeLocale} onChange={onLocaleChange} />
+          </div>
+        </div>
         <button onClick={onCancel} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all">
           <X className="w-5 h-5" />
         </button>
@@ -277,18 +332,19 @@ function RoomForm({ room, onCancel, onSuccess }: {
       <form onSubmit={handleSubmit} className="p-8 space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <label className={labelClasses}>Nom de la chambre</label>
+            <label className={labelClasses}>Nom de la chambre ({activeLocale.toUpperCase()})</label>
             <input
               type="text"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
+              name={getFieldName('name')}
+              value={(formData as any)[getFieldName('name')]}
+              onChange={handleChange}
+              required={activeLocale === 'fr'}
               placeholder="ex: Suite Présidentielle"
               className={inputClasses}
             />
           </div>
           <div>
-            <label className={labelClasses}>Prix &quot;à partir de&quot;</label>
+            <label className={labelClasses}>Prix &quot;à partir de&quot; (Commun)</label>
             <input
               type="text"
               value={formData.price}
@@ -304,15 +360,16 @@ function RoomForm({ room, onCancel, onSuccess }: {
         <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
           <h4 className="font-bold text-sm text-gray-900 mb-4 flex items-center uppercase tracking-wide">
             <Bed className="w-4 h-4 mr-2 text-or" />
-            Détails techniques
+            Détails techniques ({activeLocale.toUpperCase()})
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label className={labelClasses}>Surface (m²)</label>
               <input
                 type="text"
-                value={formData.surface}
-                onChange={(e) => setFormData({ ...formData, surface: e.target.value })}
+                name={getFieldName('surface')}
+                value={(formData as any)[getFieldName('surface')]}
+                onChange={handleChange}
                 placeholder="ex: 35m²"
                 className={inputClasses}
               />
@@ -321,8 +378,9 @@ function RoomForm({ room, onCancel, onSuccess }: {
               <label className={labelClasses}>Literie</label>
               <input
                 type="text"
-                value={formData.bedding}
-                onChange={(e) => setFormData({ ...formData, bedding: e.target.value })}
+                name={getFieldName('bedding')}
+                value={(formData as any)[getFieldName('bedding')]}
+                onChange={handleChange}
                 placeholder="ex: King Size (180x200)"
                 className={inputClasses}
               />
@@ -331,8 +389,9 @@ function RoomForm({ room, onCancel, onSuccess }: {
               <label className={labelClasses}>Salle de bain</label>
               <input
                 type="text"
-                value={formData.bathroom}
-                onChange={(e) => setFormData({ ...formData, bathroom: e.target.value })}
+                name={getFieldName('bathroom')}
+                value={(formData as any)[getFieldName('bathroom')]}
+                onChange={handleChange}
                 placeholder="ex: Douche à l'italienne"
                 className={inputClasses}
               />
@@ -346,7 +405,7 @@ function RoomForm({ room, onCancel, onSuccess }: {
                 className="w-4 h-4 text-or border-gray-300 rounded focus:ring-or cursor-pointer"
               />
               <label htmlFor="petsAllowed" className="ml-2 text-sm text-gray-600 cursor-pointer select-none">
-                Animaux de compagnie acceptés
+                Animaux de compagnie acceptés (Commun)
               </label>
             </div>
           </div>
@@ -356,7 +415,7 @@ function RoomForm({ room, onCancel, onSuccess }: {
         <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
           <h4 className="font-bold text-sm text-gray-900 mb-4 flex items-center uppercase tracking-wide">
             <Star className="w-4 h-4 mr-2 text-or" />
-            Grille Tarifaire (Détails)
+            Grille Tarifaire (Commun)
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
@@ -393,11 +452,12 @@ function RoomForm({ room, onCancel, onSuccess }: {
         </div>
 
         <div>
-          <label className={labelClasses}>Description</label>
+          <label className={labelClasses}>Description ({activeLocale.toUpperCase()})</label>
           <textarea
-            value={formData.description}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            required
+            name={getFieldName('description')}
+            value={(formData as any)[getFieldName('description')]}
+            onChange={handleChange}
+            required={activeLocale === 'fr'}
             rows={5}
             className={`${inputClasses} resize-y min-h-[120px]`}
             placeholder="Description détaillée..."
@@ -406,18 +466,19 @@ function RoomForm({ room, onCancel, onSuccess }: {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label className={labelClasses}>Capacité</label>
+            <label className={labelClasses}>Capacité ({activeLocale.toUpperCase()})</label>
             <input
               type="text"
-              value={formData.capacity}
-              onChange={(e) => setFormData({ ...formData, capacity: e.target.value })}
-              required
+              name={getFieldName('capacity')}
+              value={(formData as any)[getFieldName('capacity')]}
+              onChange={handleChange}
+              required={activeLocale === 'fr'}
               placeholder="ex: 2 Adultes"
               className={inputClasses}
             />
           </div>
           <div>
-            <label className={labelClasses}>Note (1-5)</label>
+            <label className={labelClasses}>Note (Commun)</label>
             <input
               type="number"
               min="1"
@@ -429,7 +490,7 @@ function RoomForm({ room, onCancel, onSuccess }: {
             />
           </div>
           <div>
-            <label className={labelClasses}>Ordre</label>
+            <label className={labelClasses}>Ordre (Commun)</label>
             <input
               type="number"
               min="1"
@@ -441,7 +502,7 @@ function RoomForm({ room, onCancel, onSuccess }: {
         </div>
 
         <div>
-          <label className={labelClasses}>Équipements (séparés par des virgules)</label>
+          <label className={labelClasses}>Équipements (séparés par des virgules) (Commun)</label>
           <input
             type="text"
             value={formData.features}
@@ -451,16 +512,16 @@ function RoomForm({ room, onCancel, onSuccess }: {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-gray-100">
           <ImageUpload
             value={formData.imageUrl}
             onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-            label="Image Principale"
+            label="Image Principale (Commun)"
           />
           <MultiImageUpload
             values={formData.galleryImages}
             onChange={(urls) => setFormData({ ...formData, galleryImages: urls })}
-            label="Galerie Photos"
+            label="Galerie Photos (Commun)"
           />
         </div>
 

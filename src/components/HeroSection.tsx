@@ -3,20 +3,33 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface HeroData {
   badge: string;
+  badgeEn?: string | null;
+  badgeNl?: string | null;
   title: string;
+  titleEn?: string | null;
+  titleNl?: string | null;
   subtitle: string;
+  subtitleEn?: string | null;
+  subtitleNl?: string | null;
   description: string;
+  descriptionEn?: string | null;
+  descriptionNl?: string | null;
   location: string;
+  locationEn?: string | null;
+  locationNl?: string | null;
   imageUrl: string;
 }
 
 export default function HeroSection({ initialData }: { initialData?: HeroData | null }) {
   const [heroData, setHeroData] = useState<HeroData | null>(initialData || null);
+  const locale = useLocale();
+  const t = useTranslations('nav');
 
   useEffect(() => {
     if (!initialData) {
@@ -31,13 +44,26 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
 
   const data = heroData || initialData!;
 
+  const getLocalized = (fr: string, en?: string | null, nl?: string | null) => {
+    if (locale === 'nl') return nl || fr;
+    if (locale === 'en') return en || fr;
+    return fr;
+  };
+
+  const titleFinal = getLocalized(data.title, data.titleEn, data.titleNl);
+  const subtitleFinal = getLocalized(data.subtitle, data.subtitleEn, data.subtitleNl);
+  const descriptionFinal = getLocalized(data.description, data.descriptionEn, data.descriptionNl);
+  const locationFinal = getLocalized(data.location, data.locationEn, data.locationNl);
+
+  const ct = useTranslations('common');
+
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Image de fond optimisée */}
       <div className="absolute inset-0">
         <Image
           src={data.imageUrl}
-          alt={data.title}
+          alt={titleFinal}
           fill
           priority
           className="object-cover"
@@ -54,18 +80,15 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* Badge discret */}
-
-
           {/* Titre principal */}
           <h1 className="mb-6">
             <span className="block font-body text-sm uppercase tracking-widest mb-4 text-white/80">
-              {data.subtitle}
+              {subtitleFinal}
             </span>
-            <div className="relative h-88 w-full max-w-md mx-auto mb-2 brightness-0 invert">
+            <div className="relative h-98 w-full max-w-md mx-auto mb-2 brightness-0 invert">
               <Image
-                src="/images/logo.png"
-                alt={data.title}
+                src="/images/logo-clef.png"
+                alt={titleFinal}
                 fill
                 className="object-contain"
                 priority
@@ -80,30 +103,30 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
 
           {/* Description */}
           <p className="font-body text-base sm:text-lg text-white/90 mb-6 max-w-2xl mx-auto leading-relaxed">
-            {data.description}
+            {descriptionFinal}
           </p>
 
           {/* Localisation */}
           <div className="flex items-center justify-center space-x-2 text-white/70 mb-12">
             <MapPin className="w-4 h-4" />
-            <span className="font-body text-sm">{data.location}</span>
+            <span className="font-body text-sm">{locationFinal}</span>
           </div>
 
           {/* Boutons CTA */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              href="/contact"
+            <a
+              href="#booking-widget"
               className="group font-body text-sm px-8 py-3 bg-white text-[var(--color-noir)] hover:bg-[var(--color-or)] hover:text-white transition-all duration-300 flex items-center space-x-2"
             >
-              <span>Réserver</span>
+              <span>{ct('book')}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
+            </a>
 
             <Link
               href="/chambres"
               className="font-body text-sm px-8 py-3 border border-white text-white hover:bg-white hover:text-[var(--color-noir)] transition-all duration-300"
             >
-              Découvrir nos Chambres
+              {ct('discoverRooms')}
             </Link>
           </div>
         </motion.div>

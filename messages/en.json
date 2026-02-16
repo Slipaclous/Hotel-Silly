@@ -1,0 +1,279 @@
+{
+    "common": {
+        "save": "Save",
+        "saving": "Saving...",
+        "success": "Saved successfully",
+        "book": "Book Now",
+        "bookStay": "Book your stay",
+        "discover": "Discover",
+        "discoverRooms": "Explore our Rooms",
+        "discoverHistory": "Discover Our History",
+        "openingYear": "Opening Year",
+        "seePhotos": "View Photos",
+        "includedServices": "Included Services",
+        "comfort": "Absolute Comfort",
+        "perNight": "per night"
+    },
+    "nav": {
+        "home": "Home",
+        "rooms": "Rooms & Suites",
+        "about": "About Us",
+        "gallery": "Gallery",
+        "events": "Events",
+        "testimonials": "Testimonials",
+        "contact": "Contact",
+        "services": "Services",
+        "seminars": "Seminars",
+        "giftCard": "Gift Card",
+        "openingSoon": "Opening Spring 2025"
+    },
+    "footer": {
+        "description": "Discover our luxury hotel in the heart of Silly, where elegance and comfort meet to create an exceptional hotel experience.",
+        "navTitle": "Navigation",
+        "servicesTitle": "Our Services",
+        "infoTitle": "Information",
+        "stayConnected": "Stay Connected",
+        "newsletterTitle": "Stay Informed",
+        "newsletterDesc": "Receive the latest updates on our offers and activities",
+        "newsletterPlaceholder": "Your email",
+        "newsletterButton": "Sign me up",
+        "newsletterLoading": "Sending...",
+        "newsletterSuccess": "Registration successful!",
+        "newsletterError": "An error occurred",
+        "newsletterConnError": "Connection error",
+        "followUs": "Follow Us",
+        "copyright": "All rights reserved.",
+        "designedWith": "Designed with elegance",
+        "openingSoon": "Grand Opening: Spring 2025",
+        "legal": "Legal Notice",
+        "privacy": "Privacy Policy",
+        "terms": "General Terms"
+    },
+    "rooms": {
+        "title": "Rooms & Suites",
+        "subtitle": "An exclusive collection of urban sanctuaries where luxury meets serenity.",
+        "welcome": "Welcome",
+        "gallery": "Gallery",
+        "pets": "Pets welcome",
+        "petSupplement": "Dog supplement: €10 / night",
+        "surface": "Surface",
+        "bedding": "Bedding",
+        "pricingTitle": "Rates per night",
+        "person": "Person",
+        "persons": "People",
+        "wifi": "High Speed WiFi",
+        "wifiDesc": "Fiber optic connection",
+        "breakfast": "Breakfast",
+        "breakfastDesc": "Local and fresh products",
+        "parking": "Private Parking",
+        "parkingDesc": "Secure and free",
+        "concierge": "Concierge",
+        "conciergeDesc": "At your service 24/7"
+    },
+    "home": {
+        "roomsBadge": "Accommodation",
+        "roomsTitle": "The Art of Rest",
+        "roomsTitleItalic": "Belgian Style",
+        "roomsDescription": "Each of our rooms is an invitation to relax, blending timeless charm and modern comfort. A cozy atmosphere for unforgettable nights.",
+        "roomsCta": "Discover our rooms"
+    },
+    "about": {
+        "heroTitle": "About the Hotel",
+        "heroSubtitle": "Discover the history and identity of our luxury hotel",
+        "discovery": "Discovery",
+        "access": "Access",
+        "accessTitle": "Access & Activities",
+        "accessDesc": "Find out how to reach us and explore nearby activities",
+        "howToReach": "How to reach us",
+        "byTrain": "By Train",
+        "byTrainDesc": "Silly SNCB Station - 2 km from the hotel\n• On foot: 20-30 minutes\n• By bike: 10 minutes",
+        "byCar": "By Car",
+        "byCarDesc": "Easy highway access\nPrivate parking available",
+        "byBus": "By Bus",
+        "byBusDesc": "Nearby \"Silly centre\" bus stop",
+        "nearby": "Nearby",
+        "values": "Our Values",
+        "locationTitle": "Our Location",
+        "locationDesc": "Located in the heart of Silly, a picturesque village in the Walloon Region, our hotel offers privileged access to Belgium's main attractions while preserving the calm and serenity of an exceptional setting.",
+        "historyTitle": "Our History",
+        "historyDesc": "Founded in {year}, our hotel combines tradition and modernity to offer a unique experience where every detail has been designed for your comfort and well-being.",
+        "engagementTitle": "Our Commitment",
+        "engagementDesc": "Our dedicated team is committed to anticipating your needs and making your stay exceptional. We take pride in providing high-quality personalized service.",
+        "activities": [
+            "Bois de Silly (nature walks)",
+            "Silly Fairy Trail",
+            "Enghien Park",
+            "Pairi Daiza Zoo",
+            "Silly Brewery Tour",
+            "Charleroi/BXL Airport",
+            "SHAPE",
+            "Enghien Golf",
+            "Bastion and Grand Près Shopping"
+        ]
+    },
+    "gallery": {
+        "heroTitle": "Photo Gallery",
+        "heroSubtitle": "Discover the unique atmosphere and spaces of our hotel",
+        "filterAll": "All",
+        "filterRooms": "Rooms",
+        "filterRestaurant": "Restaurant",
+        "filterSpa": "Spa",
+        "filterInterior": "Interior",
+        "filterExterior": "Exterior",
+        "noImages": "No images found"
+    },
+    "contact": {
+        "heroTitle": "Contact",
+        "heroSubtitle": "A question? A special request?",
+        "infoTitle": "Our Details",
+        "infoSubtitle": "We are at your full disposal.",
+        "address": "Villa Dolce",
+        "phone": "Phone",
+        "email": "Email",
+        "hoursTitle": "Reception Hours",
+        "days": "Mon - Fri",
+        "saturday": "Saturday",
+        "sunday": "Sunday",
+        "closed": "Closed",
+        "formTitle": "Send us a message",
+        "nameLabel": "Full Name",
+        "emailLabel": "Email",
+        "subjectLabel": "Subject",
+        "messageLabel": "Message",
+        "namePlaceholder": "John Doe",
+        "emailPlaceholder": "john@example.com",
+        "subjectPlaceholder": "Choose a subject...",
+        "messagePlaceholder": "Tell us more...",
+        "subjects": {
+            "reservation": "Room Reservation",
+            "event": "Event Organization",
+            "question": "General Information",
+            "other": "Other request"
+        },
+        "submit": "Send my request",
+        "submitting": "Sending...",
+        "successTitle": "Message received",
+        "successMessage": "Thank you for contacting us. We will get back to you very soon.",
+        "sendAnother": "Send another message"
+    },
+    "seminars": {
+        "heroTitle": "Meetings & Seminars",
+        "heroSubtitle": "A professional and elegant space for your corporate events",
+        "spaceTitle": "Your Professional Space",
+        "spaceDesc": "Possibility to rent a space for your meetings in an exceptional setting combining comfort and professionalism. Our room can accommodate up to 20 people and has all the necessary equipment.",
+        "checkPoints": {
+            "flexibility": "Flexible Packages",
+            "flexibilityDesc": "Available for full or half days",
+            "equipment": "Full Equipment",
+            "equipmentDesc": "Projection, high-speed WiFi and all necessary gear",
+            "setting": "Inspiring Setting",
+            "settingDesc": "An environment conducive to productivity"
+        },
+        "features": {
+            "capacity": "Up to 20 people",
+            "capacityDesc": "Optimal capacity",
+            "projection": "Projection Equipment",
+            "projectionDesc": "Pro audiovisual gear",
+            "wifi": "High-speed WiFi",
+            "wifiDesc": "Performance connection",
+            "coffee": "Coffee Corner",
+            "coffeeDesc": "Refreshments available"
+        },
+        "pricing": {
+            "halfDay": "Half-Day",
+            "halfDayDesc": "Per person package for a half-day meeting",
+            "fullDay": "Full Day",
+            "fullDayDesc": "Per person package for a full day meeting",
+            "recommended": "Recommended",
+            "details": [
+                "Equipped room",
+                "Projection & WiFi",
+                "Optional coffee corner",
+                "Lunch break available"
+            ],
+            "cta": "Request a quote"
+        },
+        "coffee": {
+            "title": "Coffee Corner Package",
+            "desc": "Provision of refreshments during your meeting.",
+            "items": [
+                "Premium coffee and tea",
+                "Water and soft drinks",
+                "Fresh fruit juices",
+                "Mini pastries (morning)",
+                "Sweet treats (afternoon)"
+            ],
+            "cta": "Reserve your space"
+        }
+    },
+    "eventsPage": {
+        "heroTitle": "Local Life & Discoveries",
+        "heroSubtitle": "Explore Silly and its surroundings: a rich heritage and authentic events.",
+        "introTitle": "Silly, Land of Sharing and Culture",
+        "introDesc": "Staying at Villa Dolce means immersing yourself in a dynamic region.",
+        "upcomingTitle": "Agenda",
+        "pastTitle": "Past Events",
+        "pastSubtitle": "Looking back at highlights",
+        "curiositiesTitle": "Curiosities of Silly",
+        "curiositiesSubtitle": "A few suggestions to enrich your stay",
+        "curiosities": {
+            "market": {
+                "title": "Markets & Flavors",
+                "desc": "Local products and crafts"
+            },
+            "heritage": {
+                "title": "Living Heritage",
+                "desc": "Churches, castles and architecture"
+            },
+            "trails": {
+                "title": "Hiking Trails",
+                "desc": "Miles of preserved nature"
+            },
+            "agenda": {
+                "title": "Cultural Agenda",
+                "desc": "Festivals and festivities"
+            }
+        },
+        "ctaTitle": "Need advice for your stay?",
+        "ctaDesc": "Our concierge is at your service to guide you.",
+        "ctaButton": "Ask for advice",
+        "learnMore": "Learn more"
+    },
+    "giftCard": {
+        "heroTitle": "Villa Dolce Gift Card",
+        "heroSubtitle": "Give an unforgettable experience in our magnificent hotel",
+        "introTitle": "The Perfect Gift",
+        "introDesc": "Looking for an original gift? The VILLA DOLCE gift card is the perfect choice! It allows the recipient to enjoy a stay or breakfast at our beautiful hotel at their convenience.",
+        "benefits": {
+            "stay": "Valid for overnight stays or breakfast",
+            "anytime": "Can be used at any time",
+            "original": "Original and memorable gift",
+            "custom": "Customizable card",
+            "validity": "One-year validity",
+            "transfer": "Transferable"
+        },
+        "badge": {
+            "gift": "Gift",
+            "perfect": "Perfect",
+            "popular": "Popular"
+        },
+        "optionsTitle": "Options",
+        "package1": {
+            "title": "Breakfast",
+            "desc": "Offer a gourmet breakfast in our establishment",
+            "price": "From €25"
+        },
+        "package2": {
+            "title": "One Night Stay",
+            "desc": "An unforgettable night in one of our luxury rooms",
+            "price": "From €150"
+        },
+        "package3": {
+            "title": "Complete Stay",
+            "desc": "An all-inclusive stay with breakfast included",
+            "price": "From €300"
+        },
+        "ctaMain": "Order the Card",
+        "ctaOrder": "Order"
+    }
+}

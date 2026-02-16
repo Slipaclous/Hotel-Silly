@@ -1,9 +1,8 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import GalerieContent from '@/components/GalerieContent';
 import { prisma } from '@/lib/prisma';
 
-export const dynamic = 'force-dynamic';
+// Active le cache statique avec revalidation toutes les heures
+export const revalidate = 3600;
 
 export default async function GaleriePage() {
   // Récupération des données sur le serveur (SSR)
@@ -18,12 +17,10 @@ export default async function GaleriePage() {
 
   return (
     <main className="min-h-screen bg-blanc">
-      <Header />
       <GalerieContent
         initialImages={images}
         pageHero={pageHero}
       />
-      <Footer />
     </main>
   );
 }

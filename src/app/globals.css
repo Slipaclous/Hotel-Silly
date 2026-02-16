@@ -427,3 +427,21 @@ h6 {
 .animate-slide-in-left {
   animation: slideInLeft 0.5s ease-out forwards;
 }
+
+@keyframes progress-loading {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(-30%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-progress-loading {
+  animation: progress-loading 2s ease-in-out infinite;
+}

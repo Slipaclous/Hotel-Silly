@@ -22,59 +22,101 @@ model User {
 
 // Modèle pour la section Hero
 model Hero {
-  id          Int      @id @default(autoincrement())
-  badge       String
-  title       String
-  subtitle    String
-  description String   @db.Text
-  location    String
-  imageUrl    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  badge         String
+  badgeEn       String?
+  badgeNl       String?
+  title         String
+  titleEn       String?
+  titleNl       String?
+  subtitle      String
+  subtitleEn    String?
+  subtitleNl    String?
+  description   String   @db.Text
+  descriptionEn String?  @db.Text
+  descriptionNl String?  @db.Text
+  location      String
+  locationEn    String?
+  locationNl    String?
+  imageUrl      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 // Modèle pour la section À Propos
 model About {
-  id              Int      @id @default(autoincrement())
-  title           String
-  description     String   @db.Text
-  keyPoint1Title  String
-  keyPoint1Text   String   @db.Text
-  keyPoint2Title  String
-  keyPoint2Text   String   @db.Text
-  keyPoint3Title  String
-  keyPoint3Text   String   @db.Text
-  openingYear     String
-  imageUrl        String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id               Int      @id @default(autoincrement())
+  title            String
+  titleEn          String?
+  titleNl          String?
+  description      String   @db.Text
+  descriptionEn    String?  @db.Text
+  descriptionNl    String?  @db.Text
+  keyPoint1Title   String
+  keyPoint1TitleEn String?
+  keyPoint1TitleNl String?
+  keyPoint1Text    String   @db.Text
+  keyPoint1TextEn  String?  @db.Text
+  keyPoint1TextNl  String?  @db.Text
+  keyPoint2Title   String
+  keyPoint2TitleEn String?
+  keyPoint2TitleNl String?
+  keyPoint2Text    String   @db.Text
+  keyPoint2TextEn  String?  @db.Text
+  keyPoint2TextNl  String?  @db.Text
+  keyPoint3Title   String
+  keyPoint3TitleEn String?
+  keyPoint3TitleNl String?
+  keyPoint3Text    String   @db.Text
+  keyPoint3TextEn  String?  @db.Text
+  keyPoint3TextNl  String?  @db.Text
+  openingYear      String
+  imageUrl         String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 // Modèle pour les features de la section À Propos
 model Feature {
-  id          Int      @id @default(autoincrement())
-  icon        String   // Nom de l'icône (Award, Heart, Shield, Star)
-  title       String
-  description String
-  order       Int      // Pour gérer l'ordre d'affichage
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  icon          String   // Nom de l'icône (Award, Heart, Shield, Star)
+  title         String
+  titleEn       String?
+  titleNl       String?
+  description   String
+  descriptionEn String?
+  descriptionNl String?
+  order         Int      // Pour gérer l'ordre d'affichage
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([order])
 }
 
 // Modèle pour les chambres
 model Room {
-  id          Int            @id @default(autoincrement())
-  name        String
-  description String         @db.Text
-  price       String         // Prix "à partir de"
-  capacity    String
+  id            Int            @id @default(autoincrement())
+  name          String
+  nameEn        String?
+  nameNl        String?
+  description   String         @db.Text
+  descriptionEn String?        @db.Text
+  descriptionNl String?        @db.Text
+  price         String         // Prix "à partir de"
+  capacity      String
+  capacityEn    String?
+  capacityNl    String?
   
   // Nouvelles spécifications techniques
-  surface     String?        // ex: "25m²"
-  bedding     String?        // ex: "Lit King Size"
-  bathroom    String?        // ex: "Douche à l'italienne"
+  surface       String?        // ex: "25m²"
+  surfaceEn     String?
+  surfaceNl     String?
+  bedding       String?        // ex: "Lit King Size"
+  beddingEn     String?
+  beddingNl     String?
+  bathroom      String?        // ex: "Douche à l'italienne"
+  bathroomEn    String?
+  bathroomNl    String?
   
   // Détail des Tarifs
   price1Person  String?
@@ -84,28 +126,32 @@ model Room {
   // Options
   petsAllowed   Boolean        @default(true) 
   
-  rating      Int            @default(5)
-  imageUrl    String         // Image principale (couverture)
-  images      GalleryImage[] // Galerie complète de la chambre
-  features    String[]       // Array de fonctionnalités
-  order       Int            // Pour gérer l'ordre d'affichage
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  rating        Int            @default(5)
+  imageUrl      String         // Image principale (couverture)
+  images        GalleryImage[] // Galerie complète de la chambre
+  features      String[]       // Array de fonctionnalités
+  order         Int            // Pour gérer l'ordre d'affichage
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 
   @@index([order])
 }
 
 // Modèle pour les témoignages
 model Testimonial {
-  id        Int      @id @default(autoincrement())
-  name      String
-  location  String
-  rating    Int      @default(5)
-  text      String   @db.Text
-  avatarUrl String
-  order     Int      // Pour gérer l'ordre d'affichage
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  name        String
+  location    String
+  locationEn  String?
+  locationNl  String?
+  rating      Int      @default(5)
+  text        String   @db.Text
+  textEn      String?  @db.Text
+  textNl      String?  @db.Text
+  avatarUrl   String
+  order       Int      // Pour gérer l'ordre d'affichage
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 // Modèle pour les images de la galerie
@@ -114,6 +160,8 @@ model GalleryImage {
   url       String
   category  String   // Chambres, Restaurant, Spa, Intérieur, Extérieur
   title     String
+  titleEn   String?
+  titleNl   String?
   order     Int      // Pour gérer l'ordre d'affichage
   roomId    Int?     // Relation optionnelle avec une chambre
   room      Room?    @relation(fields: [roomId], references: [id], onDelete: SetNull)
@@ -127,26 +175,38 @@ model GalleryImage {
 
 // Modèle pour les événements
 model Event {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String   @db.Text
-  icon        String   // Nom de l'icône (Calendar, Users, MapPin, Clock, Utensils, Microphone, Heart)
-  imageUrl    String
-  capacity    String
-  duration    String
-  date        DateTime? // Pour gérer l'affichage (passé/futur)
-  order       Int      // Pour gérer l'ordre d'affichage
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  title         String
+  titleEn       String?
+  titleNl       String?
+  description   String   @db.Text
+  descriptionEn String?  @db.Text
+  descriptionNl String?  @db.Text
+  icon          String   // Nom de l'icône (Calendar, Users, MapPin, Clock, Utensils, Microphone, Heart)
+  imageUrl      String
+  capacity      String
+  capacityEn    String?
+  capacityNl    String?
+  duration      String
+  durationEn    String?
+  durationNl    String?
+  date          DateTime? // Pour gérer l'affichage (passé/futur)
+  order         Int      // Pour gérer l'ordre d'affichage
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 // Modèle pour les hero des pages
 model PageHero {
-  id          Int      @id @default(autoincrement())
-  page        String   @unique // slug de la page (chambres, galerie, a-propos, evenements)
-  title       String
-  subtitle    String   @db.Text
-  imageUrl    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  page          String   @unique // slug de la page (chambres, galerie, a-propos, evenements)
+  title         String
+  titleEn       String?
+  titleNl       String?
+  subtitle      String   @db.Text
+  subtitleEn    String?  @db.Text
+  subtitleNl    String?  @db.Text
+  imageUrl      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

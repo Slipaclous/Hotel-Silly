@@ -1,9 +1,8 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import SeminairesContent from '@/components/SeminairesContent';
 import { prisma } from '@/lib/prisma';
 
-export const dynamic = 'force-dynamic';
+// Active le cache statique avec revalidation toutes les heures
+export const revalidate = 3600;
 
 export default async function SeminairesPage() {
     // Récupération des données sur le serveur (SSR)
@@ -13,9 +12,7 @@ export default async function SeminairesPage() {
 
     return (
         <main className="min-h-screen bg-blanc">
-            <Header />
             <SeminairesContent pageHero={pageHero} />
-            <Footer />
         </main>
     );
 }

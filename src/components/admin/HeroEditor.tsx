@@ -3,17 +3,32 @@
 import { useState, useEffect } from 'react';
 import ImageUpload from './ImageUpload';
 import AdminWrapper from './AdminWrapper';
+import LanguageTabs from './LanguageTabs';
+
+type Locale = 'fr' | 'en' | 'nl';
 
 export default function HeroEditor() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
+  const [activeLocale, setActiveLocale] = useState<Locale>('fr');
+
   const [formData, setFormData] = useState({
     badge: '',
+    badgeEn: '',
+    badgeNl: '',
     title: '',
+    titleEn: '',
+    titleNl: '',
     subtitle: '',
+    subtitleEn: '',
+    subtitleNl: '',
     description: '',
+    descriptionEn: '',
+    descriptionNl: '',
     location: '',
+    locationEn: '',
+    locationNl: '',
     imageUrl: '',
   });
 
@@ -28,10 +43,20 @@ export default function HeroEditor() {
       if (data) {
         setFormData({
           badge: data.badge || '',
+          badgeEn: data.badgeEn || '',
+          badgeNl: data.badgeNl || '',
           title: data.title || '',
+          titleEn: data.titleEn || '',
+          titleNl: data.titleNl || '',
           subtitle: data.subtitle || '',
+          subtitleEn: data.subtitleEn || '',
+          subtitleNl: data.subtitleNl || '',
           description: data.description || '',
+          descriptionEn: data.descriptionEn || '',
+          descriptionNl: data.descriptionNl || '',
           location: data.location || '',
+          locationEn: data.locationEn || '',
+          locationNl: data.locationNl || '',
           imageUrl: data.imageUrl || '',
         });
       }
@@ -88,6 +113,12 @@ export default function HeroEditor() {
     );
   }
 
+  // Helper to get localized field names
+  const getFieldName = (base: string) => {
+    if (activeLocale === 'fr') return base;
+    return `${base}${activeLocale.charAt(0).toUpperCase()}${activeLocale.slice(1)}`;
+  };
+
   return (
     <AdminWrapper
       title="Section Hero"
@@ -97,15 +128,17 @@ export default function HeroEditor() {
       message={message}
       previewUrl="/"
     >
+      <LanguageTabs currentLocale={activeLocale} onChange={setActiveLocale} />
+
       <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-6">
             <div>
-              <label className={labelClasses}>Badge</label>
+              <label className={labelClasses}>Badge ({activeLocale.toUpperCase()})</label>
               <input
                 type="text"
-                name="badge"
-                value={formData.badge}
+                name={getFieldName('badge')}
+                value={(formData as any)[getFieldName('badge')]}
                 onChange={handleChange}
                 placeholder="ex: Ouverture 2025"
                 className={inputClasses}
@@ -113,11 +146,11 @@ export default function HeroEditor() {
             </div>
 
             <div>
-              <label className={labelClasses}>Sous-titre</label>
+              <label className={labelClasses}>Sous-titre ({activeLocale.toUpperCase()})</label>
               <input
                 type="text"
-                name="subtitle"
-                value={formData.subtitle}
+                name={getFieldName('subtitle')}
+                value={(formData as any)[getFieldName('subtitle')]}
                 onChange={handleChange}
                 placeholder="ex: Bienvenue à"
                 className={inputClasses}
@@ -125,11 +158,11 @@ export default function HeroEditor() {
             </div>
 
             <div>
-              <label className={labelClasses}>Titre Principal</label>
+              <label className={labelClasses}>Titre Principal ({activeLocale.toUpperCase()})</label>
               <input
                 type="text"
-                name="title"
-                value={formData.title}
+                name={getFieldName('title')}
+                value={(formData as any)[getFieldName('title')]}
                 onChange={handleChange}
                 placeholder="ex: L'Hôtel de Silly"
                 className={inputClasses}
@@ -137,11 +170,11 @@ export default function HeroEditor() {
             </div>
 
             <div>
-              <label className={labelClasses}>Localisation</label>
+              <label className={labelClasses}>Localisation ({activeLocale.toUpperCase()})</label>
               <input
                 type="text"
-                name="location"
-                value={formData.location}
+                name={getFieldName('location')}
+                value={(formData as any)[getFieldName('location')]}
                 onChange={handleChange}
                 placeholder="ex: Silly, Belgique"
                 className={inputClasses}
@@ -151,10 +184,10 @@ export default function HeroEditor() {
 
           <div className="space-y-6">
             <div>
-              <label className={labelClasses}>Description</label>
+              <label className={labelClasses}>Description ({activeLocale.toUpperCase()})</label>
               <textarea
-                name="description"
-                value={formData.description}
+                name={getFieldName('description')}
+                value={(formData as any)[getFieldName('description')]}
                 onChange={handleChange}
                 rows={4}
                 placeholder="Décrivez brièvement l'expérience proposée..."
@@ -162,11 +195,17 @@ export default function HeroEditor() {
               />
             </div>
 
-            <ImageUpload
-              value={formData.imageUrl}
-              onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-              label="Image de fond (Hero)"
-            />
+            {/* L'image est commune à toutes les langues */}
+            <div className="pt-4 border-t border-noir/5">
+              <label className={labelClasses}>Visuels (Communs)</label>
+              <div className="mt-4">
+                <ImageUpload
+                  value={formData.imageUrl}
+                  onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+                  label="Image de fond (Hero)"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </form>

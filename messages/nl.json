@@ -1,0 +1,279 @@
+{
+    "common": {
+        "save": "Opslaan",
+        "saving": "Opslaan...",
+        "success": "Succesvol opgeslagen",
+        "book": "Nu Boeken",
+        "bookStay": "Boek uw verblijf",
+        "discover": "Ontdekken",
+        "discoverRooms": "Ontdek onze Kamers",
+        "discoverHistory": "Ontdek Onze Geschiedenis",
+        "openingYear": "Openingsjaar",
+        "seePhotos": "Bekijk Foto's",
+        "includedServices": "Inbegrepen Diensten",
+        "comfort": "Absoluut Comfort",
+        "perNight": "per nacht"
+    },
+    "nav": {
+        "home": "Home",
+        "rooms": "Kamers & Suites",
+        "about": "Over Ons",
+        "gallery": "Galerij",
+        "events": "Evenementen",
+        "testimonials": "Getuigenissen",
+        "contact": "Contact",
+        "services": "Diensten",
+        "seminars": "Seminars",
+        "giftCard": "Cadeaubon",
+        "openingSoon": "Opening Lente 2025"
+    },
+    "footer": {
+        "description": "Ontdek ons luxe hotel in het hart van Silly, waar elegantie en comfort samenkomen voor een uitzonderlijke hotelervaring.",
+        "navTitle": "Navigatie",
+        "servicesTitle": "Onze Diensten",
+        "infoTitle": "Informatie",
+        "stayConnected": "Blijf Verbonden",
+        "newsletterTitle": "Blijf op de hoogte",
+        "newsletterDesc": "Ontvang de laatste updates over onze aanbiedingen en activiteiten",
+        "newsletterPlaceholder": "Uw e-mail",
+        "newsletterButton": "Meld me aan",
+        "newsletterLoading": "Verzenden...",
+        "newsletterSuccess": "Inschrijving geslaagd!",
+        "newsletterError": "Er is een fout opgetreden",
+        "newsletterConnError": "Verbindingsfout",
+        "followUs": "Volg Ons",
+        "copyright": "Alle rechten voorbehouden.",
+        "designedWith": "Ontworpen met elegantie",
+        "openingSoon": "Grand Opening: Lente 2025",
+        "legal": "Juridische Kennisgeving",
+        "privacy": "Privacybeleid",
+        "terms": "Algemene Voorwaarden"
+    },
+    "rooms": {
+        "title": "Kamers & Suites",
+        "subtitle": "Een exclusieve collectie van stedelijke toevluchtsoorden waar luxe en sereniteit elkaar ontmoeten.",
+        "welcome": "Welkom",
+        "gallery": "Galerij",
+        "pets": "Huisdieren welkom",
+        "petSupplement": "Toeslag hond: €10 / nacht",
+        "surface": "Oppervlakte",
+        "bedding": "Beddengoed",
+        "pricingTitle": "Tarieven per nacht",
+        "person": "Persoon",
+        "persons": "Personen",
+        "wifi": "Hoge Snelheid WiFi",
+        "wifiDesc": "Glasvezelverbinding",
+        "breakfast": "Ontbijt",
+        "breakfastDesc": "Lokale en verse producten",
+        "parking": "Privé Parkeerplaats",
+        "parkingDesc": "Veilig en gratis",
+        "concierge": "Conciërge",
+        "conciergeDesc": "Tot uw dienst 24/7"
+    },
+    "home": {
+        "roomsBadge": "Accommodatie",
+        "roomsTitle": "De Kunst van Rust",
+        "roomsTitleItalic": "op zijn Belgisch",
+        "roomsDescription": "Elk van onze kamers is een uitnodiging tot ontspanning, een mix van tijdloze charme en modern comfort. Een gezellige sfeer voor onvergetelijke nachten.",
+        "roomsCta": "Ontdek onze kamers"
+    },
+    "about": {
+        "heroTitle": "Over het Hotel",
+        "heroSubtitle": "Ontdek de geschiedenis en identity van ons luxe hotel",
+        "discovery": "Ontdekking",
+        "access": "Toegang",
+        "accessTitle": "Toegang & Activiteiten",
+        "accessDesc": "Ontdek hoe u ons kunt bereiken en de vele activiteiten in de buurt",
+        "howToReach": "Hoe ons te bereiken",
+        "byTrain": "Met de trein",
+        "byTrainDesc": "Silly NMBS Station - 2 km van het hotel\n• Te voet: 20-30 minutes\n• Met de fiets: 10 minutes",
+        "byCar": "Met de auto",
+        "byCarDesc": "Gemakkelijke toegang via de snelweg\nPrivé parkeergelegenheid beschikbaar",
+        "byBus": "Met de bus",
+        "byBusDesc": "Nabijgelegen bushalte \"Silly centre\"",
+        "nearby": "In de buurt",
+        "values": "Onze Waarden",
+        "locationTitle": "Onze Locatie",
+        "locationDesc": "Gelegen in het hart van Silly, een schilderachtig dorp in het Waalse Gewest, biedt ons hotel bevoorrechte toegang tot de belangrijkste bezienswaardigheden van België, terwijl de rust en sereniteit van een uitzonderlijke omgeving behouden blijven.",
+        "historyTitle": "Onze Geschiedenis",
+        "historyDesc": "Opgericht in {year}, combineert ons hotel traditie en moderniteit om een unieke ervaring te bieden waarbij elk detail is ontworpen voor uw comfort en welzijn.",
+        "engagementTitle": "Onze Inzet",
+        "engagementDesc": "Ons toegewijde team zet zich in om op uw behoeften te anticiperen en uw verblijf uitzonderlijk te maken. We zijn er trots op persoonlijke service van hoge kwaliteit te bieden.",
+        "activities": [
+            "Bois de Silly (boswandelingen)",
+            "Silly Fairy Trail",
+            "Park van Edingen",
+            "Pairi Daiza",
+            "Brouwerij van Silly Tour",
+            "Charleroi/BXL Luchthaven",
+            "SHAPE",
+            "Golf van Edingen",
+            "Bastion and Grand Près Shopping"
+        ]
+    },
+    "gallery": {
+        "heroTitle": "Fotogalerij",
+        "heroSubtitle": "Ontdek de ruimtes en de unieke sfeer van ons hotel",
+        "filterAll": "Alle",
+        "filterRooms": "Kamers",
+        "filterRestaurant": "Restaurant",
+        "filterSpa": "Spa",
+        "filterInterior": "Interieur",
+        "filterExterior": "Exterieur",
+        "noImages": "Geen afbeeldingen gevonden"
+    },
+    "contact": {
+        "heroTitle": "Contact",
+        "heroSubtitle": "Een vraag? Een speciaal verzoek?",
+        "infoTitle": "Onze Gegevens",
+        "infoSubtitle": "Wij staan volledig tot uw beschikking.",
+        "address": "Villa Dolce",
+        "phone": "Telefoon",
+        "email": "E-mail",
+        "hoursTitle": "Openingsuren Receptie",
+        "days": "Ma - Vr",
+        "saturday": "Zaterdag",
+        "sunday": "Zondag",
+        "closed": "Gesloten",
+        "formTitle": "Stuur ons een bericht",
+        "nameLabel": "Volledige Naam",
+        "emailLabel": "E-mail",
+        "subjectLabel": "Onderwerp",
+        "messageLabel": "Bericht",
+        "namePlaceholder": "Jan Janssen",
+        "emailPlaceholder": "jan@voorbeeld.be",
+        "subjectPlaceholder": "Kies een onderwerp...",
+        "messagePlaceholder": "Vertel ons meer...",
+        "subjects": {
+            "reservation": "Kamerreservering",
+            "event": "Evenementorganisatie",
+            "question": "Algemene informatie",
+            "other": "Andere vraag"
+        },
+        "submit": "Verstuur mijn aanvraag",
+        "submitting": "Verzenden...",
+        "successTitle": "Bericht ontvangen",
+        "successMessage": "Bedankt voor uw bericht. We nemen zo snel mogelijk contact met u op.",
+        "sendAnother": "Stuur nog een bericht"
+    },
+    "seminars": {
+        "heroTitle": "Vergaderingen & Seminars",
+        "heroSubtitle": "Een professionele en elegante ruimte voor uw bedrijfsevenementen",
+        "spaceTitle": "Uw Professionele Ruimte",
+        "spaceDesc": "Mogelijkheid om een ruimte te huren voor uw vergaderingen in een uitzonderlijke omgeving die comfort en professionaliteit combineert. Onze zaal is geschikt voor maximaal 20 personen.",
+        "checkPoints": {
+            "flexibility": "Flexibele Pakketten",
+            "flexibilityDesc": "Beschikbaar voor hele of halve dagen",
+            "equipment": "Volledige Uitrusting",
+            "equipmentDesc": "Projectie, high-speed WiFi en alle benodigdheden",
+            "setting": "Inspirerende Omgeving",
+            "settingDesc": "Een omgeving die aanzet tot productiviteit"
+        },
+        "features": {
+            "capacity": "Tot 20 personen",
+            "capacityDesc": "Optimale capaciteit",
+            "projection": "Projectieapparatuur",
+            "projectionDesc": "Pro audiovisueel materiaal",
+            "wifi": "Hoge snelheid WiFi",
+            "wifiDesc": "Krachtige verbinding",
+            "coffee": "Coffee Corner",
+            "coffeeDesc": "Verversingen beschikbaar"
+        },
+        "pricing": {
+            "halfDay": "Halve Dag",
+            "halfDayDesc": "Pakket per persoon voor een halve dag vergaderen",
+            "fullDay": "Hele Dag",
+            "fullDayDesc": "Pakket per persoon voor een hele dag vergaderen",
+            "recommended": "Aanbevolen",
+            "details": [
+                "Uitgeruste zaal",
+                "Projectie & WiFi",
+                "Optionele coffee corner",
+                "Lunchpauze mogelijk"
+            ],
+            "cta": "Vraag een offerte aan"
+        },
+        "coffee": {
+            "title": "Coffee Corner Pakket",
+            "desc": "Verstrekking van versnaperingen tijdens uw vergadering.",
+            "items": [
+                "Premium koffie en thee",
+                "Water en frisdranken",
+                "Verse vruchtensappen",
+                "Mini-gebakjes (ochtend)",
+                "Zoetigheden (middag)"
+            ],
+            "cta": "Reserveer uw ruimte"
+        }
+    },
+    "eventsPage": {
+        "heroTitle": "Lokaal Leven & Ontdekkingen",
+        "heroSubtitle": "Verken Silly en omgeving: een rijk erfgoed en authentieke evenementen.",
+        "introTitle": "Silly, Land van Delen en Cultuur",
+        "introDesc": "Verblijven bij Villa Dolce betekent u onderdompelen in een dynamische regio.",
+        "upcomingTitle": "Agenda",
+        "pastTitle": "Verleden Evenementen",
+        "pastSubtitle": "Terugblik op hoogtepunten",
+        "curiositiesTitle": "Bezienswaardigheden van Silly",
+        "curiositiesSubtitle": "Enkele suggesties om uw verblijf te verrijken",
+        "curiosities": {
+            "market": {
+                "title": "Markten & Smaak",
+                "desc": "Lokale producten en ambachten"
+            },
+            "heritage": {
+                "title": "Levend Erfgoed",
+                "desc": "Kerken, kastelen en architectuur"
+            },
+            "trails": {
+                "title": "Wandelpaden",
+                "desc": "Kilometers ongerepte natuur"
+            },
+            "agenda": {
+                "title": "Culturele Agenda",
+                "desc": "Festivals en festiviteiten"
+            }
+        },
+        "ctaTitle": "Advies nodig voor uw verblijf?",
+        "ctaDesc": "Onze conciërge staat voor u klaar om u te gidsen.",
+        "ctaButton": "Vraag om advies",
+        "learnMore": "Lees meer"
+    },
+    "giftCard": {
+        "heroTitle": "Villa Dolce Cadeaubon",
+        "heroSubtitle": "Geef een onvergetelijke ervaring in ons prachtige hotel",
+        "introTitle": "Het Perfecte Cadeau",
+        "introDesc": "Op zoek naar een origineel cadeau? De VILLA DOLCE cadeaubon is de perfecte keuze! Hiermee kan de ontvanger op elk moment genieten van een overnachting of ontbijt in ons prachtige hotel.",
+        "benefits": {
+            "stay": "Geldig voor overnachtingen of ontbijt",
+            "anytime": "Op elk moment te gebruiken",
+            "original": "Origineel en memorabel cadeau",
+            "custom": "Personaliseerbare kaart",
+            "validity": "Eén jaar geldig",
+            "transfer": "Overdraagbaar"
+        },
+        "badge": {
+            "gift": "Cadeau",
+            "perfect": "Perfect",
+            "popular": "Populair"
+        },
+        "optionsTitle": "Opties",
+        "package1": {
+            "title": "Ontbijt",
+            "desc": "Geef een gastronomisch ontbijt in ons etablissement",
+            "price": "Vanaf €25"
+        },
+        "package2": {
+            "title": "Een Overnachting",
+            "desc": "Een onvergetelijke nacht in een van onze luxe kamers",
+            "price": "Vanaf €150"
+        },
+        "package3": {
+            "title": "Compleet Verblijf",
+            "desc": "Een all-inclusive verblijf met ontbijt inbegrepen",
+            "price": "Vanaf €300"
+        },
+        "ctaMain": "Bestel de Kaart",
+        "ctaOrder": "Bestellen"
+    }
+}

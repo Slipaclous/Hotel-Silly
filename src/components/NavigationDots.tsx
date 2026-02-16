@@ -49,14 +49,19 @@ export default function NavigationDots() {
     discoverSections();
 
     // On observe aussi les changements du DOM pour les contenus dynamiques
+    // avec un debounce pour éviter trop de calculs
+    let timeoutId: NodeJS.Timeout;
     const observer = new MutationObserver(() => {
-      // On utilise un petit délai pour laisser React faire son rendu
-      setTimeout(discoverSections, 100);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(discoverSections, 250);
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeoutId);
+    };
   }, [discoverSections, pathname]);
 
   useEffect(() => {
@@ -106,7 +111,7 @@ export default function NavigationDots() {
   };
 
   // Ne pas afficher sur les pages d'administration
-  if (pathname?.startsWith('/admin')) return null;
+  if (pathname?.includes('/admin')) return null;
 
   if (sections.length <= 1) return null;
 

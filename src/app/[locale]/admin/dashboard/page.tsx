@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import Sidebar from '@/components/admin/Sidebar';
 import DashboardOverview from '@/components/admin/DashboardOverview';
 import HeroEditor from '@/components/admin/HeroEditor';
@@ -11,6 +11,7 @@ import RoomsEditor from '@/components/admin/RoomsEditor';
 import TestimonialsEditor from '@/components/admin/TestimonialsEditor';
 import GalleryEditor from '@/components/admin/GalleryEditor';
 import EventsEditor from '@/components/admin/EventsEditor';
+import TranslationsManager from '@/components/admin/TranslationsManager';
 import PageHeroEditor from '@/components/admin/PageHeroEditor';
 
 interface Admin {
@@ -80,6 +81,7 @@ export default function DashboardPage() {
           {/* Content Rendering */}
           <div className="min-h-screen pb-20">
             {activePage === 'dashboard' && <DashboardOverview />}
+            {activePage === 'translations' && <TranslationsManager />}
 
             {activeSection === 'hero' && <HeroEditor />}
             {activeSection === 'about' && <AboutEditor />}

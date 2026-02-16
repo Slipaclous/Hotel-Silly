@@ -1,5 +1,3 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import ChambresContent from '@/components/ChambresContent';
 import { prisma } from '@/lib/prisma';
 
@@ -15,9 +13,7 @@ export default async function ChambresPage() {
 
   return (
     <main className="min-h-screen bg-blanc">
-      <Header />
       <ChambresContent rooms={rooms} pageHero={pageHero} />
-      <Footer />
     </main>
   );
 }

@@ -3,13 +3,18 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface Room {
   id: number;
   name: string;
+  nameEn?: string | null;
+  nameNl?: string | null;
   description: string;
+  descriptionEn?: string | null;
+  descriptionNl?: string | null;
   price: string;
   capacity: string;
   rating: number;
@@ -19,6 +24,8 @@ interface Room {
 
 export default function RoomSection({ initialRooms }: { initialRooms?: Room[] }) {
   const [rooms, setRooms] = useState<Room[]>(initialRooms || []);
+  const locale = useLocale();
+  const t = useTranslations('home');
 
   useEffect(() => {
     if (!initialRooms) {
@@ -28,6 +35,12 @@ export default function RoomSection({ initialRooms }: { initialRooms?: Room[] })
         .catch(err => console.error('Erreur chargement rooms:', err));
     }
   }, [initialRooms]);
+
+  const getLocalized = (fr: string, en?: string | null, nl?: string | null) => {
+    if (locale === 'nl') return nl || fr;
+    if (locale === 'en') return en || fr;
+    return fr;
+  };
 
   // Si on n'a pas de data, on ne render rien pour le moment
   if (rooms.length === 0 && !initialRooms) return null;
@@ -54,23 +67,16 @@ export default function RoomSection({ initialRooms }: { initialRooms?: Room[] })
         <div className="bg-blanc flex flex-col justify-center p-12 lg:p-24 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-or/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none"></div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="relative z-10"
-          >
+          <div className="relative z-10">
             <span className="font-body text-xs tracking-[0.2em] uppercase text-or mb-6 block">
-              Hébergement
+              {t('roomsBadge')}
             </span>
             <h2 className="font-display text-4xl lg:text-5xl lg:leading-tight font-medium text-noir mb-8">
-              L&apos;Art du Repos <br /> <span className="text-or italic">à l&apos;Italienne</span>
+              {t('roomsTitle')} <br /> <span className="text-or italic">{t('roomsTitleItalic')}</span>
             </h2>
             <div className="w-12 h-px bg-or mb-8"></div>
             <p className="font-body text-base lg:text-lg text-noir/70 mb-10 leading-relaxed max-w-md">
-              Chacune de nos chambres est une invitation à la détente, mêlant charme intemporel et confort moderne.
-              Une atmosphère feutrée pour des nuits inoubliables.
+              {t('roomsDescription')}
             </p>
 
             <Link
@@ -81,10 +87,10 @@ export default function RoomSection({ initialRooms }: { initialRooms?: Room[] })
                 <ArrowRight className="w-4 h-4 text-noir group-hover:text-white transition-colors" />
               </div>
               <span className="font-body text-sm tracking-widest uppercase text-noir group-hover:text-or transition-colors duration-300">
-                Découvrir nos chambres
+                {t('roomsCta')}
               </span>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

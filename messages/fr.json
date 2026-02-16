@@ -1,0 +1,279 @@
+{
+    "common": {
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "success": "Sauvegardé avec succès",
+        "book": "Réserver",
+        "bookStay": "Réserver votre séjour",
+        "discover": "Découvrir",
+        "discoverRooms": "Découvrir nos Chambres",
+        "discoverHistory": "Découvrir Notre Histoire",
+        "openingYear": "Année d'ouverture",
+        "seePhotos": "Voir Photos",
+        "includedServices": "Services Inclus",
+        "comfort": "Confort Absolu",
+        "perNight": "par nuit"
+    },
+    "nav": {
+        "home": "Accueil",
+        "rooms": "Chambres & Suites",
+        "about": "À Propos",
+        "gallery": "Galerie",
+        "events": "Événements",
+        "testimonials": "Témoignages",
+        "contact": "Contact",
+        "services": "Services",
+        "seminars": "Séminaires",
+        "giftCard": "Carte-Cadeau",
+        "openingSoon": "Ouverture Printemps 2025"
+    },
+    "footer": {
+        "description": "Découvrez notre hôtel de luxe au cœur de Silly, où élégance et confort se rencontrent pour créer une expérience hôtelière exceptionnelle.",
+        "navTitle": "Navigation",
+        "servicesTitle": "Nos Services",
+        "infoTitle": "Informations",
+        "stayConnected": "Restez Connecté",
+        "newsletterTitle": "Restez informé",
+        "newsletterDesc": "Recevez les dernières mises à jour sur nos offres et activités",
+        "newsletterPlaceholder": "Votre email",
+        "newsletterButton": "Enregistrez-moi",
+        "newsletterLoading": "Envoi...",
+        "newsletterSuccess": "Inscription réussie !",
+        "newsletterError": "Une erreur est survenue",
+        "newsletterConnError": "Erreur de connexion",
+        "followUs": "Suivez-nous",
+        "copyright": "Tous droits réservés.",
+        "designedWith": "Conçu avec élégance",
+        "openingSoon": "Ouverture prévue : Printemps 2025",
+        "legal": "Mentions Légales",
+        "privacy": "Politique de Confidentialité",
+        "terms": "Conditions Générales"
+    },
+    "rooms": {
+        "title": "Chambres & Suites",
+        "subtitle": "Une collection exclusive de refuges urbains où le luxe rencontre la serenité.",
+        "welcome": "Bienvenue",
+        "gallery": "Galerie",
+        "pets": "Animaux bienvenus",
+        "petSupplement": "Supplément chien: 10€ / nuit",
+        "surface": "Surface",
+        "bedding": "Literie",
+        "pricingTitle": "Tarifs par nuit",
+        "person": "Personne",
+        "persons": "Personnes",
+        "wifi": "WiFi Haut Débit",
+        "wifiDesc": "Connexion fibre optique",
+        "breakfast": "Petit Déjeuner",
+        "breakfastDesc": "Produits locaux et frais",
+        "parking": "Parking Privé",
+        "parkingDesc": "Sécurisé et gratuit",
+        "concierge": "Conciergerie",
+        "conciergeDesc": "À votre service 24/7"
+    },
+    "home": {
+        "roomsBadge": "Hébergement",
+        "roomsTitle": "L'Art du Repos",
+        "roomsTitleItalic": "à la belge",
+        "roomsDescription": "Chacune de nos chambres est une invitation à la détente, mêlant charme intemporel et confort moderne. Une atmosphère feutrée pour des nuits inoubliables.",
+        "roomsCta": "Découvrir nos chambres"
+    },
+    "about": {
+        "heroTitle": "À Propos de l'Hôtel",
+        "heroSubtitle": "Découvrez l'histoire et l'identité de notre hôtel de luxe",
+        "discovery": "Découverte",
+        "access": "Accès",
+        "accessTitle": "Accès & Activités",
+        "accessDesc": "Découvrez comment nous rejoindre et les nombreuses activités à proximité",
+        "howToReach": "Comment nous rejoindre",
+        "byTrain": "En train",
+        "byTrainDesc": "Gare SNCB Silly - À 2 km de l'hôtel\n• À pied : 20-30 minutes\n• À vélo : 10 minutes",
+        "byCar": "En voiture",
+        "byCarDesc": "Accès facile par autoroute\nParking privé disponible",
+        "byBus": "En bus",
+        "byBusDesc": "Arrêt de bus \"Silly centre\" à proximité",
+        "nearby": "À proximité",
+        "values": "Nos Valeurs",
+        "locationTitle": "Notre Emplacement",
+        "locationDesc": "Situé au cœur de Silly, village pittoresque de la Région Wallonne, notre hôtel vous offre un accès privilégié aux principales attractions belges tout en préservant le calme et la serrénité d'un cadre exceptionnel.",
+        "historyTitle": "Notre Histoire",
+        "historyDesc": "Fondé en {year}, notre hôtel allie tradition et modernité pour offrir une expérience unique où chaque détail a été pensé pour votre confort et votre bien-être.",
+        "engagementTitle": "Notre Engagement",
+        "engagementDesc": "Notre équipe dédiée s'engage à anticiper vos besoins et à rendre votre séjour exceptionnel. Nous mettons un point d'honneur à offrir un service personnalisé de qualité supérieure.",
+        "activities": [
+            "Bois de Silly (promenades)",
+            "Circuit des fées de Silly",
+            "Parc d'Enghien",
+            "Pairi Daiza",
+            "Visite de la brasserie de Silly",
+            "Aéroport de Charleroi/BXL",
+            "SHAPE",
+            "Golf d'Enghien",
+            "Shopping Bastion et Grand Près"
+        ]
+    },
+    "gallery": {
+        "heroTitle": "Galerie Photo",
+        "heroSubtitle": "Découvrez les espaces et l'ambiance unique de notre hôtel",
+        "filterAll": "Toutes",
+        "filterRooms": "Chambres",
+        "filterRestaurant": "Restaurant",
+        "filterSpa": "Spa",
+        "filterInterior": "Intérieur",
+        "filterExterior": "Extérieur",
+        "noImages": "Aucune image trouvée"
+    },
+    "contact": {
+        "heroTitle": "Contact",
+        "heroSubtitle": "Une question ? Un désir particulier ?",
+        "infoTitle": "Nos Coordonnées",
+        "infoSubtitle": "Nous sommes à votre entière disposition.",
+        "address": "Villa Dolce",
+        "phone": "Téléphone",
+        "email": "Email",
+        "hoursTitle": "Horaires Réception",
+        "days": "Lun - Ven",
+        "saturday": "Samedi",
+        "sunday": "Dimanche",
+        "closed": "Fermé",
+        "formTitle": "Envoyez-nous un message",
+        "nameLabel": "Nom Complet",
+        "emailLabel": "Email",
+        "subjectLabel": "Sujet",
+        "messageLabel": "Message",
+        "namePlaceholder": "Jean Dupont",
+        "emailPlaceholder": "jean@exemple.com",
+        "subjectPlaceholder": "Choisir un sujet...",
+        "messagePlaceholder": "Dites-nous en plus...",
+        "subjects": {
+            "reservation": "Réservation de chambre",
+            "event": "Organisation d'événement",
+            "question": "Informations générales",
+            "other": "Autre demande"
+        },
+        "submit": "Envoyer ma demande",
+        "submitting": "Envoi...",
+        "successTitle": "Message reçu",
+        "successMessage": "Merci de nous avoir contactés. Nous reviendrons vers vous très prochainement.",
+        "sendAnother": "Envoyer un autre message"
+    },
+    "seminars": {
+        "heroTitle": "Réunions & Séminaires",
+        "heroSubtitle": "Un espace professionnel et élégant pour vos événements d'entreprise",
+        "spaceTitle": "Votre Espace Professionnel",
+        "spaceDesc": "Possibilité de louer un espace pour vos réunions dans un cadre exceptionnel alliant confort et professionnalisme. Notre salle peut accueillir jusqu'à 20 personnes et dispose de tous les équipements nécessaires.",
+        "checkPoints": {
+            "flexibility": "Forfaits flexibles",
+            "flexibilityDesc": "Disponible à la journée ou demi-journée",
+            "equipment": "Équipement complet",
+            "equipmentDesc": "Projection, WiFi haut débit et tout le matériel nécessaire",
+            "setting": "Cadre inspirant",
+            "settingDesc": "Un environnement propice à la productivité"
+        },
+        "features": {
+            "capacity": "Jusqu'à 20 personnes",
+            "capacityDesc": "Capacité optimale",
+            "projection": "Équipement de projection",
+            "projectionDesc": "Matériel audiovisuel pro",
+            "wifi": "WiFi haut débit",
+            "wifiDesc": "Connexion performante",
+            "coffee": "Coffee Corner",
+            "coffeeDesc": "Rafraîchissements disponibles"
+        },
+        "pricing": {
+            "halfDay": "Demi-Journée",
+            "halfDayDesc": "Forfait par personne pour une demi-journée",
+            "fullDay": "Journée Complète",
+            "fullDayDesc": "Forfait par personne pour une journée entière",
+            "recommended": "Recommandé",
+            "details": [
+                "Salle équipée",
+                "Projection & WiFi",
+                "Coffee corner en option",
+                "Pause déjeuner possible"
+            ],
+            "cta": "Demander un devis"
+        },
+        "coffee": {
+            "title": "Forfait Coffee Corner",
+            "desc": "Mise à disposition de rafraîchissements pendant votre réunion.",
+            "items": [
+                "Café et thé premium",
+                "Eau et soft drinks",
+                "Jus de fruits frais",
+                "Mini viennoiseries (matinée)",
+                "Mignardises (journée)"
+            ],
+            "cta": "Réserver votre espace"
+        }
+    },
+    "eventsPage": {
+        "heroTitle": "Vie Locale & Découvertes",
+        "heroSubtitle": "Explorez Silly et ses environs : un patrimoine riche et des événements authentiques.",
+        "introTitle": "Silly, Terre de Partage et de Culture",
+        "introDesc": "Séjourner à la Villa Dolce, c'est s'offrir une immersion dans une région dynamique.",
+        "upcomingTitle": "Agenda",
+        "pastTitle": "Événements Passés",
+        "pastSubtitle": "Retour sur les moments forts",
+        "curiositiesTitle": "Curiosités de Silly",
+        "curiositiesSubtitle": "Quelques suggestions pour enrichir votre séjour",
+        "curiosities": {
+            "market": {
+                "title": "Marchés & Saveurs",
+                "desc": "Produits locaux et artisanat"
+            },
+            "heritage": {
+                "title": "Patrimoine Vivant",
+                "desc": "Églises, châteaux et architecture"
+            },
+            "trails": {
+                "title": "Sentiers de Randonnée",
+                "desc": "Kilomètres de nature préservée"
+            },
+            "agenda": {
+                "title": "Agenda Culturel",
+                "desc": "Festivals et festivités"
+            }
+        },
+        "ctaTitle": "Besoin de conseils pour votre séjour ?",
+        "ctaDesc": "Notre conciergerie est à votre disposition pour vous guider.",
+        "ctaButton": "Demander conseil",
+        "learnMore": "En savoir plus"
+    },
+    "giftCard": {
+        "heroTitle": "Carte-Cadeau Villa Dolce",
+        "heroSubtitle": "Offrez une expérience inoubliable dans notre magnifique hôtel",
+        "introTitle": "Le Cadeau Parfait",
+        "introDesc": "À la recherche d'un cadeau original ? La carte-cadeau VILLA DOLCE est le cadeau parfait ! Avec cela, le destinataire peut profiter à tout moment d'une nuitée, ou d'un petit déjeuner dans notre magnifique hôtel.",
+        "benefits": {
+            "stay": "Valable pour une nuitée ou un petit déjeuner",
+            "anytime": "Utilisable à tout moment",
+            "original": "Cadeau original et mémorable",
+            "custom": "Carte personnalisable",
+            "validity": "Validité d'un an",
+            "transfer": "Transfert possible"
+        },
+        "badge": {
+            "gift": "Cadeau",
+            "perfect": "Parfait",
+            "popular": "Populaire"
+        },
+        "optionsTitle": "Options",
+        "package1": {
+            "title": "Petit Déjeuner",
+            "desc": "Offrez un petit déjeuner gourmand dans notre établissement",
+            "price": "À partir de 25€"
+        },
+        "package2": {
+            "title": "Une Nuitée",
+            "desc": "Une nuit inoubliable dans l'une de nos chambres de luxe",
+            "price": "À partir de 150€"
+        },
+        "package3": {
+            "title": "Séjour Complet",
+            "desc": "Un séjour tout compris avec petit déjeuner inclus",
+            "price": "À partir de 300€"
+        },
+        "ctaMain": "Commander la Carte",
+        "ctaOrder": "Commander"
+    }
+}

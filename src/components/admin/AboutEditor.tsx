@@ -3,21 +3,42 @@
 import { useState, useEffect } from 'react';
 import ImageUpload from './ImageUpload';
 import AdminWrapper from './AdminWrapper';
+import LanguageTabs from './LanguageTabs';
 import { History, Award, Sparkles } from 'lucide-react';
+
+type Locale = 'fr' | 'en' | 'nl';
 
 export default function AboutEditor() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
+  const [activeLocale, setActiveLocale] = useState<Locale>('fr');
+
   const [formData, setFormData] = useState({
     title: '',
+    titleEn: '',
+    titleNl: '',
     description: '',
+    descriptionEn: '',
+    descriptionNl: '',
     keyPoint1Title: '',
+    keyPoint1TitleEn: '',
+    keyPoint1TitleNl: '',
     keyPoint1Text: '',
+    keyPoint1TextEn: '',
+    keyPoint1TextNl: '',
     keyPoint2Title: '',
+    keyPoint2TitleEn: '',
+    keyPoint2TitleNl: '',
     keyPoint2Text: '',
+    keyPoint2TextEn: '',
+    keyPoint2TextNl: '',
     keyPoint3Title: '',
+    keyPoint3TitleEn: '',
+    keyPoint3TitleNl: '',
     keyPoint3Text: '',
+    keyPoint3TextEn: '',
+    keyPoint3TextNl: '',
     openingYear: '',
     imageUrl: '',
   });
@@ -33,13 +54,29 @@ export default function AboutEditor() {
       if (data) {
         setFormData({
           title: data.title || '',
+          titleEn: data.titleEn || '',
+          titleNl: data.titleNl || '',
           description: data.description || '',
+          descriptionEn: data.descriptionEn || '',
+          descriptionNl: data.descriptionNl || '',
           keyPoint1Title: data.keyPoint1Title || '',
+          keyPoint1TitleEn: data.keyPoint1TitleEn || '',
+          keyPoint1TitleNl: data.keyPoint1TitleNl || '',
           keyPoint1Text: data.keyPoint1Text || '',
+          keyPoint1TextEn: data.keyPoint1TextEn || '',
+          keyPoint1TextNl: data.keyPoint1TextNl || '',
           keyPoint2Title: data.keyPoint2Title || '',
+          keyPoint2TitleEn: data.keyPoint2TitleEn || '',
+          keyPoint2TitleNl: data.keyPoint2TitleNl || '',
           keyPoint2Text: data.keyPoint2Text || '',
+          keyPoint2TextEn: data.keyPoint2TextEn || '',
+          keyPoint2TextNl: data.keyPoint2TextNl || '',
           keyPoint3Title: data.keyPoint3Title || '',
+          keyPoint3TitleEn: data.keyPoint3TitleEn || '',
+          keyPoint3TitleNl: data.keyPoint3TitleNl || '',
           keyPoint3Text: data.keyPoint3Text || '',
+          keyPoint3TextEn: data.keyPoint3TextEn || '',
+          keyPoint3TextNl: data.keyPoint3TextNl || '',
           openingYear: data.openingYear || '',
           imageUrl: data.imageUrl || '',
         });
@@ -97,6 +134,12 @@ export default function AboutEditor() {
     );
   }
 
+  // Helper to get localized field names
+  const getFieldName = (base: string) => {
+    if (activeLocale === 'fr') return base;
+    return `${base}${activeLocale.charAt(0).toUpperCase()}${activeLocale.slice(1)}`;
+  };
+
   return (
     <AdminWrapper
       title="Histoire & Valeurs"
@@ -106,10 +149,12 @@ export default function AboutEditor() {
       message={message}
       previewUrl="/#about"
     >
+      <LanguageTabs currentLocale={activeLocale} onChange={setActiveLocale} />
+
       <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-8">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="p-6 border-b border-gray-100 bg-gray-50/50">
-            <h3 className="text-lg font-bold text-gray-900">Information Principales</h3>
+            <h3 className="text-lg font-bold text-gray-900">Information Principales ({activeLocale.toUpperCase()})</h3>
           </div>
           <div className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div className="space-y-6">
@@ -117,8 +162,8 @@ export default function AboutEditor() {
                 <label className={labelClasses}>Titre de la section</label>
                 <input
                   type="text"
-                  name="title"
-                  value={formData.title}
+                  name={getFieldName('title')}
+                  value={(formData as any)[getFieldName('title')]}
                   onChange={handleChange}
                   placeholder="ex: Un Héritage de Prestige"
                   className={inputClasses}
@@ -128,8 +173,8 @@ export default function AboutEditor() {
               <div>
                 <label className={labelClasses}>Récit historique (Description)</label>
                 <textarea
-                  name="description"
-                  value={formData.description}
+                  name={getFieldName('description')}
+                  value={(formData as any)[getFieldName('description')]}
                   onChange={handleChange}
                   rows={6}
                   placeholder="Partagez l'âme de l'hôtel..."
@@ -138,7 +183,7 @@ export default function AboutEditor() {
               </div>
 
               <div>
-                <label className={labelClasses}>Année d&apos;ouverture</label>
+                <label className={labelClasses}>Année d&apos;ouverture (Commun)</label>
                 <div className="relative">
                   <History className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
@@ -157,7 +202,7 @@ export default function AboutEditor() {
               <ImageUpload
                 value={formData.imageUrl}
                 onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-                label="Visuel représentatif"
+                label="Visuel représentatif (Commun)"
               />
             </div>
           </div>
@@ -165,7 +210,7 @@ export default function AboutEditor() {
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="p-6 border-b border-gray-100 bg-gray-50/50">
-            <h3 className="text-lg font-bold text-gray-900">Points d&apos;Excellence</h3>
+            <h3 className="text-lg font-bold text-gray-900">Points d&apos;Excellence ({activeLocale.toUpperCase()})</h3>
           </div>
           <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Point 1 */}
@@ -176,15 +221,15 @@ export default function AboutEditor() {
               </div>
               <input
                 type="text"
-                name="keyPoint1Title"
-                value={formData.keyPoint1Title}
+                name={getFieldName('keyPoint1Title')}
+                value={(formData as any)[getFieldName('keyPoint1Title')]}
                 onChange={handleChange}
                 placeholder="Titre court"
                 className={inputClasses}
               />
               <textarea
-                name="keyPoint1Text"
-                value={formData.keyPoint1Text}
+                name={getFieldName('keyPoint1Text')}
+                value={(formData as any)[getFieldName('keyPoint1Text')]}
                 onChange={handleChange}
                 placeholder="Description courte..."
                 rows={3}
@@ -200,15 +245,15 @@ export default function AboutEditor() {
               </div>
               <input
                 type="text"
-                name="keyPoint2Title"
-                value={formData.keyPoint2Title}
+                name={getFieldName('keyPoint2Title')}
+                value={(formData as any)[getFieldName('keyPoint2Title')]}
                 onChange={handleChange}
                 placeholder="Titre court"
                 className={inputClasses}
               />
               <textarea
-                name="keyPoint2Text"
-                value={formData.keyPoint2Text}
+                name={getFieldName('keyPoint2Text')}
+                value={(formData as any)[getFieldName('keyPoint2Text')]}
                 onChange={handleChange}
                 placeholder="Description courte..."
                 rows={3}
@@ -224,15 +269,15 @@ export default function AboutEditor() {
               </div>
               <input
                 type="text"
-                name="keyPoint3Title"
-                value={formData.keyPoint3Title}
+                name={getFieldName('keyPoint3Title')}
+                value={(formData as any)[getFieldName('keyPoint3Title')]}
                 onChange={handleChange}
                 placeholder="Titre court"
                 className={inputClasses}
               />
               <textarea
-                name="keyPoint3Text"
-                value={formData.keyPoint3Text}
+                name={getFieldName('keyPoint3Text')}
+                value={(formData as any)[getFieldName('keyPoint3Text')]}
                 onChange={handleChange}
                 placeholder="Description courte..."
                 rows={3}
