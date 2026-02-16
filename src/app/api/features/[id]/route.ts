@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // PUT - Mettre à jour une feature
 export async function PUT(
@@ -13,6 +14,11 @@ export async function PUT(
       where: { id: parseInt(id) },
       data,
     });
+
+    // Invalider le cache des pages concernées
+    revalidatePath('/');
+    revalidatePath('/a-propos');
+
     return NextResponse.json(feature);
   } catch (error) {
     console.error('Erreur PUT feature:', error);
@@ -33,6 +39,11 @@ export async function DELETE(
     await prisma.feature.delete({
       where: { id: parseInt(id) },
     });
+
+    // Invalider le cache des pages concernées
+    revalidatePath('/');
+    revalidatePath('/a-propos');
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Erreur DELETE feature:', error);

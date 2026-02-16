@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // GET - Récupérer le hero d'une page spécifique
 export async function GET(
@@ -45,6 +46,10 @@ export async function PUT(
         ...data,
       },
     });
+
+    // Invalider le cache de la page concernée
+    const path = decodedPage === 'accueil' ? '/' : `/${decodedPage}`;
+    revalidatePath(path);
 
     return NextResponse.json(pageHero);
   } catch (error) {

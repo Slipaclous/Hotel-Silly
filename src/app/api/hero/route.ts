@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // GET - Récupérer les données Hero
 export async function GET() {
@@ -21,19 +22,22 @@ export async function PUT(request: NextRequest) {
     const data = await request.json();
     const hero = await prisma.hero.findFirst();
 
+    let result;
     if (!hero) {
       // Créer si n'existe pas
-      const newHero = await prisma.hero.create({ data });
-      return NextResponse.json(newHero);
+      result = await prisma.hero.create({ data });
+    } else {
+      // Mettre à jour
+      result = await prisma.hero.update({
+        where: { id: hero.id },
+        data,
+      });
     }
 
-    // Mettre à jour
-    const updatedHero = await prisma.hero.update({
-      where: { id: hero.id },
-      data,
-    });
+    // Invalider le cache de la page d'accueil
+    revalidatePath('/');
 
-    return NextResponse.json(updatedHero);
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Erreur PUT hero:', error);
     return NextResponse.json(

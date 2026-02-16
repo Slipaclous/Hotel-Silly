@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // PUT - Mettre à jour un témoignage
 export async function PUT(
@@ -13,6 +14,10 @@ export async function PUT(
       where: { id: parseInt(id) },
       data,
     });
+
+    // Invalider le cache de la page d'accueil
+    revalidatePath('/');
+
     return NextResponse.json(testimonial);
   } catch (error) {
     console.error('Erreur PUT testimonial:', error);
@@ -33,6 +38,10 @@ export async function DELETE(
     await prisma.testimonial.delete({
       where: { id: parseInt(id) },
     });
+
+    // Invalider le cache de la page d'accueil
+    revalidatePath('/');
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Erreur DELETE testimonial:', error);

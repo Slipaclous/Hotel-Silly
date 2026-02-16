@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // GET - Récupérer toutes les chambres avec leurs images
 export async function GET() {
@@ -38,6 +39,11 @@ export async function POST(request: NextRequest) {
       },
       include: { images: true }
     });
+
+    // Invalider le cache pour les pages concernées
+    revalidatePath('/');
+    revalidatePath('/chambres');
+
     return NextResponse.json(room, { status: 201 });
   } catch (error) {
     console.error('Erreur POST room:', error);

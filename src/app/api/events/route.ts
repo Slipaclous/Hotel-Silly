@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // GET - Récupérer tous les événements
 export async function GET() {
@@ -22,6 +23,10 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
     const event = await prisma.event.create({ data });
+
+    // Invalider le cache de la page événements
+    revalidatePath('/evenements');
+
     return NextResponse.json(event, { status: 201 });
   } catch (error) {
     console.error('Erreur POST event:', error);

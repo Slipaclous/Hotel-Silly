@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // GET - Récupérer les données About
 export async function GET() {
@@ -21,17 +22,21 @@ export async function PUT(request: NextRequest) {
     const data = await request.json();
     const about = await prisma.about.findFirst();
 
+    let result;
     if (!about) {
-      const newAbout = await prisma.about.create({ data });
-      return NextResponse.json(newAbout);
+      result = await prisma.about.create({ data });
+    } else {
+      result = await prisma.about.update({
+        where: { id: about.id },
+        data,
+      });
     }
 
-    const updatedAbout = await prisma.about.update({
-      where: { id: about.id },
-      data,
-    });
+    // Invalider le cache des pages concernées
+    revalidatePath('/');
+    revalidatePath('/a-propos');
 
-    return NextResponse.json(updatedAbout);
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Erreur PUT about:', error);
     return NextResponse.json(

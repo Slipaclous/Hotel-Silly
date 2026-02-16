@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // GET - Récupérer toutes les features
 export async function GET() {
@@ -22,6 +23,11 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
     const feature = await prisma.feature.create({ data });
+
+    // Invalider le cache des pages concernées
+    revalidatePath('/');
+    revalidatePath('/a-propos');
+
     return NextResponse.json(feature, { status: 201 });
   } catch (error) {
     console.error('Erreur POST feature:', error);

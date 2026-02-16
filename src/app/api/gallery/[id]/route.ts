@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // PUT - Mettre à jour une image
 export async function PUT(
@@ -14,6 +15,12 @@ export async function PUT(
       where: { id: imageId },
       data,
     });
+
+    // Invalider le cache des pages concernées
+    revalidatePath('/galerie');
+    revalidatePath('/chambres');
+    revalidatePath('/');
+
     return NextResponse.json(image);
   } catch (error) {
     console.error('Erreur PUT gallery:', error);
@@ -35,6 +42,12 @@ export async function DELETE(
     await prisma.galleryImage.delete({
       where: { id: imageId },
     });
+
+    // Invalider le cache des pages concernées
+    revalidatePath('/galerie');
+    revalidatePath('/chambres');
+    revalidatePath('/');
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Erreur DELETE gallery:', error);

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // PUT - Mettre à jour une chambre
 export async function PUT(
@@ -27,6 +28,11 @@ export async function PUT(
       },
       include: { images: true }
     });
+
+    // Invalider le cache pour les pages concernées
+    revalidatePath('/');
+    revalidatePath('/chambres');
+
     return NextResponse.json(room);
   } catch (error) {
     console.error('Erreur PUT room:', error);
@@ -47,6 +53,11 @@ export async function DELETE(
     await prisma.room.delete({
       where: { id: parseInt(id) },
     });
+
+    // Invalider le cache pour les pages concernées
+    revalidatePath('/');
+    revalidatePath('/chambres');
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Erreur DELETE room:', error);
