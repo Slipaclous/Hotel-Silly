@@ -12,7 +12,8 @@
         "seePhotos": "View Photos",
         "includedServices": "Included Services",
         "comfort": "Absolute Comfort",
-        "perNight": "per night"
+        "perNight": "per night",
+        "startingFrom": "Starting from"
     },
     "nav": {
         "home": "Home",
@@ -62,13 +63,16 @@
         "person": "Person",
         "persons": "People",
         "wifi": "High Speed WiFi",
-        "wifiDesc": "Fiber optic connection",
         "breakfast": "Breakfast",
         "breakfastDesc": "Local and fresh products",
         "parking": "Private Parking",
         "parkingDesc": "Secure and free",
         "concierge": "Concierge",
-        "conciergeDesc": "At your service 24/7"
+        "conciergeDesc": "At your service 24/7",
+        "exclusiveStay": "Exclusive Stay",
+        "description": "Description",
+        "amenities": "Amenities & Services",
+        "viewDetails": "Details & Photos"
     },
     "home": {
         "roomsBadge": "Accommodation",

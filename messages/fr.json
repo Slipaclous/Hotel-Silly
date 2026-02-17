@@ -12,7 +12,8 @@
         "seePhotos": "Voir Photos",
         "includedServices": "Services Inclus",
         "comfort": "Confort Absolu",
-        "perNight": "par nuit"
+        "perNight": "par nuit",
+        "startingFrom": "À partir de"
     },
     "nav": {
         "home": "Accueil",
@@ -68,7 +69,12 @@
         "parking": "Parking Privé",
         "parkingDesc": "Sécurisé et gratuit",
         "concierge": "Conciergerie",
-        "conciergeDesc": "À votre service 24/7"
+        "conciergeDesc": "À votre service 24/7",
+        "exclusiveStay": "Séjour Exclusif",
+        "description": "Description",
+        "amenities": "Équipements & Services",
+        "reservationDisclaimer": "Toutes les réservations sont soumises à confirmation selon disponibilité.",
+        "viewDetails": "Détails & Photos"
     },
     "home": {
         "roomsBadge": "Hébergement",

@@ -12,7 +12,8 @@
         "seePhotos": "Bekijk Foto's",
         "includedServices": "Inbegrepen Diensten",
         "comfort": "Absoluut Comfort",
-        "perNight": "per nacht"
+        "perNight": "per nacht",
+        "startingFrom": "Vanaf"
     },
     "nav": {
         "home": "Home",
@@ -68,7 +69,12 @@
         "parking": "Privé Parkeerplaats",
         "parkingDesc": "Veilig en gratis",
         "concierge": "Conciërge",
-        "conciergeDesc": "Tot uw dienst 24/7"
+        "conciergeDesc": "Tot uw dienst 24/7",
+        "exclusiveStay": "Exclusief Verblijf",
+        "description": "Beschrijving",
+        "amenities": "Voorzieningen & Services",
+        "reservationDisclaimer": "Alle boekingen zijn onder voorbehoud van bevestiging op basis van beschikbaarheid.",
+        "viewDetails": "Details & Foto's"
     },
     "home": {
         "roomsBadge": "Accommodatie",

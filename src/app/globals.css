@@ -440,3 +440,13 @@ h6 {
 .animate-progress-loading {
   animation: progress-loading 2s ease-in-out infinite;
 }
+
+/* Utilitaires supplémentaires */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

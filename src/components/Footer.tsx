@@ -291,7 +291,7 @@ export default function Footer() {
               © 2025 Villa Dolce. {t('copyright')}
             </p>
             <p className="font-body text-xs text-white/40">
-              {t('designedWith')}
+              Made by <a href="https://gminor.dev" target="_blank" rel="noopener noreferrer">Gauthier Minor</a>
             </p>
           </div>
         </div>

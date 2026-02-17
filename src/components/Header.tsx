@@ -52,7 +52,7 @@ export default function Header() {
         }`}
     >
       {/* Barre supérieure discrète */}
-      <div className={`border-b transition-all duration-300 ${(!isScrolled && !isMenuOpen) ? 'border-white/20' : 'border-[var(--color-gris-clair)]'
+      <div className={`hidden lg:block border-b transition-all duration-300 ${(!isScrolled && !isMenuOpen) ? 'border-white/20' : 'border-[var(--color-gris-clair)]'
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-10">
@@ -83,9 +83,9 @@ export default function Header() {
 
       {/* Navigation principale */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className={`flex items-center h-20 ${isMenuOpen ? 'justify-between' : 'justify-end lg:justify-between'}`}>
           {/* Logo minimaliste */}
-          <Link href="/" className="flex items-center space-x-3 group">
+          <Link href="/" className={`items-center space-x-3 group ${isMenuOpen ? 'flex' : 'hidden lg:flex'}`}>
             <div className="flex flex-col">
               <div className={`relative h-62 w-62 transition-all duration-300 ${(!isScrolled && !isMenuOpen) ? 'invert brightness-0' : ''
                 }`}>
@@ -256,12 +256,11 @@ export default function Header() {
                     ))}
                   </div>
                 </motion.div>
-
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  className="pt-8"
+                  className="pt-8 mb-8"
                 >
                   <Link
                     href="/#booking-widget"
@@ -272,11 +271,34 @@ export default function Header() {
                     {c('bookStay')}
                   </Link>
                 </motion.div>
+
+                {/* Mobile Language Switcher & Contact */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.9 }}
+                  className="mt-auto pb-10 border-t border-noir/10 pt-8"
+                >
+                  <div className="flex items-center justify-between mb-8">
+                    <span className="text-xs font-body text-noir/40 uppercase tracking-widest">Langue</span>
+                    <LanguageSwitcher isScrolled={true} isMenuOpen={true} />
+                  </div>
+
+                  <div className="flex items-center space-x-4 p-4 bg-noir/5 rounded-xl">
+                    <div className="w-10 h-10 bg-or/10 rounded-full flex items-center justify-center">
+                      <Phone className="w-4 h-4 text-or" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-widest text-noir/40 font-bold mb-0.5">Contact</p>
+                      <p className="text-sm font-body text-noir">+32 470 13 73 13</p>
+                    </div>
+                  </div>
+                </motion.div>
               </nav>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-    </header>
+      </div >
+    </header >
   );
 }

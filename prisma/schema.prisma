@@ -128,6 +128,9 @@ model Room {
   
   rating        Int            @default(5)
   imageUrl      String         // Image principale (couverture)
+  bookingUrl    String?        // Lien direct Stardek pour la réservation (FR)
+  bookingUrlEn  String?        // Lien direct Stardek pour la réservation (EN)
+  bookingUrlNl  String?        // Lien direct Stardek pour la réservation (NL)
   images        GalleryImage[] // Galerie complète de la chambre
   features      String[]       // Array de fonctionnalités
   order         Int            // Pour gérer l'ordre d'affichage

@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 
-const GalleryLightbox = dynamic(() => import('./GalleryLightbox'));
+const RoomDetailsModal = dynamic(() => import('./RoomDetailsModal'));
 
 interface GalleryImage {
     id: number;
@@ -41,6 +41,9 @@ interface Room {
     price2Persons?: string | null;
     price3Persons?: string | null;
     petsAllowed?: boolean | null;
+    bookingUrl?: string | null;
+    bookingUrlEn?: string | null;
+    bookingUrlNl?: string | null;
 }
 
 interface PageHero {
@@ -55,7 +58,7 @@ interface PageHero {
 }
 
 export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pageHero: PageHero | null }) {
-    const [selectedRoomGallery, setSelectedRoomGallery] = useState<{ images: string[], name: string } | null>(null);
+    const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
     const locale = useLocale();
     const t = useTranslations('rooms');
     const c = useTranslations('common');
@@ -68,11 +71,10 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
 
     return (
         <>
-            <GalleryLightbox
-                images={selectedRoomGallery?.images || []}
-                isOpen={!!selectedRoomGallery}
-                onClose={() => setSelectedRoomGallery(null)}
-                roomName={selectedRoomGallery?.name || ''}
+            <RoomDetailsModal
+                room={selectedRoom}
+                isOpen={!!selectedRoom}
+                onClose={() => setSelectedRoom(null)}
             />
 
             {/* Hero Section - Full Height & Immersive */}
@@ -126,7 +128,10 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                             >
                                 {/* Image Side */}
                                 <div className="w-full lg:w-1/2 relative group sticky top-32">
-                                    <div className="relative h-[400px] lg:h-[600px] overflow-hidden shadow-elegant-lg">
+                                    <div
+                                        className="relative h-[400px] lg:h-[600px] overflow-hidden shadow-elegant-lg cursor-pointer group"
+                                        onClick={() => setSelectedRoom(room)}
+                                    >
                                         <Image
                                             src={room.imageUrl}
                                             alt={roomName}
@@ -135,21 +140,13 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                                             sizes="(max-width: 1024px) 100vw, 50vw"
                                         />
 
-                                        {/* Gallery overlay button */}
-                                        {room.images && room.images.length > 0 && (
-                                            <div className="absolute bottom-8 right-8 z-10">
-                                                <button
-                                                    onClick={() => setSelectedRoomGallery({
-                                                        images: [room.imageUrl, ...(room.images?.map(img => img.url) || [])],
-                                                        name: roomName
-                                                    })}
-                                                    className="bg-white/10 backdrop-blur-md text-white border border-white/30 px-6 py-3 rounded-full font-body text-xs font-bold uppercase tracking-widest flex items-center space-x-3 hover:bg-white hover:text-noir transition-all duration-300 transform translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0"
-                                                >
-                                                    <Images className="w-4 h-4" />
-                                                    <span>{t('gallery')} ({room.images.length + 1})</span>
-                                                </button>
+                                        {/* View Details overlay button */}
+                                        <div className="absolute inset-0 bg-noir/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                                            <div className="bg-white/10 backdrop-blur-md text-white border border-white/30 px-8 py-4 rounded-full font-body text-xs font-bold uppercase tracking-widest flex items-center space-x-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                                <Maximize2 className="w-4 h-4" />
+                                                <span>{t('viewDetails')}</span>
                                             </div>
-                                        )}
+                                        </div>
                                     </div>
                                     {/* Decorative elements */}
                                     <div className={`absolute -bottom-6 -z-10 w-2/3 h-2/3 border border-or/30 ${index % 2 === 0 ? '-left-6' : '-right-6'}`}></div>
@@ -173,67 +170,18 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                                         )}
                                     </div>
 
-                                    <h2 className="font-display text-4xl lg:text-5xl font-medium text-noir mb-6">
+                                    <h2 className="font-display text-4xl lg:text-5xl font-medium text-noir mb-4">
                                         {roomName}
                                     </h2>
 
-                                    {/* Technical Specs Grid */}
-                                    <div className="grid grid-cols-3 gap-4 mb-8 border-b border-noir/10 pb-6">
-                                        {room.surface && (
-                                            <div>
-                                                <span className="block text-xs font-body text-noir/40 uppercase tracking-widest mb-1">{t('surface')}</span>
-                                                <span className="block font-display text-lg text-noir">{room.surface}</span>
-                                            </div>
-                                        )}
-                                        {room.bedding && (
-                                            <div className="col-span-2">
-                                                <span className="block text-xs font-body text-noir/40 uppercase tracking-widest mb-1">{t('bedding')}</span>
-                                                <span className="block font-display text-lg text-noir">{getLocalized(room.bedding, room.beddingEn, room.beddingNl)}</span>
-                                            </div>
-                                        )}
+                                    <div className="flex items-baseline space-x-2 mb-6">
+                                        <span className="font-display text-3xl text-or uppercase">{room.price}</span>
+                                        <span className="font-body text-sm text-noir/40">/ {c('perNight')}</span>
                                     </div>
 
-                                    <p className="font-body text-lg text-noir/70 mb-8 leading-relaxed font-light">
+                                    <p className="font-body text-lg text-noir/70 mb-10 leading-relaxed font-light line-clamp-3">
                                         {getLocalized(room.description, room.descriptionEn, room.descriptionNl)}
                                     </p>
-
-                                    {/* Features Grid */}
-                                    <div className="grid grid-cols-2 gap-y-3 gap-x-8 mb-8">
-                                        {room.features.slice(0, 8).map((feature, idx) => (
-                                            <div key={idx} className="flex items-center space-x-3">
-                                                <div className="w-1.5 h-1.5 bg-or rounded-full"></div>
-                                                <span className="font-body text-sm text-noir/80">{feature}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    {/* Pricing Breakdown */}
-                                    <div className="bg-gray-50 p-6 rounded-lg mb-8">
-                                        <h3 className="font-display text-lg text-noir mb-4">{t('pricingTitle')}</h3>
-                                        <div className="space-y-2">
-                                            {room.price1Person && (
-                                                <div className="flex justify-between items-center bg-white p-3 rounded border border-gray-100">
-                                                    <span className="font-body text-sm text-noir/70">1 {t('person')}</span>
-                                                    <span className="font-display text-lg text-or">{room.price1Person}</span>
-                                                </div>
-                                            )}
-                                            {room.price2Persons && (
-                                                <div className="flex justify-between items-center bg-white p-3 rounded border border-gray-100">
-                                                    <span className="font-body text-sm text-noir/70">2 {t('persons')}</span>
-                                                    <span className="font-display text-lg text-or">{room.price2Persons}</span>
-                                                </div>
-                                            )}
-                                            {room.price3Persons && (
-                                                <div className="flex justify-between items-center bg-white p-3 rounded border border-gray-100">
-                                                    <span className="font-body text-sm text-noir/70">3+ {t('persons')}</span>
-                                                    <span className="font-display text-lg text-or">{room.price3Persons}</span>
-                                                </div>
-                                            )}
-                                            <div className="text-xs text-noir/40 mt-2 font-body italic text-center">
-                                                {room.petsAllowed ? t('petSupplement') : ''}
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div className="flex flex-col sm:flex-row gap-6 mt-8">
                                         <motion.div
@@ -241,32 +189,38 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                                             whileTap={{ scale: 0.95 }}
                                             className="flex-1"
                                         >
-                                            <Link
-                                                href={`/contact?room=${room.id}&subject=reservation`}
-                                                className="block w-full bg-[#2c3840] text-white px-8 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 text-center shadow-lg hover:shadow-xl border border-[#2c3840] hover:border-[#C6ad7a]"
-                                            >
-                                                {c('bookStay')}
-                                            </Link>
+                                            {getLocalized(room.bookingUrl || '', room.bookingUrlEn, room.bookingUrlNl) ? (
+                                                <a
+                                                    href={getLocalized(room.bookingUrl || '', room.bookingUrlEn, room.bookingUrlNl) || '#'}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="block w-full bg-[#2c3840] text-white px-8 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 text-center shadow-lg hover:shadow-xl border border-[#2c3840] hover:border-[#C6ad7a]"
+                                                >
+                                                    {c('bookStay')}
+                                                </a>
+                                            ) : (
+                                                <Link
+                                                    href={`/contact?room=${room.id}&subject=reservation`}
+                                                    className="block w-full bg-[#2c3840] text-white px-8 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 text-center shadow-lg hover:shadow-xl border border-[#2c3840] hover:border-[#C6ad7a]"
+                                                >
+                                                    {c('bookStay')}
+                                                </Link>
+                                            )}
                                         </motion.div>
 
-                                        {room.images && room.images.length > 0 && (
-                                            <motion.div
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                className="flex-1"
+                                        <motion.div
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="flex-1"
+                                        >
+                                            <button
+                                                onClick={() => setSelectedRoom(room)}
+                                                className="w-full border border-[#2c3840] text-[#2c3840] px-8 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#2c3840] hover:text-white transition-all duration-500 flex items-center justify-center space-x-3 shadow-md hover:shadow-lg"
                                             >
-                                                <button
-                                                    onClick={() => setSelectedRoomGallery({
-                                                        images: [room.imageUrl, ...(room.images?.map(img => img.url) || [])],
-                                                        name: roomName
-                                                    })}
-                                                    className="w-full border border-[#2c3840] text-[#2c3840] px-8 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#2c3840] hover:text-white transition-all duration-500 flex items-center justify-center space-x-3 shadow-md hover:shadow-lg"
-                                                >
-                                                    <Maximize2 className="w-4 h-4" />
-                                                    <span>{c('seePhotos')}</span>
-                                                </button>
-                                            </motion.div>
-                                        )}
+                                                <Maximize2 className="w-4 h-4" />
+                                                <span>{t('viewDetails')}</span>
+                                            </button>
+                                        </motion.div>
                                     </div>
                                 </div>
                             </div>

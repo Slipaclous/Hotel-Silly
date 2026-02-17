@@ -45,6 +45,9 @@ interface Room {
   price2Persons?: string;
   price3Persons?: string;
   petsAllowed?: boolean;
+  bookingUrl?: string;
+  bookingUrlEn?: string;
+  bookingUrlNl?: string;
 }
 
 export default function RoomsEditor() {
@@ -266,6 +269,9 @@ function RoomForm({ room, activeLocale, onLocaleChange, onCancel, onSuccess }: {
     galleryImages: room?.images?.map(img => img.url) || [] as string[],
     features: room?.features?.join(', ') || '',
     order: room?.order || 1,
+    bookingUrl: room?.bookingUrl || '',
+    bookingUrlEn: room?.bookingUrlEn || '',
+    bookingUrlNl: room?.bookingUrlNl || '',
   });
   const [saving, setSaving] = useState(false);
 
@@ -510,6 +516,25 @@ function RoomForm({ room, activeLocale, onLocaleChange, onCancel, onSuccess }: {
             placeholder="Vue mer, Balcon, WiFi, Climatisation..."
             className={inputClasses}
           />
+        </div>
+
+        <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 mb-8">
+          <h4 className="font-bold text-sm text-blue-900 mb-4 flex items-center uppercase tracking-wide">
+            <Plus className="w-4 h-4 mr-2 text-blue-600" />
+            Lien Stardek (Réservation directe)
+          </h4>
+          <label className={labelClasses}>URL de réservation ({activeLocale.toUpperCase()})</label>
+          <input
+            type="url"
+            name={getFieldName('bookingUrl')}
+            value={(formData as any)[getFieldName('bookingUrl')]}
+            onChange={handleChange}
+            placeholder="https://hotels.stardek.com/..."
+            className={inputClasses}
+          />
+          <p className="mt-2 text-xs text-blue-600 font-medium italic">
+            Si ce lien est renseigné pour la langue actuelle, le bouton &quot;Réserver son séjour&quot; redirigera directement vers ce lien.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-gray-100">
