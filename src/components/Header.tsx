@@ -6,7 +6,7 @@ import { Link, usePathname } from '@/i18n/routing';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import LanguageSwitcher from './LanguageSwitcher';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -15,6 +15,7 @@ export default function Header() {
   const pathname = usePathname();
   const t = useTranslations('nav');
   const c = useTranslations('common');
+  const locale = useLocale();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -167,16 +168,22 @@ export default function Header() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link
-                href="/#booking-widget"
-                prefetch={true}
+              <a
+                href={locale === 'nl'
+                  ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=nl-NL'
+                  : locale === 'en'
+                    ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=en-GB'
+                    : 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=fr-FR'
+                }
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`font-body text-xs font-bold uppercase tracking-widest px-8 py-3 border transition-all duration-500 shadow-md hover:shadow-lg ${(!isScrolled && !isMenuOpen)
                   ? 'border-white text-white hover:bg-white hover:text-[#2c3840] hover:border-white'
                   : 'border-[#2c3840] text-white bg-[#2c3840] hover:bg-[#C6ad7a] hover:border-[#C6ad7a]'
                   }`}
               >
                 {c('book')}
-              </Link>
+              </a>
             </motion.div>
           </div>
 
@@ -262,14 +269,20 @@ export default function Header() {
                   transition={{ delay: 0.7 }}
                   className="pt-8 mb-8"
                 >
-                  <Link
-                    href="/#booking-widget"
-                    prefetch={true}
+                  <a
+                    href={locale === 'nl'
+                      ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=nl-NL'
+                      : locale === 'en'
+                        ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=en-GB'
+                        : 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=fr-FR'
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full block bg-[#2c3840] text-white text-center py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 shadow-lg"
                     onClick={() => setMenuOpen(false)}
                   >
                     {c('bookStay')}
-                  </Link>
+                  </a>
                 </motion.div>
 
                 {/* Mobile Language Switcher & Contact */}

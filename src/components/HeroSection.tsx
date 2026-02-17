@@ -119,7 +119,14 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
               whileTap={{ scale: 0.95 }}
             >
               <a
-                href="#booking-widget"
+                href={locale === 'nl'
+                  ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=nl-NL'
+                  : locale === 'en'
+                    ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=en-GB'
+                    : 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=fr-FR'
+                }
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group font-body text-xs font-bold uppercase tracking-widest px-10 py-4 bg-[#C6ad7a] text-white hover:bg-white hover:text-[#2c3840] transition-all duration-500 flex items-center space-x-3 shadow-lg hover:shadow-2xl border border-[#C6ad7a] hover:border-white"
               >
                 <span>{ct('book')}</span>
