@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import ImageUpload from './ImageUpload';
 import AdminWrapper from './AdminWrapper';
 import LanguageTabs from './LanguageTabs';
-import { History, Award, Sparkles } from 'lucide-react';
+import { History, Award, Sparkles, Layout, Type, AlignLeft } from 'lucide-react';
 
 type Locale = 'fr' | 'en' | 'nl';
 
@@ -123,18 +123,20 @@ export default function AboutEditor() {
     });
   };
 
-  const inputClasses = "w-full bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-gray-900 focus:border-or focus:ring-1 focus:ring-or outline-none transition-all duration-200 text-sm placeholder:text-gray-400 mt-1.5";
-  const labelClasses = "text-xs font-semibold text-gray-500 uppercase tracking-wide ml-0.5";
+  const inputClasses = "w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:bg-white focus:border-or focus:ring-4 focus:ring-or/5 outline-none transition-all duration-300 text-sm placeholder:text-slate-400 font-medium";
+  const labelClasses = "flex items-center space-x-2 text-[11px] font-bold text-slate-500 uppercase tracking-[0.1em] mb-2 ml-1";
 
   if (loading) {
     return (
       <div className="flex items-center justify-center p-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-or"></div>
+        <div className="relative">
+          <div className="w-10 h-10 rounded-full border-2 border-slate-100 animate-pulse" />
+          <div className="absolute inset-0 w-10 h-10 rounded-full border-t-2 border-or animate-spin" />
+        </div>
       </div>
     );
   }
 
-  // Helper to get localized field names
   const getFieldName = (base: string) => {
     if (activeLocale === 'fr') return base;
     return `${base}${activeLocale.charAt(0).toUpperCase()}${activeLocale.slice(1)}`;
@@ -149,17 +151,34 @@ export default function AboutEditor() {
       message={message}
       previewUrl="/#about"
     >
-      <LanguageTabs currentLocale={activeLocale} onChange={setActiveLocale} />
+      <div className="flex items-center justify-between mb-8">
+        <LanguageTabs currentLocale={activeLocale} onChange={setActiveLocale} />
+        <div className="bg-or/5 px-4 py-2 rounded-xl border border-or/10 flex items-center space-x-2 text-or">
+          <Sparkles className="w-4 h-4" />
+          <span className="text-[11px] font-bold uppercase tracking-wider">Édition {activeLocale.toUpperCase()}</span>
+        </div>
+      </div>
 
-      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-8">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-6 border-b border-gray-100 bg-gray-50/50">
-            <h3 className="text-lg font-bold text-gray-900">Information Principales ({activeLocale.toUpperCase()})</h3>
+      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-12 pb-10">
+        {/* Section Principale */}
+        <section className="relative">
+          <div className="flex items-center space-x-4 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-lg">
+              <Layout className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 font-display">Informations Principales</h3>
+              <p className="text-[12px] text-slate-500 font-medium">Contenu général de la section À Propos.</p>
+            </div>
           </div>
-          <div className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div className="space-y-6">
-              <div>
-                <label className={labelClasses}>Titre de la section</label>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <div className="lg:col-span-3 space-y-6">
+              <div className="bg-white p-1 rounded-2xl">
+                <label className={labelClasses}>
+                  <Type className="w-3.5 h-3.5" />
+                  <span>Titre de la section ({activeLocale.toUpperCase()})</span>
+                </label>
                 <input
                   type="text"
                   name={getFieldName('title')}
@@ -170,122 +189,104 @@ export default function AboutEditor() {
                 />
               </div>
 
-              <div>
-                <label className={labelClasses}>Récit historique (Description)</label>
+              <div className="bg-white p-1 rounded-2xl">
+                <label className={labelClasses}>
+                  <AlignLeft className="w-3.5 h-3.5" />
+                  <span>Récit historique ({activeLocale.toUpperCase()})</span>
+                </label>
                 <textarea
                   name={getFieldName('description')}
                   value={(formData as any)[getFieldName('description')]}
                   onChange={handleChange}
-                  rows={6}
+                  rows={8}
                   placeholder="Partagez l'âme de l'hôtel..."
-                  className={`${inputClasses} resize-y min-h-[150px]`}
+                  className={`${inputClasses} resize-none min-h-[220px] leading-relaxed`}
                 />
               </div>
 
-              <div>
-                <label className={labelClasses}>Année d&apos;ouverture (Commun)</label>
-                <div className="relative">
-                  <History className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <input
-                    type="text"
-                    name="openingYear"
-                    value={formData.openingYear}
-                    onChange={handleChange}
-                    placeholder="ex: 1892"
-                    className={`${inputClasses} pl-10`}
+              <div className="bg-white p-1 rounded-2xl">
+                <label className={labelClasses}>
+                  <History className="w-3.5 h-3.5" />
+                  <span>Année d&apos;ouverture (Commun)</span>
+                </label>
+                <input
+                  type="text"
+                  name="openingYear"
+                  value={formData.openingYear}
+                  onChange={handleChange}
+                  placeholder="ex: 1892"
+                  className={inputClasses}
+                />
+              </div>
+            </div>
+
+            <div className="lg:col-span-2">
+              <div className="sticky top-24">
+                <div className="bg-white p-1 rounded-2xl">
+                  <ImageUpload
+                    value={formData.imageUrl}
+                    onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+                    label="Visuel représentatif (Commun)"
                   />
+                  <div className="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-100 italic text-[11px] text-slate-500 leading-relaxed">
+                    Astuce : Choisissez une image haute résolution capturant l&apos;architecture extérieure ou l&apos;ambiance d&apos;accueil de l&apos;hôtel.
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            <div className="space-y-6">
-              <ImageUpload
-                value={formData.imageUrl}
-                onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-                label="Visuel représentatif (Commun)"
-              />
+        {/* Points d'Excellence */}
+        <section>
+          <div className="flex items-center space-x-4 mb-8">
+            <div className="w-10 h-10 rounded-xl bg-or text-white flex items-center justify-center shadow-lg shadow-or/20">
+              <Award className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 font-display">Points d&apos;Excellence</h3>
+              <p className="text-[12px] text-slate-500 font-medium">Trois piliers qui définissent votre service d&apos;exception.</p>
             </div>
           </div>
-        </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-6 border-b border-gray-100 bg-gray-50/50">
-            <h3 className="text-lg font-bold text-gray-900">Points d&apos;Excellence ({activeLocale.toUpperCase()})</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="group bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500 border-t-4 border-t-or/20 hover:border-t-or">
+                <div className="flex items-center justify-between mb-6">
+                  <div className={`w-10 h-10 rounded-xl bg-or/10 flex items-center justify-center transition-colors duration-500 group-hover:bg-or/20`}>
+                    {num === 1 ? <Award className="w-5 h-5 text-or" /> : num === 2 ? <Sparkles className="w-5 h-5 text-or" /> : <History className="w-5 h-5 text-or" />}
+                  </div>
+                  <span className="text-[10px] font-extrabold text-slate-300 uppercase tracking-widest">Atout N°{num}</span>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Titre court</label>
+                    <input
+                      type="text"
+                      name={getFieldName(`keyPoint${num}Title`)}
+                      value={(formData as any)[getFieldName(`keyPoint${num}Title`)]}
+                      onChange={handleChange}
+                      placeholder="Titre"
+                      className="w-full bg-slate-50 hover:bg-white border border-slate-100 rounded-xl px-4 py-2.5 text-slate-900 focus:bg-white focus:border-or focus:ring-4 focus:ring-or/5 outline-none transition-all duration-300 text-sm font-bold"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Description</label>
+                    <textarea
+                      name={getFieldName(`keyPoint${num}Text`)}
+                      value={(formData as any)[getFieldName(`keyPoint${num}Text`)]}
+                      onChange={handleChange}
+                      placeholder="Court texte explicatif..."
+                      rows={4}
+                      className="w-full bg-slate-50 hover:bg-white border border-slate-100 rounded-xl px-4 py-3 text-slate-900 focus:bg-white focus:border-or focus:ring-4 focus:ring-or/5 outline-none transition-all duration-300 text-[13px] font-medium leading-relaxed resize-none"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Point 1 */}
-            <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl space-y-4 hover:border-gray-300 transition-all">
-              <div className="flex items-center space-x-2 text-or font-bold mb-2">
-                < Award className="w-5 h-5" />
-                <span className="text-xs uppercase tracking-wider text-gray-500">Point Clé 1</span>
-              </div>
-              <input
-                type="text"
-                name={getFieldName('keyPoint1Title')}
-                value={(formData as any)[getFieldName('keyPoint1Title')]}
-                onChange={handleChange}
-                placeholder="Titre court"
-                className={inputClasses}
-              />
-              <textarea
-                name={getFieldName('keyPoint1Text')}
-                value={(formData as any)[getFieldName('keyPoint1Text')]}
-                onChange={handleChange}
-                placeholder="Description courte..."
-                rows={3}
-                className={`${inputClasses} resize-none`}
-              />
-            </div>
-
-            {/* Point 2 */}
-            <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl space-y-4 hover:border-gray-300 transition-all">
-              <div className="flex items-center space-x-2 text-or font-bold mb-2">
-                <Sparkles className="w-5 h-5" />
-                <span className="text-xs uppercase tracking-wider text-gray-500">Point Clé 2</span>
-              </div>
-              <input
-                type="text"
-                name={getFieldName('keyPoint2Title')}
-                value={(formData as any)[getFieldName('keyPoint2Title')]}
-                onChange={handleChange}
-                placeholder="Titre court"
-                className={inputClasses}
-              />
-              <textarea
-                name={getFieldName('keyPoint2Text')}
-                value={(formData as any)[getFieldName('keyPoint2Text')]}
-                onChange={handleChange}
-                placeholder="Description courte..."
-                rows={3}
-                className={`${inputClasses} resize-none`}
-              />
-            </div>
-
-            {/* Point 3 */}
-            <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl space-y-4 hover:border-gray-300 transition-all">
-              <div className="flex items-center space-x-2 text-or font-bold mb-2">
-                <History className="w-5 h-5" />
-                <span className="text-xs uppercase tracking-wider text-gray-500">Point Clé 3</span>
-              </div>
-              <input
-                type="text"
-                name={getFieldName('keyPoint3Title')}
-                value={(formData as any)[getFieldName('keyPoint3Title')]}
-                onChange={handleChange}
-                placeholder="Titre court"
-                className={inputClasses}
-              />
-              <textarea
-                name={getFieldName('keyPoint3Text')}
-                value={(formData as any)[getFieldName('keyPoint3Text')]}
-                onChange={handleChange}
-                placeholder="Description courte..."
-                rows={3}
-                className={`${inputClasses} resize-none`}
-              />
-            </div>
-          </div>
-        </div>
+        </section>
       </form>
     </AdminWrapper>
   );

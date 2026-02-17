@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Upload, X, ImageIcon, Loader2 } from 'lucide-react';
+import { Upload, X, ImageIcon, Loader2, Plus, Image as ImageIconLucide } from 'lucide-react';
 import Image from 'next/image';
 
 interface ImageUploadProps {
@@ -64,14 +64,26 @@ export default function ImageUpload({ value, onChange, label = 'Image' }: ImageU
 
   const clearImage = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     onChange('');
   };
 
   return (
-    <div className="space-y-2">
-      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide ml-0.5">
-        {label}
-      </label>
+    <div className="space-y-3">
+      <div className="flex items-center justify-between px-1">
+        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center space-x-2">
+          <ImageIconLucide className="w-3.5 h-3.5" />
+          <span>{label}</span>
+        </label>
+        {value && (
+          <button
+            onClick={clearImage}
+            className="text-[10px] font-bold text-rose-500 hover:text-rose-600 uppercase tracking-widest transition-colors"
+          >
+            Supprimer
+          </button>
+        )}
+      </div>
 
       {!value ? (
         <div
@@ -80,9 +92,9 @@ export default function ImageUpload({ value, onChange, label = 'Image' }: ImageU
           onDragOver={handleDrag}
           onDrop={handleDrop}
           onClick={() => inputRef.current?.click()}
-          className={`relative aspect-video rounded-xl border-2 border-dashed transition-all duration-200 cursor-pointer flex flex-col items-center justify-center space-y-3 group overflow-hidden ${dragActive
-            ? 'border-or bg-orange-50'
-            : 'border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-gray-300'
+          className={`relative aspect-[16/10] rounded-2xl border-2 border-dashed transition-all duration-500 cursor-pointer flex flex-col items-center justify-center group overflow-hidden ${dragActive
+            ? 'border-or bg-or/5 ring-4 ring-or/5'
+            : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-or/40 hover:shadow-xl hover:shadow-slate-200/50'
             }`}
         >
           <input
@@ -93,48 +105,48 @@ export default function ImageUpload({ value, onChange, label = 'Image' }: ImageU
             className="hidden"
           />
 
-          <div className="p-3 rounded-full bg-white border border-gray-200 group-hover:scale-110 transition-transform duration-300 shadow-sm">
-            {uploading ? (
-              <Loader2 className="w-5 h-5 text-or animate-spin" />
-            ) : (
-              <Upload className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
-            )}
+          <div className="relative z-10 flex flex-col items-center space-y-4">
+            <div className={`p-4 rounded-2xl bg-white shadow-sm border border-slate-100 transition-all duration-500 ${dragActive ? 'scale-110 rotate-6 text-or' : 'group-hover:scale-110 group-hover:-rotate-3 text-slate-400'}`}>
+              {uploading ? (
+                <Loader2 className="w-6 h-6 animate-spin text-or" />
+              ) : (
+                <Plus className="w-6 h-6 group-hover:text-or transition-colors" />
+              )}
+            </div>
+
+            <div className="text-center px-6">
+              <p className="text-sm font-bold text-slate-600 group-hover:text-slate-900 transition-colors">
+                {uploading ? 'Traitement en cours...' : 'Ajouter un visuel'}
+              </p>
+              <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase tracking-tight">
+                Glissez-déposez ou cliquez ici
+              </p>
+            </div>
           </div>
 
-          <div className="text-center px-4">
-            <p className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">
-              {uploading ? 'Téléchargement...' : 'Cliquez ou glissez une image'}
-            </p>
-            <p className="text-xs text-gray-400 mt-1">
-              JPG, PNG, WEBP (max 10MB)
-            </p>
-          </div>
+          {/* Decorative background element */}
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-or/5 opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
       ) : (
-        <div className="relative aspect-video rounded-xl overflow-hidden border border-gray-200 shadow-sm group bg-gray-100">
+        <div className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-slate-200 shadow-sm group bg-slate-100 ring-1 ring-slate-200">
           <Image
             src={value.startsWith('data:') ? value : value.startsWith('/') ? value : `/${value}`}
             alt="Upload preview"
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center space-x-3 backdrop-blur-[2px]">
+
+          <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center space-x-3 backdrop-blur-[4px]">
             <button
               onClick={() => inputRef.current?.click()}
-              className="p-2 rounded-lg bg-white text-gray-700 hover:text-blue-600 transition-colors shadow-lg"
-              title="Remplacer"
+              className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-white text-slate-900 hover:bg-or hover:text-white transition-all duration-300 shadow-xl font-bold text-[10px] uppercase tracking-widest active:scale-95"
             >
-              <ImageIcon className="w-4 h-4" />
-            </button>
-            <button
-              onClick={clearImage}
-              className="p-2 rounded-lg bg-white text-gray-700 hover:text-red-600 transition-colors shadow-lg"
-              title="Supprimer"
-            >
-              <X className="w-4 h-4" />
+              <ImageIcon className="w-3.5 h-3.5" />
+              <span>Changer</span>
             </button>
           </div>
+
           <input
             ref={inputRef}
             type="file"
@@ -142,9 +154,11 @@ export default function ImageUpload({ value, onChange, label = 'Image' }: ImageU
             onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
             className="hidden"
           />
+
           {uploading && (
-            <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
+            <div className="absolute inset-0 bg-white/90 flex flex-col items-center justify-center space-y-3 backdrop-blur-sm">
               <Loader2 className="w-8 h-8 text-or animate-spin" />
+              <span className="text-[10px] font-bold text-or uppercase tracking-[0.2em]">Envoi...</span>
             </div>
           )}
         </div>

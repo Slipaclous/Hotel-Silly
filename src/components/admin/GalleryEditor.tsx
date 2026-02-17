@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Save, X, Image as ImageIcon, Filter } from 'lucide-react';
+import { Plus, Edit2, Trash2, Save, X, Image as ImageIcon, Filter, Sparkles, Layout, Type, Layers } from 'lucide-react';
 import ImageUpload from './ImageUpload';
 import AdminWrapper from './AdminWrapper';
 import Image from 'next/image';
@@ -66,7 +66,10 @@ export default function GalleryEditor() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-or"></div>
+        <div className="relative">
+          <div className="w-10 h-10 rounded-full border-2 border-slate-100 animate-pulse" />
+          <div className="absolute inset-0 w-10 h-10 rounded-full border-t-2 border-or animate-spin" />
+        </div>
       </div>
     );
   }
@@ -74,22 +77,24 @@ export default function GalleryEditor() {
   return (
     <AdminWrapper
       title="Galerie Photographique"
-      description="Gérez les visuels qui subliment votre établissement. Organisez-les par catégories."
+      description="Sublimez votre établissement à travers une collection de visuels haute définition."
       message={message}
       previewUrl="/galerie"
     >
-      <div className="space-y-8">
+      <div className="space-y-12">
         {/* Gallery Controls */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 custom-scrollbar">
-            <Filter className="w-4 h-4 text-noir/20 mr-2 flex-shrink-0" />
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-8 border-b border-slate-100">
+          <div className="flex items-center space-x-2 overflow-x-auto pb-4 lg:pb-0 custom-scrollbar scrollbar-hide">
+            <div className="bg-slate-100 p-2 rounded-xl text-slate-400 mr-2">
+              <Filter className="w-4 h-4" />
+            </div>
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-body font-bold transition-all duration-300 whitespace-nowrap ${selectedCategory === cat
-                  ? 'bg-or text-white shadow-md'
-                  : 'bg-noir/[0.03] text-noir/40 hover:bg-noir/10 hover:text-noir border border-noir/5'
+                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-500 whitespace-nowrap uppercase tracking-widest ${selectedCategory === cat
+                  ? 'bg-slate-900 text-white shadow-xl shadow-slate-200 ring-2 ring-slate-900 ring-offset-2'
+                  : 'bg-white text-slate-400 hover:text-slate-900 border border-slate-100 hover:border-slate-300'
                   }`}
               >
                 {cat}
@@ -100,17 +105,17 @@ export default function GalleryEditor() {
           {!isAdding && !editingImage && (
             <button
               onClick={() => setIsAdding(true)}
-              className="flex items-center justify-center space-x-2 bg-white border border-noir/5 hover:border-or/50 hover:bg-or/5 text-noir px-6 py-3 rounded-xl transition-all duration-300 group shadow-sm"
+              className="flex items-center justify-center space-x-3 bg-or hover:bg-slate-900 text-white px-8 py-3.5 rounded-2xl transition-all duration-500 shadow-xl shadow-or/20 font-bold text-[11px] uppercase tracking-[0.2em] active:scale-95 whitespace-nowrap"
             >
-              <Plus className="w-5 h-5 text-or group-hover:scale-110 transition-transform" />
-              <span className="font-body font-bold text-sm">Ajouter un visuel</span>
+              <Plus className="w-4 h-4" />
+              <span>Nouveau Visuel</span>
             </button>
           )}
         </div>
 
-        {/* Form Overlay-like */}
+        {/* Form Container */}
         {(isAdding || editingImage) && (
-          <div className="animate-slide-in-top">
+          <div className="animate-fade-in translate-y-[-12px]">
             <GalleryImageForm
               image={editingImage || undefined}
               onCancel={() => {
@@ -130,57 +135,56 @@ export default function GalleryEditor() {
 
         {/* Images Grid */}
         {!isAdding && !editingImage && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 pb-20">
             {filteredImages.length === 0 ? (
-              <div className="col-span-full py-20 text-center border-2 border-dashed border-white/5 rounded-3xl">
-                <ImageIcon className="w-12 h-12 text-white/10 mx-auto mb-4" />
-                <p className="text-white/40 font-body">Aucune image dans cette catégorie.</p>
+              <div className="col-span-full py-32 text-center border-2 border-dashed border-slate-100 rounded-[40px] bg-slate-50/30">
+                <ImageIcon className="w-16 h-16 text-slate-200 mx-auto mb-6" />
+                <p className="text-slate-400 font-bold uppercase tracking-widest text-[11px]">Aucun média répertorié</p>
               </div>
             ) : (
               filteredImages.map((image) => (
                 <div
                   key={image.id}
-                  className="group relative bg-white border border-noir/5 rounded-2xl overflow-hidden hover:border-or/30 transition-all duration-500 shadow-sm hover:shadow-xl"
+                  className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm transition-all duration-700 hover:shadow-2xl hover:shadow-slate-200/50 flex flex-col"
                 >
-                  <div className="aspect-square relative overflow-hidden">
+                  <div className="aspect-square relative overflow-hidden bg-slate-100">
                     <Image
                       src={image.url}
                       alt={image.title}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="object-cover transition-transform duration-1000 group-hover:scale-110"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                    <div className="absolute inset-0 flex flex-col items-center justify-center space-y-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                    {/* Floating Controls */}
+                    <div className="absolute top-4 right-4 flex flex-col space-y-2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 delay-75">
                       <button
                         onClick={() => setEditingImage(image)}
-                        className="flex items-center space-x-2 px-4 py-2 bg-white text-noir rounded-xl text-xs font-bold font-body hover:bg-or transition-colors w-32 justify-center"
+                        className="w-10 h-10 bg-white/95 backdrop-blur-md rounded-xl text-slate-700 hover:text-or shadow-xl flex items-center justify-center transition-all duration-300 active:scale-90"
                       >
-                        <Edit2 className="w-3.5 h-3.5" />
-                        <span>Modifier</span>
+                        <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(image.id)}
-                        className="flex items-center space-x-2 px-4 py-2 bg-red-500 text-white rounded-xl text-xs font-bold font-body hover:bg-red-600 transition-colors w-32 justify-center"
+                        className="w-10 h-10 bg-rose-500/90 backdrop-blur-md rounded-xl text-white hover:bg-rose-600 shadow-xl flex items-center justify-center transition-all duration-300 active:scale-90"
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
-                        <span>Supprimer</span>
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
 
-                    <div className="absolute top-3 left-3 flex space-x-2 translate-y-[-10px] group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                      <span className="px-3 py-1 bg-white/90 backdrop-blur-md border border-noir/10 text-[10px] text-or font-bold font-body uppercase tracking-wider rounded-lg shadow-lg">
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1.5 bg-slate-900/40 backdrop-blur-md border border-white/10 text-[9px] text-white font-extrabold uppercase tracking-widest rounded-lg shadow-lg">
                         {image.category}
                       </span>
                     </div>
+
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 p-6 flex items-end">
+                      <p className="text-[10px] text-white/70 font-bold uppercase tracking-widest">Ordre d&apos;affichage : {image.order}</p>
+                    </div>
                   </div>
 
-                  <div className="p-4 flex items-center justify-between">
-                    <div className="min-w-0 pr-2">
-                      <h3 className="text-sm font-display text-noir truncate">{image.title}</h3>
-                      <p className="text-[10px] text-noir/30 font-body uppercase mt-1">Ordre {image.order}</p>
-                    </div>
+                  <div className="p-5 flex items-center justify-between mt-auto">
+                    <h3 className="text-sm font-bold text-slate-900 line-clamp-1 group-hover:text-or transition-colors uppercase tracking-tight">{image.title}</h3>
                   </div>
                 </div>
               ))
@@ -236,61 +240,72 @@ function GalleryImageForm({ image, onCancel, onSuccess }: {
     }
   };
 
-  const inputClasses = "w-full bg-noir/[0.03] border border-noir/10 rounded-xl px-4 py-3 text-noir focus:border-or/50 focus:ring-1 focus:ring-or/50 outline-none transition-all duration-300 font-body text-sm placeholder:text-noir/20 mt-1.5";
-  const labelClasses = "text-xs font-body font-bold text-noir/40 uppercase tracking-widest ml-1";
+  const inputClasses = "w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:bg-white focus:border-or focus:ring-4 focus:ring-or/5 outline-none transition-all duration-300 text-sm placeholder:text-slate-400 font-medium";
+  const labelClasses = "flex items-center space-x-2 text-[11px] font-bold text-slate-500 uppercase tracking-[0.1em] mb-2 ml-1";
 
   return (
-    <div className="bg-blanc-100/50 rounded-3xl p-8 border border-noir/5 relative overflow-hidden group shadow-inner">
-      <div className="absolute top-0 right-0 w-24 h-24 bg-or/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="flex items-center justify-between mb-8">
-        <h3 className="text-2xl font-display text-noir">
-          {image ? 'Modifier le visuel' : 'Ajouter un nouveau visuel'}
-        </h3>
-        <button onClick={onCancel} className="p-2 text-noir/20 hover:text-noir transition-colors">
+    <div className="bg-white rounded-[40px] shadow-2xl border border-slate-100 overflow-hidden group mb-12">
+      <div className="p-10 border-b border-slate-50 flex items-center justify-between bg-slate-50/20">
+        <div className="flex items-center space-x-6">
+          <div className="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-lg">
+            <Sparkles className="w-6 h-6" />
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-slate-900 font-display">
+              {image ? 'Configuration Visuelle' : 'Nouvelle Acquisition'}
+            </h3>
+            <p className="text-[11px] text-slate-500 font-medium tracking-[0.2em] mt-1 uppercase">Éditeur de Galerie</p>
+          </div>
+        </div>
+        <button onClick={onCancel} className="w-10 h-10 rounded-xl border border-slate-100 flex items-center justify-center text-slate-300 hover:text-slate-900 transition-all">
           <X className="w-5 h-5" />
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div className="order-2 md:order-1">
+      <form onSubmit={handleSubmit} className="p-12 space-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+          <div className="order-2 md:order-1 flex flex-col justify-center">
             <ImageUpload
               value={formData.url}
               onChange={(url) => setFormData({ ...formData, url })}
-              label="Sélectionner l'image"
+              label="Sélection du Visuel"
             />
           </div>
 
-          <div className="space-y-6 order-1 md:order-2">
-            <div>
-              <label className={labelClasses}>Titre de l&apos;image</label>
+          <div className="space-y-8 order-1 md:order-2">
+            <div className="bg-white p-1 rounded-2xl">
+              <label className={labelClasses}><Type className="w-3.5 h-3.5" /><span>Titre du média</span></label>
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 required
-                placeholder="ex: Vue sur les jardins de Silly"
+                placeholder="ex: Lumière d'automne sur la façade"
                 className={inputClasses}
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className={labelClasses}>Catégorie</label>
-                <select
-                  value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  required
-                  className={`${inputClasses} appearance-none cursor-pointer`}
-                >
-                  {categories.map((cat) => (
-                    <option key={cat} value={cat} className="bg-white text-noir">{cat}</option>
-                  ))}
-                </select>
+            <div className="grid grid-cols-2 gap-8">
+              <div className="bg-white p-1 rounded-2xl">
+                <label className={labelClasses}><Layers className="w-3.5 h-3.5" /><span>Segment</span></label>
+                <div className="relative">
+                  <select
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    required
+                    className={`${inputClasses} appearance-none cursor-pointer pr-10`}
+                  >
+                    {categories.filter(c => c !== 'Toutes').map((cat) => (
+                      <option key={cat} value={cat} className="bg-white text-slate-900">{cat}</option>
+                    ))}
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                    <Filter className="w-3 h-3" />
+                  </div>
+                </div>
               </div>
-              <div>
-                <label className={labelClasses}>Ordre</label>
+              <div className="bg-white p-1 rounded-2xl">
+                <label className={labelClasses}><Layout className="w-3.5 h-3.5" /><span>Position</span></label>
                 <input
                   type="number"
                   min="1"
@@ -303,21 +318,21 @@ function GalleryImageForm({ image, onCancel, onSuccess }: {
           </div>
         </div>
 
-        <div className="flex items-center space-x-4 pt-4 border-t border-noir/5">
+        <div className="flex items-center space-x-6 pt-10 border-t border-slate-50">
           <button
             type="submit"
             disabled={saving}
-            className="flex-1 bg-or text-white font-body font-bold py-4 rounded-xl hover:shadow-[0_10px_30px_rgba(198,173,122,0.3)] transition-all duration-300 disabled:opacity-50 flex items-center justify-center space-x-2"
+            className="flex-1 bg-slate-900 text-white font-bold h-16 rounded-2xl hover:bg-or hover:shadow-2xl hover:shadow-or/30 transition-all duration-500 disabled:opacity-50 flex items-center justify-center space-x-3 active:scale-[0.98]"
           >
-            <Save className="w-5 h-5" />
-            <span>{saving ? 'Sauvegarde...' : 'Publier dans la galerie'}</span>
+            {saving ? <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" /> : <Save className="w-5 h-5" />}
+            <span className="uppercase tracking-[0.2em] text-[11px]">{saving ? 'Enregistrement secret...' : 'Publier dans la galerie'}</span>
           </button>
           <button
             type="button"
             onClick={onCancel}
-            className="px-8 py-4 rounded-xl bg-noir/[0.05] text-noir/60 hover:bg-noir/10 font-body font-bold transition-all"
+            className="px-10 h-16 rounded-2xl bg-slate-50 text-slate-400 hover:text-slate-900 font-bold uppercase tracking-widest text-[11px] transition-all"
           >
-            Annuler
+            Sortir
           </button>
         </div>
       </form>

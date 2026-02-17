@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
     try {
@@ -20,9 +21,22 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // TODO: Intégrer avec un service d'emailing (Mailchimp, SendGrid, etc.)
-        // Pour l'instant, on simule un succès
-        console.log('Nouvelle inscription newsletter:', email);
+        // Vérifier si l'email existe déjà
+        const existing = await prisma.newsletterSubscriber.findUnique({
+            where: { email }
+        });
+
+        if (existing) {
+            return NextResponse.json(
+                { message: 'Déjà inscrit' },
+                { status: 200 }
+            );
+        }
+
+        // Enregistrer dans la base de données
+        await prisma.newsletterSubscriber.create({
+            data: { email }
+        });
 
         return NextResponse.json(
             { message: 'Inscription réussie', email },

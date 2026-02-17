@@ -40,6 +40,7 @@
         "newsletterButton": "Enregistrez-moi",
         "newsletterLoading": "Envoi...",
         "newsletterSuccess": "Inscription réussie !",
+        "newsletterAlready": "Vous êtes déjà inscrit !",
         "newsletterError": "Une erreur est survenue",
         "newsletterConnError": "Erreur de connexion",
         "followUs": "Suivez-nous",
@@ -48,7 +49,8 @@
         "openingSoon": "Ouverture prévue : Printemps 2025",
         "legal": "Mentions Légales",
         "privacy": "Politique de Confidentialité",
-        "terms": "Conditions Générales"
+        "terms": "Conditions Générales",
+        "cookieSettings": "Paramètres des cookies"
     },
     "rooms": {
         "title": "Chambres & Suites",
@@ -281,5 +283,21 @@
         },
         "ctaMain": "Commander la Carte",
         "ctaOrder": "Commander"
+    },
+    "cookies": {
+        "title": "Respect de votre vie privée",
+        "description": "Nous utilisons des cookies pour améliorer votre expérience, analyser le trafic du site et personnaliser le contenu. En cliquant sur \"Tout accepter\", vous consentez à notre utilisation des cookies.",
+        "acceptAll": "Tout accepter",
+        "decline": "Refuser",
+        "settings": "Paramètres",
+        "save": "Enregistrer les préférences",
+        "back": "Retour",
+        "essential": "Essentiels",
+        "essentialDesc": "Nécessaires au bon fonctionnement du site.",
+        "analytics": "Analytiques",
+        "analyticsDesc": "Pour comprendre comment vous utilisez notre site.",
+        "marketing": "Marketing",
+        "marketingDesc": "Pour vous proposer des offres personnalisées.",
+        "learnMore": "En savoir plus"
     }
 }

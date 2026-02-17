@@ -40,6 +40,7 @@
         "newsletterButton": "Meld me aan",
         "newsletterLoading": "Verzenden...",
         "newsletterSuccess": "Inschrijving geslaagd!",
+        "newsletterAlready": "Al ingeschreven!",
         "newsletterError": "Er is een fout opgetreden",
         "newsletterConnError": "Verbindingsfout",
         "followUs": "Volg Ons",
@@ -48,7 +49,8 @@
         "openingSoon": "Grand Opening: Lente 2025",
         "legal": "Juridische Kennisgeving",
         "privacy": "Privacybeleid",
-        "terms": "Algemene Voorwaarden"
+        "terms": "Algemene Voorwaarden",
+        "cookieSettings": "Cookie-instellingen"
     },
     "rooms": {
         "title": "Kamers & Suites",
@@ -237,7 +239,7 @@
             },
             "agenda": {
                 "title": "Culturele Agenda",
-                "desc": "Festivals en festiviteiten"
+                "desc": "Festivals and festiviteiten"
             }
         },
         "ctaTitle": "Advies nodig voor uw verblijf?",
@@ -281,5 +283,21 @@
         },
         "ctaMain": "Bestel de Kaart",
         "ctaOrder": "Bestellen"
+    },
+    "cookies": {
+        "title": "Respect voor uw privacy",
+        "description": "Wij gebruiken cookies om uw ervaring te verbeteren, het siteverkeer te analyseren en de inhoud te personaliseren. Door op \"Alles accepteren\" te klikken, stemt u in met ons gebruik van cookies.",
+        "acceptAll": "Alles accepteren",
+        "decline": "Weigeren",
+        "settings": "Instellingen",
+        "save": "Voorkeuren opslaan",
+        "back": "Terug",
+        "essential": "Essentieel",
+        "essentialDesc": "Noodzakelijk voor het goed functioneren van de website.",
+        "analytics": "Analytisch",
+        "analyticsDesc": "Om te begrijpen hoe u onze site gebruikt.",
+        "marketing": "Marketing",
+        "marketingDesc": "Om u gepersonaliseerde aanbiedingen te doen.",
+        "learnMore": "Lees meer"
     }
 }

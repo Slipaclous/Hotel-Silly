@@ -16,6 +16,7 @@ import PageHeroEditor from '@/components/admin/PageHeroEditor';
 import HomeRoomSectionEditor from '@/components/admin/HomeRoomSectionEditor';
 import GiftCardEditor from '@/components/admin/GiftCardEditor';
 import SeminarEditor from '@/components/admin/SeminarEditor';
+import NewsletterManager from '@/components/admin/NewsletterManager';
 
 interface Admin {
   name: string;
@@ -72,19 +73,24 @@ export default function DashboardPage() {
       />
 
       {/* Main Content - Décalé à droite à cause de la sidebar fixe */}
-      <main className="flex-1 ml-72 min-h-screen relative bg-blanc-100/30">
+      <main className="flex-1 ml-72 min-h-screen relative overflow-hidden bg-[#f7f5ef]">
         {/* Grain Overlay */}
         <div className="fixed inset-0 bg-grain pointer-events-none z-50 opacity-[0.03]" />
 
         {/* Background Decorative Elements */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-or/5 rounded-full blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-taupe/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-taupe/5 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="relative z-10 p-12 max-w-7xl mx-auto">
+        <div className="relative z-10 w-full">
           {/* Content Rendering */}
-          <div className="min-h-screen pb-20">
-            {activePage === 'dashboard' && <DashboardOverview />}
+          <div className="min-h-screen">
+            {activePage === 'dashboard' && (
+              <div className="p-12 max-w-[1600px] mx-auto">
+                <DashboardOverview />
+              </div>
+            )}
             {activePage === 'translations' && <TranslationsManager />}
+            {activePage === 'newsletter' && <NewsletterManager />}
 
             {activeSection === 'hero' && <HeroEditor />}
             {activeSection === 'about' && <AboutEditor />}

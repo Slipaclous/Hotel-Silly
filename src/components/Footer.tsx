@@ -34,8 +34,13 @@ export default function Footer() {
       const data = await response.json();
 
       if (response.ok) {
-        setNewsletterStatus('success');
-        setNewsletterMessage(t('newsletterSuccess'));
+        if (data.message === 'Déjà inscrit') {
+          setNewsletterStatus('success');
+          setNewsletterMessage(t('newsletterAlready'));
+        } else {
+          setNewsletterStatus('success');
+          setNewsletterMessage(t('newsletterSuccess'));
+        }
         setNewsletterEmail('');
         setTimeout(() => {
           setNewsletterStatus('idle');
@@ -207,6 +212,14 @@ export default function Footer() {
                 >
                   {t('terms')}
                 </Link>
+              </li>
+              <li>
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('open-cookie-settings'))}
+                  className="font-body text-sm text-white/70 hover:text-or transition-colors duration-300 link-underline cursor-pointer text-left w-full"
+                >
+                  {t('cookieSettings')}
+                </button>
               </li>
             </ul>
           </div>

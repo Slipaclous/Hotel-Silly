@@ -46,9 +46,9 @@ export default async function Home() {
       <div id="rooms" data-nav-section={t('rooms')}>
         <RoomSection initialRooms={roomsData.slice(0, 3)} initialData={roomSectionData} />
       </div>
-      <div id="testimonials" data-nav-section={t('testimonials')} data-nav-is-dark="true">
+      {/* <div id="testimonials" data-nav-section={t('testimonials')} data-nav-is-dark="true">
         <TestimonialsSection initialTestimonials={testimonialsData} />
-      </div>
+      </div> */}
     </main>
   );
 }

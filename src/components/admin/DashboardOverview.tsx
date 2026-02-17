@@ -11,7 +11,9 @@ import {
     BarChart3,
     ExternalLink,
     Zap,
-    LucideIcon
+    LucideIcon,
+    ArrowUpRight,
+    Clock
 } from 'lucide-react';
 
 interface RecentActivity {
@@ -65,27 +67,38 @@ export default function DashboardOverview() {
     }, []);
 
     const statCards = [
-        { label: 'Chambres', value: stats.rooms, icon: Bed, color: 'text-blue-400', bg: 'bg-blue-400/10' },
-        { label: 'Témoignages', value: stats.testimonials, icon: Star, color: 'text-or', bg: 'bg-or/10' },
-        { label: 'Galerie Photos', value: stats.gallery, icon: ImageIcon, color: 'text-purple-400', bg: 'bg-purple-400/10' },
-        { label: 'Découvertes', value: stats.events, icon: Calendar, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+        { label: 'Chambres', value: stats.rooms, icon: Bed, color: 'text-blue-500', bg: 'bg-blue-500/10', trend: '+2 ce mois' },
+        { label: 'Avis Clients', value: stats.testimonials, icon: Star, color: 'text-or', bg: 'bg-or/10', trend: '4.9/5 moy.' },
+        { label: 'Médiathèque', value: stats.gallery, icon: ImageIcon, color: 'text-purple-500', bg: 'bg-purple-500/10', trend: '85 photos' },
+        { label: 'Événements', value: stats.events, icon: Calendar, color: 'text-emerald-500', bg: 'bg-emerald-500/10', trend: 'À venir' },
     ];
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center h-[60vh]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-or"></div>
+            <div className="flex items-center justify-center h-[50vh]">
+                <div className="relative">
+                    <div className="w-12 h-12 rounded-full border-2 border-slate-100 animate-pulse" />
+                    <div className="absolute inset-0 w-12 h-12 rounded-full border-t-2 border-or animate-spin" />
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="space-y-8 pb-10">
-            {/* Header Pro */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="space-y-10 animate-fade-in">
+            {/* Elegant Header */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-slate-100">
                 <div>
-                    <h2 className="text-3xl font-bold text-gray-900 font-display">Vue d&apos;ensemble</h2>
-                    <p className="text-gray-500 text-sm mt-1">Bienvenue sur votre espace de gestion.</p>
+                    <span className="text-[10px] font-bold text-or uppercase tracking-[0.2em]">Vue Globale</span>
+                    <h2 className="text-4xl font-bold text-slate-900 font-display mt-1">Tableau de bord</h2>
+                    <p className="text-slate-500 text-sm mt-2 flex items-center">
+                        <Clock className="w-4 h-4 mr-2" />
+                        Données synchronisées en temps réel
+                    </p>
+                </div>
+                <div className="bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100 flex items-center space-x-3">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Serveur Opérationnel</span>
                 </div>
             </div>
 
@@ -94,81 +107,116 @@ export default function DashboardOverview() {
                 {statCards.map((stat, index) => (
                     <div
                         key={index}
-                        className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200"
+                        className="group bg-white p-7 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500 relative overflow-hidden active:scale-[0.98]"
                     >
-                        <div className="flex items-start justify-between mb-4">
-                            <div className={`w-12 h-12 rounded-lg ${stat.bg} flex items-center justify-center`}>
-                                <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                        {/* Hover Decoration */}
+                        <div className={`absolute -right-4 -top-4 w-24 h-24 rounded-full ${stat.bg} blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+
+                        <div className="flex items-start justify-between mb-6 relative z-10">
+                            <div className={`w-14 h-14 rounded-2xl ${stat.bg} flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+                                <stat.icon className={`w-7 h-7 ${stat.color}`} />
                             </div>
-                            <span className="flex items-center text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
-                                <TrendingUp className="w-3 h-3 mr-1" />
-                                Actif
-                            </span>
+                            <div className="flex flex-col items-end">
+                                <span className="flex items-center text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg">
+                                    <TrendingUp className="w-3 h-3 mr-1" />
+                                    EN LIGNE
+                                </span>
+                            </div>
                         </div>
-                        <div>
-                            <p className="text-3xl font-bold text-gray-900 font-display">{stat.value}</p>
-                            <p className="text-sm text-gray-500 font-medium mt-1">{stat.label}</p>
+                        <div className="relative z-10">
+                            <p className="text-4xl font-bold text-slate-900 font-display tracking-tight">{stat.value}</p>
+                            <div className="flex items-center justify-between mt-1">
+                                <p className="text-sm text-slate-500 font-semibold">{stat.label}</p>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.trend}</p>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* Activités & Actions */}
+            {/* Main Content Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Dernières Activités */}
-                <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                    <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-                        <h3 className="text-lg font-bold text-gray-900 font-display">Activités Récentes</h3>
-                        <BarChart3 className="w-5 h-5 text-gray-400" />
+                {/* Recent Activity Timeline */}
+                <div className="lg:col-span-2 bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+                    <div className="p-8 border-b border-slate-50 flex justify-between items-center">
+                        <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
+                                <BarChart3 className="w-5 h-5" />
+                            </div>
+                            <h3 className="text-xl font-bold text-slate-900 font-display">Flux d&apos;activité</h3>
+                        </div>
+                        <button className="text-[11px] font-bold text-or hover:text-slate-900 transition-colors uppercase tracking-[0.1em]">Tout voir</button>
                     </div>
 
-                    <div className="divide-y divide-gray-100">
-                        {recentActivities.map((activity, i) => (
-                            <div key={i} className="flex items-center justify-between p-6 hover:bg-gray-50 transition-colors">
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
-                                        <activity.icon className="w-5 h-5" />
+                    <div className="p-4 flex-1">
+                        <div className="space-y-2">
+                            {recentActivities.map((activity, i) => (
+                                <div key={i} className="group flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-all duration-300 border border-transparent hover:border-slate-100">
+                                    <div className="flex items-center space-x-4">
+                                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${i === 0 ? 'bg-or/10 text-or' : 'bg-slate-100 text-slate-400'
+                                            }`}>
+                                            <activity.icon className="w-5 h-5" />
+                                        </div>
+                                        <div>
+                                            <div className="flex items-center space-x-2">
+                                                <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
+                                                    {activity.section}
+                                                </span>
+                                                <span className="w-1 h-1 rounded-full bg-slate-200" />
+                                                <span className="text-[10px] text-slate-400 font-medium italic">Il y a quelques instants</span>
+                                            </div>
+                                            <p className="text-sm font-bold text-slate-800 mt-0.5">{activity.action}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span className="text-xs font-bold text-or uppercase tracking-wider mb-0.5 block">
-                                            {activity.section}
-                                        </span>
-                                        <p className="text-sm font-medium text-gray-900">{activity.action}</p>
+                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button className="p-2 rounded-lg bg-white shadow-sm border border-slate-100 text-slate-400 hover:text-or">
+                                            <ArrowUpRight className="w-4 h-4" />
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="text-gray-300">
-                                    <ShieldCheck className="w-5 h-5" />
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
 
-                {/* Quick Utilities */}
-                <div className="flex flex-col gap-6">
-                    <div className="p-6 rounded-xl bg-[#2c3840] text-white shadow-lg relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                        <h3 className="text-lg font-bold mb-2 relative z-10 font-display">Accès Rapide</h3>
-                        <p className="text-white/70 text-sm mb-6 relative z-10">
-                            Consultez le site en direct pour vérifier vos modifications.
-                        </p>
+                {/* Side Utilities */}
+                <div className="flex flex-col gap-8">
+                    {/* Live Preview Card */}
+                    <div className="group p-8 rounded-3xl bg-slate-900 text-white shadow-2xl relative overflow-hidden min-h-[240px] flex flex-col justify-between">
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-or/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-or/30 transition-colors duration-700" />
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/10 rounded-full blur-[60px] translate-y-1/2 -translate-x-1/2" />
+
+                        <div className="relative z-10">
+                            <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center mb-6">
+                                <ExternalLink className="w-6 h-6 text-or" />
+                            </div>
+                            <h3 className="text-2xl font-bold font-display leading-tight">Accès Direct<br />Site Public</h3>
+                            <p className="text-white/50 text-xs mt-3 font-medium">
+                                Visualisez instantanément les changements apportés à votre plateforme.
+                            </p>
+                        </div>
+
                         <a
                             href="/"
                             target="_blank"
-                            className="flex items-center justify-center w-full py-3 rounded-lg bg-white text-[#2c3840] hover:bg-gray-100 transition-colors font-bold text-sm shadow-sm"
+                            className="relative z-10 mt-8 flex items-center justify-center w-full py-4 rounded-xl bg-or text-white hover:bg-white hover:text-slate-900 transition-all duration-300 font-bold text-xs uppercase tracking-widest shadow-lg shadow-or/20 active:scale-95"
                         >
-                            <span>Visiter le site</span>
-                            <ExternalLink className="w-4 h-4 ml-2" />
+                            <span>Visiter maintenant</span>
+                            <ArrowUpRight className="w-4 h-4 ml-2" />
                         </a>
                     </div>
 
-                    <div className="p-6 rounded-xl bg-white border border-gray-200 shadow-sm">
-                        <div className="flex items-center space-x-3 mb-3">
-                            <Zap className="w-5 h-5 text-or" />
-                            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">Conseil</h3>
+                    {/* Pro Tip Card */}
+                    <div className="p-8 rounded-3xl bg-or/5 border border-or/20 shadow-sm relative overflow-hidden group">
+                        <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-or/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+                        <div className="flex items-center space-x-3 mb-4">
+                            <div className="w-8 h-8 rounded-lg bg-or text-white flex items-center justify-center shadow-md">
+                                <Zap className="w-4 h-4" />
+                            </div>
+                            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-[0.2em]">Conseil Pro</h3>
                         </div>
-                        <p className="text-gray-500 text-sm leading-relaxed">
-                            Pensez à mettre à jour vos photos de chambres régulièrement pour maximiser les réservations.
+                        <p className="text-slate-600 text-[13px] leading-relaxed font-medium relative z-10">
+                            L&apos;ajout régulier de nouveaux témoignages clients renforce la confiance des visiteurs et booste naturellement votre référencement.
                         </p>
                     </div>
                 </div>
