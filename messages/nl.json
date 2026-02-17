@@ -306,5 +306,10 @@
     "seo": {
         "title": "Hôtel de Silly - Luxe & Verfijning",
         "description": "Ontdek ons luxe hotel in het hart van Silly, waar elegantie en comfort samenkomen voor een uitzonderlijke hotelervaring."
+    },
+    "booking": {
+        "arrival": "Aankomst",
+        "departure": "Vertrek",
+        "check": "Controleer"
     }
 }

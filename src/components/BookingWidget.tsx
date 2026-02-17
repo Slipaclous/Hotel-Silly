@@ -3,8 +3,12 @@
 import { useState } from 'react';
 import { Calendar, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function BookingWidget() {
+    const t = useTranslations('booking');
+    const locale = useLocale();
+
     // Dates par défaut : aujourd'hui et demain
     const today = new Date();
     const tomorrow = new Date();
@@ -26,7 +30,7 @@ export default function BookingWidget() {
             return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
         };
 
-        const url = `https://bookingengine.mylighthouse.com/10857/Rooms/Select?lang=fr&Arrival=${formatForCubilis(arrival)}&Departure=${formatForCubilis(departure)}`;
+        const url = `https://bookingengine.mylighthouse.com/10857/Rooms/Select?lang=${locale}&Arrival=${formatForCubilis(arrival)}&Departure=${formatForCubilis(departure)}`;
         window.open(url, '_blank');
     };
 
@@ -44,7 +48,7 @@ export default function BookingWidget() {
                     <div className="flex-1 flex items-center space-x-3 px-4 py-3 md:py-2 border-b md:border-b-0 md:border-r border-gray-100 last:border-0 group transition-colors">
                         <Calendar className="w-5 h-5 text-[var(--color-or)] group-hover:scale-110 transition-transform" />
                         <div className="flex-1">
-                            <label className="block text-[10px] uppercase tracking-widest text-[var(--color-gris)] font-bold mb-0.5">Arrivée</label>
+                            <label className="block text-[10px] uppercase tracking-widest text-[var(--color-gris)] font-bold mb-0.5">{t('arrival')}</label>
                             <input
                                 type="date"
                                 value={arrival}
@@ -66,7 +70,7 @@ export default function BookingWidget() {
                     <div className="flex-1 flex items-center space-x-3 px-4 py-3 md:py-2 border-b md:border-b-0 md:border-r border-gray-100 last:border-0 group transition-colors">
                         <Calendar className="w-5 h-5 text-[var(--color-or)] group-hover:scale-110 transition-transform" />
                         <div className="flex-1">
-                            <label className="block text-[10px] uppercase tracking-widest text-[var(--color-gris)] font-bold mb-0.5">Départ</label>
+                            <label className="block text-[10px] uppercase tracking-widest text-[var(--color-gris)] font-bold mb-0.5">{t('departure')}</label>
                             <input
                                 type="date"
                                 value={departure}
@@ -84,7 +88,7 @@ export default function BookingWidget() {
                         onClick={handleSearch}
                         className="flex items-center justify-center space-x-3 bg-[#2c3840] text-white px-10 py-5 font-body text-xs uppercase tracking-widest font-bold group shadow-lg hover:shadow-xl hover:bg-[#C6ad7a] border border-[#2c3840] hover:border-[#C6ad7a] transition-all duration-500 rounded-xl"
                     >
-                        <span>Vérifier</span>
+                        <span>{t('check')}</span>
                         <Search className="w-4 h-4 group-hover:rotate-12 transition-transform duration-500" />
                     </motion.button>
                 </div>

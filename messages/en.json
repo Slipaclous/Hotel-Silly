@@ -304,5 +304,10 @@
     "seo": {
         "title": "Hôtel de Silly - Luxury & Refinement",
         "description": "Discover our luxury hotel in the heart of Silly, where elegance and comfort meet to create an exceptional hotel experience."
+    },
+    "booking": {
+        "arrival": "Arrival",
+        "departure": "Departure",
+        "check": "Check"
     }
 }
