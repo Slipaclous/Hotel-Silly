@@ -62,6 +62,7 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
     const locale = useLocale();
     const t = useTranslations('rooms');
     const c = useTranslations('common');
+    const n = useTranslations('nav');
 
     const getLocalized = (fr: string, en?: string | null, nl?: string | null) => {
         if (locale === 'nl') return nl || fr;
@@ -230,7 +231,7 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
             </section>
 
             {/* Services Highlight */}
-            <section id="services" data-nav-section={c('nav.services')} className="py-24 bg-neutre-clair">
+            <section id="services" data-nav-section={n('services')} className="py-24 bg-neutre-clair">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <span className="font-body text-xs text-or tracking-[0.2em] uppercase block mb-4">{c('comfort')}</span>
