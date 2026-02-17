@@ -24,9 +24,8 @@
   --color-gris: #8e8370;
   --color-gris-clair: #e8e5dd;
 
-  /* Typographie */
-  --font-display: 'Cormorant Garamond', serif;
-  --font-body: 'Montserrat', sans-serif;
+  /* Typographie - Les valeurs sont injectées par next/font dans layout.tsx */
+  /* --font-display et --font-body sont gérés dynamiquement */
 
   /* Espacements */
   --spacing-xs: 0.5rem;
