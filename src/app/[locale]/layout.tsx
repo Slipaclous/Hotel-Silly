@@ -74,6 +74,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import StructuredData from "@/components/StructuredData";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default async function RootLayout({
   children,
@@ -104,6 +105,7 @@ export default async function RootLayout({
           </div>
           <Footer />
           <CookieConsent />
+          <ScrollToTop />
         </NextIntlClientProvider>
       </body>
     </html>

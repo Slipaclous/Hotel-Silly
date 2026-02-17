@@ -32,6 +32,7 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
     });
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -44,16 +45,34 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
+        setError(null);
 
         try {
-            console.log('Formulaire soumis:', formData);
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Une erreur est survenue');
+            }
+
             setSubmitted(true);
+            setFormData({ name: '', email: '', subject: '', message: '' });
+
+            // On cache le message de succès après 5 secondes
             setTimeout(() => {
-                setFormData({ name: '', email: '', subject: '', message: '' });
                 setSubmitted(false);
-            }, 3000);
-        } catch (error) {
-            console.error('Erreur:', error);
+            }, 5000);
+
+        } catch (err: any) {
+            console.error('Erreur:', err);
+            setError(err.message || 'Une erreur est survenue lors de l\'envoi du message.');
         } finally {
             setLoading(false);
         }
@@ -171,6 +190,16 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                     {/* Right Side: Form (Light) */}
                     <div className="lg:w-3/5 bg-white p-12 lg:p-16">
                         <h2 className="font-display text-3xl sm:text-4xl text-[#2c3840] mb-8">{t('formTitle')}</h2>
+
+                        {error && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="bg-red-50 border border-red-200 text-red-600 p-4 mb-6 rounded-sm text-sm"
+                            >
+                                {error}
+                            </motion.div>
+                        )}
 
                         {submitted ? (
                             <motion.div
