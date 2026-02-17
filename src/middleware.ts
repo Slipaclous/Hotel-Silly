@@ -53,6 +53,11 @@ export default async function middleware(request: NextRequest) {
         }
     }
 
+    // Si c'est une route API, on arrête ici (le middleware intl ne doit pas s'appliquer aux APIs)
+    if (pathname.startsWith('/api/')) {
+        return NextResponse.next();
+    }
+
     return intlMiddleware(request);
 }
 

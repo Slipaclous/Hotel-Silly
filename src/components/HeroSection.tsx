@@ -84,13 +84,14 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
         >
           {/* Titre principal */}
           <h1 className="mb-6">
+            <span className="sr-only">Hôtel de Silly - Villa Dolce - Luxe & Raffinement</span>
             <span className="block font-body text-sm uppercase tracking-widest mb-4 text-white/80">
               {subtitleFinal}
             </span>
             <div className="relative h-98 w-full max-w-md mx-auto mb-2 brightness-0 invert">
               <Image
                 src="/images/logo-clef.png"
-                alt={titleFinal}
+                alt="Logo Hôtel de Silly - Villa Dolce"
                 fill
                 className="object-contain"
                 priority

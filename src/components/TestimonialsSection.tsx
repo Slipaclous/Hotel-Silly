@@ -105,7 +105,7 @@ export default function TestimonialsSection({ initialTestimonials }: { initialTe
                   <div className="relative w-12 h-12 overflow-hidden border border-blanc/20">
                     <Image
                       src={testimonial.avatarUrl}
-                      alt={testimonial.name}
+                      alt={`Avatar de ${testimonial.name} - Client Villa Dolce`}
                       fill
                       className="object-cover"
                       sizes="48px"

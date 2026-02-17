@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://hotel-silly.com/sitemap.xml
+
+# Disallow admin and api routes
+Disallow: /admin
+Disallow: /api/
+Disallow: /*/admin
+Disallow: /*/api/

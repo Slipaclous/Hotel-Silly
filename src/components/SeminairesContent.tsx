@@ -108,7 +108,7 @@ export default function SeminairesContent({ pageHero, initialData, initialFeatur
                     <>
                         <Image
                             src={pageHero.imageUrl}
-                            alt={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
+                            alt={`${pageHero.title} - Séminaires & Business à Silly`}
                             fill
                             className="object-cover"
                             priority

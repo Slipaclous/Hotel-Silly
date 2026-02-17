@@ -13,7 +13,10 @@
         "includedServices": "Inbegrepen Diensten",
         "comfort": "Absoluut Comfort",
         "perNight": "per nacht",
-        "startingFrom": "Vanaf"
+        "startingFrom": "Vanaf",
+        "notFoundTitle": "Pagina niet gevonden",
+        "notFoundDesc": "Sorry, de pagina die u zoekt lijkt op vakantie te zijn gegaan. Keer terug naar de startpagina om ons hotel te verkennen.",
+        "backToHome": "Terug naar Home"
     },
     "nav": {
         "home": "Home",
@@ -299,5 +302,9 @@
         "marketing": "Marketing",
         "marketingDesc": "Om u gepersonaliseerde aanbiedingen te doen.",
         "learnMore": "Lees meer"
+    },
+    "seo": {
+        "title": "Hôtel de Silly - Luxe & Verfijning",
+        "description": "Ontdek ons luxe hotel in het hart van Silly, waar elegantie en comfort samenkomen voor een uitzonderlijke hotelervaring."
     }
 }

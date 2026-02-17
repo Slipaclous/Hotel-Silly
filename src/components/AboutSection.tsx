@@ -147,7 +147,7 @@ export default function AboutSection({ initialAbout, initialFeatures }: { initia
             <div className="relative h-[500px] overflow-hidden">
               <Image
                 src={data.imageUrl}
-                alt={title}
+                alt={`${title} - Villa Dolce Silly`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

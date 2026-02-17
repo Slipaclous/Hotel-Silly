@@ -13,7 +13,10 @@
         "includedServices": "Services Inclus",
         "comfort": "Confort Absolu",
         "perNight": "par nuit",
-        "startingFrom": "À partir de"
+        "startingFrom": "À partir de",
+        "notFoundTitle": "Page introuvable",
+        "notFoundDesc": "Désolé, la page que vous recherchez semble avoir pris des vacances. Revenez à l'accueil pour explorer notre hôtel.",
+        "backToHome": "Retour à l'accueil"
     },
     "nav": {
         "home": "Accueil",
@@ -299,5 +302,9 @@
         "marketing": "Marketing",
         "marketingDesc": "Pour vous proposer des offres personnalisées.",
         "learnMore": "En savoir plus"
+    },
+    "seo": {
+        "title": "Hôtel de Silly - Luxe & Raffinement",
+        "description": "Découvrez notre hôtel de luxe au cœur de Silly, où élégance et confort se rencontrent pour créer une expérience hôtelière exceptionnelle."
     }
 }

@@ -203,7 +203,7 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
 
                                             <Image
                                                 src={image.url}
-                                                alt={title}
+                                                alt={`${title} - Galerie Villa Dolce Silly`}
                                                 fill
                                                 className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                                                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -281,7 +281,7 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
                                     >
                                         <Image
                                             src={activeImage.url}
-                                            alt={getLocalized(activeImage.title, activeImage.titleEn, activeImage.titleNl)}
+                                            alt={`${getLocalized(activeImage.title, activeImage.titleEn, activeImage.titleNl)} - Villa Dolce Silly`}
                                             fill
                                             className="object-contain"
                                             priority

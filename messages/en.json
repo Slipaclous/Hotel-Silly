@@ -13,7 +13,10 @@
         "includedServices": "Included Services",
         "comfort": "Absolute Comfort",
         "perNight": "per night",
-        "startingFrom": "Starting from"
+        "startingFrom": "Starting from",
+        "notFoundTitle": "Page Not Found",
+        "notFoundDesc": "Sorry, the page you are looking for seems to have gone on vacation. Return to the home page to explore our hotel.",
+        "backToHome": "Back to Home"
     },
     "nav": {
         "home": "Home",
@@ -297,5 +300,9 @@
         "marketing": "Marketing",
         "marketingDesc": "To offer you personalized content.",
         "learnMore": "Learn more"
+    },
+    "seo": {
+        "title": "Hôtel de Silly - Luxury & Refinement",
+        "description": "Discover our luxury hotel in the heart of Silly, where elegance and comfort meet to create an exceptional hotel experience."
     }
 }
