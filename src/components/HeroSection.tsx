@@ -69,7 +69,7 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
           className="object-cover"
           sizes="100vw"
         />
-        {/* Overlay noir subtil */}
+        {/* Overlay noir léger pour la lisibilité */}
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 

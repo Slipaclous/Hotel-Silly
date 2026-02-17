@@ -72,6 +72,30 @@ model About {
   keyPoint3TextNl  String?  @db.Text
   openingYear      String
   imageUrl         String
+  
+  // Accès
+  accessTitle      String?
+  accessTitleEn    String?
+  accessTitleNl    String?
+  accessSubtitle   String?  @db.Text
+  accessSubtitleEn String?  @db.Text
+  accessSubtitleNl String?  @db.Text
+
+  byTrain          String?  @db.Text
+  byTrainEn        String?  @db.Text
+  byTrainNl        String?  @db.Text
+  byCar            String?  @db.Text
+  byCarEn          String?  @db.Text
+  byCarNl          String?  @db.Text
+  byBus            String?  @db.Text
+  byBusEn          String?  @db.Text
+  byBusNl          String?  @db.Text
+  
+  // Activités
+  activities       String[]
+  activitiesEn     String[]
+  activitiesNl     String[]
+
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }

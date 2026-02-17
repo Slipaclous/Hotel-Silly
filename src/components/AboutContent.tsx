@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Award, Heart, Shield, Star, MapPin, Clock, Users } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -32,6 +33,24 @@ interface AboutData {
     keyPoint3TextNl?: string | null;
     openingYear: string;
     imageUrl: string;
+    accessTitle?: string | null;
+    accessTitleEn?: string | null;
+    accessTitleNl?: string | null;
+    accessSubtitle?: string | null;
+    accessSubtitleEn?: string | null;
+    accessSubtitleNl?: string | null;
+    byTrain?: string | null;
+    byTrainEn?: string | null;
+    byTrainNl?: string | null;
+    byCar?: string | null;
+    byCarEn?: string | null;
+    byCarNl?: string | null;
+    byBus?: string | null;
+    byBusEn?: string | null;
+    byBusNl?: string | null;
+    activities?: string[];
+    activitiesEn?: string[];
+    activitiesNl?: string[];
 }
 
 interface Feature {
@@ -101,10 +120,40 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
     const kp3Title = getLocalized(data.keyPoint3Title, data.keyPoint3TitleEn, data.keyPoint3TitleNl);
     const kp3Text = getLocalized(data.keyPoint3Text, data.keyPoint3TextEn, data.keyPoint3TextNl);
 
+    // Nouvelles données dynamiques pour l'accès
+    const accessTitle = getLocalized(data.accessTitle || '', data.accessTitleEn, data.accessTitleNl) || t('accessTitle');
+    const accessSubtitle = getLocalized(data.accessSubtitle || '', data.accessSubtitleEn, data.accessSubtitleNl) || t('accessDesc');
+    const byTrain = getLocalized(data.byTrain || '', data.byTrainEn, data.byTrainNl) || t('byTrainDesc');
+    const byCar = getLocalized(data.byCar || '', data.byCarEn, data.byCarNl) || t('byCarDesc');
+    const byBus = getLocalized(data.byBus || '', data.byBusEn, data.byBusNl) || t('byBusDesc');
+
+    // Nouvelles données dynamiques pour les activités
+    const activitiesData = locale === 'nl' ? data.activitiesNl : locale === 'en' ? data.activitiesEn : data.activities;
+    const activities = activitiesData && activitiesData.length > 0 ? activitiesData : [0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => t(`activities.${i}`));
+
     return (
         <>
             {/* Hero Section */}
             <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')} data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+                {/* Image de fond */}
+                {pageHero?.imageUrl && (
+                    <>
+                        <Image
+                            src={pageHero.imageUrl}
+                            alt={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
+                            fill
+                            className="object-cover"
+                            priority
+                            sizes="100vw"
+                        />
+                        {/* Overlay noir plus prononcé */}
+                        <div className="absolute inset-0 bg-black/30"></div>
+                    </>
+                )}
+
+                {/* Decorative Pattern */}
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -196,15 +245,15 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                     </div>
 
                     {/* Section Accès & Activités */}
-                    <div id="access" data-nav-section={t('access')} className="mb-24">
+                    <div id="access" data-nav-section={accessTitle} className="mb-24">
                         <div>
                             <div className="text-center mb-16">
                                 <div className="w-12 h-px bg-or mx-auto mb-6"></div>
                                 <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
-                                    {t('accessTitle')}
+                                    {accessTitle}
                                 </h2>
                                 <p className="font-body text-lg text-noir/70 max-w-2xl mx-auto leading-relaxed">
-                                    {t('accessDesc')}
+                                    {accessSubtitle}
                                 </p>
                             </div>
 
@@ -223,7 +272,7 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                                 {t('byTrain')}
                                             </h4>
                                             <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed whitespace-pre-wrap">
-                                                {t('byTrainDesc')}
+                                                {byTrain}
                                             </p>
                                         </div>
 
@@ -233,7 +282,7 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                                 {t('byCar')}
                                             </h4>
                                             <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed whitespace-pre-wrap">
-                                                {t('byCarDesc')}
+                                                {byCar}
                                             </p>
                                         </div>
 
@@ -243,7 +292,7 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                                 {t('byBus')}
                                             </h4>
                                             <p className="font-body text-sm text-noir/70 ml-5 leading-relaxed whitespace-pre-wrap">
-                                                {t('byBusDesc')}
+                                                {byBus}
                                             </p>
                                         </div>
                                     </div>
@@ -257,10 +306,10 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                     </h3>
 
                                     <div className="grid grid-cols-1 gap-3">
-                                        {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                                        {activities.map((activity, i) => (
                                             <div key={i} className="flex items-start space-x-3">
                                                 <div className="w-1.5 h-1.5 bg-or rounded-full mt-2 flex-shrink-0"></div>
-                                                <span className="font-body text-sm text-noir/80">{t(`activities.${i}`)}</span>
+                                                <span className="font-body text-sm text-noir/80">{activity}</span>
                                             </div>
                                         ))}
                                     </div>

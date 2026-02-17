@@ -94,17 +94,22 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
             <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')} data-nav-is-dark="true" className="relative h-[65vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
                 {/* Background Image */}
                 {pageHero?.imageUrl && (
-                    <Image
-                        src={pageHero.imageUrl}
-                        alt="Hero"
-                        fill
-                        className="object-cover opacity-60 scale-105"
-                        priority
-                    />
+                    <>
+                        <Image
+                            src={pageHero.imageUrl}
+                            alt={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
+                            fill
+                            className="object-cover"
+                            priority
+                            sizes="100vw"
+                        />
+                        {/* Overlay noir léger pour la lisibilité */}
+                        <div className="absolute inset-0 bg-black/35"></div>
+                    </>
                 )}
 
                 {/* Decorative Pattern overlay */}
-                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+                <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
                     <motion.div

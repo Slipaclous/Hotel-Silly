@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import ImageUpload from './ImageUpload';
 import AdminWrapper from './AdminWrapper';
 import LanguageTabs from './LanguageTabs';
-import { History, Award, Sparkles, Layout, Type, AlignLeft } from 'lucide-react';
+import { History, Award, Sparkles, Layout, Type, AlignLeft, MapPin, X } from 'lucide-react';
 
 type Locale = 'fr' | 'en' | 'nl';
 
@@ -41,6 +41,24 @@ export default function AboutEditor() {
     keyPoint3TextNl: '',
     openingYear: '',
     imageUrl: '',
+    accessTitle: '',
+    accessTitleEn: '',
+    accessTitleNl: '',
+    accessSubtitle: '',
+    accessSubtitleEn: '',
+    accessSubtitleNl: '',
+    byTrain: '',
+    byTrainEn: '',
+    byTrainNl: '',
+    byCar: '',
+    byCarEn: '',
+    byCarNl: '',
+    byBus: '',
+    byBusEn: '',
+    byBusNl: '',
+    activities: [] as string[],
+    activitiesEn: [] as string[],
+    activitiesNl: [] as string[],
   });
 
   useEffect(() => {
@@ -79,6 +97,24 @@ export default function AboutEditor() {
           keyPoint3TextNl: data.keyPoint3TextNl || '',
           openingYear: data.openingYear || '',
           imageUrl: data.imageUrl || '',
+          accessTitle: data.accessTitle || '',
+          accessTitleEn: data.accessTitleEn || '',
+          accessTitleNl: data.accessTitleNl || '',
+          accessSubtitle: data.accessSubtitle || '',
+          accessSubtitleEn: data.accessSubtitleEn || '',
+          accessSubtitleNl: data.accessSubtitleNl || '',
+          byTrain: data.byTrain || '',
+          byTrainEn: data.byTrainEn || '',
+          byTrainNl: data.byTrainNl || '',
+          byCar: data.byCar || '',
+          byCarEn: data.byCarEn || '',
+          byCarNl: data.byCarNl || '',
+          byBus: data.byBus || '',
+          byBusEn: data.byBusEn || '',
+          byBusNl: data.byBusNl || '',
+          activities: data.activities || [],
+          activitiesEn: data.activitiesEn || [],
+          activitiesNl: data.activitiesNl || [],
         });
       }
     } catch (error) {
@@ -121,6 +157,25 @@ export default function AboutEditor() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleActivityChange = (index: number, value: string) => {
+    const fieldName = getFieldName('activities');
+    const newActivities = [...(formData as any)[fieldName]];
+    newActivities[index] = value;
+    setFormData({ ...formData, [fieldName]: newActivities });
+  };
+
+  const addActivity = () => {
+    const fieldName = getFieldName('activities');
+    const newActivities = [...(formData as any)[fieldName], ''];
+    setFormData({ ...formData, [fieldName]: newActivities });
+  };
+
+  const removeActivity = (index: number) => {
+    const fieldName = getFieldName('activities');
+    const newActivities = (formData as any)[fieldName].filter((_: any, i: number) => i !== index);
+    setFormData({ ...formData, [fieldName]: newActivities });
   };
 
   const inputClasses = "w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:bg-white focus:border-or focus:ring-4 focus:ring-or/5 outline-none transition-all duration-300 text-sm placeholder:text-slate-400 font-medium";
@@ -285,6 +340,134 @@ export default function AboutEditor() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Section Accès et Activités */}
+        <section className="space-y-8">
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-lg">
+              <MapPin className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 font-display">Accès & Activités</h3>
+              <p className="text-[12px] text-slate-500 font-medium">Informations sur comment rejoindre l&apos;hôtel et les activités locales.</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-1 rounded-2xl">
+              <label className={labelClasses}>Titre de la section ({activeLocale.toUpperCase()})</label>
+              <input
+                type="text"
+                name={getFieldName('accessTitle')}
+                value={(formData as any)[getFieldName('accessTitle')]}
+                onChange={handleChange}
+                placeholder="ex: Accès & Activités"
+                className={inputClasses}
+              />
+            </div>
+            <div className="bg-white p-1 rounded-2xl">
+              <label className={labelClasses}>Sous-titre de la section ({activeLocale.toUpperCase()})</label>
+              <textarea
+                name={getFieldName('accessSubtitle')}
+                value={(formData as any)[getFieldName('accessSubtitle')]}
+                onChange={handleChange}
+                placeholder="ex: Découvrez comment nous rejoindre..."
+                rows={2}
+                className={inputClasses}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Accès */}
+            <div className="space-y-6">
+              <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                <h4 className="text-sm font-bold text-slate-900 mb-6 flex items-center">
+                  <div className="w-1.5 h-1.5 bg-or rounded-full mr-2" />
+                  Comment nous rejoindre ({activeLocale.toUpperCase()})
+                </h4>
+
+                <div className="space-y-6">
+                  <div>
+                    <label className={labelClasses}>En train</label>
+                    <textarea
+                      name={getFieldName('byTrain')}
+                      value={(formData as any)[getFieldName('byTrain')]}
+                      onChange={handleChange}
+                      rows={3}
+                      className={inputClasses}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClasses}>En voiture</label>
+                    <textarea
+                      name={getFieldName('byCar')}
+                      value={(formData as any)[getFieldName('byCar')]}
+                      onChange={handleChange}
+                      rows={3}
+                      className={inputClasses}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClasses}>En bus</label>
+                    <textarea
+                      name={getFieldName('byBus')}
+                      value={(formData as any)[getFieldName('byBus')]}
+                      onChange={handleChange}
+                      rows={3}
+                      className={inputClasses}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Activités */}
+            <div className="space-y-6">
+              <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                <div className="flex items-center justify-between mb-6">
+                  <h4 className="text-sm font-bold text-slate-900 flex items-center">
+                    <div className="w-1.5 h-1.5 bg-or rounded-full mr-2" />
+                    Activités à proximité ({activeLocale.toUpperCase()})
+                  </h4>
+                  <button
+                    type="button"
+                    onClick={addActivity}
+                    className="px-4 py-2 bg-or text-white text-[10px] font-bold uppercase tracking-wider rounded-lg hover:bg-or/90 transition-colors"
+                  >
+                    Ajouter
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  {((formData as any)[getFieldName('activities')] as string[]).map((activity, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <input
+                        type="text"
+                        value={activity}
+                        onChange={(e) => handleActivityChange(index, e.target.value)}
+                        className={inputClasses}
+                        placeholder="Nom de l'activité..."
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeActivity(index)}
+                        className="p-3 text-slate-400 hover:text-red-500 transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                  {((formData as any)[getFieldName('activities')] as string[]).length === 0 && (
+                    <p className="text-xs text-slate-400 text-center py-4 bg-white/50 rounded-xl border border-dashed border-slate-200">
+                      Aucune activité ajoutée pour cette langue.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </form>

@@ -91,8 +91,8 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                             priority
                             sizes="100vw"
                         />
-                        {/* Overlay sombre pour la lisibilité */}
-                        <div className="absolute inset-0 bg-noir/40"></div>
+                        {/* Overlay noir plus prononcé */}
+                        <div className="absolute inset-0 bg-black/35"></div>
                     </>
                 )}
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -65,6 +66,25 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
         <>
             {/* Hero Section - Compact & Elegant */}
             <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : heroTitle} data-nav-is-dark="true" className="relative h-[40vh] flex items-end justify-center pb-12 overflow-hidden bg-[#2c3840]">
+                {/* Image de fond */}
+                {pageHero?.imageUrl && (
+                    <>
+                        <Image
+                            src={pageHero.imageUrl}
+                            alt={heroTitle}
+                            fill
+                            className="object-cover"
+                            priority
+                            sizes="100vw"
+                        />
+                        {/* Overlay noir léger pour la lisibilité */}
+                        <div className="absolute inset-0 bg-black/35"></div>
+                    </>
+                )}
+
+                {/* Decorative Pattern */}
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+
                 <div className="relative z-10 text-center text-white">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

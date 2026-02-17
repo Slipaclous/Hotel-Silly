@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Users, Wifi, Monitor, Coffee, Clock, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { useLocale, useTranslations } from 'next-intl';
@@ -102,16 +103,25 @@ export default function SeminairesContent({ pageHero, initialData, initialFeatur
         <>
             {/* Hero Section */}
             <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')} data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+                {/* Image de fond */}
                 {pageHero?.imageUrl && (
-                    <div className="absolute inset-0 z-0">
-                        <div className="absolute inset-0 bg-noir/40 z-10" />
-                        <img
+                    <>
+                        <Image
                             src={pageHero.imageUrl}
-                            alt="Hero background"
-                            className="w-full h-full object-cover"
+                            alt={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
+                            fill
+                            className="object-cover"
+                            priority
+                            sizes="100vw"
                         />
-                    </div>
+                        {/* Overlay noir léger pour la lisibilité */}
+                        <div className="absolute inset-0 bg-black/35"></div>
+                    </>
                 )}
+
+                {/* Decorative Pattern */}
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -235,8 +245,8 @@ export default function SeminairesContent({ pageHero, initialData, initialFeatur
                                         <Link
                                             href="/contact"
                                             className={`inline-block w-full text-center px-8 py-5 font-body text-xs font-bold uppercase tracking-widest transition-all duration-500 shadow-md hover:shadow-xl border ${pkg.isRecommended
-                                                    ? 'bg-[#C6ad7a] text-white hover:bg-[#2c3840] border-[#C6ad7a] hover:border-[#2c3840]'
-                                                    : 'bg-[#2c3840] text-white hover:bg-[#C6ad7a] border-[#2c3840] hover:border-[#C6ad7a]'
+                                                ? 'bg-[#C6ad7a] text-white hover:bg-[#2c3840] border-[#C6ad7a] hover:border-[#2c3840]'
+                                                : 'bg-[#2c3840] text-white hover:bg-[#C6ad7a] border-[#2c3840] hover:border-[#C6ad7a]'
                                                 }`}
                                         >
                                             {t('pricing.cta')}
@@ -256,4 +266,4 @@ export default function SeminairesContent({ pageHero, initialData, initialFeatur
     );
 }
 
-                    
+
