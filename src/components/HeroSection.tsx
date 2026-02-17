@@ -61,14 +61,16 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Image de fond optimisée */}
       <div className="absolute inset-0">
-        <Image
-          src={data.imageUrl}
-          alt={titleFinal}
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
+        {data.imageUrl && (
+          <Image
+            src={data.imageUrl}
+            alt={titleFinal}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        )}
         {/* Overlay noir léger pour la lisibilité */}
         <div className="absolute inset-0 bg-black/40"></div>
       </div>

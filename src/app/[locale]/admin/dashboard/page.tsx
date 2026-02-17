@@ -17,6 +17,7 @@ import HomeRoomSectionEditor from '@/components/admin/HomeRoomSectionEditor';
 import GiftCardEditor from '@/components/admin/GiftCardEditor';
 import SeminarEditor from '@/components/admin/SeminarEditor';
 import NewsletterManager from '@/components/admin/NewsletterManager';
+import UsersEditor from '@/components/admin/UsersEditor';
 
 interface Admin {
   name: string;
@@ -39,7 +40,12 @@ export default function DashboardPage() {
     setAdmin(JSON.parse(adminData));
   }, [router]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error);
+    }
     sessionStorage.removeItem('admin');
     router.push('/admin');
   };
@@ -91,6 +97,7 @@ export default function DashboardPage() {
             )}
             {activePage === 'translations' && <TranslationsManager />}
             {activePage === 'newsletter' && <NewsletterManager />}
+            {activePage === 'users' && <UsersEditor />}
 
             {activeSection === 'hero' && <HeroEditor />}
             {activeSection === 'about' && <AboutEditor />}

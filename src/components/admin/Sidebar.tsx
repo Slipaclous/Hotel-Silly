@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard, Globe, Gift, Users, Mail, Sparkles } from 'lucide-react';
+import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard, Globe, Gift, Users, Mail, Sparkles, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 
 interface SidebarProps {
@@ -104,6 +104,12 @@ export default function Sidebar({
             label: 'Traductions',
             icon: Globe,
             section: 'global-translations',
+        },
+        {
+            id: 'users',
+            label: 'Utilisateurs',
+            icon: ShieldCheck,
+            section: 'users',
         },
         {
             id: 'newsletter',

@@ -199,14 +199,14 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
             </section>
 
             {/* CTA Contact */}
-            <section className="py-24 bg-noir text-white">
+            <section className="py-24 bg-[#f7f5ef] text-[#2c3840]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <div>
-                        <div className="w-12 h-px bg-or mx-auto mb-6"></div>
+                        <div className="w-12 h-px bg-[#C6ad7a] mx-auto mb-6"></div>
                         <h2 className="font-display text-4xl sm:text-5xl font-medium mb-6">
                             {t('ctaTitle')}
                         </h2>
-                        <p className="font-body text-lg text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
+                        <p className="font-body text-lg text-[#2c3840]/70 mb-8 max-w-2xl mx-auto leading-relaxed">
                             {t('ctaDesc')}
                         </p>
                         <motion.div
@@ -216,7 +216,7 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                         >
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center space-x-3 bg-[#C6ad7a] text-white px-10 py-5 font-body text-sm font-medium hover:bg-white hover:text-[#2c3840] transition-all duration-500 shadow-lg hover:shadow-2xl border border-[#C6ad7a] hover:border-white group"
+                                className="inline-flex items-center space-x-3 bg-[#2c3840] text-white px-10 py-5 font-body text-sm font-medium hover:bg-[#C6ad7a] transition-all duration-500 shadow-lg hover:shadow-2xl border border-[#2c3840] hover:border-[#C6ad7a] group"
                             >
                                 <span className="tracking-widest uppercase">{t('ctaButton')}</span>
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-500" />
@@ -249,13 +249,15 @@ function EventCard({
         <div className={`bg-white border border-noir/10 overflow-hidden card-hover group ${compact ? 'text-sm' : ''}`}>
             {/* Image */}
             <div className={`relative ${compact ? 'h-48' : 'h-64'} overflow-hidden`}>
-                <Image
-                    src={event.imageUrl}
-                    alt={getLocalized(event.title, event.titleEn, event.titleNl)}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                />
+                {event.imageUrl && (
+                    <Image
+                        src={event.imageUrl}
+                        alt={getLocalized(event.title, event.titleEn, event.titleNl)}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                )}
 
                 {/* Icône */}
                 <div className={`absolute top-6 left-6 bg-white ${compact ? 'p-2' : 'p-3'} shadow-elegant`}>
