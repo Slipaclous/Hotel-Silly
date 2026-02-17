@@ -39,16 +39,18 @@ export default async function middleware(request: NextRequest) {
     }
 
     // Protéger les pages d'administration côté client (ex: /fr/admin/dashboard, /admin/rooms)
-    // On vérifie si le chemin contient /admin/ suivi de quelque chose
-    const isAdminPage = /\/(fr|en|nl)?\/?admin\/(.+)/.test(pathname);
+    const segments = pathname.split('/');
+    const isLocaleSegment = routing.locales.includes(segments[1] as any);
+    const adminSegmentIndex = isLocaleSegment ? 2 : 1;
+    const isAdminPage = segments[adminSegmentIndex] === 'admin' && segments.length > adminSegmentIndex + 1 && segments[adminSegmentIndex + 1] !== '';
 
     if (isAdminPage) {
         const token = request.cookies.get('admin_session')?.value;
         const verified = token ? await verifyToken(token) : null;
 
         if (!verified) {
-            // Extraire la locale pour rediriger vers la page de login correspondante
-            const locale = pathname.split('/')[1] || 'fr';
+            // Utiliser la locale du segment ou 'fr' par défaut
+            const locale = isLocaleSegment ? segments[1] : 'fr';
             return NextResponse.redirect(new URL(`/${locale}/admin`, request.url));
         }
     }
