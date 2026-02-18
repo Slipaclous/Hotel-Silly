@@ -11,7 +11,11 @@ export default async function middleware(request: NextRequest) {
     // Protéger toutes les routes API qui modifient des données (POST, PUT, DELETE)
     // à l'exception des routes d'authentification publique
     const isMutation = ['POST', 'PUT', 'DELETE', 'PATCH'].includes(request.method);
-    const isPublicApi = pathname.includes('/api/auth/login') || pathname.includes('/api/auth/logout') || (pathname.includes('/api/newsletter') && request.method === 'POST');
+    const isPublicApi =
+        pathname.includes('/api/auth/login') ||
+        pathname.includes('/api/auth/logout') ||
+        (pathname.includes('/api/newsletter') && request.method === 'POST') ||
+        (pathname.includes('/api/contact') && request.method === 'POST');
 
     if (pathname.startsWith('/api/') && isMutation && !isPublicApi) {
         const token = request.cookies.get('admin_session')?.value;

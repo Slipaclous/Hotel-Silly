@@ -59,7 +59,8 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Une erreur est survenue');
+                const errorMsg = data.details ? `${data.error} (${data.details})` : (data.error || 'Une erreur est survenue');
+                throw new Error(errorMsg);
             }
 
             setSubmitted(true);
@@ -71,8 +72,9 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
             }, 5000);
 
         } catch (err: any) {
-            console.error('Erreur:', err);
-            setError(err.message || 'Une erreur est survenue lors de l\'envoi du message.');
+            console.error('Erreur client:', err);
+            const errorMessage = err.message || 'Une erreur est survenue lors de l\'envoi du message.';
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://hotel-silly.com';
+    const baseUrl = 'https://hotel-silly.vercel.app';
     const locales = ['fr', 'en', 'nl'];
     const pages = [
         '',
