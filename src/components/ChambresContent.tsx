@@ -23,6 +23,8 @@ interface Room {
     descriptionEn?: string | null;
     descriptionNl?: string | null;
     price: string;
+    priceEn?: string | null;
+    priceNl?: string | null;
     capacity: string;
     capacityEn?: string | null;
     capacityNl?: string | null;
@@ -176,7 +178,7 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                                     </h2>
 
                                     <div className="flex items-baseline space-x-2 mb-6">
-                                        <span className="font-display text-3xl text-or uppercase">{room.price}</span>
+                                        <span className="font-display text-3xl text-or uppercase">{getLocalized(room.price, room.priceEn, room.priceNl)}</span>
                                         <span className="font-body text-sm text-noir/40">/ {c('perNight')}</span>
                                     </div>
 

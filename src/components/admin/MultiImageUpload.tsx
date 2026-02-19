@@ -19,28 +19,43 @@ export default function MultiImageUpload({ values, onChange, label = 'Galerie d\
 
         setUploading(true);
         const newUrls = [...values];
+        let hasError = false;
 
         try {
             for (let i = 0; i < files.length; i++) {
+                const file = files[i];
                 const uploadFormData = new FormData();
-                uploadFormData.append('file', files[i]);
+                uploadFormData.append('file', file);
 
-                const response = await fetch('/api/upload', {
-                    method: 'POST',
-                    body: uploadFormData,
-                });
+                try {
+                    const response = await fetch('/api/upload', {
+                        method: 'POST',
+                        body: uploadFormData,
+                    });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    newUrls.push(data.url);
+                    if (response.ok) {
+                        const data = await response.json();
+                        newUrls.push(data.url);
+                        // On met à jour au fur et à mesure pour éviter de tout perdre si ça coupe
+                        onChange([...newUrls]);
+                    } else {
+                        const errorData = await response.json();
+                        console.error(`Erreur upload fichier ${file.name}:`, errorData);
+                        hasError = true;
+                    }
+                } catch (err) {
+                    console.error(`Erreur réseau pour ${file.name}:`, err);
+                    hasError = true;
                 }
             }
-            onChange(newUrls);
-        } catch (error) {
-            console.error('Erreur upload:', error);
-            alert('Erreur lors de l\'upload de certaines images');
+
+            if (hasError) {
+                alert('Certaines images n\'ont pas pu être envoyées. Vérifiez votre connexion ou la taille des fichiers (max 5Mo).');
+            }
         } finally {
             setUploading(false);
+            // On reset l'input pour permettre de re-sélectionner le même fichier si besoin
+            if (inputRef.current) inputRef.current.value = '';
         }
     };
 

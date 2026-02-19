@@ -24,6 +24,8 @@ interface Room {
   descriptionEn?: string;
   descriptionNl?: string;
   price: string;
+  priceEn?: string;
+  priceNl?: string;
   capacity: string;
   capacityEn?: string;
   capacityNl?: string;
@@ -242,7 +244,7 @@ export default function RoomsEditor() {
                       <div className="flex flex-col">
                         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Tarif de base</span>
                         <div className="text-xl font-bold text-slate-900">
-                          {room.price}
+                          {activeLocale === 'fr' ? room.price : (activeLocale === 'en' ? (room.priceEn || room.price) : (room.priceNl || room.price))}
                         </div>
                       </div>
                       <button
@@ -278,6 +280,8 @@ function RoomForm({ room, activeLocale, onLocaleChange, onCancel, onSuccess }: {
     descriptionEn: room?.descriptionEn || '',
     descriptionNl: room?.descriptionNl || '',
     price: room?.price || '',
+    priceEn: room?.priceEn || '',
+    priceNl: room?.priceNl || '',
     capacity: room?.capacity || '',
     capacityEn: room?.capacityEn || '',
     capacityNl: room?.capacityNl || '',
@@ -407,6 +411,35 @@ function RoomForm({ room, activeLocale, onLocaleChange, onCancel, onSuccess }: {
                 placeholder="Décrivez l'expérience, le confort et l'atmosphère..."
               />
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+              <div className="bg-white p-1 rounded-2xl">
+                <label className={labelClasses}>Texte du Prix ({activeLocale.toUpperCase()})</label>
+                <input
+                  type="text"
+                  name={getFieldName('price')}
+                  value={(formData as any)[getFieldName('price')]}
+                  onChange={handleChange}
+                  required={activeLocale === 'fr'}
+                  placeholder="ex: À PARTIR DE 140€"
+                  className={inputClasses}
+                />
+                <p className="text-[10px] text-slate-400 mt-2 italic font-medium">Texte affiché sur la carte (ex: &quot;À PARTIR DE 140€&quot;).</p>
+              </div>
+              <div className="bg-white p-1 rounded-2xl">
+                <label className={labelClasses}>Capacité affichée ({activeLocale.toUpperCase()})</label>
+                <input
+                  type="text"
+                  name={getFieldName('capacity')}
+                  value={(formData as any)[getFieldName('capacity')]}
+                  onChange={handleChange}
+                  required={activeLocale === 'fr'}
+                  placeholder="ex: 2 personnes"
+                  className={inputClasses}
+                />
+                <p className="text-[10px] text-slate-400 mt-2 italic font-medium">Texte affiché (ex: &quot;2 personnes&quot; ou &quot;Jusqu&apos;à 4 pers.&quot;).</p>
+              </div>
+            </div>
           </div>
 
           <div className="lg:col-span-4 space-y-8">
@@ -496,27 +529,24 @@ function RoomForm({ room, activeLocale, onLocaleChange, onCancel, onSuccess }: {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="bg-emerald-50/20 p-6 rounded-3xl border border-emerald-100/50 space-y-6 lg:col-span-3">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <label className={labelClasses}>Pour 1 pers.</label>
-                  <input type="text" value={formData.price1Person} onChange={(e) => setFormData({ ...formData, price1Person: e.target.value })} placeholder="80€" className={inputClasses} />
-                </div>
-                <div>
-                  <label className={labelClasses}>Pour 2 pers.</label>
-                  <input type="text" value={formData.price2Persons} onChange={(e) => setFormData({ ...formData, price2Persons: e.target.value })} placeholder="120€" className={inputClasses} />
-                </div>
-                <div>
-                  <label className={labelClasses}>Pour 3+ pers.</label>
-                  <input type="text" value={formData.price3Persons} onChange={(e) => setFormData({ ...formData, price3Persons: e.target.value })} placeholder="160€" className={inputClasses} />
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-3xl border border-slate-100 space-y-6">
+            <div className="bg-emerald-50/20 p-8 rounded-[32px] border border-emerald-100/50 space-y-8 lg:col-span-4">
               <div>
-                <label className={labelClasses}>Capacité Nominale</label>
-                <input type="text" name={getFieldName('capacity')} value={(formData as any)[getFieldName('capacity')]} onChange={handleChange} placeholder="2 pers." className={inputClasses} />
+                <label className={labelClasses}>Détail indicatif des tarifs (Commun)</label>
+                <p className="text-[10px] text-slate-400 mb-6 italic font-medium">Ces tarifs sont affichés uniquement dans le détail de la chambre (Popup).</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <label className="text-[10px] font-bold text-emerald-600/60 uppercase mb-2 block ml-1">Pour 1 pers.</label>
+                    <input type="text" value={formData.price1Person} onChange={(e) => setFormData({ ...formData, price1Person: e.target.value })} placeholder="80€" className={inputClasses} />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-bold text-emerald-600/60 uppercase mb-2 block ml-1">Pour 2 pers.</label>
+                    <input type="text" value={formData.price2Persons} onChange={(e) => setFormData({ ...formData, price2Persons: e.target.value })} placeholder="120€" className={inputClasses} />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-bold text-emerald-600/60 uppercase mb-2 block ml-1">Pour 3+ pers.</label>
+                    <input type="text" value={formData.price3Persons} onChange={(e) => setFormData({ ...formData, price3Persons: e.target.value })} placeholder="160€" className={inputClasses} />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -622,8 +652,8 @@ function RoomForm({ room, activeLocale, onLocaleChange, onCancel, onSuccess }: {
             <span className="uppercase tracking-[0.2em] text-[11px]">{saving ? 'Sauvegarde...' : 'Publier les modifications'}</span>
           </button>
         </div>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 }
 

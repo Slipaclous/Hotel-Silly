@@ -127,6 +127,8 @@ model Room {
   descriptionEn String?        @db.Text
   descriptionNl String?        @db.Text
   price         String         // Prix "à partir de"
+  priceEn       String?
+  priceNl       String?
   capacity      String
   capacityEn    String?
   capacityNl    String?
