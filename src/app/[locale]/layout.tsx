@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { prisma } from '@/lib/prisma';
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -94,6 +95,9 @@ export default async function RootLayout({
   // side is the easiest way to get started
   const messages = await getMessages();
 
+  // Fetch hero data for footer
+  const heroData = await prisma.hero.findFirst();
+
   return (
     <html lang={locale} className={`${cormorant.variable} ${montserrat.variable}`}>
       <body className="font-body antialiased transition-colors duration-300">
@@ -103,7 +107,7 @@ export default async function RootLayout({
           <div className="min-h-screen">
             {children}
           </div>
-          <Footer />
+          <Footer heroData={heroData} />
           <CookieConsent />
           <ScrollToTop />
         </NextIntlClientProvider>

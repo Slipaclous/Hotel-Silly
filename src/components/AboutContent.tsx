@@ -51,6 +51,30 @@ interface AboutData {
     activities?: string[];
     activitiesEn?: string[];
     activitiesNl?: string[];
+    lastSectionTitle?: string | null;
+    lastSectionTitleEn?: string | null;
+    lastSectionTitleNl?: string | null;
+    lastSectionDescription?: string | null;
+    lastSectionDescriptionEn?: string | null;
+    lastSectionDescriptionNl?: string | null;
+    value1Title?: string | null;
+    value1TitleEn?: string | null;
+    value1TitleNl?: string | null;
+    value1Desc?: string | null;
+    value1DescEn?: string | null;
+    value1DescNl?: string | null;
+    value2Title?: string | null;
+    value2TitleEn?: string | null;
+    value2TitleNl?: string | null;
+    value2Desc?: string | null;
+    value2DescEn?: string | null;
+    value2DescNl?: string | null;
+    value3Title?: string | null;
+    value3TitleEn?: string | null;
+    value3TitleNl?: string | null;
+    value3Desc?: string | null;
+    value3DescEn?: string | null;
+    value3DescNl?: string | null;
 }
 
 interface Feature {
@@ -131,6 +155,16 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
     const activitiesData = locale === 'nl' ? data.activitiesNl : locale === 'en' ? data.activitiesEn : data.activities;
     const activities = activitiesData && activitiesData.length > 0 ? activitiesData : [0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => t(`activities.${i}`));
 
+    // Nouvelles données dynamiques pour la dernière section (3 blocs)
+    const value1Title = getLocalized(data.value1Title || '', data.value1TitleEn, data.value1TitleNl) || t('locationTitle');
+    const value1Desc = getLocalized(data.value1Desc || '', data.value1DescEn, data.value1DescNl) || t('locationDesc');
+
+    const value2Title = getLocalized(data.value2Title || '', data.value2TitleEn, data.value2TitleNl) || t('historyTitle');
+    const value2Desc = getLocalized(data.value2Desc || '', data.value2DescEn, data.value2DescNl) || t('historyDesc', { year: data.openingYear });
+
+    const value3Title = getLocalized(data.value3Title || '', data.value3TitleEn, data.value3TitleNl) || getLocalized(data.lastSectionTitle || '', data.lastSectionTitleEn, data.lastSectionTitleNl) || t('engagementTitle');
+    const value3Desc = getLocalized(data.value3Desc || '', data.value3DescEn, data.value3DescNl) || getLocalized(data.lastSectionDescription || '', data.lastSectionDescriptionEn, data.lastSectionDescriptionNl) || t('engagementDesc');
+
     return (
         <>
             {/* Hero Section */}
@@ -154,14 +188,14 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                 {/* Decorative Pattern */}
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
-                <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+                <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-24 lg:pt-32 mt-auto lg:mt-0">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
                     >
                         <div className="w-12 h-px bg-[#C6ad7a] mx-auto mb-6"></div>
-                        <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium mb-6 text-[#C6ad7a]">
+                        <h1 className="font-display text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-medium mb-6 text-[#C6ad7a]">
                             {pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
                         </h1>
                         <p className="font-body text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -318,6 +352,24 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                         </div>
                     </div>
 
+                    {/* Carte Google Maps */}
+                    <div className="mb-24">
+                        <div className="relative w-full h-[450px] bg-blanc-200 border border-noir/10 overflow-hidden group">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2535.3986708465492!2d3.92135!3d50.6375333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c24f6f2648fb47%3A0x696b92f7dcce7c68!2sPl.%20Communale%209%2C%207830%20Silly!5e0!3m2!1sfr!2sbe!4v1714138138138!5m2!1sfr!2sbe"
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                allowFullScreen
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                title="Localisation Hôtel de Silly"
+                                className="grayscale contrast-[1.1] opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                            ></iframe>
+                            <div className="absolute inset-0 pointer-events-none border-[1px] border-noir/5"></div>
+                        </div>
+                    </div>
+
                     {/* Section Valeurs */}
                     <div id="values" data-nav-section={t('values')} className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="bg-blanc-200 p-8">
@@ -325,10 +377,10 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                 <MapPin className="w-6 h-6 text-blanc" />
                             </div>
                             <h3 className="font-display text-2xl font-medium text-noir mb-4">
-                                {t('locationTitle')}
+                                {value1Title}
                             </h3>
                             <p className="font-body text-sm text-noir/70 leading-relaxed">
-                                {t('locationDesc')}
+                                {value1Desc}
                             </p>
                         </div>
 
@@ -337,10 +389,10 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                 <Clock className="w-6 h-6 text-blanc" />
                             </div>
                             <h3 className="font-display text-2xl font-medium text-noir mb-4">
-                                {t('historyTitle')}
+                                {value2Title}
                             </h3>
                             <p className="font-body text-sm text-noir/70 leading-relaxed">
-                                {t('historyDesc', { year: data.openingYear })}
+                                {value2Desc}
                             </p>
                         </div>
 
@@ -349,10 +401,10 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                                 <Users className="w-6 h-6 text-blanc" />
                             </div>
                             <h3 className="font-display text-2xl font-medium text-noir mb-4">
-                                {t('engagementTitle')}
+                                {value3Title}
                             </h3>
                             <p className="font-body text-sm text-noir/70 leading-relaxed">
-                                {t('engagementDesc')}
+                                {value3Desc}
                             </p>
                         </div>
                     </div>

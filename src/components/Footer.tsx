@@ -5,10 +5,11 @@ import { motion } from 'framer-motion';
 import { Link, usePathname } from '@/i18n/routing';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
-export default function Footer() {
+export default function Footer({ heroData }: { heroData?: any }) {
   const t = useTranslations('footer');
+  const locale = useLocale();
   const n = useTranslations('nav');
   const pathname = usePathname();
 
@@ -83,7 +84,9 @@ export default function Footer() {
               </Link>
             </div>
             <p className="font-body text-sm text-white/70 leading-relaxed mb-8 max-w-md">
-              {t('description')}
+              {(locale === 'nl' ? heroData?.footerDescriptionNl :
+                locale === 'en' ? heroData?.footerDescriptionEn :
+                  heroData?.footerDescription) || t('description')}
             </p>
 
             {/* Coordonnées */}

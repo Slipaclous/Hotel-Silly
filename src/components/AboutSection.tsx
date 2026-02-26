@@ -151,13 +151,7 @@ export default function AboutSection({ initialAbout, initialFeatures }: { initia
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-
-              {/* Badge année */}
-              <div className="absolute bottom-8 left-8 bg-blanc shadow-elegant p-6 border border-noir/10">
-                <div className="font-display text-4xl font-medium text-noir mb-1">{data.openingYear}</div>
-                <div className="font-body text-xs uppercase tracking-widest text-noir/60">{t('openingYear')}</div>
-              </div>
+              />           
             </div>
           </div>
         </div>

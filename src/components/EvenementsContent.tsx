@@ -99,7 +99,7 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                 {/* Decorative Pattern */}
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
-                <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+                <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-24 lg:pt-32">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -119,15 +119,7 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
             {/* Introduction */}
             <section id="agenda" data-nav-section={t('upcomingTitle')} className="py-24 bg-blanc">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <div className="w-12 h-px bg-or mx-auto mb-6"></div>
-                        <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
-                            {t('introTitle')}
-                        </h2>
-                        <p className="font-body text-lg text-noir/70 leading-relaxed">
-                            {t('introDesc')}
-                        </p>
-                    </div>
+                    
 
                     {/* Grille Événements À Venir */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">

@@ -119,7 +119,7 @@ export default function RoomDetailsModal({ room, isOpen, onClose }: RoomDetailsM
                     </button>
 
                     {/* Image Section (Left/Top) */}
-                    <div className="w-full lg:w-[60%] h-[350px] lg:h-auto relative bg-noir flex flex-col">
+                    <div className="w-full lg:w-[60%] h-[300px] sm:h-[400px] lg:h-auto relative bg-noir flex flex-col shrink-0">
                         <div className="relative flex-1 overflow-hidden group">
                             <AnimatePresence mode="wait">
                                 <motion.div
@@ -187,7 +187,7 @@ export default function RoomDetailsModal({ room, isOpen, onClose }: RoomDetailsM
                     </div>
 
                     {/* Content Section (Right/Bottom) */}
-                    <div className="w-full lg:w-[40%] flex flex-col h-full bg-white overflow-y-auto custom-scrollbar relative">
+                    <div className="w-full lg:w-[40%] flex flex-col flex-1 min-h-0 bg-white overflow-y-auto custom-scrollbar relative">
                         {/* Close Button Desktop */}
                         <button
                             onClick={onClose}
@@ -197,6 +197,10 @@ export default function RoomDetailsModal({ room, isOpen, onClose }: RoomDetailsM
                         </button>
 
                         <div className="p-8 lg:p-10">
+                            {/* Scroll indicator for mobile (subtle) */}
+                            <div className="lg:hidden absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none animate-bounce opacity-40">
+                                <ChevronRight className="w-5 h-5 rotate-90 text-or" />
+                            </div>
                             {/* Stars & Category */}
                             <div className="flex items-center space-x-2 mb-4">
                                 <div className="flex text-or">

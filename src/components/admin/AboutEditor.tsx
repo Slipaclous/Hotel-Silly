@@ -59,6 +59,30 @@ export default function AboutEditor() {
     activities: [] as string[],
     activitiesEn: [] as string[],
     activitiesNl: [] as string[],
+    lastSectionTitle: '',
+    lastSectionTitleEn: '',
+    lastSectionTitleNl: '',
+    lastSectionDescription: '',
+    lastSectionDescriptionEn: '',
+    lastSectionDescriptionNl: '',
+    value1Title: '',
+    value1TitleEn: '',
+    value1TitleNl: '',
+    value1Desc: '',
+    value1DescEn: '',
+    value1DescNl: '',
+    value2Title: '',
+    value2TitleEn: '',
+    value2TitleNl: '',
+    value2Desc: '',
+    value2DescEn: '',
+    value2DescNl: '',
+    value3Title: '',
+    value3TitleEn: '',
+    value3TitleNl: '',
+    value3Desc: '',
+    value3DescEn: '',
+    value3DescNl: '',
   });
 
   useEffect(() => {
@@ -115,6 +139,30 @@ export default function AboutEditor() {
           activities: data.activities || [],
           activitiesEn: data.activitiesEn || [],
           activitiesNl: data.activitiesNl || [],
+          lastSectionTitle: data.lastSectionTitle || '',
+          lastSectionTitleEn: data.lastSectionTitleEn || '',
+          lastSectionTitleNl: data.lastSectionTitleNl || '',
+          lastSectionDescription: data.lastSectionDescription || '',
+          lastSectionDescriptionEn: data.lastSectionDescriptionEn || '',
+          lastSectionDescriptionNl: data.lastSectionDescriptionNl || '',
+          value1Title: data.value1Title || '',
+          value1TitleEn: data.value1TitleEn || '',
+          value1TitleNl: data.value1TitleNl || '',
+          value1Desc: data.value1Desc || '',
+          value1DescEn: data.value1DescEn || '',
+          value1DescNl: data.value1DescNl || '',
+          value2Title: data.value2Title || '',
+          value2TitleEn: data.value2TitleEn || '',
+          value2TitleNl: data.value2TitleNl || '',
+          value2Desc: data.value2Desc || '',
+          value2DescEn: data.value2DescEn || '',
+          value2DescNl: data.value2DescNl || '',
+          value3Title: data.value3Title || '',
+          value3TitleEn: data.value3TitleEn || '',
+          value3TitleNl: data.value3TitleNl || '',
+          value3Desc: data.value3Desc || '',
+          value3DescEn: data.value3DescEn || '',
+          value3DescNl: data.value3DescNl || '',
         });
       }
     } catch (error) {
@@ -470,8 +518,113 @@ export default function AboutEditor() {
             </div>
           </div>
         </section>
+
+        {/* Section Valeurs (3 Blocs) */}
+        <section className="space-y-8 pb-10">
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 rounded-xl bg-or text-white flex items-center justify-center shadow-lg">
+              <Layout className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 font-display">Section Valeurs (3 Blocs)</h3>
+              <p className="text-[12px] text-slate-500 font-medium">Les 3 colonnes à la fin de la page À Propos (Emplacement, Histoire, Engagement).</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Bloc 1 */}
+            <div className="bg-slate-50/50 p-6 rounded-3xl border border-slate-100 space-y-4">
+              <h4 className="font-bold text-slate-800 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-or font-bold">1</div>
+                Bloc Gauche
+              </h4>
+              <div className="space-y-4">
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}>Titre</label>
+                  <input
+                    type="text"
+                    name={getFieldName('value1Title')}
+                    value={(formData as any)[getFieldName('value1Title')]}
+                    onChange={handleChange}
+                    className={inputClasses}
+                  />
+                </div>
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}>Description</label>
+                  <textarea
+                    name={getFieldName('value1Desc')}
+                    value={(formData as any)[getFieldName('value1Desc')]}
+                    onChange={handleChange}
+                    rows={4}
+                    className={inputClasses}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Bloc 2 */}
+            <div className="bg-slate-50/50 p-6 rounded-3xl border border-slate-100 space-y-4">
+              <h4 className="font-bold text-slate-800 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-or font-bold">2</div>
+                Bloc Central
+              </h4>
+              <div className="space-y-4">
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}>Titre</label>
+                  <input
+                    type="text"
+                    name={getFieldName('value2Title')}
+                    value={(formData as any)[getFieldName('value2Title')]}
+                    onChange={handleChange}
+                    className={inputClasses}
+                  />
+                </div>
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}>Description</label>
+                  <textarea
+                    name={getFieldName('value2Desc')}
+                    value={(formData as any)[getFieldName('value2Desc')]}
+                    onChange={handleChange}
+                    rows={4}
+                    className={inputClasses}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Bloc 3 */}
+            <div className="bg-slate-50/50 p-6 rounded-3xl border border-slate-100 space-y-4">
+              <h4 className="font-bold text-slate-800 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-or font-bold">3</div>
+                Bloc Droit
+              </h4>
+              <div className="space-y-4">
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}>Titre</label>
+                  <input
+                    type="text"
+                    name={getFieldName('value3Title')}
+                    value={(formData as any)[getFieldName('value3Title')]}
+                    onChange={handleChange}
+                    className={inputClasses}
+                  />
+                </div>
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}>Description</label>
+                  <textarea
+                    name={getFieldName('value3Desc')}
+                    value={(formData as any)[getFieldName('value3Desc')]}
+                    onChange={handleChange}
+                    rows={4}
+                    className={inputClasses}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </form>
-    </AdminWrapper>
+    </AdminWrapper >
   );
 }
 

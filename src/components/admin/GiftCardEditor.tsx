@@ -44,9 +44,6 @@ export default function GiftCardEditor() {
         badgeText2: '',
         badgeText2En: '',
         badgeText2Nl: '',
-        benefits: [] as string[],
-        benefitsEn: [] as string[],
-        benefitsNl: [] as string[],
     });
 
     const [packages, setPackages] = useState<Package[]>([]);
@@ -195,26 +192,6 @@ export default function GiftCardEditor() {
                     </div>
                 </section>
 
-                {/* Benefits Section */}
-                <section className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <h3 className="text-lg font-bold mb-6">Avantages (Liste)</h3>
-                    <div className="space-y-3">
-                        {[0, 1, 2, 3, 4, 5].map((i) => (
-                            <div key={i}>
-                                <label className={labelClasses}>Avantage {i + 1} ({activeLocale})</label>
-                                <input
-                                    className={inputClasses}
-                                    value={(pageData as any)[getFieldName('benefits')]?.[i] || ''}
-                                    onChange={(e) => {
-                                        const newArr = [...((pageData as any)[getFieldName('benefits')] || [])];
-                                        newArr[i] = e.target.value;
-                                        setPageData({ ...pageData, [getFieldName('benefits')]: newArr });
-                                    }}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </section>
 
                 {/* Packages Section */}
                 <section>

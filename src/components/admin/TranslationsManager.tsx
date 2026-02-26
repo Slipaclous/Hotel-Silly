@@ -68,8 +68,8 @@ export default function TranslationsManager() {
                     if (!item) return;
 
                     const fieldMap: Record<string, string[]> = {
-                        'Hero': ['badge', 'title', 'subtitle', 'description', 'location'],
-                        'About': ['title', 'description', 'keyPoint1Title', 'keyPoint1Text', 'keyPoint2Title', 'keyPoint2Text', 'keyPoint3Title', 'keyPoint3Text'],
+                        'Hero': ['badge', 'title', 'subtitle', 'description', 'location', 'footerDescription'],
+                        'About': ['title', 'description', 'keyPoint1Title', 'keyPoint1Text', 'keyPoint2Title', 'keyPoint2Text', 'keyPoint3Title', 'keyPoint3Text', 'value1Title', 'value1Desc', 'value2Title', 'value2Desc', 'value3Title', 'value3Desc', 'lastSectionTitle', 'lastSectionDescription'],
                         'Feature': ['title', 'description'],
                         'Room': ['name', 'description', 'price', 'capacity', 'surface', 'bedding', 'bathroom'],
                         'Testimonial': ['location', 'text'],
@@ -181,6 +181,7 @@ export default function TranslationsManager() {
 
             const updateData = {
                 ...payload,
+                [row.field]: row.fr,
                 [`${row.field}En`]: row.en,
                 [`${row.field}Nl`]: row.nl,
             };
@@ -270,7 +271,6 @@ export default function TranslationsManager() {
             icon: Home,
             rows: [
                 ...translations.filter(t => t.model === 'Hero'),
-                ...translations.filter(t => t.model === 'About'),
                 ...translations.filter(t => t.model === 'Feature'),
                 ...translations.filter(t => t.model === 'Testimonial')
             ]
@@ -297,7 +297,10 @@ export default function TranslationsManager() {
             pageName: 'À Propos',
             pageKey: 'a-propos',
             icon: Info,
-            rows: translations.filter(t => t.model === 'PageHero' && t.itemName.includes('a-propos'))
+            rows: [
+                ...translations.filter(t => t.model === 'PageHero' && t.itemName.includes('a-propos')),
+                ...translations.filter(t => t.model === 'About')
+            ]
         }
     ].filter(p => p.rows.length > 0);
 
@@ -334,6 +337,15 @@ export default function TranslationsManager() {
         'keyPoint2Text': 'Point Clé 2 - Texte',
         'keyPoint3Title': 'Point Clé 3 - Titre',
         'keyPoint3Text': 'Point Clé 3 - Texte',
+        'value1Title': 'Titre Bloc 1 (Valeurs)',
+        'value1Desc': 'Texte Bloc 1 (Valeurs)',
+        'value2Title': 'Titre Bloc 2 (Valeurs)',
+        'value2Desc': 'Texte Bloc 2 (Valeurs)',
+        'value3Title': 'Titre Bloc 3 (Valeurs)',
+        'value3Desc': 'Texte Bloc 3 (Valeurs)',
+        'lastSectionTitle': 'Dernière Section - Titre',
+        'lastSectionDescription': 'Dernière Section - Texte',
+        'footerDescription': 'Description Footer',
     };
 
     if (loading) {

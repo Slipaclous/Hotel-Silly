@@ -106,7 +106,7 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                 {/* Decorative Pattern */}
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
-                <div className="relative z-10 text-center text-white">
+                <div className="relative z-10 text-center text-white pt-24 lg:pt-32">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -169,18 +169,13 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                                     <Clock className="w-5 h-5 text-[#C6ad7a] mt-1" />
                                     <div>
                                         <h3 className="font-display text-xl mb-4 text-white">{t('hoursTitle')}</h3>
-                                        <ul className="space-y-2 font-body text-sm text-white/70">
-                                            <li className="flex justify-between w-48">
-                                                <span>{t('days')}</span>
-                                                <span className="text-white">09:00 - 18:00</span>
+                                        <ul className="space-y-4 font-body text-sm text-white/70">
+                                            <li>
+                                                <p className="leading-relaxed max-w-xs">{t('hotelHours')}</p>
                                             </li>
-                                            <li className="flex justify-between w-48">
-                                                <span>{t('saturday')}</span>
-                                                <span className="text-white">10:00 - 16:00</span>
-                                            </li>
-                                            <li className="flex justify-between w-48">
-                                                <span>{t('sunday')}</span>
-                                                <span className="text-white">{t('closed')}</span>
+                                            <li>
+                                                <p className="font-display text-lg text-white mb-1">{t('breakfastLabel')}</p>
+                                                <p className="leading-relaxed">{t('breakfastHours')}</p>
                                             </li>
                                         </ul>
                                     </div>

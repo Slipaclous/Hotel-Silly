@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,337 +7,333 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Modèle pour l'utilisateur admin
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  password  String   // Mot de passe haché
+  password  String
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// Modèle pour la section Hero
 model Hero {
-  id            Int      @id @default(autoincrement())
-  badge         String
-  badgeEn       String?
-  badgeNl       String?
-  title         String
-  titleEn       String?
-  titleNl       String?
-  subtitle      String
-  subtitleEn    String?
-  subtitleNl    String?
-  description   String   @db.Text
-  descriptionEn String?  @db.Text
-  descriptionNl String?  @db.Text
-  location      String
-  locationEn    String?
-  locationNl    String?
-  imageUrl      String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                  Int      @id @default(autoincrement())
+  badge               String
+  title               String
+  subtitle            String
+  description         String
+  location            String
+  imageUrl            String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  badgeEn             String?
+  badgeNl             String?
+  descriptionEn       String?
+  descriptionNl       String?
+  locationEn          String?
+  locationNl          String?
+  subtitleEn          String?
+  subtitleNl          String?
+  titleEn             String?
+  titleNl             String?
+  footerDescription   String?
+  footerDescriptionEn String?
+  footerDescriptionNl String?
 }
 
-// Modèle pour la section À Propos
 model About {
-  id               Int      @id @default(autoincrement())
-  title            String
-  titleEn          String?
-  titleNl          String?
-  description      String   @db.Text
-  descriptionEn    String?  @db.Text
-  descriptionNl    String?  @db.Text
-  keyPoint1Title   String
-  keyPoint1TitleEn String?
-  keyPoint1TitleNl String?
-  keyPoint1Text    String   @db.Text
-  keyPoint1TextEn  String?  @db.Text
-  keyPoint1TextNl  String?  @db.Text
-  keyPoint2Title   String
-  keyPoint2TitleEn String?
-  keyPoint2TitleNl String?
-  keyPoint2Text    String   @db.Text
-  keyPoint2TextEn  String?  @db.Text
-  keyPoint2TextNl  String?  @db.Text
-  keyPoint3Title   String
-  keyPoint3TitleEn String?
-  keyPoint3TitleNl String?
-  keyPoint3Text    String   @db.Text
-  keyPoint3TextEn  String?  @db.Text
-  keyPoint3TextNl  String?  @db.Text
-  openingYear      String
-  imageUrl         String
-  
-  // Accès
-  accessTitle      String?
-  accessTitleEn    String?
-  accessTitleNl    String?
-  accessSubtitle   String?  @db.Text
-  accessSubtitleEn String?  @db.Text
-  accessSubtitleNl String?  @db.Text
-
-  byTrain          String?  @db.Text
-  byTrainEn        String?  @db.Text
-  byTrainNl        String?  @db.Text
-  byCar            String?  @db.Text
-  byCarEn          String?  @db.Text
-  byCarNl          String?  @db.Text
-  byBus            String?  @db.Text
-  byBusEn          String?  @db.Text
-  byBusNl          String?  @db.Text
-  
-  // Activités
-  activities       String[]
-  activitiesEn     String[]
-  activitiesNl     String[]
-
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id                       Int      @id @default(autoincrement())
+  title                    String
+  description              String
+  keyPoint1Title           String
+  keyPoint1Text            String
+  keyPoint2Title           String
+  keyPoint2Text            String
+  keyPoint3Title           String
+  keyPoint3Text            String
+  openingYear              String
+  imageUrl                 String
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+  descriptionEn            String?
+  descriptionNl            String?
+  keyPoint1TextEn          String?
+  keyPoint1TextNl          String?
+  keyPoint1TitleEn         String?
+  keyPoint1TitleNl         String?
+  keyPoint2TextEn          String?
+  keyPoint2TextNl          String?
+  keyPoint2TitleEn         String?
+  keyPoint2TitleNl         String?
+  keyPoint3TextEn          String?
+  keyPoint3TextNl          String?
+  keyPoint3TitleEn         String?
+  keyPoint3TitleNl         String?
+  titleEn                  String?
+  titleNl                  String?
+  activities               String[]
+  activitiesEn             String[]
+  activitiesNl             String[]
+  byBus                    String?
+  byBusEn                  String?
+  byBusNl                  String?
+  byCar                    String?
+  byCarEn                  String?
+  byCarNl                  String?
+  byTrain                  String?
+  byTrainEn                String?
+  byTrainNl                String?
+  accessSubtitle           String?
+  accessSubtitleEn         String?
+  accessSubtitleNl         String?
+  accessTitle              String?
+  accessTitleEn            String?
+  accessTitleNl            String?
+  lastSectionDescription   String?
+  lastSectionDescriptionEn String?
+  lastSectionDescriptionNl String?
+  lastSectionTitle         String?
+  lastSectionTitleEn       String?
+  lastSectionTitleNl       String?
+  value1Desc               String?
+  value1DescEn             String?
+  value1DescNl             String?
+  value1Title              String?
+  value1TitleEn            String?
+  value1TitleNl            String?
+  value2Desc               String?
+  value2DescEn             String?
+  value2DescNl             String?
+  value2Title              String?
+  value2TitleEn            String?
+  value2TitleNl            String?
+  value3Desc               String?
+  value3DescEn             String?
+  value3DescNl             String?
+  value3Title              String?
+  value3TitleEn            String?
+  value3TitleNl            String?
 }
 
-// Modèle pour les features de la section À Propos
 model Feature {
   id            Int      @id @default(autoincrement())
-  icon          String   // Nom de l'icône (Award, Heart, Shield, Star)
+  icon          String
   title         String
-  titleEn       String?
-  titleNl       String?
   description   String
-  descriptionEn String?
-  descriptionNl String?
-  order         Int      // Pour gérer l'ordre d'affichage
+  order         Int
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  descriptionEn String?
+  descriptionNl String?
+  titleEn       String?
+  titleNl       String?
 
   @@index([order])
 }
 
-// Modèle pour les chambres
 model Room {
   id            Int            @id @default(autoincrement())
   name          String
-  nameEn        String?
-  nameNl        String?
-  description   String         @db.Text
-  descriptionEn String?        @db.Text
-  descriptionNl String?        @db.Text
-  price         String         // Prix "à partir de"
-  priceEn       String?
-  priceNl       String?
+  description   String
+  price         String
   capacity      String
-  capacityEn    String?
-  capacityNl    String?
-  
-  // Nouvelles spécifications techniques
-  surface       String?        // ex: "25m²"
-  surfaceEn     String?
-  surfaceNl     String?
-  bedding       String?        // ex: "Lit King Size"
-  beddingEn     String?
-  beddingNl     String?
-  bathroom      String?        // ex: "Douche à l'italienne"
-  bathroomEn    String?
-  bathroomNl    String?
-  
-  // Détail des Tarifs
+  rating        Int            @default(5)
+  imageUrl      String
+  features      String[]
+  order         Int
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  bathroom      String?
+  bedding       String?
+  petsAllowed   Boolean        @default(true)
   price1Person  String?
   price2Persons String?
   price3Persons String?
-  
-  // Options
-  petsAllowed   Boolean        @default(true) 
-  
-  rating        Int            @default(5)
-  imageUrl      String         // Image principale (couverture)
-  bookingUrl    String?        // Lien direct Stardek pour la réservation (FR)
-  bookingUrlEn  String?        // Lien direct Stardek pour la réservation (EN)
-  bookingUrlNl  String?        // Lien direct Stardek pour la réservation (NL)
-  images        GalleryImage[] // Galerie complète de la chambre
-  features      String[]       // Array de fonctionnalités
-  order         Int            // Pour gérer l'ordre d'affichage
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  surface       String?
+  bathroomEn    String?
+  bathroomNl    String?
+  beddingEn     String?
+  beddingNl     String?
+  capacityEn    String?
+  capacityNl    String?
+  descriptionEn String?
+  descriptionNl String?
+  nameEn        String?
+  nameNl        String?
+  surfaceEn     String?
+  surfaceNl     String?
+  bookingUrl    String?
+  bookingUrlEn  String?
+  bookingUrlNl  String?
+  priceEn       String?
+  priceNl       String?
+  images        GalleryImage[]
 
   @@index([order])
 }
 
-// Modèle pour les témoignages
 model Testimonial {
-  id          Int      @id @default(autoincrement())
-  name        String
-  location    String
-  locationEn  String?
-  locationNl  String?
-  rating      Int      @default(5)
-  text        String   @db.Text
-  textEn      String?  @db.Text
-  textNl      String?  @db.Text
-  avatarUrl   String
-  order       Int      // Pour gérer l'ordre d'affichage
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  name       String
+  location   String
+  rating     Int      @default(5)
+  text       String
+  avatarUrl  String
+  order      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  locationEn String?
+  locationNl String?
+  textEn     String?
+  textNl     String?
 }
 
-// Modèle pour les images de la galerie
 model GalleryImage {
   id        Int      @id @default(autoincrement())
   url       String
-  category  String   // Chambres, Restaurant, Spa, Intérieur, Extérieur
+  category  String
   title     String
-  titleEn   String?
-  titleNl   String?
-  order     Int      // Pour gérer l'ordre d'affichage
-  roomId    Int?     // Relation optionnelle avec une chambre
-  room      Room?    @relation(fields: [roomId], references: [id], onDelete: SetNull)
+  order     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  roomId    Int?
+  titleEn   String?
+  titleNl   String?
+  room      Room?    @relation(fields: [roomId], references: [id])
 
   @@index([roomId])
   @@index([category])
   @@index([order])
 }
 
-// Modèle pour les événements
 model Event {
-  id            Int      @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   title         String
-  titleEn       String?
-  titleNl       String?
-  description   String   @db.Text
-  descriptionEn String?  @db.Text
-  descriptionNl String?  @db.Text
-  icon          String   // Nom de l'icône (Calendar, Users, MapPin, Clock, Utensils, Microphone, Heart)
+  description   String
+  icon          String
   imageUrl      String
   capacity      String
+  duration      String
+  order         Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  date          DateTime?
   capacityEn    String?
   capacityNl    String?
-  duration      String
+  descriptionEn String?
+  descriptionNl String?
   durationEn    String?
   durationNl    String?
-  date          DateTime? // Pour gérer l'affichage (passé/futur)
-  order         Int      // Pour gérer l'ordre d'affichage
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  titleEn       String?
+  titleNl       String?
 }
 
-// Modèle pour les hero des pages
 model PageHero {
+  id         Int      @id @default(autoincrement())
+  page       String   @unique
+  title      String
+  subtitle   String
+  imageUrl   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  subtitleEn String?
+  subtitleNl String?
+  titleEn    String?
+  titleNl    String?
+}
+
+model HomeRoomSection {
   id            Int      @id @default(autoincrement())
-  page          String   @unique // slug de la page (chambres, galerie, a-propos, evenements)
   title         String
   titleEn       String?
   titleNl       String?
-  subtitle      String   @db.Text
-  subtitleEn    String?  @db.Text
-  subtitleNl    String?  @db.Text
+  titleItalic   String
+  titleItalicEn String?
+  titleItalicNl String?
+  description   String
+  descriptionEn String?
+  descriptionNl String?
   imageUrl      String
+  ctaText       String?
+  ctaTextEn     String?
+  ctaTextNl     String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
 
-// Modèle pour la section Chambres de la page d'accueil (Teaser)
-model HomeRoomSection {
-  id               Int      @id @default(autoincrement())
-  title            String
-  titleEn          String?
-  titleNl          String?
-  titleItalic      String
-  titleItalicEn    String?
-  titleItalicNl    String?
-  description      String   @db.Text
-  descriptionEn    String?  @db.Text
-  descriptionNl    String?  @db.Text
-  imageUrl         String
-  ctaText          String?
-  ctaTextEn        String?
-  ctaTextNl        String?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-}
-
-// Modèle pour la page Carte Cadeau
 model GiftCardPage {
-  id              Int      @id @default(autoincrement())
-  introTitle      String
-  introTitleEn    String?
-  introTitleNl    String?
-  introDesc       String   @db.Text
-  introDescEn     String?  @db.Text
-  introDescNl     String?  @db.Text
-  imageUrl        String
-  badgeText1      String
-  badgeText1En    String?
-  badgeText1Nl    String?
-  badgeText2      String
-  badgeText2En    String?
-  badgeText2Nl    String?
-  benefits        String[]
-  benefitsEn      String[]
-  benefitsNl      String[]
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id           Int      @id @default(autoincrement())
+  introTitle   String
+  introTitleEn String?
+  introTitleNl String?
+  introDesc    String
+  introDescEn  String?
+  introDescNl  String?
+  imageUrl     String
+  badgeText1   String
+  badgeText1En String?
+  badgeText1Nl String?
+  badgeText2   String
+  badgeText2En String?
+  badgeText2Nl String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-// Modèle pour les forfaits Carte Cadeau
 model GiftCardPackage {
   id            Int      @id @default(autoincrement())
   title         String
   titleEn       String?
   titleNl       String?
-  description   String   @db.Text
-  descriptionEn String?  @db.Text
-  descriptionNl String?  @db.Text
+  description   String
+  descriptionEn String?
+  descriptionNl String?
   price         String
   priceEn       String?
   priceNl       String?
-  icon          String   // Star ou Heart
+  icon          String
   isPopular     Boolean  @default(false)
   order         Int      @default(0)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
 
-// Modèle pour la page Séminaires
 model SeminarPage {
-  id              Int      @id @default(autoincrement())
-  introTitle      String
-  introTitleEn    String?
-  introTitleNl    String?
-  introDesc       String   @db.Text
-  introDescEn     String?  @db.Text
-  introDescNl     String?  @db.Text
-  imageUrl        String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id           Int      @id @default(autoincrement())
+  introTitle   String
+  introTitleEn String?
+  introTitleNl String?
+  introDesc    String
+  introDescEn  String?
+  introDescNl  String?
+  imageUrl     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-// Modèle pour les atouts/points de vérification Séminaires
 model SeminarFeature {
   id            Int      @id @default(autoincrement())
   title         String
   titleEn       String?
   titleNl       String?
-  description   String   @db.Text
-  descriptionEn String?  @db.Text
-  descriptionNl String?  @db.Text
-  icon          String   // Nom de l'icône
-  type          String   // 'atout' ou 'checkpoint'
+  description   String
+  descriptionEn String?
+  descriptionNl String?
+  icon          String
+  type          String
   order         Int      @default(0)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
 
-// Modèle pour les forfaits Séminaires
 model SeminarPackage {
   id            Int      @id @default(autoincrement())
   title         String
   titleEn       String?
   titleNl       String?
-  description   String   @db.Text
-  descriptionEn String?  @db.Text
-  descriptionNl String?  @db.Text
+  description   String
+  descriptionEn String?
+  descriptionNl String?
   price         String?
   details       String[]
   detailsEn     String[]
@@ -351,7 +344,6 @@ model SeminarPackage {
   updatedAt     DateTime @updatedAt
 }
 
-// Modèle pour les abonnés à la newsletter
 model NewsletterSubscriber {
   id        Int      @id @default(autoincrement())
   email     String   @unique

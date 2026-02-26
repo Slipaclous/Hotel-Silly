@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Phone, ChevronDown } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { Link, usePathname } from '@/i18n/routing';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,7 +11,6 @@ import { useTranslations, useLocale } from 'next-intl';
 export default function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isServicesOpen, setServicesOpen] = useState(false);
   const pathname = usePathname();
   const t = useTranslations('nav');
   const c = useTranslations('common');
@@ -29,14 +28,11 @@ export default function Header() {
     { name: t('home'), href: '/' },
     { name: t('rooms'), href: '/chambres' },
     { name: t('gallery'), href: '/galerie' },
-    { name: t('about'), href: '/a-propos' },
-    { name: t('contact'), href: '/contact' },
-  ];
-
-  const servicesMenu = [
     { name: t('events'), href: '/evenements' },
     { name: t('seminars'), href: '/seminaires' },
     { name: t('giftCard'), href: '/carte-cadeau' },
+    { name: t('about'), href: '/a-propos' },
+    { name: t('contact'), href: '/contact' },
   ];
 
   if (pathname.startsWith('/admin')) {
@@ -55,7 +51,7 @@ export default function Header() {
       {/* Barre supérieure discrète */}
       <div className={`hidden lg:block border-b transition-all duration-300 ${(!isScrolled && !isMenuOpen) ? 'border-white/20' : 'border-[var(--color-gris-clair)]'
         }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-10">
             <div className="flex items-center space-x-6 text-xs">
               <span className={`font-body font-light ${(!isScrolled && !isMenuOpen) ? 'text-white/90' : 'text-[var(--color-gris)]'
@@ -83,7 +79,7 @@ export default function Header() {
       </div>
 
       {/* Navigation principale */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center h-20 ${isMenuOpen ? 'justify-between' : 'justify-end lg:justify-between'}`}>
           {/* Logo minimaliste */}
           <Link href="/" className={`items-center space-x-3 group ${isMenuOpen ? 'flex' : 'hidden lg:flex'}`}>
@@ -103,13 +99,13 @@ export default function Header() {
           </Link>
 
           {/* Navigation Desktop */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-2 xl:space-x-4">
             {navigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href as any}
                 prefetch={true}
-                className={`font-body text-sm font-light tracking-wide link-underline transition-colors duration-300 ${(!isScrolled && !isMenuOpen)
+                className={`font-body text-[11px] xl:text-[13px] font-light tracking-wide link-underline transition-colors duration-300 ${(!isScrolled && !isMenuOpen)
                   ? 'text-white hover:text-white/80'
                   : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
                   }`}
@@ -117,49 +113,6 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
-
-            {/* Menu déroulant Services */}
-            <div
-              className={`relative h-full flex items-center`}
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-            >
-              <button
-                className={`font-body text-sm font-light tracking-wide transition-colors duration-300 flex items-center space-x-1 h-full ${(!isScrolled && !isMenuOpen)
-                  ? 'text-white hover:text-white/80'
-                  : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
-                  }`}
-              >
-                <span>{t('services')}</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {/* Dropdown menu */}
-              <AnimatePresence>
-                {isServicesOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 pt-4 z-50"
-                  >
-                    <div className="bg-white shadow-elegant border border-noir/10 py-2 w-48 rounded-sm overflow-hidden">
-                      {servicesMenu.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href as any}
-                          prefetch={true}
-                          className="block px-4 py-3 font-body text-sm text-noir hover:bg-noir/[0.02] hover:text-or transition-colors duration-300"
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           </nav>
 
           {/* Bouton réservation */}
@@ -177,7 +130,7 @@ export default function Header() {
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`font-body text-xs font-bold uppercase tracking-widest px-8 py-3 border transition-all duration-500 shadow-md hover:shadow-lg ${(!isScrolled && !isMenuOpen)
+                className={`font-body text-[10px] xl:text-xs font-bold uppercase tracking-widest px-4 xl:px-6 py-3 border transition-all duration-500 shadow-md hover:shadow-lg ${(!isScrolled && !isMenuOpen)
                   ? 'border-white text-white hover:bg-white hover:text-[#2c3840] hover:border-white'
                   : 'border-[#2c3840] text-white bg-[#2c3840] hover:bg-[#C6ad7a] hover:border-[#C6ad7a]'
                   }`}
@@ -242,27 +195,6 @@ export default function Header() {
                   </motion.div>
                 ))}
 
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="pt-6 border-t border-noir/10 mt-6"
-                >
-                  <p className="font-body text-xs font-bold uppercase tracking-widest text-noir/40 mb-4">{t('services')}</p>
-                  <div className="space-y-3">
-                    {servicesMenu.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href as any}
-                        prefetch={true}
-                        className="block font-body text-lg text-noir/70 hover:text-or transition-colors"
-                        onClick={() => setMenuOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </motion.div>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}

@@ -30,6 +30,9 @@ export default function HeroEditor() {
     locationEn: '',
     locationNl: '',
     imageUrl: '',
+    footerDescription: '',
+    footerDescriptionEn: '',
+    footerDescriptionNl: '',
   });
 
   useEffect(() => {
@@ -58,6 +61,9 @@ export default function HeroEditor() {
           locationEn: data.locationEn || '',
           locationNl: data.locationNl || '',
           imageUrl: data.imageUrl || '',
+          footerDescription: data.footerDescription || '',
+          footerDescriptionEn: data.footerDescriptionEn || '',
+          footerDescriptionNl: data.footerDescriptionNl || '',
         });
       }
     } catch (error) {
@@ -191,6 +197,18 @@ export default function HeroEditor() {
                 onChange={handleChange}
                 rows={4}
                 placeholder="Décrivez brièvement l'expérience proposée..."
+                className={`${inputClasses} resize-none`}
+              />
+            </div>
+
+            <div>
+              <label className={labelClasses}>Description Footer ({activeLocale.toUpperCase()})</label>
+              <textarea
+                name={getFieldName('footerDescription')}
+                value={(formData as any)[getFieldName('footerDescription')]}
+                onChange={handleChange}
+                rows={3}
+                placeholder="Texte court sous le logo du pied de page..."
                 className={`${inputClasses} resize-none`}
               />
             </div>

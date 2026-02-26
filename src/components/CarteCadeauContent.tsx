@@ -31,9 +31,6 @@ interface GiftCardPageData {
     badgeText2: string;
     badgeText2En?: string | null;
     badgeText2Nl?: string | null;
-    benefits: string[];
-    benefitsEn: string[];
-    benefitsNl: string[];
 }
 
 interface GiftCardPackageData {
@@ -67,18 +64,6 @@ export default function CarteCadeauContent({ pageHero, initialData, initialPacka
         return fr;
     };
 
-    const benefits = initialData ?
-        (locale === 'en' ? (initialData.benefitsEn.length > 0 ? initialData.benefitsEn : initialData.benefits) :
-            locale === 'nl' ? (initialData.benefitsNl.length > 0 ? initialData.benefitsNl : initialData.benefits) :
-                initialData.benefits) :
-        [
-            t('benefits.stay'),
-            t('benefits.anytime'),
-            t('benefits.original'),
-            t('benefits.custom'),
-            t('benefits.validity'),
-            t('benefits.transfer')
-        ];
 
     return (
         <>
@@ -103,7 +88,7 @@ export default function CarteCadeauContent({ pageHero, initialData, initialPacka
                 {/* Decorative Pattern */}
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
-                <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+                <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-24 lg:pt-32">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -159,20 +144,6 @@ export default function CarteCadeauContent({ pageHero, initialData, initialPacka
                                 {initialData ? getLocalized(initialData.introDesc, initialData.introDescEn, initialData.introDescNl) : t('introDesc')}
                             </p>
 
-                            {/* Benefits List */}
-                            <div className="space-y-4 mb-10">
-                                {benefits.map((benefit, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex items-start space-x-3"
-                                    >
-                                        <div className="w-6 h-6 border border-[#C6ad7a] flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <Check className="w-4 h-4 text-[#C6ad7a]" />
-                                        </div>
-                                        <span className="font-body text-base text-[#2c3840]/80">{benefit}</span>
-                                    </div>
-                                ))}
-                            </div>
 
                             {/* CTA Button */}
                             <motion.div

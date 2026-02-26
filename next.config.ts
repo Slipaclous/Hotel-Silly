@@ -35,9 +35,10 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-eval' 'unsafe-inline'", // unsafe-eval est souvent requis par Next.js en dev, unsafe-inline pour certaines libs
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "img-src 'self' blob: data: https://res.cloudinary.com https://images.unsplash.com",
+              "img-src 'self' blob: data: https://res.cloudinary.com https://images.unsplash.com https://www.google.com https://maps.gstatic.com https://*.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "connect-src 'self' https://res.cloudinary.com",
+              "frame-src 'self' https://www.google.com https://maps.google.com",
               "frame-ancestors 'none'",
             ].join('; '),
           },
