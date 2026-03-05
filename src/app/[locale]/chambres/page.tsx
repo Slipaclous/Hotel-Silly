@@ -3,17 +3,18 @@ import { prisma } from '@/lib/prisma';
 
 export default async function ChambresPage() {
   // Récupération des données sur le serveur (SSR)
-  const [rooms, pageHero] = await Promise.all([
+  const [rooms, pageHero, roomServices] = await Promise.all([
     prisma.room.findMany({
       orderBy: { order: 'asc' },
       include: { images: { orderBy: { order: 'asc' } } }
     }),
-    prisma.pageHero.findFirst({ where: { page: 'chambres' } })
+    prisma.pageHero.findFirst({ where: { page: 'chambres' } }),
+    prisma.roomService.findMany({ orderBy: { order: 'asc' } })
   ]);
 
   return (
     <main className="min-h-screen bg-blanc">
-      <ChambresContent rooms={rooms} pageHero={pageHero} />
+      <ChambresContent rooms={rooms} pageHero={pageHero} roomServices={roomServices} />
     </main>
   );
 }

@@ -84,7 +84,7 @@ export default function Header() {
           {/* Logo minimaliste */}
           <Link href="/" className={`items-center space-x-3 group ${isMenuOpen ? 'flex' : 'hidden lg:flex'}`}>
             <div className="flex flex-col">
-              <div className={`relative h-62 w-62 transition-all duration-300 ${(!isScrolled && !isMenuOpen) ? 'invert brightness-0' : ''
+              <div className={`relative h-12 w-12 sm:h-16 sm:w-16 transition-all duration-300 ${(!isScrolled && !isMenuOpen) ? 'invert brightness-0' : ''
                 }`}>
                 <Image
                   src="/images/logo-clef.png"

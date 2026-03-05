@@ -58,7 +58,7 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
 
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden pt-20 lg:pt-32">
       {/* Image de fond optimisée */}
       <div className="absolute inset-0">
         {data.imageUrl && (
@@ -76,7 +76,7 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
       </div>
 
       {/* Contenu */}
-      <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-24 lg:pt-32">
+      <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,10 +85,10 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
           {/* Titre principal */}
           <h1 className="mb-6">
             <span className="sr-only">Hôtel de Silly - Villa Dolce - Luxe & Raffinement</span>
-            <span className="block font-body text-sm uppercase tracking-widest mb-4 text-white/80">
+            <span className="block font-body text-xs sm:text-sm uppercase tracking-[0.3em] mb-4 text-white/80">
               {subtitleFinal}
             </span>
-            <div className="relative h-98 w-full max-w-md mx-auto mb-2 brightness-0 invert">
+            <div className="relative h-32 sm:h-40 md:h-48 xl:h-56 w-full max-w-md mx-auto mb-2 brightness-0 invert">
               <Image
                 src="/images/logo-clef.png"
                 alt="Logo Hôtel de Silly - Villa Dolce"

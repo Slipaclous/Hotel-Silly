@@ -1,5 +1,5 @@
 "use client";
-import { Star, Wifi, Coffee, Car, Calendar as CalendarIcon, Images, Maximize2 } from 'lucide-react';
+import { Star, Wifi, Coffee, Car, Calendar as CalendarIcon, Images, Maximize2, Award, Heart, Shield, MapPin } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
@@ -59,7 +59,19 @@ interface PageHero {
     imageUrl: string;
 }
 
-export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pageHero: PageHero | null }) {
+interface RoomService {
+    id: number;
+    icon: string;
+    title: string;
+    titleEn?: string | null;
+    titleNl?: string | null;
+    description: string;
+    descriptionEn?: string | null;
+    descriptionNl?: string | null;
+}
+
+
+export default function ChambresContent({ rooms, pageHero, roomServices }: { rooms: Room[], pageHero: PageHero | null, roomServices: RoomService[] }) {
     const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
     const locale = useLocale();
     const t = useTranslations('rooms');
@@ -81,7 +93,7 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
             />
 
             {/* Hero Section - Full Height & Immersive */}
-            <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('welcome')} data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840]">
+            <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('welcome')} data-nav-is-dark="true" className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-[#2c3840] pt-20 lg:pt-32">
                 {/* Image de fond */}
                 {pageHero?.imageUrl && (
                     <>
@@ -101,7 +113,7 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                 {/* Decorative Pattern - Optional/Subtle */}
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
-                <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-24 lg:pt-32">
+                <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -241,18 +253,16 @@ export default function ChambresContent({ rooms, pageHero }: { rooms: Room[], pa
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        {[
-                            { icon: Wifi, title: t('wifi'), desc: t('wifiDesc') },
-                            { icon: Coffee, title: t('breakfast'), desc: t('breakfastDesc') },
-                            { icon: Car, title: t('parking'), desc: t('parkingDesc') },
-                            { icon: CalendarIcon, title: t('concierge'), desc: t('conciergeDesc') },
-                        ].map((item, idx) => (
-                            <div key={idx} className="bg-white p-8 border border-noir/5 text-center group hover:border-or/30 transition-colors duration-300">
-                                <item.icon className="w-8 h-8 text-noir mx-auto mb-6 group-hover:text-or transition-colors duration-300" />
-                                <h4 className="font-display text-xl mb-2">{item.title}</h4>
-                                <p className="font-body text-sm text-noir/60">{item.desc}</p>
-                            </div>
-                        ))}
+                        {roomServices.map((service, idx) => {
+                            const Icon = { Wifi, Coffee, Car, Calendar: CalendarIcon, Award, Heart, Shield, Star, MapPin }[service.icon] || Award;
+                            return (
+                                <div key={service.id} className="bg-white p-8 border border-noir/5 text-center group hover:border-or/30 transition-colors duration-300">
+                                    <Icon className="w-8 h-8 text-noir mx-auto mb-6 group-hover:text-or transition-colors duration-300" />
+                                    <h4 className="font-display text-xl mb-2">{getLocalized(service.title, service.titleEn, service.titleNl)}</h4>
+                                    <p className="font-body text-sm text-noir/60">{getLocalized(service.description, service.descriptionEn, service.descriptionNl)}</p>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
                 <div id="footer" data-nav-section="Infos" data-nav-is-dark="true"></div>

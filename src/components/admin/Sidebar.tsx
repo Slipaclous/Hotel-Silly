@@ -48,6 +48,7 @@ export default function Sidebar({
             subItems: [
                 { id: 'hero-chambres', label: 'Hero' },
                 { id: 'rooms', label: 'Catalogue' },
+                { id: 'services', label: 'Services Inclus' },
             ],
         },
         {

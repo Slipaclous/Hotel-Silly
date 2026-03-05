@@ -22,7 +22,7 @@ export default function GalleryEditor() {
   const [selectedCategory, setSelectedCategory] = useState<string>('Toutes');
   const [message, setMessage] = useState('');
 
-  const categories = ['Toutes', 'Chambres', 'Restaurant', 'Spa', 'Intérieur', 'Extérieur'];
+  const categories = ['Toutes', 'Chambres', 'Intérieur', 'Extérieur'];
 
   useEffect(() => {
     fetchImages();
@@ -209,7 +209,7 @@ function GalleryImageForm({ image, onCancel, onSuccess }: {
   });
   const [saving, setSaving] = useState(false);
 
-  const categories = ['Chambres', 'Restaurant', 'Spa', 'Intérieur', 'Extérieur'];
+  const categories = ['Chambres', 'Intérieur', 'Extérieur'];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

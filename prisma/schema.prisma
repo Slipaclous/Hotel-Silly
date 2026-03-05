@@ -349,3 +349,19 @@ model NewsletterSubscriber {
   email     String   @unique
   createdAt DateTime @default(now())
 }
+
+model RoomService {
+  id            Int      @id @default(autoincrement())
+  icon          String
+  title         String
+  titleEn       String?
+  titleNl       String?
+  description   String
+  descriptionEn String?
+  descriptionNl String?
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([order])
+}

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Save, Check, Home, Bed, Image as ImageIcon, Calendar, GraduationCap, Gift, Phone, Info, Loader2, CheckCircle2, Circle } from 'lucide-react';
 import AdminWrapper from './AdminWrapper';
 
-type TranslatableModel = 'Hero' | 'About' | 'Feature' | 'Room' | 'Testimonial' | 'Event' | 'PageHero' | 'GalleryImage';
+type TranslatableModel = 'Hero' | 'About' | 'Feature' | 'Room' | 'Testimonial' | 'Event' | 'PageHero' | 'GalleryImage' | 'RoomService';
 
 interface TranslationRow {
     id: number;
@@ -45,7 +45,8 @@ export default function TranslationsManager() {
                 { name: 'Testimonial', url: '/api/testimonials' },
                 { name: 'Event', url: '/api/events' },
                 { name: 'PageHero', url: '/api/page-hero' },
-                { name: 'GalleryImage', url: '/api/gallery' }
+                { name: 'GalleryImage', url: '/api/gallery' },
+                { name: 'RoomService', url: '/api/room-services' }
             ];
 
             const results = await Promise.all(
@@ -75,7 +76,8 @@ export default function TranslationsManager() {
                         'Testimonial': ['location', 'text'],
                         'Event': ['title', 'description', 'capacity', 'duration'],
                         'PageHero': ['title', 'subtitle'],
-                        'GalleryImage': ['title', 'category']
+                        'GalleryImage': ['title', 'category'],
+                        'RoomService': ['title', 'description']
                     };
 
                     const fields = fieldMap[res.name as TranslatableModel] || [];
@@ -93,6 +95,8 @@ export default function TranslationsManager() {
                         itemName = item.title || `Caractéristique #${item.id}`;
                     } else if (res.name === 'GalleryImage') {
                         itemName = item.title || `Image #${item.id}`;
+                    } else if (res.name === 'RoomService') {
+                        itemName = item.title || `Service #${item.id}`;
                     } else {
                         itemName = res.name;
                     }
@@ -125,7 +129,7 @@ export default function TranslationsManager() {
         fetchTranslations();
     }, [fetchTranslations]);
 
-    const handleUpdate = (model: TranslatableModel, id: number, field: string, lang: 'en' | 'nl', value: string) => {
+    const handleUpdate = (model: TranslatableModel, id: number, field: string, lang: 'fr' | 'en' | 'nl', value: string) => {
         const newTranslations = translations.map(t => {
             if (t.model === model && t.id === id && t.field === field) {
                 return { ...t, [lang]: value, isDirty: true };
@@ -161,7 +165,8 @@ export default function TranslationsManager() {
                 'Testimonial': `/api/testimonials/${row.id}`,
                 'Event': `/api/events/${row.id}`,
                 'PageHero': `/api/page-hero`,
-                'GalleryImage': `/api/gallery/${row.id}`
+                'GalleryImage': `/api/gallery/${row.id}`,
+                'RoomService': `/api/room-services/${row.id}`
             };
 
             const url = endpointMap[row.model];
@@ -253,7 +258,8 @@ export default function TranslationsManager() {
             icon: Bed,
             rows: [
                 ...translations.filter(t => t.model === 'PageHero' && t.itemName.includes('chambres')),
-                ...translations.filter(t => t.model === 'Room')
+                ...translations.filter(t => t.model === 'Room'),
+                ...translations.filter(t => t.model === 'RoomService')
             ]
         },
         {
@@ -313,7 +319,7 @@ export default function TranslationsManager() {
 
     // Apply incomplete filter
     const filteredRows = showOnlyIncomplete
-        ? currentPageData.rows.filter(r => !r.en || !r.nl)
+        ? currentPageData.rows.filter(r => !r.fr || !r.en || !r.nl)
         : currentPageData.rows;
 
     const fieldLabels: Record<string, string> = {
@@ -360,7 +366,7 @@ export default function TranslationsManager() {
     }
 
     const dirtyCount = currentPageData.rows.filter(r => r.isDirty).length;
-    const completedCount = currentPageData.rows.filter(r => r.en && r.nl).length;
+    const completedCount = currentPageData.rows.filter(r => r.fr && r.en && r.nl).length;
     const totalCount = currentPageData.rows.length;
 
     return (
@@ -376,7 +382,7 @@ export default function TranslationsManager() {
                         {pages.map((page) => {
                             const Icon = page.icon;
                             const isActive = activePage === page.pageKey;
-                            const pageCompleted = page.rows.filter(r => r.en && r.nl).length;
+                            const pageCompleted = page.rows.filter(r => r.fr && r.en && r.nl).length;
                             const pageTotal = page.rows.length;
                             const progress = pageTotal > 0 ? (pageCompleted / pageTotal) * 100 : 0;
 
@@ -502,7 +508,7 @@ export default function TranslationsManager() {
                             filteredRows.map((row) => {
                                 const rowKey = `${row.model}-${row.id}-${row.field}`;
                                 const isSaving = saving.has(rowKey);
-                                const isComplete = row.en && row.nl;
+                                const isComplete = row.fr && row.en && row.nl;
 
                                 return (
                                     <div
@@ -529,11 +535,15 @@ export default function TranslationsManager() {
                                             )}
                                         </div>
 
-                                        {/* French (Read-only) */}
+                                        {/* French */}
                                         <div className="col-span-3">
-                                            <div className="p-3 bg-noir/[0.02] rounded-lg border border-noir/5 min-h-[60px]">
-                                                <p className="text-xs text-noir leading-relaxed">{row.fr}</p>
-                                            </div>
+                                            <textarea
+                                                value={row.fr}
+                                                onChange={(e) => handleUpdate(row.model, row.id, row.field, 'fr', e.target.value)}
+                                                placeholder="Traduction française..."
+                                                rows={2}
+                                                className="w-full bg-white border border-noir/10 text-xs text-noir p-3 rounded-lg focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all resize-none placeholder:text-noir/20"
+                                            />
                                         </div>
 
                                         {/* English */}

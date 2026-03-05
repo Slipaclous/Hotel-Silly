@@ -18,6 +18,7 @@ import GiftCardEditor from '@/components/admin/GiftCardEditor';
 import SeminarEditor from '@/components/admin/SeminarEditor';
 import NewsletterManager from '@/components/admin/NewsletterManager';
 import UsersEditor from '@/components/admin/UsersEditor';
+import RoomServicesEditor from '@/components/admin/RoomServicesEditor';
 
 interface Admin {
   name: string;
@@ -108,6 +109,7 @@ export default function DashboardPage() {
             {activeSection === 'testimonials' && <TestimonialsEditor />}
             {activeSection === 'gallery' && <GalleryEditor />}
             {activeSection === 'events' && <EventsEditor />}
+            {activeSection === 'services' && <RoomServicesEditor />}
 
             {activeSection === 'hero-chambres' && <PageHeroEditor page="chambres" pageLabel="Page Chambres" />}
             {activeSection === 'hero-a-propos' && <PageHeroEditor page="a-propos" pageLabel="Page À Propos" />}

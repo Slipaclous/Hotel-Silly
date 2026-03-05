@@ -86,7 +86,7 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
     return (
         <>
             {/* Hero Section - Compact & Elegant */}
-            <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : heroTitle} data-nav-is-dark="true" className="relative h-[40vh] flex items-end justify-center pb-12 overflow-hidden bg-[#2c3840]">
+            <section id="hero" data-nav-section={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : heroTitle} data-nav-is-dark="true" className="relative h-[40vh] flex items-end justify-center pb-12 overflow-hidden bg-[#2c3840] pt-20 lg:pt-32">
                 {/* Image de fond */}
                 {pageHero?.imageUrl && (
                     <>
@@ -106,7 +106,7 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                 {/* Decorative Pattern */}
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
-                <div className="relative z-10 text-center text-white pt-24 lg:pt-32">
+                <div className="relative z-10 text-center text-white">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
