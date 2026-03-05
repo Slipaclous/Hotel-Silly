@@ -53,7 +53,8 @@
         "legal": "Mentions Légales",
         "privacy": "Politique de Confidentialité",
         "terms": "Conditions Générales",
-        "cookieSettings": "Paramètres des cookies"
+        "cookieSettings": "Paramètres des cookies",
+        "googleQrCode": "Scannez pour nous retrouver sur Google"
     },
     "rooms": {
         "title": "Chambres & Suites",

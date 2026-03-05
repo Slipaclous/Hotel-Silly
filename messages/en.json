@@ -53,7 +53,8 @@
         "legal": "Legal Notice",
         "privacy": "Privacy Policy",
         "terms": "General Terms",
-        "cookieSettings": "Cookie Settings"
+        "cookieSettings": "Cookie Settings",
+        "googleQrCode": "Scan to find us on Google"
     },
     "rooms": {
         "title": "Rooms & Suites",

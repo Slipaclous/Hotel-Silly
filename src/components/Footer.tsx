@@ -1,6 +1,6 @@
 'use client';
 
-import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Facebook, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link, usePathname } from '@/i18n/routing';
 import Image from 'next/image';
@@ -231,7 +231,8 @@ export default function Footer({ heroData }: { heroData?: any }) {
           <div className="md:col-span-4">
             <h4 className="font-display text-lg font-medium mb-6 mt-16">{t('stayConnected')}</h4>
 
-            {/* Newsletter */}
+            {/* Newsletter - Désactivée temporairement */}
+            {/* 
             <div className="mb-8">
               <h5 className="font-body text-xs uppercase tracking-widest text-white/60 mb-4">
                 {t('newsletterTitle')}
@@ -265,6 +266,35 @@ export default function Footer({ heroData }: { heroData?: any }) {
                 )}
               </form>
             </div>
+            */}
+
+            {/* QR Code Google */}
+            <div className="mb-8">
+              <h5 className="font-body text-xs uppercase tracking-widest text-white/60 mb-4">
+                Google
+              </h5>
+              <div className="flex flex-col space-y-4">
+                <p className="font-body text-sm text-white/70 leading-relaxed mb-2">
+                  {t('googleQrCode')}
+                </p>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="relative group w-fit"
+                >
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-or)] to-[#C6ad7a] rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                  <div className="relative bg-white p-3 rounded-xl shadow-2xl w-[140px] h-[140px]">
+                    <Image
+                      src="/images/qr.png"
+                      alt="QR Code Google"
+                      fill
+                      className="object-contain p-2"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+            </div>
 
             {/* Réseaux sociaux */}
             <div>
@@ -273,25 +303,22 @@ export default function Footer({ heroData }: { heroData?: any }) {
               </h5>
               <div className="flex items-center space-x-4">
                 <a
-                  href="#"
+                  href="https://www.facebook.com/profile.php?id=61578920094391&utm_source=ig&utm_medium=social&utm_content=link_in_bio"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-white/60 hover:text-[var(--color-or)] transition-colors duration-300"
                   aria-label="Facebook"
                 >
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/villadolce_silly?fbclid=IwY2xjawQWUiNleHRuA2FlbQIxMABicmlkETFibE1UbERjWHE2aTNpZDM1c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqyEmBZix46g7W7UqojrTZv317-9ut1hudwqh5BOAbBhO7ThvHLlNeQPNOKk_aem_6_qseKEhQxnK2zRhduZuTg"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-white/60 hover:text-[var(--color-or)] transition-colors duration-300"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="text-white/60 hover:text-[var(--color-or)] transition-colors duration-300"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="w-5 h-5" />
                 </a>
               </div>
             </div>

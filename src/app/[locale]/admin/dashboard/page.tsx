@@ -19,6 +19,7 @@ import SeminarEditor from '@/components/admin/SeminarEditor';
 import NewsletterManager from '@/components/admin/NewsletterManager';
 import UsersEditor from '@/components/admin/UsersEditor';
 import RoomServicesEditor from '@/components/admin/RoomServicesEditor';
+import QrCodeGenerator from '@/components/admin/QrCodeGenerator';
 
 interface Admin {
   name: string;
@@ -98,6 +99,7 @@ export default function DashboardPage() {
             )}
             {activePage === 'translations' && <TranslationsManager />}
             {activePage === 'newsletter' && <NewsletterManager />}
+            {activePage === 'qrcode' && <QrCodeGenerator />}
             {activePage === 'users' && <UsersEditor />}
 
             {activeSection === 'hero' && <HeroEditor />}

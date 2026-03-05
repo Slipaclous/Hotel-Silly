@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard, Globe, Gift, Users, Mail, Sparkles, ShieldCheck } from 'lucide-react';
+import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard, Globe, Gift, Users, Mail, Sparkles, ShieldCheck, QrCode } from 'lucide-react';
 import Image from 'next/image';
 
 interface SidebarProps {
@@ -117,6 +117,12 @@ export default function Sidebar({
             label: 'Newsletter',
             icon: Mail,
             section: 'newsletter',
+        },
+        {
+            id: 'qrcode',
+            label: 'Générateur QR',
+            icon: QrCode,
+            section: 'qrcode',
         },
     ];
 

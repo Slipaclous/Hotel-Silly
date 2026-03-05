@@ -53,7 +53,8 @@
         "legal": "Juridische Kennisgeving",
         "privacy": "Privacybeleid",
         "terms": "Algemene Voorwaarden",
-        "cookieSettings": "Cookie-instellingen"
+        "cookieSettings": "Cookie-instellingen",
+        "googleQrCode": "Scan om ons op Google te vinden"
     },
     "rooms": {
         "title": "Kamers & Suites",
