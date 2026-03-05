@@ -1,16 +1,20 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Save, Check, Home, Bed, Image as ImageIcon, Calendar, GraduationCap, Gift, Phone, Info, Loader2, CheckCircle2, Circle } from 'lucide-react';
+import { Save, Check, Home, Bed, Image as ImageIcon, Calendar, GraduationCap, Gift, Phone, Info, Loader2, CheckCircle2, Circle, Search, X, Menu, Layout } from 'lucide-react';
 import AdminWrapper from './AdminWrapper';
 
-type TranslatableModel = 'Hero' | 'About' | 'Feature' | 'Room' | 'Testimonial' | 'Event' | 'PageHero' | 'GalleryImage' | 'RoomService';
+type TranslatableModel =
+    | 'Hero' | 'About' | 'Feature' | 'Room' | 'Testimonial' | 'Event'
+    | 'PageHero' | 'GalleryImage' | 'RoomService' | 'HomeRoomSection'
+    | 'GiftCardPage' | 'GiftCardPackage' | 'SeminarPage' | 'SeminarFeature' | 'SeminarPackage';
 
 interface TranslationRow {
     id: number;
     model: TranslatableModel;
     field: string;
     itemName: string;
+    groupLabel?: string;
     fr: string;
     en: string;
     nl: string;
@@ -29,9 +33,10 @@ export default function TranslationsManager() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState<Set<string>>(new Set());
     const [message, setMessage] = useState('');
-    const [activePage, setActivePage] = useState('galerie');
+    const [activePage, setActivePage] = useState('accueil');
     const [autoSaveEnabled, setAutoSaveEnabled] = useState(true);
     const [showOnlyIncomplete, setShowOnlyIncomplete] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
     const autoSaveTimerRef = useRef<NodeJS.Timeout | null>(null);
 
     const fetchTranslations = useCallback(async () => {
@@ -46,7 +51,13 @@ export default function TranslationsManager() {
                 { name: 'Event', url: '/api/events' },
                 { name: 'PageHero', url: '/api/page-hero' },
                 { name: 'GalleryImage', url: '/api/gallery' },
-                { name: 'RoomService', url: '/api/room-services' }
+                { name: 'RoomService', url: '/api/room-services' },
+                { name: 'HomeRoomSection', url: '/api/home-room-section' },
+                { name: 'GiftCardPage', url: '/api/gift-card-page' },
+                { name: 'GiftCardPackage', url: '/api/gift-card-packages' },
+                { name: 'SeminarPage', url: '/api/seminar-page' },
+                { name: 'SeminarFeature', url: '/api/seminar-features' },
+                { name: 'SeminarPackage', url: '/api/seminar-packages' }
             ];
 
             const results = await Promise.all(
@@ -54,7 +65,7 @@ export default function TranslationsManager() {
                     try {
                         const res = await fetch(e.url);
                         const data = await res.json();
-                        return { name: e.name, data: Array.isArray(data) ? data : [data] };
+                        return { name: e.name, data: Array.isArray(data) ? data : (data ? [data] : []) };
                     } catch (err) {
                         console.error(`Error fetching ${e.name}:`, err);
                         return { name: e.name, data: [] };
@@ -70,33 +81,82 @@ export default function TranslationsManager() {
 
                     const fieldMap: Record<string, string[]> = {
                         'Hero': ['badge', 'title', 'subtitle', 'description', 'location', 'footerDescription'],
-                        'About': ['title', 'description', 'keyPoint1Title', 'keyPoint1Text', 'keyPoint2Title', 'keyPoint2Text', 'keyPoint3Title', 'keyPoint3Text', 'value1Title', 'value1Desc', 'value2Title', 'value2Desc', 'value3Title', 'value3Desc', 'lastSectionTitle', 'lastSectionDescription'],
+                        'About': ['title', 'description', 'keyPoint1Title', 'keyPoint1Text', 'keyPoint2Title', 'keyPoint2Text', 'keyPoint3Title', 'keyPoint3Text', 'value1Title', 'value1Desc', 'value2Title', 'value2Desc', 'value3Title', 'value3Desc', 'lastSectionTitle', 'lastSectionDescription', 'accessTitle', 'accessSubtitle', 'byCar', 'byTrain', 'byBus'],
                         'Feature': ['title', 'description'],
                         'Room': ['name', 'description', 'price', 'capacity', 'surface', 'bedding', 'bathroom'],
                         'Testimonial': ['location', 'text'],
                         'Event': ['title', 'description', 'capacity', 'duration'],
                         'PageHero': ['title', 'subtitle'],
-                        'GalleryImage': ['title', 'category'],
-                        'RoomService': ['title', 'description']
+                        'GalleryImage': ['title'],
+                        'RoomService': ['title', 'description'],
+                        'HomeRoomSection': ['title', 'titleItalic', 'description', 'ctaText'],
+                        'GiftCardPage': ['introTitle', 'introDesc', 'badgeText1', 'badgeText2'],
+                        'GiftCardPackage': ['title', 'description', 'price'],
+                        'SeminarPage': ['introTitle', 'introDesc'],
+                        'SeminarFeature': ['title', 'description'],
+                        'SeminarPackage': ['title', 'description', 'price']
                     };
 
                     const fields = fieldMap[res.name as TranslatableModel] || [];
 
                     let itemName = '';
+                    let groupLabel = '';
+
                     if (res.name === 'PageHero') {
-                        itemName = item.page || `Hero #${item.id}`;
+                        const pageNames: Record<string, string> = {
+                            'accueil': 'Accueil',
+                            'chambres': 'Chambres',
+                            'galerie': 'Galerie',
+                            'evenements': 'Événements',
+                            'seminaires': 'Séminaires',
+                            'carte-cadeau': 'Carte Cadeau',
+                            'contact': 'Contact',
+                            'a-propos': 'À Propos'
+                        };
+                        itemName = pageNames[item.page] || item.page;
+                        groupLabel = 'En-tête de page (Hero)';
                     } else if (res.name === 'Room') {
                         itemName = item.name || `Chambre #${item.id}`;
+                        groupLabel = 'Chambre';
                     } else if (res.name === 'Event') {
                         itemName = item.title || `Événement #${item.id}`;
+                        groupLabel = 'Événement';
                     } else if (res.name === 'Testimonial') {
-                        itemName = item.name || `Témoignage #${item.id}`;
+                        itemName = `Témoignage de ${item.name}` || `Témoignage #${item.id}`;
+                        groupLabel = 'Témoignage';
                     } else if (res.name === 'Feature') {
-                        itemName = item.title || `Caractéristique #${item.id}`;
+                        itemName = item.title || `Atout #${item.id}`;
+                        groupLabel = 'Atout';
                     } else if (res.name === 'GalleryImage') {
                         itemName = item.title || `Image #${item.id}`;
+                        groupLabel = 'Image Galerie';
                     } else if (res.name === 'RoomService') {
                         itemName = item.title || `Service #${item.id}`;
+                        groupLabel = 'Service Inclus';
+                    } else if (res.name === 'HomeRoomSection') {
+                        itemName = 'Section Chambres (Home)';
+                        groupLabel = 'Section Home';
+                    } else if (res.name === 'GiftCardPackage') {
+                        itemName = item.title || `Forfait Cadeau #${item.id}`;
+                        groupLabel = 'Forfait';
+                    } else if (res.name === 'SeminarFeature') {
+                        itemName = item.title || `Caractéristique #${item.id}`;
+                        groupLabel = 'Point fort';
+                    } else if (res.name === 'SeminarPackage') {
+                        itemName = item.title || `Forfait Séminaire #${item.id}`;
+                        groupLabel = 'Forfait';
+                    } else if (res.name === 'About') {
+                        itemName = 'Contenu À Propos';
+                        groupLabel = 'Corps de page';
+                    } else if (res.name === 'Hero') {
+                        itemName = 'Hero Principal';
+                        groupLabel = 'En-tête';
+                    } else if (res.name === 'GiftCardPage') {
+                        itemName = 'Introduction Cadeaux';
+                        groupLabel = 'Contenu';
+                    } else if (res.name === 'SeminarPage') {
+                        itemName = 'Introduction Séminaires';
+                        groupLabel = 'Contenu';
                     } else {
                         itemName = res.name;
                     }
@@ -107,6 +167,7 @@ export default function TranslationsManager() {
                             model: res.name as TranslatableModel,
                             field,
                             itemName,
+                            groupLabel,
                             fr: item[field] || '',
                             en: item[`${field}En`] || '',
                             nl: item[`${field}Nl`] || '',
@@ -166,7 +227,13 @@ export default function TranslationsManager() {
                 'Event': `/api/events/${row.id}`,
                 'PageHero': `/api/page-hero`,
                 'GalleryImage': `/api/gallery/${row.id}`,
-                'RoomService': `/api/room-services/${row.id}`
+                'RoomService': `/api/room-services/${row.id}`,
+                'HomeRoomSection': `/api/home-room-section`,
+                'GiftCardPage': `/api/gift-card-page`,
+                'GiftCardPackage': `/api/gift-card-packages/${row.id}`,
+                'SeminarPage': `/api/seminar-page`,
+                'SeminarFeature': `/api/seminar-features/${row.id}`,
+                'SeminarPackage': `/api/seminar-packages/${row.id}`
             };
 
             const url = endpointMap[row.model];
@@ -244,12 +311,26 @@ export default function TranslationsManager() {
     // Organize by pages
     const pages: PageData[] = [
         {
-            pageName: 'Galerie',
-            pageKey: 'galerie',
-            icon: ImageIcon,
+            pageName: 'Navigation',
+            pageKey: 'navigation',
+            icon: Menu,
+            rows: translations.filter(t => t.model === 'PageHero')
+        },
+        {
+            pageName: 'Pied de page',
+            pageKey: 'footer',
+            icon: Layout,
+            rows: translations.filter(t => t.model === 'Hero' && t.field === 'footerDescription')
+        },
+        {
+            pageName: "Page d'accueil",
+            pageKey: 'accueil',
+            icon: Home,
             rows: [
-                ...translations.filter(t => t.model === 'PageHero' && t.itemName.includes('galerie')),
-                ...translations.filter(t => t.model === 'GalleryImage')
+                ...translations.filter(t => t.model === 'Hero' && t.field !== 'footerDescription'),
+                ...translations.filter(t => t.model === 'Feature'),
+                ...translations.filter(t => t.model === 'HomeRoomSection'),
+                ...translations.filter(t => t.model === 'Testimonial')
             ]
         },
         {
@@ -257,7 +338,6 @@ export default function TranslationsManager() {
             pageKey: 'chambres',
             icon: Bed,
             rows: [
-                ...translations.filter(t => t.model === 'PageHero' && t.itemName.includes('chambres')),
                 ...translations.filter(t => t.model === 'Room'),
                 ...translations.filter(t => t.model === 'RoomService')
             ]
@@ -267,48 +347,51 @@ export default function TranslationsManager() {
             pageKey: 'evenements',
             icon: Calendar,
             rows: [
-                ...translations.filter(t => t.model === 'PageHero' && t.itemName.includes('evenements')),
                 ...translations.filter(t => t.model === 'Event')
             ]
         },
         {
-            pageName: 'Accueil',
-            pageKey: 'accueil',
-            icon: Home,
+            pageName: 'Galerie',
+            pageKey: 'galerie',
+            icon: ImageIcon,
             rows: [
-                ...translations.filter(t => t.model === 'Hero'),
-                ...translations.filter(t => t.model === 'Feature'),
-                ...translations.filter(t => t.model === 'Testimonial')
+                ...translations.filter(t => t.model === 'GalleryImage')
             ]
         },
         {
             pageName: 'Séminaires',
             pageKey: 'seminaires',
             icon: GraduationCap,
-            rows: translations.filter(t => t.model === 'PageHero' && t.itemName.includes('seminaires'))
+            rows: [
+                ...translations.filter(t => t.model === 'SeminarPage'),
+                ...translations.filter(t => t.model === 'SeminarFeature'),
+                ...translations.filter(t => t.model === 'SeminarPackage')
+            ]
         },
         {
             pageName: 'Carte-Cadeau',
             pageKey: 'carte-cadeau',
             icon: Gift,
-            rows: translations.filter(t => t.model === 'PageHero' && t.itemName.includes('carte-cadeau'))
-        },
-        {
-            pageName: 'Contact',
-            pageKey: 'contact',
-            icon: Phone,
-            rows: translations.filter(t => t.model === 'PageHero' && t.itemName.includes('contact'))
+            rows: [
+                ...translations.filter(t => t.model === 'GiftCardPage'),
+                ...translations.filter(t => t.model === 'GiftCardPackage')
+            ]
         },
         {
             pageName: 'À Propos',
             pageKey: 'a-propos',
             icon: Info,
             rows: [
-                ...translations.filter(t => t.model === 'PageHero' && t.itemName.includes('a-propos')),
                 ...translations.filter(t => t.model === 'About')
             ]
+        },
+        {
+            pageName: 'Contact',
+            pageKey: 'contact',
+            icon: Phone,
+            rows: [] // Les contenus de contact sont seulement dans PageHero (titre/sous-titre), maintenant dans Navigation
         }
-    ].filter(p => p.rows.length > 0);
+    ].filter(p => p.rows.length > 0 || p.pageKey === 'navigation');
 
     const currentPageData = pages.find(p => p.pageKey === activePage) || pages[0] || {
         pageName: 'Aucune page',
@@ -317,10 +400,21 @@ export default function TranslationsManager() {
         rows: []
     };
 
-    // Apply incomplete filter
-    const filteredRows = showOnlyIncomplete
-        ? currentPageData.rows.filter(r => !r.fr || !r.en || !r.nl)
-        : currentPageData.rows;
+    // Apply incomplete and search filters
+    const filteredRows = currentPageData.rows
+        .filter(r => !showOnlyIncomplete || (!r.fr || !r.en || !r.nl))
+        .filter(r => {
+            if (!searchQuery) return true;
+            const query = searchQuery.toLowerCase();
+            return (
+                r.itemName?.toLowerCase().includes(query) ||
+                r.field?.toLowerCase().includes(query) ||
+                r.fr?.toLowerCase().includes(query) ||
+                r.en?.toLowerCase().includes(query) ||
+                r.nl?.toLowerCase().includes(query) ||
+                r.groupLabel?.toLowerCase().includes(query)
+            );
+        });
 
     const fieldLabels: Record<string, string> = {
         'badge': 'Badge',
@@ -329,7 +423,7 @@ export default function TranslationsManager() {
         'description': 'Description',
         'location': 'Localisation',
         'name': 'Nom',
-        'price': 'Texte "À partir de"',
+        'price': 'Texte "À partir de" / Prix',
         'capacity': 'Capacité',
         'surface': 'Surface',
         'bedding': 'Literie',
@@ -352,6 +446,17 @@ export default function TranslationsManager() {
         'lastSectionTitle': 'Dernière Section - Titre',
         'lastSectionDescription': 'Dernière Section - Texte',
         'footerDescription': 'Description Footer',
+        'titleItalic': 'Titre Italique',
+        'ctaText': 'Bouton (CTA)',
+        'introTitle': 'Titre Introduction',
+        'introDesc': 'Texte Introduction',
+        'badgeText1': 'Badge Ligne 1',
+        'badgeText2': 'Badge Ligne 2',
+        'accessTitle': 'Accès - Titre',
+        'accessSubtitle': 'Accès - Sous-titre',
+        'byCar': 'Accès - Par voiture',
+        'byTrain': 'Accès - Par train',
+        'byBus': 'Accès - Par bus',
     };
 
     if (loading) {
@@ -409,25 +514,46 @@ export default function TranslationsManager() {
                 {/* Stats & Actions Bar */}
                 <div className="bg-white rounded-xl border border-noir/10 p-4">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-6">
-                            <div className="flex items-center space-x-2">
-                                <div className="w-32 h-2 bg-noir/5 rounded-full overflow-hidden">
+                        <div className="flex items-center space-x-4 flex-1 mr-8">
+                            {/* Progress bar */}
+                            <div className="flex items-center space-x-3 min-w-[140px]">
+                                <div className="w-24 h-2 bg-noir/5 rounded-full overflow-hidden border border-noir/[0.03]">
                                     <div
-                                        className="h-full bg-gradient-to-r from-or to-emerald-500 transition-all"
+                                        className="h-full bg-gradient-to-r from-or to-emerald-500 transition-all duration-1000"
                                         style={{ width: `${totalCount > 0 ? (completedCount / totalCount) * 100 : 0}%` }}
                                     />
                                 </div>
-                                <span className="text-sm font-medium text-noir/60">
-                                    {completedCount}/{totalCount}
+                                <span className="text-xs font-bold text-noir/40 whitespace-nowrap tracking-tight">
+                                    {completedCount} / {totalCount}
                                 </span>
                             </div>
 
+                            {/* Search bar */}
+                            <div className="relative flex-1 max-w-sm group">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-noir/20 group-focus-within:text-or transition-colors" />
+                                <input
+                                    type="text"
+                                    placeholder="Rechercher une traduction..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full pl-10 pr-10 py-2 bg-noir/[0.02] border border-noir/10 rounded-lg text-xs outline-none focus:ring-2 focus:ring-or/10 focus:border-or/40 focus:bg-white transition-all"
+                                />
+                                {searchQuery && (
+                                    <button
+                                        onClick={() => setSearchQuery('')}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 hover:bg-noir/5 rounded-full text-noir/40 hover:text-noir"
+                                    >
+                                        <X className="w-3 h-3" />
+                                    </button>
+                                )}
+                            </div>
+
                             {/* Filter Buttons */}
-                            <div className="flex items-center bg-noir/[0.02] p-1 rounded-lg border border-noir/10">
+                            <div className="flex items-center bg-noir/[0.02] p-1 rounded-lg border border-noir/10 shrink-0">
                                 <button
                                     onClick={() => setShowOnlyIncomplete(false)}
-                                    className={`px-3 py-1.5 rounded text-xs font-medium transition-all ${!showOnlyIncomplete
-                                        ? 'bg-white text-noir shadow-sm'
+                                    className={`px-3 py-1.5 rounded text-[11px] font-bold uppercase tracking-wider transition-all ${!showOnlyIncomplete
+                                        ? 'bg-white text-noir shadow-sm border border-noir/5'
                                         : 'text-noir/40 hover:text-noir'
                                         }`}
                                 >
@@ -435,8 +561,8 @@ export default function TranslationsManager() {
                                 </button>
                                 <button
                                     onClick={() => setShowOnlyIncomplete(true)}
-                                    className={`px-3 py-1.5 rounded text-xs font-medium transition-all ${showOnlyIncomplete
-                                        ? 'bg-white text-or shadow-sm'
+                                    className={`px-3 py-1.5 rounded text-[11px] font-bold uppercase tracking-wider transition-all ${showOnlyIncomplete
+                                        ? 'bg-white text-or shadow-sm border border-noir/5'
                                         : 'text-noir/40 hover:text-noir'
                                         }`}
                                 >
@@ -445,9 +571,9 @@ export default function TranslationsManager() {
                             </div>
 
                             {dirtyCount > 0 && (
-                                <div className="flex items-center space-x-2 px-3 py-1.5 bg-orange-50 text-orange-600 rounded-lg">
-                                    <Circle className="w-3 h-3 fill-current" />
-                                    <span className="text-xs font-medium">{dirtyCount} modification{dirtyCount > 1 ? 's' : ''} non enregistrée{dirtyCount > 1 ? 's' : ''}</span>
+                                <div className="flex items-center space-x-2 px-3 py-1.5 bg-orange-50 text-orange-600 rounded-lg border border-orange-100 animate-pulse">
+                                    <Circle className="w-2 h-2 fill-current" />
+                                    <span className="text-[10px] font-bold uppercase tracking-wider">{dirtyCount} en attente</span>
                                 </div>
                             )}
                         </div>
@@ -530,8 +656,10 @@ export default function TranslationsManager() {
                                                     {fieldLabels[row.field] || row.field}
                                                 </span>
                                             </div>
-                                            {row.itemName !== currentPageData.pageName && (
-                                                <p className="text-xs text-noir/40 pl-6">{row.itemName}</p>
+                                            {(row.groupLabel || (row.itemName !== currentPageData.pageName)) && (
+                                                <p className="text-[10px] text-noir/40 pl-6 uppercase tracking-wider font-bold">
+                                                    {row.groupLabel ? `${row.groupLabel} • ${row.itemName}` : row.itemName}
+                                                </p>
                                             )}
                                         </div>
 

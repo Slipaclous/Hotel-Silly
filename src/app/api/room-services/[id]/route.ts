@@ -5,10 +5,11 @@ import { revalidatePath } from 'next/cache';
 // PUT - Mettre à jour un service
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const id = parseInt(params.id);
+        const resolvedParams = await params;
+        const id = parseInt(resolvedParams.id);
         const data = await request.json();
 
         const service = await prisma.roomService.update({
@@ -39,10 +40,11 @@ export async function PUT(
 // DELETE - Supprimer un service
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const id = parseInt(params.id);
+        const resolvedParams = await params;
+        const id = parseInt(resolvedParams.id);
         await prisma.roomService.delete({
             where: { id },
         });
