@@ -243,30 +243,6 @@ export default function ChambresContent({ rooms, pageHero, roomServices }: { roo
                     })}
                 </div>
             </section>
-
-            {/* Services Highlight */}
-            <section id="services" data-nav-section={n('services')} className="py-24 bg-neutre-clair">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <span className="font-body text-xs text-or tracking-[0.2em] uppercase block mb-4">{c('comfort')}</span>
-                        <h3 className="font-display text-4xl text-noir">{c('includedServices')}</h3>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        {roomServices.map((service, idx) => {
-                            const Icon = { Wifi, Coffee, Car, Calendar: CalendarIcon, Award, Heart, Shield, Star, MapPin }[service.icon] || Award;
-                            return (
-                                <div key={service.id} className="bg-white p-8 border border-noir/5 text-center group hover:border-or/30 transition-colors duration-300">
-                                    <Icon className="w-8 h-8 text-noir mx-auto mb-6 group-hover:text-or transition-colors duration-300" />
-                                    <h4 className="font-display text-xl mb-2">{getLocalized(service.title, service.titleEn, service.titleNl)}</h4>
-                                    <p className="font-body text-sm text-noir/60">{getLocalized(service.description, service.descriptionEn, service.descriptionNl)}</p>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-                <div id="footer" data-nav-section="Infos" data-nav-is-dark="true"></div>
-            </section>
         </>
     );
 }
