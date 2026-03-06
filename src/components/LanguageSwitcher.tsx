@@ -6,7 +6,7 @@ import { Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
-export default function LanguageSwitcher({ isScrolled, isMenuOpen }: { isScrolled: boolean, isMenuOpen: boolean }) {
+export default function LanguageSwitcher({ isScrolled, isMenuOpen, direction = 'down' }: { isScrolled: boolean, isMenuOpen: boolean, direction?: 'up' | 'down' }) {
     const locale = useLocale();
     const router = useRouter();
     const pathname = usePathname();
@@ -32,9 +32,10 @@ export default function LanguageSwitcher({ isScrolled, isMenuOpen }: { isScrolle
             onMouseLeave={() => setIsOpen(false)}
         >
             <button
+                onClick={() => setIsOpen(!isOpen)}
                 className={`flex items-center space-x-2 px-3 py-1.5 rounded-full border transition-all duration-300 ${(!isScrolled && !isMenuOpen)
-                        ? 'border-white/20 text-white hover:bg-white/10'
-                        : 'border-noir/10 text-noir hover:bg-noir/5'
+                    ? 'border-white/20 text-white hover:bg-white/10'
+                    : 'border-noir/10 text-noir hover:bg-noir/5'
                     }`}
             >
                 <Globe className="w-3.5 h-3.5 opacity-60" />
@@ -44,10 +45,10 @@ export default function LanguageSwitcher({ isScrolled, isMenuOpen }: { isScrolle
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: direction === 'down' ? 10 : -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full right-0 pt-2 z-50"
+                        exit={{ opacity: 0, y: direction === 'down' ? 10 : -10 }}
+                        className={`absolute ${direction === 'down' ? 'top-full pt-2' : 'bottom-full pb-2'} right-0 z-50`}
                     >
                         <div className="bg-white shadow-elegant border border-noir/5 py-1.5 w-32 rounded-lg overflow-hidden">
                             {languages.map((lang) => (
@@ -55,8 +56,8 @@ export default function LanguageSwitcher({ isScrolled, isMenuOpen }: { isScrolle
                                     key={lang.code}
                                     onClick={() => handleLanguageChange(lang.code)}
                                     className={`w-full flex items-center space-x-3 px-4 py-2.5 text-[11px] font-body transition-colors duration-300 ${locale === lang.code
-                                            ? 'bg-noir/[0.03] text-or font-bold'
-                                            : 'text-noir hover:bg-noir/[0.02] hover:text-or'
+                                        ? 'bg-noir/[0.03] text-or font-bold'
+                                        : 'text-noir hover:bg-noir/[0.02] hover:text-or'
                                         }`}
                                 >
                                     <span className="text-sm">{lang.flag}</span>

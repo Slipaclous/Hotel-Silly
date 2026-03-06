@@ -80,11 +80,11 @@ export default function Header() {
 
       {/* Navigation principale */}
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex items-center h-20 ${isMenuOpen ? 'justify-between' : 'justify-end lg:justify-between'}`}>
+        <div className={`flex items-center transition-all duration-300 ${isMenuOpen ? 'h-20 justify-between' : 'h-20 lg:h-28 justify-end lg:justify-between'}`}>
           {/* Logo minimaliste */}
           <Link href="/" className={`items-center space-x-3 group ${isMenuOpen ? 'flex' : 'hidden lg:flex'}`}>
             <div className="flex flex-col">
-              <div className={`relative h-12 w-12 sm:h-16 sm:w-16 transition-all duration-300 ${(!isScrolled && !isMenuOpen) ? 'invert brightness-0' : ''
+              <div className={`relative h-12 w-12 sm:h-20 sm:w-20 lg:h-24 lg:w-24 xl:h-28 xl:w-28 transition-all duration-500 ${(!isScrolled && !isMenuOpen) ? 'invert brightness-0 scale-110' : 'scale-100'
                 }`}>
                 <Image
                   src="/images/logo-clef.png"
@@ -226,7 +226,7 @@ export default function Header() {
                 >
                   <div className="flex items-center justify-between mb-8">
                     <span className="text-xs font-body text-noir/40 uppercase tracking-widest">Langue</span>
-                    <LanguageSwitcher isScrolled={true} isMenuOpen={true} />
+                    <LanguageSwitcher isScrolled={true} isMenuOpen={true} direction="up" />
                   </div>
 
                   <div className="flex items-center space-x-4 p-4 bg-noir/5 rounded-xl">
