@@ -64,6 +64,7 @@
         "pets": "Animaux bienvenus",
         "petSupplement": "Supplément chien: 10€ / nuit",
         "surface": "Surface",
+        "capacity": "Capacité",
         "bedding": "Literie",
         "pricingTitle": "Tarifs par nuit",
         "person": "Personne",
@@ -305,8 +306,8 @@
         "learnMore": "En savoir plus"
     },
     "seo": {
-        "title": "Hôtel de Silly - Luxe & Raffinement",
-        "description": "Découvrez notre hôtel de luxe au cœur de Silly, où élégance et confort se rencontrent pour créer une expérience hôtelière exceptionnelle."
+        "title": "Villa Dolce - Hôtel d'Exception à Silly",
+        "description": "Découvrez la Villa Dolce, un hôtel de charme au cœur de Silly. Élégance, confort et raffinement pour un séjour inoubliable en Wallonie."
     },
     "booking": {
         "arrival": "Arrivée",

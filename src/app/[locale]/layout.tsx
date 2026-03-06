@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       title: t('title'),
       description: t('description'),
       url: `https://hotel-silly.com/${locale}`,
-      siteName: 'Hôtel de Silly',
+      siteName: 'Villa Dolce',
       locale: locale === 'en' ? 'en_US' : locale === 'nl' ? 'nl_BE' : 'fr_BE',
       type: 'website',
       images: [

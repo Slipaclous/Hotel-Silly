@@ -64,6 +64,7 @@
         "pets": "Pets welcome",
         "petSupplement": "Dog supplement: €10 / night",
         "surface": "Surface",
+        "capacity": "Capacity",
         "bedding": "Bedding",
         "pricingTitle": "Rates per night",
         "person": "Person",
@@ -303,8 +304,8 @@
         "learnMore": "Learn more"
     },
     "seo": {
-        "title": "Hôtel de Silly - Luxury & Refinement",
-        "description": "Discover our luxury hotel in the heart of Silly, where elegance and comfort meet to create an exceptional hotel experience."
+        "title": "Villa Dolce - Exceptional Boutique Hotel in Silly",
+        "description": "Discover Villa Dolce, a charming hotel in the heart of Silly. Elegance, comfort, and refinement for an unforgettable stay in Wallonia."
     },
     "booking": {
         "arrival": "Arrival",

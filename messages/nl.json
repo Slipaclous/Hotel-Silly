@@ -64,6 +64,7 @@
         "pets": "Huisdieren welkom",
         "petSupplement": "Toeslag hond: €10 / nacht",
         "surface": "Oppervlakte",
+        "capacity": "Capaciteit",
         "bedding": "Beddengoed",
         "pricingTitle": "Tarieven per nacht",
         "person": "Persoon",
@@ -305,8 +306,8 @@
         "learnMore": "Lees meer"
     },
     "seo": {
-        "title": "Hôtel de Silly - Luxe & Verfijning",
-        "description": "Ontdek ons luxe hotel in het hart van Silly, waar elegantie en comfort samenkomen voor een uitzonderlijke hotelervaring."
+        "title": "Villa Dolce - Uitzonderlijk Charmant Hotel in Silly",
+        "description": "Ontdek Villa Dolce, een charmant hotel in het hart van Silly. Elegantie, comfort en raffinement voor een onvergetelijk verblijf in Wallonië."
     },
     "booking": {
         "arrival": "Aankomst",

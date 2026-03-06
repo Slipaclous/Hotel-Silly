@@ -2,8 +2,8 @@ export default function StructuredData() {
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "Hotel",
-        "name": "Hôtel de Silly - Villa Dolce",
-        "description": "Hôtel de luxe et raffinement au cœur de Silly, Belgique.",
+        "name": "Villa Dolce",
+        "description": "Hôtel d'exception au cœur de Silly, Belgique. Élégance et raffinement pour un séjour inoubliable.",
         "image": "https://hotel-silly.vercel.app/images/logo.png",
         "address": {
             "@type": "PostalAddress",
