@@ -142,7 +142,7 @@ export default function ChambresContent({ rooms, pageHero, roomServices }: { roo
                                 id={`room-${room.id}`}
                             >
                                 {/* Image Side */}
-                                <div className="w-full lg:w-1/2 relative group sticky top-32">
+                                <div className="w-full lg:w-1/2 relative group lg:sticky lg:top-32">
                                     <div
                                         className="relative h-[400px] lg:h-[600px] overflow-hidden shadow-elegant-lg cursor-pointer group"
                                         onClick={() => setSelectedRoom(room)}
@@ -163,8 +163,14 @@ export default function ChambresContent({ rooms, pageHero, roomServices }: { roo
                                             </div>
                                         </div>
                                     </div>
-                                    {/* Decorative elements */}
-                                    <div className={`absolute -bottom-6 -z-10 w-2/3 h-2/3 border border-or/30 ${index % 2 === 0 ? '-left-6' : '-right-6'}`}></div>
+                                    {/* Decorative elements - Adjusted for responsive to avoid horizontal scroll */}
+                                    <div className={`absolute -z-10 w-2/3 h-2/3 border border-or/30 
+                                        -bottom-3 lg:-bottom-6 
+                                        ${index % 2 === 0
+                                            ? '-left-3 lg:-left-6'
+                                            : '-right-3 lg:-right-6'
+                                        }`}
+                                    ></div>
                                 </div>
 
                                 {/* Content Side */}
