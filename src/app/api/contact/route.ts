@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 const contactEmail = process.env.CONTACT_EMAIL || 'info@hoteldesilly.be';
 const senderEmail = process.env.SENDER_EMAIL || 'onboarding@resend.dev';
-const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://villadolce-hotel.com';
+const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.villadolce-hotel.com';
 
 export async function POST(request: NextRequest) {
     try {

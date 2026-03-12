@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://villadolce-hotel.com';
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.villadolce-hotel.com';
     const locales = ['fr', 'en', 'nl'];
     const pages = [
         '',

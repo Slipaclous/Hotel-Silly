@@ -77,7 +77,7 @@ export default function MentionsLegales() {
                         </div>
                         <div className="pl-12 space-y-4 text-noir/70 leading-relaxed text-sm">
                             <p>
-                                Les informations publiées sur le Site Internet (<span className="text-noir">https://villadolce-hotel.com</span>) ainsi que leur présentation et leurs caractéristiques sont fournies à titre purement informatif et n’ont aucun caractère contractuel.
+                                Les informations publiées sur le Site Internet (<span className="text-noir">https://www.villadolce-hotel.com</span>) ainsi que leur présentation et leurs caractéristiques sont fournies à titre purement informatif et n’ont aucun caractère contractuel.
                             </p>
                             <p>
                                 Ces informations ne constituent en aucun cas une déclaration, une garantie ou un engagement quelconque de la <span className="text-noir">SRL VILLA DOLCE</span> concernant un produit ou un service. En conséquence, la SRL VILLA DOLCE décline toute responsabilité, expresse ou implicite, quant à l’exactitude, la complétude, la fiabilité ou l’adéquation des informations à un usage particulier.

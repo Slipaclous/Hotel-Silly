@@ -89,7 +89,7 @@ export default function AdminLoginPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     className="w-full bg-noir/[0.02] border border-noir/10 text-noir pl-12 pr-4 py-4 rounded-xl focus:ring-2 focus:ring-or/10 focus:border-or/40 outline-none transition-all duration-300 placeholder:text-noir/20"
-                    placeholder="admin@villadolce-hotel.com"
+                    placeholder="admin@www.villadolce-hotel.com"
                   />
                 </div>
               </div>

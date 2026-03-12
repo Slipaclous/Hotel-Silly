@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://villadolce-hotel.com/sitemap.xml
+Sitemap: https://www.villadolce-hotel.com/sitemap.xml
 
 # Disallow admin and api routes
 Disallow: /admin

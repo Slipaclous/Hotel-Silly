@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   // S'assurer que l'URL est absolue pour les réseaux sociaux
   const fullOgImageUrl = ogImage.startsWith('http')
     ? ogImage
-    : `https://villadolce-hotel.com${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
+    : `https://www.villadolce-hotel.com${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
 
   return {
     title: t('title'),

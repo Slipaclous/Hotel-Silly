@@ -4,7 +4,7 @@ export default function StructuredData() {
         "@type": "Hotel",
         "name": "Villa Dolce",
         "description": "Hôtel d'exception au cœur de Silly, Belgique. Élégance et raffinement pour un séjour inoubliable.",
-        "image": "https://villadolce-hotel.com/images/logo.png",
+        "image": "https://www.villadolce-hotel.com/images/logo.png",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Place Communale 9",
@@ -17,7 +17,7 @@ export default function StructuredData() {
             "latitude": 50.6483, // Coordonnées approximatives de Silly
             "longitude": 3.9189
         },
-        "url": "https://villadolce-hotel.com",
+        "url": "https://www.villadolce-hotel.com",
         "telephone": "+32 470 13 73 13",
         "priceRange": "$$$",
         "amenityFeature": [
