@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t('title'),
     description: t('description'),
-    metadataBase: new URL('https://hotel-silly.com'), // À adapter selon votre vrai domaine
+    metadataBase: new URL('https://villadolce-hotel.com'),
     alternates: {
       canonical: `/${locale}`,
       languages: {
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: `https://hotel-silly.com/${locale}`,
+      url: `https://villadolce-hotel.com/${locale}`,
       siteName: 'Villa Dolce',
       locale: locale === 'en' ? 'en_US' : locale === 'nl' ? 'nl_BE' : 'fr_BE',
       type: 'website',

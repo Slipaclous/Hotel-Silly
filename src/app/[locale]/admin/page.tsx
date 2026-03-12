@@ -89,7 +89,7 @@ export default function AdminLoginPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     className="w-full bg-noir/[0.02] border border-noir/10 text-noir pl-12 pr-4 py-4 rounded-xl focus:ring-2 focus:ring-or/10 focus:border-or/40 outline-none transition-all duration-300 placeholder:text-noir/20"
-                    placeholder="admin@hotel-silly.com"
+                    placeholder="admin@villadolce-hotel.com"
                   />
                 </div>
               </div>
@@ -134,7 +134,7 @@ export default function AdminLoginPage() {
 
             <div className="mt-10 text-center">
               <p className="text-noir/20 text-[10px] font-body tracking-widest uppercase font-bold">
-                &copy; 2025 Hôtel de Silly &bull; Administration Privée
+                &copy; 2026 Villa Dolce &bull; Administration Privée
               </p>
             </div>
           </div>
