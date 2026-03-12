@@ -29,6 +29,22 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'seo' });
 
+  // Récupérer l'image du Hero pour l'utiliser comme image de partage (OG Image)
+  let ogImage = '/images/logo.png';
+  try {
+    const hero = await prisma.hero.findFirst();
+    if (hero?.imageUrl) {
+      ogImage = hero.imageUrl;
+    }
+  } catch (error) {
+    console.error('Error fetching hero for metadata:', error);
+  }
+
+  // S'assurer que l'URL est absolue pour les réseaux sociaux
+  const fullOgImageUrl = ogImage.startsWith('http')
+    ? ogImage
+    : `https://villadolce-hotel.com${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
+
   return {
     title: t('title'),
     description: t('description'),
@@ -50,7 +66,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       type: 'website',
       images: [
         {
-          url: '/images/logo.png',
+          url: fullOgImageUrl,
           width: 1200,
           height: 630,
           alt: t('title'),
@@ -61,7 +77,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       card: 'summary_large_image',
       title: t('title'),
       description: t('description'),
-      images: ['/images/logo.png'],
+      images: [fullOgImageUrl],
     },
     icons: {
       icon: "/favicon.ico",
