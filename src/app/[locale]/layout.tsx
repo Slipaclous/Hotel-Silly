@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'seo' });
 
   // Récupérer l'image du Hero pour l'utiliser comme image de partage (OG Image)
-  let ogImage = '/images/logo.png';
+  let ogImage = 'https://www.villadolce-hotel.com/images/logo.png';
   try {
     const hero = await prisma.hero.findFirst();
     if (hero?.imageUrl) {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t('title'),
     description: t('description'),
-    metadataBase: new URL('https://villadolce-hotel.com'),
+    metadataBase: new URL('https://www.villadolce-hotel.com'),
     alternates: {
       canonical: `/${locale}`,
       languages: {
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: `https://villadolce-hotel.com/${locale}`,
+      url: `https://www.villadolce-hotel.com/${locale}`,
       siteName: 'Villa Dolce',
       locale: locale === 'en' ? 'en_US' : locale === 'nl' ? 'nl_BE' : 'fr_BE',
       type: 'website',
