@@ -127,19 +127,6 @@ export default function AboutSection({ initialAbout, initialFeatures }: { initia
                 </p>
               </div>
             </div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block"
-            >
-              <Link
-                href="/a-propos"
-                className="inline-block font-body text-xs font-bold uppercase tracking-widest px-10 py-4 bg-[#2c3840] text-white hover:bg-[#C6ad7a] transition-all duration-500 shadow-lg hover:shadow-xl border border-[#2c3840] hover:border-[#C6ad7a]"
-              >
-                {t('discoverHistory')}
-              </Link>
-            </motion.div>
           </div>
 
           {/* Image */}
@@ -151,7 +138,7 @@ export default function AboutSection({ initialAbout, initialFeatures }: { initia
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-              />           
+              />
             </div>
           </div>
         </div>
