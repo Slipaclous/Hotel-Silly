@@ -147,7 +147,7 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                                         <div>
                                             <p className="font-display text-lg text-white">{t('phone')}</p>
                                             <a href="tel:+32212345678" className="font-body text-sm text-white/70 hover:text-[#C6ad7a] transition-colors">
-                                                +32 (0)2 123 45 67
+                                                +32 470 13 73 13
                                             </a>
                                         </div>
                                     </div>
