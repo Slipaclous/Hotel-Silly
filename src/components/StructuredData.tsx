@@ -1,5 +1,5 @@
 export default function StructuredData() {
-    const structuredData = {
+    const hotelData = {
         "@context": "https://schema.org",
         "@type": "Hotel",
         "name": "Villa Dolce",
@@ -14,7 +14,7 @@ export default function StructuredData() {
         },
         "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 50.6483, // Coordonnées approximatives de Silly
+            "latitude": 50.6483,
             "longitude": 3.9189
         },
         "url": "https://www.villadolce-hotel.com",
@@ -39,10 +39,42 @@ export default function StructuredData() {
         ]
     };
 
+    const websiteData = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Villa Dolce",
+        "url": "https://www.villadolce-hotel.com",
+        "logo": "https://www.villadolce-hotel.com/images/logo-simple.png"
+    };
+
+    const organizationData = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Villa Dolce",
+        "url": "https://www.villadolce-hotel.com",
+        "logo": "https://www.villadolce-hotel.com/images/logo-simple.png",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+32 470 13 73 13",
+            "contactType": "customer service"
+        }
+    };
+
     return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelData) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
+            />
+        </>
     );
 }
+

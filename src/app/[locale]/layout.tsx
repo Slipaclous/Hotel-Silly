@@ -80,10 +80,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       images: [fullOgImageUrl],
     },
     icons: {
-      icon: "/favicon.ico",
-      shortcut: "/images/logo.png",
-      apple: "/images/logo.png",
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/images/logo-simple.png", sizes: "32x32", type: "image/png" },
+      ],
+      apple: [
+        { url: "/images/logo-simple.png", sizes: "180x180", type: "image/png" },
+      ],
+      shortcut: "/favicon.ico",
     },
+
   };
 }
 
