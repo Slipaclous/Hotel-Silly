@@ -41,7 +41,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isMenuOpen
+      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${isMenuOpen
         ? 'bg-white shadow-elegant'
         : isScrolled
           ? 'bg-white/98 backdrop-blur-sm shadow-elegant'
@@ -80,86 +80,79 @@ export default function Header() {
 
       {/* Navigation principale */}
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex items-center transition-all duration-300 ${isMenuOpen ? 'h-20 justify-between' : 'h-20 lg:h-28 justify-end lg:justify-between'}`}>
-          {/* Logo minimaliste */}
-          <Link href="/" className={`items-center space-x-3 group ${isMenuOpen ? 'flex' : 'hidden lg:flex'}`}>
-            <div className="flex flex-col">
-              <div className={`relative h-12 w-12 sm:h-20 sm:w-20 lg:h-24 lg:w-24 xl:h-28 xl:w-28 transition-all duration-500 ${(!isScrolled && !isMenuOpen) ? 'invert brightness-0 scale-110' : 'scale-100'
-                }`}>
-                <Image
-                  src="/images/logo-clef.png"
-                  alt="Villa Dolce"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-
-            </div>
-          </Link>
-
-          {/* Navigation Desktop */}
-          <nav className="hidden lg:flex items-center space-x-2 xl:space-x-4">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href as any}
-                prefetch={true}
-                className={`font-body text-[11px] xl:text-[13px] font-light tracking-wide link-underline transition-colors duration-300 ${(!isScrolled && !isMenuOpen)
-                  ? 'text-white hover:text-white/80'
-                  : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
-                  }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Bouton réservation */}
-          <div className="hidden lg:block">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <a
-                href={locale === 'nl'
-                  ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=nl-NL'
-                  : locale === 'en'
-                    ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=en-GB'
-                    : 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=fr-FR'
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`font-body text-[10px] xl:text-xs font-bold uppercase tracking-widest px-4 xl:px-6 py-3 border transition-all duration-500 shadow-md hover:shadow-lg ${(!isScrolled && !isMenuOpen)
-                  ? 'border-white text-white hover:bg-white hover:text-[#2c3840] hover:border-white'
-                  : 'border-[#2c3840] text-white bg-[#2c3840] hover:bg-[#C6ad7a] hover:border-[#C6ad7a]'
-                  }`}
-              >
-                {c('book')}
-              </a>
-            </motion.div>
+        <div className={`flex items-center transition-all duration-300 h-20 lg:h-28`}>
+          {/* Mobile Left: Language Switcher */}
+          <div className="flex-1 lg:hidden relative z-[70]">
+            <LanguageSwitcher isScrolled={isScrolled} isMenuOpen={isMenuOpen} />
           </div>
 
-          <button
-            onClick={() => setMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 z-[60] relative group"
-            aria-label="Menu"
-          >
-            <div className="w-6 h-5 flex flex-col justify-between relative">
-              <span className={`block h-0.5 w-full transition-all duration-300 transform origin-center ${isMenuOpen
-                ? 'rotate-45 translate-y-[9px] bg-[#2c3840]'
-                : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
-                }`}></span>
-              <span className={`block h-0.5 w-full transition-all duration-300 ${isMenuOpen
-                ? 'opacity-0'
-                : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
-                }`}></span>
-              <span className={`block h-0.5 w-full transition-all duration-300 transform origin-center ${isMenuOpen
-                ? '-rotate-45 -translate-y-[9px] bg-[#2c3840]'
-                : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
-                }`}></span>
+          {/* Logo: Center on Mobile, Left on Desktop */}
+          <div className={`flex-1 lg:flex-initial flex justify-center lg:justify-start transition-all duration-300`}>
+            <Link href="/" className={`items-center space-x-3 group relative z-[70] ${isMenuOpen || isScrolled ? 'flex' : 'hidden lg:flex'}`}>
+              <div className="flex flex-col">
+                <div className={`relative h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 xl:h-28 xl:w-28 transition-all duration-500 ${(!isScrolled && !isMenuOpen) ? 'invert brightness-0 scale-110' : 'brightness-0 scale-110'
+                  }`}>
+                  <Image
+                    src="/images/logo-clef.png"
+                    alt="Villa Dolce"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Right Section: Booking (Desktop) and Burger (Mobile) */}
+          <div className="flex-1 lg:flex-initial flex justify-end items-center space-x-4">
+            {/* Bouton réservation Desktop */}
+            <div className="hidden lg:block">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <a
+                  href={locale === 'nl'
+                    ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=nl-NL'
+                    : locale === 'en'
+                      ? 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=en-GB'
+                      : 'https://bookingengine.mylighthouse.com/villa-dolce-silly?language=fr-FR'
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`font-body text-[10px] xl:text-xs font-bold uppercase tracking-widest px-4 xl:px-6 py-3 border transition-all duration-500 shadow-md hover:shadow-lg ${(!isScrolled && !isMenuOpen)
+                    ? 'border-white text-white hover:bg-white hover:text-[#2c3840] hover:border-white'
+                    : 'border-[#2c3840] text-white bg-[#2c3840] hover:bg-[#C6ad7a] hover:border-[#C6ad7a]'
+                    }`}
+                >
+                  {c('book')}
+                </a>
+              </motion.div>
             </div>
-          </button>
+
+            {/* Mobile Burger Button */}
+            <button
+              onClick={() => setMenuOpen(!isMenuOpen)}
+              className="lg:hidden p-2 z-[70] relative group"
+              aria-label="Menu"
+            >
+              <div className="w-6 h-5 flex flex-col justify-between relative">
+                <span className={`block h-0.5 w-full transition-all duration-300 transform origin-center ${isMenuOpen
+                  ? 'rotate-45 translate-y-[9px] bg-[#2c3840]'
+                  : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
+                  }`}></span>
+                <span className={`block h-0.5 w-full transition-all duration-300 ${isMenuOpen
+                  ? 'opacity-0'
+                  : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
+                  }`}></span>
+                <span className={`block h-0.5 w-full transition-all duration-300 transform origin-center ${isMenuOpen
+                  ? '-rotate-45 -translate-y-[9px] bg-[#2c3840]'
+                  : (isScrolled ? 'bg-[#2c3840]' : 'bg-white')
+                  }`}></span>
+              </div>
+            </button>
+          </div>
         </div>
 
         {/* Menu mobile Full Screen Overlay */}
@@ -170,7 +163,7 @@ export default function Header() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
               transition={{ type: "tween", duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-              className="fixed inset-0 bg-white z-[55] flex flex-col pt-32 px-8 lg:hidden"
+              className="fixed inset-0 bg-white z-[55] flex flex-col pt-32 px-8 lg:hidden overflow-y-auto"
             >
               {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-or/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
