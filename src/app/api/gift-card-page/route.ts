@@ -24,9 +24,10 @@ export async function PUT(request: NextRequest) {
         if (!page) {
             result = await model.create({ data });
         } else {
+            const { id: _, createdAt: __, updatedAt: ___, ...updateData } = data;
             result = await model.update({
                 where: { id: page.id },
-                data,
+                data: updateData,
             });
         }
 

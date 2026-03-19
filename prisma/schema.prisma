@@ -39,6 +39,15 @@ model Hero {
   footerDescription   String?
   footerDescriptionEn String?
   footerDescriptionNl String?
+  checkIn             String?
+  checkInEn           String?
+  checkInNl           String?
+  checkOut            String?
+  checkOutEn          String?
+  checkOutNl          String?
+  breakfast           String?
+  breakfastEn         String?
+  breakfastNl         String?
 }
 
 model About {

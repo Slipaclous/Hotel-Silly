@@ -28,9 +28,10 @@ export async function PUT(request: NextRequest) {
             result = await (prisma as any).homeRoomSection.create({ data });
         } else {
             // Mettre à jour
+            const { id: _, createdAt: __, updatedAt: ___, ...updateData } = data;
             result = await (prisma as any).homeRoomSection.update({
                 where: { id: section.id },
-                data,
+                data: updateData,
             });
         }
 

@@ -80,7 +80,7 @@ export default function Header() {
 
       {/* Navigation principale */}
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex items-center transition-all duration-300 h-20 lg:h-28`}>
+        <div className={`flex items-center justify-between transition-all duration-300 h-20 lg:h-28`}>
           {/* Mobile Left: Language Switcher */}
           <div className="flex-1 lg:hidden relative z-[70]">
             <LanguageSwitcher isScrolled={isScrolled} isMenuOpen={isMenuOpen} />
@@ -103,6 +103,23 @@ export default function Header() {
               </div>
             </Link>
           </div>
+
+          {/* Navigation Desktop */}
+          <nav className="hidden lg:flex items-center space-x-2 xl:space-x-4">
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href as any}
+                prefetch={true}
+                className={`font-body text-[11px] xl:text-[13px] font-light tracking-wide link-underline transition-colors duration-300 ${(!isScrolled && !isMenuOpen)
+                  ? 'text-white hover:text-white/80'
+                  : 'text-[var(--color-noir)] hover:text-[var(--color-or)]'
+                  }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
 
           {/* Right Section: Booking (Desktop) and Burger (Mobile) */}
           <div className="flex-1 lg:flex-initial flex justify-end items-center space-x-4">

@@ -2,6 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const item = await prisma.event.findUnique({
+      where: { id: parseInt(id) },
+    });
+    if (!item) return NextResponse.json({ error: 'Pas trouvé' }, { status: 404 });
+    return NextResponse.json(item);
+  } catch (error) {
+    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
+  }
+}
+
 // PUT - Mettre à jour un événement
 export async function PUT(
   request: NextRequest,

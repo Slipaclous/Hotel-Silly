@@ -26,9 +26,10 @@ export async function PUT(request: NextRequest) {
     if (!about) {
       result = await prisma.about.create({ data });
     } else {
+      const { id: _, createdAt: __, updatedAt: ___, ...updateData } = data;
       result = await prisma.about.update({
         where: { id: about.id },
-        data,
+        data: updateData,
       });
     }
 

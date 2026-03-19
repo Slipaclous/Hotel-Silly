@@ -28,9 +28,10 @@ export async function PUT(request: NextRequest) {
       result = await prisma.hero.create({ data });
     } else {
       // Mettre à jour
+      const { id: _, createdAt: __, updatedAt: ___, ...updateData } = data;
       result = await prisma.hero.update({
         where: { id: hero.id },
-        data,
+        data: updateData,
       });
     }
 

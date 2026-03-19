@@ -2,6 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
+export async function GET(
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    try {
+        const { id } = await params;
+        const numericId = parseInt(id);
+        const result = await (prisma as any).seminarPackage.findUnique({
+            where: { id: numericId },
+        });
+        if (!result) return NextResponse.json({ error: 'Pas trouvé' }, { status: 404 });
+        return NextResponse.json(result);
+    } catch (error) {
+        return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
+    }
+}
+
 export async function PUT(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }

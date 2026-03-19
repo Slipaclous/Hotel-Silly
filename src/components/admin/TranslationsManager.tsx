@@ -80,7 +80,7 @@ export default function TranslationsManager() {
                     if (!item) return;
 
                     const fieldMap: Record<string, string[]> = {
-                        'Hero': ['badge', 'title', 'subtitle', 'description', 'location', 'footerDescription'],
+                        'Hero': ['badge', 'title', 'subtitle', 'description', 'location', 'footerDescription', 'checkIn', 'checkOut', 'breakfast'],
                         'About': ['title', 'description', 'keyPoint1Title', 'keyPoint1Text', 'keyPoint2Title', 'keyPoint2Text', 'keyPoint3Title', 'keyPoint3Text', 'value1Title', 'value1Desc', 'value2Title', 'value2Desc', 'value3Title', 'value3Desc', 'lastSectionTitle', 'lastSectionDescription', 'accessTitle', 'accessSubtitle', 'byCar', 'byTrain', 'byBus'],
                         'Feature': ['title', 'description'],
                         'Room': ['name', 'description', 'price', 'capacity', 'surface', 'bedding', 'bathroom'],
@@ -457,6 +457,9 @@ export default function TranslationsManager() {
         'byCar': 'Accès - Par voiture',
         'byTrain': 'Accès - Par train',
         'byBus': 'Accès - Par bus',
+        'checkIn': 'Horaire Check-in',
+        'checkOut': 'Horaire Check-out',
+        'breakfast': 'Horaire Petit-déjeuner',
     };
 
     if (loading) {

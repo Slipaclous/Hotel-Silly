@@ -110,6 +110,32 @@ export default function Footer({ heroData }: { heroData?: any }) {
                 </span>
               </div>
 
+              <div className="pt-4 space-y-3">
+                <div className="flex items-center space-x-3 opacity-60">
+                  <Clock className="w-4 h-4 text-[var(--color-or)] flex-shrink-0" />
+                  <p className="font-body text-xs">
+                    {(locale === 'nl' ? heroData?.checkInNl :
+                      locale === 'en' ? heroData?.checkInEn :
+                        heroData?.checkIn) || "Check-in à partir de 14h"}
+                  </p>
+                </div>
+                <div className="flex items-center space-x-3 opacity-60">
+                  <div className="w-4 h-4" /> {/* Spacer to align */}
+                  <p className="font-body text-xs">
+                    {(locale === 'nl' ? heroData?.checkOutNl :
+                      locale === 'en' ? heroData?.checkOutEn :
+                        heroData?.checkOut) || "Check-out à 10h"}
+                  </p>
+                </div>
+                <div className="flex items-center space-x-3 opacity-60">
+                  <Clock className="w-4 h-4 text-[var(--color-or)] flex-shrink-0" />
+                  <p className="font-body text-xs">
+                    {(locale === 'nl' ? heroData?.breakfastNl :
+                      locale === 'en' ? heroData?.breakfastEn :
+                        heroData?.breakfast) || "Petit déjeuner de 7h à 10h"}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
