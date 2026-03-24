@@ -156,7 +156,7 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                                         <Mail className="w-5 h-5 text-[#C6ad7a] mt-1" />
                                         <div>
                                             <p className="font-display text-lg text-white">{t('email')}</p>
-                                            <a href="mailto:info@hoteldesilly.be" className="font-body text-sm text-white/70 hover:text-[#C6ad7a] transition-colors">
+                                            <a href="mailto:info@dolcehotel-silly.com" className="font-body text-sm text-white/70 hover:text-[#C6ad7a] transition-colors">
                                                 info@dolcehotel-silly.com
                                             </a>
                                         </div>
