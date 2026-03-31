@@ -109,7 +109,8 @@
         "locationTitle": "Notre Emplacement",
         "locationDesc": "Situé au cœur de Silly, village pittoresque de la Région Wallonne, notre hôtel vous offre un accès privilégié aux principales attractions belges tout en préservant le calme et la serrénité d'un cadre exceptionnel.",
         "historyTitle": "Notre Histoire",
-        "historyDesc": "Fondé en {year}, notre hôtel allie tradition et modernité pour offrir une expérience unique où chaque détail a été pensé pour votre confort et votre bien-être.",
+        "historyDesc": "Fondé en {year}, notre hôtel allie tradition et modernité pour offrir une expérience unique où chaque detail a été pensé pour votre confort et votre bien-être.",
+        "historySectionTitle": "Un Héritage de Prestige",
         "engagementTitle": "Notre Engagement",
         "engagementDesc": "Notre équipe dédiée s'engage à anticiper vos besoins et à rendre votre séjour exceptionnel. Nous mettons un point d'honneur à offrir un service personnalisé de qualité supérieure.",
         "activities": [

@@ -75,6 +75,13 @@ interface AboutData {
     value3Desc?: string | null;
     value3DescEn?: string | null;
     value3DescNl?: string | null;
+    historyTitle?: string | null;
+    historyTitleEn?: string | null;
+    historyTitleNl?: string | null;
+    historyText?: string | null;
+    historyTextEn?: string | null;
+    historyTextNl?: string | null;
+    historyImageUrl?: string | null;
 }
 
 interface Feature {
@@ -164,6 +171,11 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
 
     const value3Title = getLocalized(data.value3Title || '', data.value3TitleEn, data.value3TitleNl) || getLocalized(data.lastSectionTitle || '', data.lastSectionTitleEn, data.lastSectionTitleNl) || t('engagementTitle');
     const value3Desc = getLocalized(data.value3Desc || '', data.value3DescEn, data.value3DescNl) || getLocalized(data.lastSectionDescription || '', data.lastSectionDescriptionEn, data.lastSectionDescriptionNl) || t('engagementDesc');
+
+    // Nouvelles données pour la section Histoire
+    const historyTitle = getLocalized(data.historyTitle || '', data.historyTitleEn, data.historyTitleNl);
+    const historyText = getLocalized(data.historyText || '', data.historyTextEn, data.historyTextNl);
+    const historyImageUrl = data.historyImageUrl;
 
     return (
         <>
@@ -277,6 +289,36 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                             );
                         })}
                     </div>
+
+                    {/* Section Histoire (Optionnelle) */}
+                    {historyText && (
+                        <div id="history" data-nav-section={historyTitle || t('historySectionTitle')} className="mt-32 pt-24 border-t border-noir/5">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                                {/* Image à gauche pour alterner */}
+                                <div className={`relative h-[500px] overflow-hidden order-2 ${historyImageUrl ? 'lg:order-1' : 'hidden'}`}>
+                                    {historyImageUrl && (
+                                        <Image
+                                            src={historyImageUrl}
+                                            alt={historyTitle || "Histoire de l'établissement"}
+                                            fill
+                                            className="object-cover"
+                                            sizes="(max-width: 768px) 100vw, 50vw"
+                                        />
+                                    )}
+                                </div>
+
+                                <div className={`order-1 ${historyImageUrl ? 'lg:order-2' : 'lg:col-span-2'}`}>
+                                    <div className="w-12 h-px bg-or mb-6"></div>
+                                    <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
+                                        {historyTitle || t('historySectionTitle')}
+                                    </h2>
+                                    <div className="font-body text-lg text-noir/70 leading-relaxed space-y-6 whitespace-pre-wrap">
+                                        {historyText}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Section Accès & Activités */}
                     <div id="access" data-nav-section={accessTitle} className="mb-24">

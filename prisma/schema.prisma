@@ -122,6 +122,13 @@ model About {
   value3Title              String?
   value3TitleEn            String?
   value3TitleNl            String?
+  historyTitle             String?
+  historyTitleEn           String?
+  historyTitleNl           String?
+  historyText              String?
+  historyTextEn            String?
+  historyTextNl            String?
+  historyImageUrl          String?
 }
 
 model Feature {

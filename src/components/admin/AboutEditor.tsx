@@ -83,6 +83,13 @@ export default function AboutEditor() {
     value3Desc: '',
     value3DescEn: '',
     value3DescNl: '',
+    historyTitle: '',
+    historyTitleEn: '',
+    historyTitleNl: '',
+    historyText: '',
+    historyTextEn: '',
+    historyTextNl: '',
+    historyImageUrl: '',
   });
 
   useEffect(() => {
@@ -163,6 +170,13 @@ export default function AboutEditor() {
           value3Desc: data.value3Desc || '',
           value3DescEn: data.value3DescEn || '',
           value3DescNl: data.value3DescNl || '',
+          historyTitle: data.historyTitle || '',
+          historyTitleEn: data.historyTitleEn || '',
+          historyTitleNl: data.historyTitleNl || '',
+          historyText: data.historyText || '',
+          historyTextEn: data.historyTextEn || '',
+          historyTextNl: data.historyTextNl || '',
+          historyImageUrl: data.historyImageUrl || '',
         });
       }
     } catch (error) {
@@ -513,6 +527,68 @@ export default function AboutEditor() {
                       Aucune activité ajoutée pour cette langue.
                     </p>
                   )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Notre Histoire */}
+        <section className="relative">
+          <div className="flex items-center space-x-4 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-lg">
+              <History className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 font-display">Notre Histoire</h3>
+              <p className="text-[12px] text-slate-500 font-medium">Une section dédiée pour raconter l&apos;histoire de l&apos;établissement avec une photo.</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <div className="lg:col-span-3 space-y-6">
+              <div className="bg-white p-1 rounded-2xl">
+                <label className={labelClasses}>
+                  <Type className="w-3.5 h-3.5" />
+                  <span>Titre de la section Histoire ({activeLocale.toUpperCase()})</span>
+                </label>
+                <input
+                  type="text"
+                  name={getFieldName('historyTitle')}
+                  value={(formData as any)[getFieldName('historyTitle')]}
+                  onChange={handleChange}
+                  placeholder="ex: Plus d'un siècle d'histoire..."
+                  className={inputClasses}
+                />
+              </div>
+
+              <div className="bg-white p-1 rounded-2xl">
+                <label className={labelClasses}>
+                  <AlignLeft className="w-3.5 h-3.5" />
+                  <span>Texte de l&apos;histoire ({activeLocale.toUpperCase()})</span>
+                </label>
+                <textarea
+                  name={getFieldName('historyText')}
+                  value={(formData as any)[getFieldName('historyText')]}
+                  onChange={handleChange}
+                  rows={8}
+                  placeholder="Racontez l'histoire détaillée..."
+                  className={`${inputClasses} resize-none min-h-[220px] leading-relaxed`}
+                />
+              </div>
+            </div>
+
+            <div className="lg:col-span-2">
+              <div className="sticky top-24">
+                <div className="bg-white p-1 rounded-2xl">
+                  <ImageUpload
+                    value={formData.historyImageUrl}
+                    onChange={(url) => setFormData({ ...formData, historyImageUrl: url })}
+                    label="Photo d'époque ou historique (Commun)"
+                  />
+                  <div className="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-100 italic text-[11px] text-slate-500 leading-relaxed">
+                    Astuce : Une photo en noir et blanc ou une image du bâtiment d&apos;origine renforce l&apos;authenticité de votre récit.
+                  </div>
                 </div>
               </div>
             </div>
