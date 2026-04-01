@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'seo' });
   
@@ -13,7 +13,10 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   };
 }
 
-export default async function CollaborationsPage() {
+export default async function CollaborationsPage({ params }: { params: Promise<{ locale: string }> }) {
+  // Await params to avoid type error in Next.js 15
+  await params;
+
   // Récupération des données sur le serveur (SSR)
   const [collaborations, pageHero] = await Promise.all([
     prisma.collaboration.findMany({ orderBy: { order: 'asc' } }),
