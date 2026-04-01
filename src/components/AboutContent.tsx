@@ -218,8 +218,37 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
             </section>
 
             {/* Contenu Principal */}
-            <section id="overview" data-nav-section={t('discovery')} className="py-24 bg-blanc">
+            <section id="overview" data-nav-section={t('discovery')} className="py-24 bg-blanc font-body">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Section Histoire (Optionnelle) - Déplacée en premier */}
+                    {historyText && (
+                        <div id="history" data-nav-section={historyTitle || t('historySectionTitle')} className="mb-32">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                                {/* Image à gauche pour alterner */}
+                                <div className={`relative h-[500px] overflow-hidden order-2 ${historyImageUrl ? 'lg:order-1' : 'hidden'}`}>
+                                    {historyImageUrl && (
+                                        <Image
+                                            src={historyImageUrl}
+                                            alt={historyTitle || "Histoire de l'établissement"}
+                                            fill
+                                            className="object-cover"
+                                            sizes="(max-width: 768px) 100vw, 50vw"
+                                        />
+                                    )}
+                                </div>
+
+                                <div className={`order-1 ${historyImageUrl ? 'lg:order-2' : 'lg:col-span-2'}`}>
+                                    <div className="w-12 h-px bg-or mb-6"></div>
+                                    <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
+                                        {historyTitle || t('historySectionTitle')}
+                                    </h2>
+                                    <div className="font-body text-lg text-noir/70 leading-relaxed space-y-6 whitespace-pre-wrap font-light">
+                                        {historyText}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
                         {/* Contenu */}
                         <div>
@@ -289,36 +318,6 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                             );
                         })}
                     </div>
-
-                    {/* Section Histoire (Optionnelle) */}
-                    {historyText && (
-                        <div id="history" data-nav-section={historyTitle || t('historySectionTitle')} className="mt-32 pt-24 border-t border-noir/5">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                                {/* Image à gauche pour alterner */}
-                                <div className={`relative h-[500px] overflow-hidden order-2 ${historyImageUrl ? 'lg:order-1' : 'hidden'}`}>
-                                    {historyImageUrl && (
-                                        <Image
-                                            src={historyImageUrl}
-                                            alt={historyTitle || "Histoire de l'établissement"}
-                                            fill
-                                            className="object-cover"
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                        />
-                                    )}
-                                </div>
-
-                                <div className={`order-1 ${historyImageUrl ? 'lg:order-2' : 'lg:col-span-2'}`}>
-                                    <div className="w-12 h-px bg-or mb-6"></div>
-                                    <h2 className="font-display text-4xl sm:text-5xl font-medium text-noir mb-6">
-                                        {historyTitle || t('historySectionTitle')}
-                                    </h2>
-                                    <div className="font-body text-lg text-noir/70 leading-relaxed space-y-6 whitespace-pre-wrap">
-                                        {historyText}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
 
                     {/* Section Accès & Activités */}
                     <div id="access" data-nav-section={accessTitle} className="mb-24">
