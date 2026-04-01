@@ -381,3 +381,19 @@ model RoomService {
 
   @@index([order])
 }
+
+model Collaboration {
+  id            Int      @id @default(autoincrement())
+  name          String
+  description   String[]
+  descriptionEn String[]
+  descriptionNl String[]
+  phone         String?
+  website       String?
+  imageUrl      String
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([order])
+}

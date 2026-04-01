@@ -29,6 +29,7 @@
         "services": "Services",
         "seminars": "Séminaires",
         "giftCard": "Carte-Cadeau",
+        "collaborations": "Collaborations",
         "openingSoon": "Ouverture Printemps 2025"
     },
     "footer": {
@@ -314,5 +315,14 @@
         "arrival": "Arrivée",
         "departure": "Départ",
         "check": "Vérifier"
+    },
+    "collaborations": {
+        "heroTitle": "Nos Collaborations",
+        "heroSubtitle": "Découvrez les partenaires qui contribuent à l'excellence de notre hôtel 🤝",
+        "introTitle": "Des Partenariats Locaux & Durables",
+        "introDesc": "Nous sommes fiers de collaborer avec des artisans et des entreprises de notre région pour vous offrir une expérience authentique.",
+        "call": "Appeler le Partenaire",
+        "visitWebsite": "Visiter le Site Web",
+        "noCollaborations": "Aucune collaboration pour le moment."
     }
 }

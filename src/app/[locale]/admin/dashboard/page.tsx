@@ -20,6 +20,7 @@ import NewsletterManager from '@/components/admin/NewsletterManager';
 import UsersEditor from '@/components/admin/UsersEditor';
 import RoomServicesEditor from '@/components/admin/RoomServicesEditor';
 import QrCodeGenerator from '@/components/admin/QrCodeGenerator';
+import CollaborationsEditor from '@/components/admin/CollaborationsEditor';
 
 interface Admin {
   name: string;
@@ -112,6 +113,7 @@ export default function DashboardPage() {
             {activeSection === 'gallery' && <GalleryEditor />}
             {activeSection === 'events' && <EventsEditor />}
             {activeSection === 'services' && <RoomServicesEditor />}
+            {activeSection === 'collaborations' && <CollaborationsEditor />}
 
             {activeSection === 'hero-chambres' && <PageHeroEditor page="chambres" pageLabel="Page Chambres" />}
             {activeSection === 'hero-a-propos' && <PageHeroEditor page="a-propos" pageLabel="Page À Propos" />}
@@ -123,6 +125,7 @@ export default function DashboardPage() {
             {activeSection === 'hero-seminaires' && (
               activePage === 'seminaires' ? <SeminarEditor /> : <PageHeroEditor page="seminaires" pageLabel="Page Séminaires" />
             )}
+            {activeSection === 'hero-collaborations' && <PageHeroEditor page="collaborations" pageLabel="Page Collaborations" />}
           </div>
         </div>
       </main>

@@ -31,6 +31,7 @@ export default function Header() {
     { name: t('events'), href: '/evenements' },
     { name: t('seminars'), href: '/seminaires' },
     { name: t('giftCard'), href: '/carte-cadeau' },
+    { name: t('collaborations'), href: '/collaborations' },
     { name: t('about'), href: '/a-propos' },
     { name: t('contact'), href: '/contact' },
   ];

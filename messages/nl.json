@@ -29,6 +29,7 @@
         "services": "Diensten",
         "seminars": "Seminars",
         "giftCard": "Cadeaubon",
+        "collaborations": "Samenwerkingen",
         "openingSoon": "Opening Lente 2025"
     },
     "footer": {
@@ -314,5 +315,14 @@
         "arrival": "Aankomst",
         "departure": "Vertrek",
         "check": "Controleer"
+    },
+    "collaborations": {
+        "heroTitle": "Onze Samenwerkingen",
+        "heroSubtitle": "Ontdek de partners die bijdragen aan de uitmuntendheid van ons hotel 🤝",
+        "introTitle": "Lokale & Duurzame Partnerschappen",
+        "introDesc": "We zijn trots op onze samenwerking met lokale ambachtslieden en bedrijven om u een authentieke ervaring te bieden.",
+        "call": "Partner Bellen",
+        "visitWebsite": "Website Bezoeken",
+        "noCollaborations": "Momenteel geen samenwerkingen."
     }
 }

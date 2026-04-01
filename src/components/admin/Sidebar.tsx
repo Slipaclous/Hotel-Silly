@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard, Globe, Gift, Users, Mail, Sparkles, ShieldCheck, QrCode } from 'lucide-react';
+import { Home, Info, Bed, Image as ImageIcon, Calendar, ChevronRight, LogOut, LayoutDashboard, Globe, Gift, Users, Mail, Sparkles, ShieldCheck, QrCode, Handshake } from 'lucide-react';
 import Image from 'next/image';
 
 interface SidebarProps {
@@ -98,6 +98,16 @@ export default function Sidebar({
             section: 'hero-seminaires',
             subItems: [
                 { id: 'hero-seminaires', label: 'Hero' },
+            ],
+        },
+        {
+            id: 'collaborations',
+            label: 'Collaborations',
+            icon: Handshake,
+            section: 'hero-collaborations',
+            subItems: [
+                { id: 'hero-collaborations', label: 'Hero' },
+                { id: 'collaborations', label: 'Partenaires' },
             ],
         },
         {
