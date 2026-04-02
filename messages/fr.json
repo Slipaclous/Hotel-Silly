@@ -23,7 +23,7 @@
         "rooms": "Chambres & Suites",
         "about": "À Propos",
         "gallery": "Galerie",
-        "events": "Événements",
+        "events": "Nos Formules",
         "testimonials": "Témoignages",
         "contact": "Contact",
         "services": "Services",
@@ -222,8 +222,8 @@
         }
     },
     "eventsPage": {
-        "heroTitle": "Vie Locale & Découvertes",
-        "heroSubtitle": "Explorez Silly et ses environs : un patrimoine riche et des événements authentiques.",
+        "heroTitle": "Nos Formules",
+        "heroSubtitle": "Découvrez nos offres personnalisées pour un séjour d'exception à la Villa Dolce.",
         "introTitle": "Silly, Terre de Partage et de Culture",
         "introDesc": "Séjourner à la Villa Dolce, c'est s'offrir une immersion dans une région dynamique.",
         "upcomingTitle": "Agenda",
@@ -252,7 +252,7 @@
         "ctaTitle": "Besoin de conseils pour votre séjour ?",
         "ctaDesc": "Notre conciergerie est à votre disposition pour vous guider.",
         "ctaButton": "Demander conseil",
-        "learnMore": "En savoir plus"
+        "learnMore": "Pré-réserver"
     },
     "giftCard": {
         "heroTitle": "Carte-Cadeau Villa Dolce",

@@ -21,6 +21,9 @@ interface Event {
     duration: string;
     date?: string | Date | null;
     order: number;
+    bookingUrl?: string | null;
+    bookingUrlEn?: string | null;
+    bookingUrlNl?: string | null;
 }
 
 interface PageHero {
@@ -116,26 +119,28 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                 </div>
             </section>
 
-            {/* Introduction */}
-            <section id="agenda" data-nav-section={t('upcomingTitle')} className="py-24 bg-blanc">
+            {/* Introduction avec Grille Staggered */}
+            <section id="agenda" data-nav-section={t('upcomingTitle')} className="py-24 md:py-32 bg-blanc">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-
-                    {/* Grille Événements À Venir */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+                    {/* Grille Formules Staggered */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 lg:gap-y-32">
                         {events.filter(e => !e.date || new Date(e.date) >= new Date()).map((event, index) => {
                             const IconComponent = iconMap[event.icon] || CalendarIcon;
+                            const isEven = index % 2 !== 0;
                             return (
-                                <EventCard key={event.id} event={event} IconComponent={IconComponent} index={index} getLocalized={getLocalized} />
+                                <div key={event.id} className={`${isEven ? 'md:mt-32' : ''}`}>
+                                    <EventCard event={event} IconComponent={IconComponent} index={index} getLocalized={getLocalized} />
+                                </div>
                             );
                         })}
                     </div>
 
-                    {/* Section Événements Passés (si existants) */}
+                    {/* Section Formules Passées */}
                     {events.some(e => e.date && new Date(e.date) < new Date()) && (
-                        <div className="mt-24 pt-24 border-t border-noir/10">
+                        <div className="mt-48 pt-32 border-t border-noir/10">
                             <div className="text-center mb-16">
-                                <h3 className="font-display text-3xl font-medium text-noir/60 mb-4">
+                                <span className="text-[10px] uppercase tracking-[0.3em] text-or font-bold mb-4 block">Archives</span>
+                                <h3 className="font-display text-4xl font-medium text-noir mb-4 uppercase">
                                     {t('pastTitle')}
                                 </h3>
                                 <p className="font-body text-noir/50">
@@ -143,7 +148,7 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 opacity-75 grayscale hover:grayscale-0 transition-all duration-500">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 opacity-80 grayscale hover:grayscale-0 transition-all duration-700">
                                 {events.filter(e => e.date && new Date(e.date) < new Date()).map((event, index) => {
                                     const IconComponent = iconMap[event.icon] || CalendarIcon;
                                     return (
@@ -156,8 +161,8 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                 </div>
             </section>
 
-            {/* Section Services */}
-            <section id="curiosities" data-nav-section={t('curiositiesTitle')} className="py-24 bg-blanc-200">
+            {/* Section Services / Curiosités */}
+            <section id="curiosities" data-nav-section={t('curiositiesTitle')} className="py-24 md:py-32 bg-blanc-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <div className="w-12 h-px bg-or mx-auto mb-6"></div>
@@ -170,11 +175,8 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-                        {services.map((service, index) => (
-                            <div
-                                key={service.title}
-                                className="text-center"
-                            >
+                        {services.map((service) => (
+                            <div key={service.title} className="text-center">
                                 <div className="w-16 h-16 border border-noir/20 flex items-center justify-center mx-auto mb-6 hover:border-or transition-colors duration-300">
                                     <service.icon className="w-7 h-7 text-or" />
                                 </div>
@@ -190,28 +192,28 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                 </div>
             </section>
 
-            {/* CTA Contact */}
-            <section className="py-24 bg-[#f7f5ef] text-[#2c3840]">
+            {/* CTA Contact Final */}
+            <section className="py-24 md:py-32 bg-[#f7f5ef] text-[#2c3840]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <div>
                         <div className="w-12 h-px bg-[#C6ad7a] mx-auto mb-6"></div>
                         <h2 className="font-display text-4xl sm:text-5xl font-medium mb-6">
                             {t('ctaTitle')}
                         </h2>
-                        <p className="font-body text-lg text-[#2c3840]/70 mb-8 max-w-2xl mx-auto leading-relaxed">
+                        <p className="font-body text-lg text-[#2c3840]/70 mb-10 max-w-2xl mx-auto leading-relaxed">
                             {t('ctaDesc')}
                         </p>
                         <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                             className="inline-block"
                         >
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center space-x-3 bg-[#2c3840] text-white px-10 py-5 font-body text-sm font-medium hover:bg-[#C6ad7a] transition-all duration-500 shadow-lg hover:shadow-2xl border border-[#2c3840] hover:border-[#C6ad7a] group"
+                                className="inline-flex items-center space-x-4 bg-[#2c3840] text-white px-12 py-6 font-body text-sm font-bold tracking-[0.2em] uppercase hover:bg-or transition-all duration-700 shadow-xl hover:shadow-or/30 group"
                             >
-                                <span className="tracking-widest uppercase">{t('ctaButton')}</span>
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-500" />
+                                <span>{t('ctaButton')}</span>
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-700" />
                             </Link>
                         </motion.div>
                     </div>
@@ -237,75 +239,113 @@ function EventCard({
     const t = useTranslations('eventsPage');
     const locale = useLocale();
 
+    const title = getLocalized(event.title, event.titleEn, event.titleNl);
+    const description = getLocalized(event.description, event.descriptionEn, event.descriptionNl);
+    const lines = description.split('\n').filter(l => l.trim() !== '');
+
     return (
-        <div className={`bg-white border border-noir/10 overflow-hidden card-hover group ${compact ? 'text-sm' : ''}`}>
-            {/* Image */}
-            <div className={`relative ${compact ? 'h-48' : 'h-64'} overflow-hidden`}>
-                {event.imageUrl && (
-                    <Image
-                        src={event.imageUrl}
-                        alt={`${getLocalized(event.title, event.titleEn, event.titleNl)} - Événement Villa Dolce Silly`}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                )}
+        <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+            className={`group bg-blanc relative ${compact ? '' : 'p-4 md:p-6'}`}
+        >
+            {/* Double Border Decorative Effect */}
+            {!compact && (
+                <div className="absolute inset-0 border border-noir/5 -m-2 pointer-events-none transition-transform duration-1000 group-hover:scale-[1.02]"></div>
+            )}
 
-                {/* Icône */}
-                <div className={`absolute top-6 left-6 bg-white ${compact ? 'p-2' : 'p-3'} shadow-elegant`}>
-                    <IconComponent className={`${compact ? 'w-4 h-4' : 'w-6 h-6'} text-or`} />
-                </div>
-            </div>
-
-            {/* Contenu */}
-            <div className={`${compact ? 'p-6' : 'p-8'}`}>
-                <h3 className={`font-display ${compact ? 'text-lg' : 'text-2xl'} font-medium text-noir mb-3`}>
-                    {getLocalized(event.title, event.titleEn, event.titleNl)}
-                </h3>
-                <p className={`font-body ${compact ? 'text-xs' : 'text-sm'} text-noir/70 mb-6 leading-relaxed whitespace-pre-wrap`}>
-                    {getLocalized(event.description, event.descriptionEn, event.descriptionNl)}
-                </p>
-
-                {/* Infos */}
-                <div className={`space-y-3 mb-8 pb-6 border-b border-noir/10`}>
-                    <div className="flex items-center space-x-3 text-noir/60">
-                        <MapPin className="w-4 h-4" />
-                        <span className="font-body text-sm">{event.capacity}</span>
-                    </div>
-                    <div className="flex items-center space-x-3 text-noir/60">
-                        <CalendarIcon className="w-4 h-4" />
-                        <span className="font-body text-sm">{event.duration}</span>
-                    </div>
-                    {event.date && (
-                        <div className="flex items-center space-x-3 text-noir/40 italic">
-                            <Clock className="w-3 h-3" />
-                            <span className="font-body text-xs">
-                                {new Date(event.date).toLocaleDateString(locale === 'fr' ? 'fr-FR' : (locale === 'nl' ? 'nl-BE' : 'en-GB'), {
-                                    day: 'numeric',
-                                    month: 'long',
-                                    year: 'numeric'
-                                })}
-                            </span>
+            <div className={`relative bg-white border border-noir/10 overflow-hidden flex flex-col h-full ${compact ? 'rounded-none' : 'rounded-none shadow-sm group-hover:shadow-2xl transition-all duration-1000'}`}>
+                {/* Image Section */}
+                <div className={`relative ${compact ? 'h-56' : 'h-80 lg:h-[450px]'} overflow-hidden`}>
+                    {event.imageUrl && (
+                        <Image
+                            src={event.imageUrl}
+                            alt={`${title} - Villa Dolce`}
+                            fill
+                            className="object-cover transition-transform duration-[2s] group-hover:scale-110"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                    )}
+                    {/* Badge Durée */}
+                    {!compact && (
+                        <div className="absolute top-0 right-0 bg-[#2c3840] text-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.3em] z-10 transition-colors group-hover:bg-or">
+                            {event.duration}
                         </div>
                     )}
                 </div>
 
-                {/* Bouton CTA */}
-                {!compact && (
-                    <motion.div
-                        whileHover={{ y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                    >
-                        <Link
-                            href="/contact"
-                            className="group/btn w-full bg-[#2c3840] text-white py-4 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 flex items-center justify-center space-x-3 shadow-md hover:shadow-lg border border-[#2c3840] hover:border-[#C6ad7a]"
-                        >
-                            <span>{t('learnMore')}</span>
-                            <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-500" />
-                        </Link>
-                    </motion.div>
-                )}
+                    {/* Content Section */}
+                    <div className="flex-1 flex flex-col items-center text-center ${compact ? 'p-8' : 'p-10 lg:p-16'}">
+                        {/* Catégorie / Capacité */}
+                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-or mb-8">
+                            {event.capacity}
+                        </span>
+
+                        <h3 className={`font-display font-medium text-noir uppercase tracking-tight mb-10 ${compact ? 'text-xl' : 'text-3xl lg:text-5xl lg:leading-tight'}`}>
+                            {title}
+                        </h3>
+
+                        {!compact && (
+                            <>
+                                <div className="w-16 h-px bg-or/30 mb-8" />
+                                
+                                <div 
+                                    className="rich-text-content space-y-4 mb-14 text-sm lg:text-base font-body text-noir/70 tracking-wide leading-relaxed"
+                                    dangerouslySetInnerHTML={{ __html: description }}
+                                />
+                            </>
+                        )}
+
+                        {compact && (
+                            <div 
+                                className="text-xs text-noir/60 line-clamp-3 mb-8 font-body italic overflow-hidden"
+                                dangerouslySetInnerHTML={{ __html: description }}
+                            />
+                        )}
+
+                    {/* Footer Date (si présent) */}
+                    {!compact && event.date && (
+                        <div className="mt-auto mb-12 text-[10px] text-noir/30 uppercase tracking-[0.2em] font-bold">
+                            {new Date(event.date).toLocaleDateString(locale === 'fr' ? 'fr-FR' : (locale === 'nl' ? 'nl-BE' : 'en-GB'), {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                            })}
+                        </div>
+                    )}
+
+                    {/* CTA Button Rectangular Full-Width */}
+                    {!compact && (
+                        <div className="w-full mt-auto">
+                            {(() => {
+                                const bookingUrl = getLocalized(event.bookingUrl || '', event.bookingUrlEn, event.bookingUrlNl);
+                                const href = bookingUrl || "/contact";
+                                const isExternal = href.startsWith('http');
+                                const buttonContent = (
+                                    <span className="uppercase tracking-[0.3em] text-[11px] font-bold">{t('learnMore')}</span>
+                                );
+                                const className = "block w-full py-6 bg-[#2c3840] text-white hover:bg-or transition-all duration-700 shadow-lg hover:shadow-or/20 active:scale-[0.99] transform-gpu";
+
+                                if (isExternal) {
+                                    return (
+                                        <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+                                            {buttonContent}
+                                        </a>
+                                    );
+                                }
+
+                                return (
+                                    <Link href={href as any} className={className}>
+                                        {buttonContent}
+                                    </Link>
+                                );
+                            })()}
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

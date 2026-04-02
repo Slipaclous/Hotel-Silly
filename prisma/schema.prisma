@@ -242,6 +242,9 @@ model Event {
   durationNl    String?
   titleEn       String?
   titleNl       String?
+  bookingUrl    String?
+  bookingUrlEn  String?
+  bookingUrlNl  String?
 }
 
 model PageHero {

@@ -74,7 +74,7 @@ export default function Sidebar({
         },
         {
             id: 'evenements',
-            label: 'Événements',
+            label: 'Nos Formules',
             icon: Calendar,
             section: 'hero-evenements',
             subItems: [

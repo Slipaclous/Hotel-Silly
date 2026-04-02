@@ -23,7 +23,7 @@
         "rooms": "Kamers & Suites",
         "about": "Over Ons",
         "gallery": "Galerij",
-        "events": "Evenementen",
+        "events": "Onze Formules",
         "testimonials": "Getuigenissen",
         "contact": "Contact",
         "services": "Diensten",
@@ -222,8 +222,8 @@
         }
     },
     "eventsPage": {
-        "heroTitle": "Lokaal Leven & Ontdekkingen",
-        "heroSubtitle": "Verken Silly en omgeving: een rijk erfgoed en authentieke evenementen.",
+        "heroTitle": "Onze Formules",
+        "heroSubtitle": "Ontdek onze exclusieve arrangementen voor een uniek verblijf in Villa Dolce.",
         "introTitle": "Silly, Land van Delen en Cultuur",
         "introDesc": "Verblijven bij Villa Dolce betekent u onderdompelen in een dynamische regio.",
         "upcomingTitle": "Agenda",
@@ -252,7 +252,7 @@
         "ctaTitle": "Advies nodig voor uw verblijf?",
         "ctaDesc": "Onze conciërge staat voor u klaar om u te gidsen.",
         "ctaButton": "Vraag om advies",
-        "learnMore": "Lees meer"
+        "learnMore": "Pre-reserveren"
     },
     "giftCard": {
         "heroTitle": "Villa Dolce Cadeaubon",

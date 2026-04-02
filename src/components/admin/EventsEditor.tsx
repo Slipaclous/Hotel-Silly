@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Save, X, Calendar, Users, MapPin, Clock, Utensils, Mic, Heart, LucideIcon, Sparkles, Layout, Type, Layers, Info } from 'lucide-react';
 import ImageUpload from './ImageUpload';
 import AdminWrapper from './AdminWrapper';
+import RichTextEditor from './RichTextEditor';
 import Image from 'next/image';
 
 interface Event {
@@ -17,6 +18,7 @@ interface Event {
   countDownDate?: string | null;
   date?: string | null;
   order: number;
+  bookingUrl?: string | null;
 }
 
 const iconMap: { [key: string]: LucideIcon } = {
@@ -85,7 +87,7 @@ export default function EventsEditor() {
   return (
     <AdminWrapper
       title="Vie Locale & Régionale"
-      description="Partagez l&apos;âme de la région en programmant les événements incontournables."
+      description="Partagez l'âme de la région en programmant les offres et formules incontournables."
       message={message}
       previewUrl="/evenements"
     >
@@ -97,7 +99,7 @@ export default function EventsEditor() {
               <Calendar className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-900 font-display">Événements Programés</h3>
+              <h3 className="text-xl font-bold text-slate-900 font-display">Formules Programmées</h3>
               <p className="text-[11px] text-slate-500 font-medium tracking-widest uppercase mt-1">{events.length} Activités au catalogue</p>
             </div>
           </div>
@@ -138,7 +140,7 @@ export default function EventsEditor() {
             {events.length === 0 ? (
               <div className="col-span-full py-32 text-center border-2 border-dashed border-slate-100 rounded-[40px] bg-slate-50/30">
                 <Calendar className="w-16 h-16 text-slate-200 mx-auto mb-6" />
-                <p className="text-slate-400 font-bold uppercase tracking-widest text-[11px]">Aucun événement répertorié</p>
+                <p className="text-slate-400 font-bold uppercase tracking-widest text-[11px]">Aucune formule répertoriée</p>
               </div>
             ) : (
               events.map((event) => {
@@ -227,12 +229,17 @@ function EventForm({ event, onCancel, onSuccess }: {
   const [formData, setFormData] = useState({
     title: event?.title || '',
     description: event?.description || '',
+    titleEn: (event as any)?.titleEn || '',
+    descriptionEn: (event as any)?.descriptionEn || '',
+    titleNl: (event as any)?.titleNl || '',
+    descriptionNl: (event as any)?.descriptionNl || '',
     icon: event?.icon || 'Calendar',
     imageUrl: event?.imageUrl || '',
     capacity: event?.capacity || '',
     duration: event?.duration || '',
     date: event?.date ? new Date(event.date).toISOString().slice(0, 16) : '',
     order: event?.order || 1,
+    bookingUrl: event?.bookingUrl || '',
   });
   const [saving, setSaving] = useState(false);
 
@@ -285,7 +292,7 @@ function EventForm({ event, onCancel, onSuccess }: {
           </div>
           <div>
             <h3 className="text-xl font-bold text-slate-900 font-display">
-              {event ? 'Mise à Jour Événement' : 'Création Expérience'}
+              {event ? 'Mise à Jour Formule' : 'Création Formule'}
             </h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-[0.2em] mt-1 uppercase">Éditeur Vie Régionale</p>
           </div>
@@ -299,7 +306,7 @@ function EventForm({ event, onCancel, onSuccess }: {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-8 space-y-8">
             <div className="bg-white p-1 rounded-2xl">
-              <label className={labelClasses}><Type className="w-3.5 h-3.5" /><span>Titre de l&apos;événement</span></label>
+              <label className={labelClasses}><Type className="w-3.5 h-3.5" /><span>Titre de la formule</span></label>
               <input
                 type="text"
                 value={formData.title}
@@ -310,16 +317,58 @@ function EventForm({ event, onCancel, onSuccess }: {
               />
             </div>
 
-            <div className="bg-white p-1 rounded-2xl">
-              <label className={labelClasses}><Info className="w-3.5 h-3.5" /><span>Présentation narrative</span></label>
-              <textarea
+            <div className="bg-white p-1 rounded-2xl relative">
+              <label className={labelClasses}><Info className="w-3.5 h-3.5" /><span>Détails & Inclusions (Français)</span></label>
+              <RichTextEditor
                 value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                required
-                rows={6}
-                className={`${inputClasses} resize-none leading-relaxed`}
-                placeholder="Racontez l'histoire et les détails de ce rendez-vous..."
+                onChange={(content) => setFormData({ ...formData, description: content })}
+                placeholder="Listez vos services inclus..."
               />
+              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.1em] mt-3 ml-1 flex items-center">
+                <Sparkles className="w-3 h-3 mr-1" />
+                Utilisez les listes à puces pour un rendu optimal sur le site.
+              </p>
+            </div>
+
+            {/* TRADUCTIONS EN / NL */}
+            <div className="space-y-12 pt-12 border-t border-slate-50">
+              <div className="flex items-center space-x-3 mb-4">
+                 <div className="w-2 h-2 rounded-full bg-blue-500" />
+                 <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.3em]">Version Anglaise (Optionnel)</h4>
+              </div>
+              <div className="space-y-6">
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}><span>Formula Title (English)</span></label>
+                  <input type="text" value={formData.titleEn} onChange={(e) => setFormData({ ...formData, titleEn: e.target.value })} className={inputClasses} placeholder="Ex: Weekend Getaway" />
+                </div>
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}><span>Details & Inclusions (English)</span></label>
+                  <RichTextEditor
+                    value={formData.descriptionEn}
+                    onChange={(content) => setFormData({ ...formData, descriptionEn: content })}
+                    placeholder="List inclusions in English..."
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-3 mb-4 pt-4">
+                 <div className="w-2 h-2 rounded-full bg-orange-500" />
+                 <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.3em]">Version Néerlandaise (Optionnel)</h4>
+              </div>
+              <div className="space-y-6">
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}><span>Titel Formule (Nederlands)</span></label>
+                  <input type="text" value={formData.titleNl} onChange={(e) => setFormData({ ...formData, titleNl: e.target.value })} className={inputClasses} placeholder="Ex: Weekendje weg" />
+                </div>
+                <div className="bg-white p-1 rounded-2xl">
+                  <label className={labelClasses}><span>Details & Inclusies (Nederlands)</span></label>
+                  <RichTextEditor
+                    value={formData.descriptionNl}
+                    onChange={(content) => setFormData({ ...formData, descriptionNl: content })}
+                    placeholder="Détails en néerlandais..."
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -382,6 +431,11 @@ function EventForm({ event, onCancel, onSuccess }: {
               <div>
                 <label className={labelClasses}>Date technique tri</label>
                 <input type="datetime-local" value={formData.date || ''} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className={inputClasses} />
+              </div>
+              <div>
+                <label className={labelClasses}>Lien de redirection (Optionnel)</label>
+                <input type="url" value={formData.bookingUrl} onChange={(e) => setFormData({ ...formData, bookingUrl: e.target.value })} placeholder="Ex: https://notre-lien.com" className={inputClasses} />
+                <p className="text-[9px] text-slate-400 mt-2 italic px-1">Si rempli, le bouton redirigera vers ce lien.</p>
               </div>
             </div>
           </div>

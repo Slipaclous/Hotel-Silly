@@ -70,7 +70,7 @@ export default function DashboardOverview() {
         { label: 'Chambres', value: stats.rooms, icon: Bed, color: 'text-blue-500', bg: 'bg-blue-500/10', trend: '+2 ce mois' },
         { label: 'Avis Clients', value: stats.testimonials, icon: Star, color: 'text-or', bg: 'bg-or/10', trend: '4.9/5 moy.' },
         { label: 'Médiathèque', value: stats.gallery, icon: ImageIcon, color: 'text-purple-500', bg: 'bg-purple-500/10', trend: '85 photos' },
-        { label: 'Événements', value: stats.events, icon: Calendar, color: 'text-emerald-500', bg: 'bg-emerald-500/10', trend: 'À venir' },
+        { label: 'Nos Formules', value: stats.events, icon: Calendar, color: 'text-emerald-500', bg: 'bg-emerald-500/10', trend: 'À venir' },
     ];
 
     if (loading) {
