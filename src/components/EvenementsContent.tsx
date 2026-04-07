@@ -237,6 +237,7 @@ function EventCard({
     getLocalized: (fr: string, en?: string | null, nl?: string | null) => string
 }) {
     const t = useTranslations('eventsPage');
+    const tCommon = useTranslations('common');
     const locale = useLocale();
 
     const title = getLocalized(event.title, event.titleEn, event.titleNl);
@@ -249,16 +250,16 @@ function EventCard({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
-            className={`group bg-blanc relative ${compact ? '' : 'p-4 md:p-6'}`}
+            className={`group bg-blanc relative w-full ${compact ? '' : 'p-2 md:p-4'}`}
         >
             {/* Double Border Decorative Effect */}
             {!compact && (
-                <div className="absolute inset-0 border border-noir/5 -m-2 pointer-events-none transition-transform duration-1000 group-hover:scale-[1.02]"></div>
+                <div className="absolute inset-0 border border-noir/5 -m-1 pointer-events-none transition-transform duration-1000 group-hover:scale-[1.01]"></div>
             )}
 
-            <div className={`relative bg-white border border-noir/10 overflow-hidden flex flex-col h-full ${compact ? 'rounded-none' : 'rounded-none shadow-sm group-hover:shadow-2xl transition-all duration-1000'}`}>
+            <div className={`relative w-full bg-white border border-noir/10 overflow-hidden flex flex-col h-full ${compact ? 'rounded-none' : 'rounded-none shadow-sm group-hover:shadow-2xl transition-all duration-1000'}`}>
                 {/* Image Section */}
-                <div className={`relative ${compact ? 'h-56' : 'h-80 lg:h-[450px]'} overflow-hidden`}>
+                <div className={`relative ${compact ? 'h-56' : 'h-64 lg:h-[380px]'} overflow-hidden`}>
                     {event.imageUrl && (
                         <Image
                             src={event.imageUrl}
@@ -277,22 +278,22 @@ function EventCard({
                 </div>
 
                     {/* Content Section */}
-                    <div className="flex-1 flex flex-col items-center text-center ${compact ? 'p-8' : 'p-10 lg:p-16'}">
+                    <div className={`flex-1 flex flex-col items-center text-center w-full ${compact ? 'p-8' : 'p-6 lg:p-10'}`}>
                         {/* Catégorie / Capacité */}
-                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-or mb-8">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-or mb-6">
                             {event.capacity}
                         </span>
 
-                        <h3 className={`font-display font-medium text-noir uppercase tracking-tight mb-10 ${compact ? 'text-xl' : 'text-3xl lg:text-5xl lg:leading-tight'}`}>
+                        <h3 className={`font-display font-medium text-noir uppercase tracking-tight mb-8 ${compact ? 'text-xl' : 'text-2xl lg:text-4xl lg:leading-tight'}`}>
                             {title}
                         </h3>
 
                         {!compact && (
                             <>
-                                <div className="w-16 h-px bg-or/30 mb-8" />
+                                <div className="w-16 h-px bg-or/30 mb-6" />
                                 
                                 <div 
-                                    className="rich-text-content space-y-4 mb-14 text-sm lg:text-base font-body text-noir/70 tracking-wide leading-relaxed"
+                                    className="rich-text-content w-full max-w-full break-words space-y-4 mb-8 text-sm lg:text-base font-body text-noir/70 tracking-wide leading-relaxed"
                                     dangerouslySetInnerHTML={{ __html: description }}
                                 />
                             </>
@@ -307,7 +308,7 @@ function EventCard({
 
                     {/* Footer Date (si présent) */}
                     {!compact && event.date && (
-                        <div className="mt-auto mb-12 text-[10px] text-noir/30 uppercase tracking-[0.2em] font-bold">
+                        <div className="mt-auto mb-6 text-[10px] text-noir/30 uppercase tracking-[0.2em] font-bold">
                             {new Date(event.date).toLocaleDateString(locale === 'fr' ? 'fr-FR' : (locale === 'nl' ? 'nl-BE' : 'en-GB'), {
                                 day: 'numeric',
                                 month: 'long',
@@ -323,10 +324,11 @@ function EventCard({
                                 const bookingUrl = getLocalized(event.bookingUrl || '', event.bookingUrlEn, event.bookingUrlNl);
                                 const href = bookingUrl || "/contact";
                                 const isExternal = href.startsWith('http');
+                                const buttonText = bookingUrl ? tCommon('book') : t('learnMore');
                                 const buttonContent = (
-                                    <span className="uppercase tracking-[0.3em] text-[11px] font-bold">{t('learnMore')}</span>
+                                    <span className="uppercase tracking-[0.3em] text-[11px] font-bold">{buttonText}</span>
                                 );
-                                const className = "block w-full py-6 bg-[#2c3840] text-white hover:bg-or transition-all duration-700 shadow-lg hover:shadow-or/20 active:scale-[0.99] transform-gpu";
+                                const className = "block w-full py-4 bg-[#2c3840] text-white hover:bg-or transition-all duration-700 shadow-lg hover:shadow-or/20 active:scale-[0.99] transform-gpu";
 
                                 if (isExternal) {
                                     return (
