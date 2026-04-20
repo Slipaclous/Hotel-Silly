@@ -175,7 +175,7 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                                             </li>
                                             <li>
                                                 <p className="font-display text-lg text-white mb-1">{t('breakfastLabel')}</p>
-                                                <p className="leading-relaxed">{t('breakfastHours')}</p>
+                                                <p className="leading-relaxed whitespace-pre-line">{t('breakfastHours')}</p>
                                             </li>
                                         </ul>
                                     </div>

@@ -55,7 +55,8 @@
         "privacy": "Privacybeleid",
         "terms": "Algemene Voorwaarden",
         "cookieSettings": "Cookie-instellingen",
-        "googleQrCode": "Scan om ons op Google te vinden"
+        "googleQrCode": "Scan om ons op Google te vinden",
+        "breakfast": "Ontbijt van 7:00 tot 10:00\nZondag: 8:00 – 10:30"
     },
     "rooms": {
         "title": "Kamers & Suites",
@@ -149,7 +150,7 @@
         "hotelLabel": "Hotel",
         "hotelHours": "24/7 dankzij ons moderne autonome toegangssysteem.",
         "breakfastLabel": "Ontbijt",
-        "breakfastHours": "7:00 – 10:00",
+        "breakfastHours": "7:00 – 10:00\nZondag: 8:00 – 10:30",
         "formTitle": "Stuur ons een bericht",
         "nameLabel": "Volledige Naam",
         "emailLabel": "E-mail",

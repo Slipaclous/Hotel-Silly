@@ -129,10 +129,8 @@ export default function Footer({ heroData }: { heroData?: any }) {
                 </div>
                 <div className="flex items-center space-x-3 opacity-60">
                   <Clock className="w-4 h-4 text-[var(--color-or)] flex-shrink-0" />
-                  <p className="font-body text-xs">
-                    {(locale === 'nl' ? heroData?.breakfastNl :
-                      locale === 'en' ? heroData?.breakfastEn :
-                        heroData?.breakfast) || "Petit déjeuner de 7h à 10h"}
+                  <p className="font-body text-xs whitespace-pre-line">
+                    {t('breakfast')}
                   </p>
                 </div>
               </div>

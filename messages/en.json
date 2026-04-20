@@ -55,7 +55,8 @@
         "privacy": "Privacy Policy",
         "terms": "General Terms",
         "cookieSettings": "Cookie Settings",
-        "googleQrCode": "Scan to find us on Google"
+        "googleQrCode": "Scan to find us on Google",
+        "breakfast": "Breakfast from 7:00 AM to 10:00 AM\nSunday: 8:00 AM – 10:30 AM"
     },
     "rooms": {
         "title": "Rooms & Suites",
@@ -147,7 +148,7 @@
         "hotelLabel": "Hotel",
         "hotelHours": "24/7 thanks to our modern autonomous access system.",
         "breakfastLabel": "Breakfast",
-        "breakfastHours": "7:00 AM – 10:00 AM",
+        "breakfastHours": "7:00 AM – 10:00 AM\nSunday: 8:00 AM – 10:30 AM",
         "formTitle": "Send us a message",
         "nameLabel": "Full Name",
         "emailLabel": "Email",
