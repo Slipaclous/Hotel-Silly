@@ -48,6 +48,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t('title'),
     description: t('description'),
+    keywords: ["hotel silly", "hotel enghien", "hôtel de luxe silly", "logement enghien", "villa dolce", "hotel belgique", "chambre d'hotes silly", "chambre d'hotes enghien"],
     metadataBase: new URL('https://www.villadolce-hotel.com'),
     alternates: {
       canonical: `/${locale}`,

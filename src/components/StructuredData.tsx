@@ -3,8 +3,19 @@ export default function StructuredData() {
         "@context": "https://schema.org",
         "@type": "Hotel",
         "name": "Villa Dolce",
-        "description": "Hôtel d'exception au cœur de Silly, Belgique. Élégance et raffinement pour un séjour inoubliable.",
+        "description": "Hôtel d'exception au cœur de Silly, Belgique, à proximité d'Enghien. Élégance et raffinement pour un séjour inoubliable.",
         "image": "https://www.villadolce-hotel.com/images/logo.png",
+        "keywords": "hotel, silly, enghien, hebergement, belgique, wallonie",
+        "areaServed": [
+            {
+                "@type": "City",
+                "name": "Silly"
+            },
+            {
+                "@type": "City",
+                "name": "Enghien"
+            }
+        ],
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Place Communale 9",
