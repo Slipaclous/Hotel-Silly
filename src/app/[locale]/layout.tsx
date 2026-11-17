@@ -24,7 +24,7 @@ const montserrat = Montserrat({
 });
 
 import { setRequestLocale } from 'next-intl/server';
-import { buildPageMetadata, SITE_URL } from '@/lib/seo';
+import { buildPageMetadata, localizedPath, SITE_URL } from '@/lib/seo';
 
 // Pré-génère /fr, /en, /nl au build (rendu statique + ISR)
 export function generateStaticParams() {
@@ -96,7 +96,10 @@ export default async function RootLayout({
   const heroImages: Record<string, string> = {};
   if (heroData?.imageUrl) heroImages[''] = heroData.imageUrl;
   for (const ph of pageHeroes) {
-    if (ph.imageUrl) heroImages[`/${ph.page}`] = ph.imageUrl;
+    // Clé = adresse publique sans préfixe de langue (ex: /rooms en anglais)
+    if (ph.imageUrl && ph.page in routing.pathnames) {
+      heroImages[localizedPath(locale, `/${ph.page}`).replace(/^\/(fr|en|nl)/, '')] = ph.imageUrl;
+    }
   }
 
   return (

@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from 'next-intl/plugin';
 import { DEVICE_SIZES, IMAGE_SIZES } from './src/lib/image-sizes';
+import { pathnames } from './src/i18n/pathnames';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
@@ -30,6 +31,20 @@ const nextConfig: NextConfig = {
         hostname: 'res.cloudinary.com',
       },
     ],
+  },
+  // Anciennes adresses françaises en anglais / néerlandais (/en/chambres) :
+  // redirection permanente (308) vers l'adresse traduite (/en/rooms), pour que
+  // Google transfère l'historique des pages déjà indexées.
+  async redirects() {
+    const rules: { source: string; destination: string; permanent: true }[] = [];
+    for (const [internal, localized] of Object.entries(pathnames)) {
+      if (typeof localized === 'string') continue;
+      for (const [locale, target] of Object.entries(localized)) {
+        if (target === internal) continue;
+        rules.push({ source: `/${locale}${internal}`, destination: `/${locale}${target}`, permanent: true });
+      }
+    }
+    return rules;
   },
   async headers() {
     return [

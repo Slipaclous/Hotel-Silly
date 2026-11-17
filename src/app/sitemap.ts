@@ -1,16 +1,10 @@
 import { MetadataRoute } from 'next';
 import { prisma } from '@/lib/prisma';
 import { routing } from '@/i18n/routing';
-import { SITE_URL } from '@/lib/seo';
+import { HREFLANGS, localizedUrl } from '@/lib/seo';
 
 // Régénéré au plus toutes les heures : les <lastmod> suivent les modifications du back-office
 export const revalidate = 3600;
-
-const HREFLANGS: Record<string, string> = {
-    fr: 'fr-BE',
-    en: 'en-BE',
-    nl: 'nl-BE',
-};
 
 // Pages au texte écrit dans le code (pas dans le back-office).
 // ⚠️ Mettre à jour la date quand le texte de la page change.
@@ -39,7 +33,7 @@ const heroOf = (page: string) =>
     prisma.pageHero.findUnique({ where: { page }, select: { updatedAt: true } });
 
 async function getLastModified(): Promise<Record<string, Date | undefined>> {
-    try {
+    {
         const [
             hero, about, room, roomService, feature, homeRoomSection, gallery, event,
             seminarPage, seminarFeature, seminarPackage, giftCardPage, giftCardPackage, collaboration,
@@ -64,10 +58,35 @@ async function getLastModified(): Promise<Record<string, Date | undefined>> {
             '/contact': latest(phContact),
             '/collaborations': latest(collaboration, phCollab),
         };
-    } catch (error) {
-        console.error('Sitemap: error fetching lastmod', error);
-        return {};
     }
+}
+
+/** Images de chaque page, déclarées pour Google Images (URL Cloudinary d'origine). */
+async function getImages(): Promise<Record<string, string[]>> {
+    const [homeHero, about, rooms, gallery, events, pageHeroes, homeRoomSection] = await Promise.all([
+        prisma.hero.findFirst({ select: { imageUrl: true } }),
+        prisma.about.findFirst({ select: { imageUrl: true, historyImageUrl: true } }),
+        prisma.room.findMany({ orderBy: { order: 'asc' }, select: { imageUrl: true, images: { select: { url: true } } } }),
+        prisma.galleryImage.findMany({ orderBy: { order: 'asc' }, select: { url: true } }),
+        prisma.event.findMany({ orderBy: { order: 'asc' }, select: { imageUrl: true } }),
+        prisma.pageHero.findMany({ select: { page: true, imageUrl: true } }),
+        prisma.homeRoomSection.findFirst({ select: { imageUrl: true } }),
+    ]);
+    const hero = (page: string) => pageHeroes.find((p) => p.page === page)?.imageUrl;
+    const clean = (urls: (string | null | undefined)[]) =>
+        [...new Set(urls.filter((u): u is string => !!u && u.startsWith('http')))];
+
+    return {
+        '': clean([homeHero?.imageUrl, about?.imageUrl, homeRoomSection?.imageUrl, ...rooms.map((r) => r.imageUrl)]),
+        '/chambres': clean([hero('chambres'), ...rooms.flatMap((r) => [r.imageUrl, ...r.images.map((i) => i.url)])]),
+        '/a-propos': clean([hero('a-propos'), about?.imageUrl, about?.historyImageUrl]),
+        '/galerie': clean([hero('galerie'), ...gallery.map((g) => g.url)]),
+        '/evenements': clean([hero('evenements'), ...events.map((e) => e.imageUrl)]),
+        '/seminaires': clean([hero('seminaires')]),
+        '/carte-cadeau': clean([hero('carte-cadeau')]),
+        '/contact': clean([hero('contact')]),
+        '/collaborations': clean([hero('collaborations')]),
+    };
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -86,15 +105,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { path: '/politique-confidentialite', priority: 0.1, changeFrequency: 'yearly' },
     ];
 
-    const lastModified = await getLastModified();
+    const [lastModified, images] = await Promise.all([getLastModified(), getImages()]);
 
     return pages.flatMap(({ path, priority, changeFrequency }) => {
         // Chaque URL déclare ses traductions (hreflang) + x-default
         const languages: Record<string, string> = {};
         for (const l of routing.locales) {
-            languages[HREFLANGS[l]] = `${SITE_URL}/${l}${path}`;
+            languages[HREFLANGS[l]] = localizedUrl(l, path);
         }
-        languages['x-default'] = `${SITE_URL}/${routing.defaultLocale}${path}`;
+        languages['x-default'] = localizedUrl(routing.defaultLocale, path);
 
         // Date exacte si connue, sinon pas de <lastmod> (mieux qu'une date fausse)
         const lastmod = lastModified[path] ?? (STATIC_LASTMOD[path] ? new Date(STATIC_LASTMOD[path]) : undefined);
@@ -102,7 +121,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // Pages légales rédigées en français uniquement : seule la version /fr est déclarée
         if (path in STATIC_LASTMOD) {
             return [{
-                url: `${SITE_URL}/fr${path}`,
+                url: localizedUrl('fr', path),
                 ...(lastmod ? { lastModified: lastmod } : {}),
                 changeFrequency,
                 priority,
@@ -110,7 +129,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
 
         return routing.locales.map((locale) => ({
-            url: `${SITE_URL}/${locale}${path}`,
+            url: localizedUrl(locale, path),
+            ...(images[path]?.length ? { images: images[path] } : {}),
             ...(lastmod ? { lastModified: lastmod } : {}),
             changeFrequency,
             priority,

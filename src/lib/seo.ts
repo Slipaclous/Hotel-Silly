@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { cache } from 'react';
 import { getTranslations } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
-import { routing } from '@/i18n/routing';
+import { routing, getPathname, type AppPathname } from '@/i18n/routing';
 
 export const SITE_URL = 'https://www.villadolce-hotel.com';
 const SITE_NAME = 'Villa Dolce';
@@ -14,7 +14,7 @@ const OG_LOCALES: Record<string, string> = {
   nl: 'nl_BE',
 };
 
-const HREFLANGS: Record<string, string> = {
+export const HREFLANGS: Record<string, string> = {
   fr: 'fr-BE',
   en: 'en-BE',
   nl: 'nl-BE',
@@ -63,24 +63,39 @@ const getDefaultOgImage = cache(async (): Promise<string> => {
 });
 
 /**
- * Alternates hreflang pour un chemin donné (sans préfixe de langue).
- * Ex: path = '/chambres' -> /fr/chambres, /en/chambres, /nl/chambres + x-default.
+ * Adresse publique (avec préfixe de langue) d'un chemin interne.
+ * Ex: ('en', '/chambres') -> '/en/rooms' ; ('nl', '') -> '/nl'.
+ */
+export function localizedPath(locale: string, path: string): string {
+  const href = (path || '/') as AppPathname;
+  return getPathname({ locale: locale as (typeof routing.locales)[number], href });
+}
+
+/** URL absolue d'un chemin interne dans une langue. */
+export function localizedUrl(locale: string, path: string): string {
+  return `${SITE_URL}${localizedPath(locale, path)}`;
+}
+
+/**
+ * Alternates hreflang pour un chemin interne (sans préfixe de langue).
+ * Ex: path = '/chambres' -> /fr/chambres, /en/rooms, /nl/kamers + x-default.
  */
 export function buildAlternates(locale: string, path: string, frenchOnly = false): Metadata['alternates'] {
   // Pages rédigées uniquement en français : une seule version de référence
   if (frenchOnly) {
+    const fr = localizedPath('fr', path);
     return {
-      canonical: `/fr${path}`,
-      languages: { [HREFLANGS.fr]: `/fr${path}`, 'x-default': `/fr${path}` },
+      canonical: fr,
+      languages: { [HREFLANGS.fr]: fr, 'x-default': fr },
     };
   }
   const languages: Record<string, string> = {};
   for (const l of routing.locales) {
-    languages[HREFLANGS[l]] = `/${l}${path}`;
+    languages[HREFLANGS[l]] = localizedPath(l, path);
   }
-  languages['x-default'] = `/${routing.defaultLocale}${path}`;
+  languages['x-default'] = localizedPath(routing.defaultLocale, path);
   return {
-    canonical: `/${locale}${path}`,
+    canonical: localizedPath(locale, path),
     languages,
   };
 }
@@ -111,7 +126,7 @@ export async function buildPageMetadata({
     image ||
     (path ? await getPageHeroImage(path.replace(/^\//, '')) : null) ||
     (await getDefaultOgImage());
-  const url = `${SITE_URL}/${frenchOnly ? 'fr' : locale}${path}`;
+  const url = localizedUrl(frenchOnly ? 'fr' : locale, path);
 
   return {
     title,

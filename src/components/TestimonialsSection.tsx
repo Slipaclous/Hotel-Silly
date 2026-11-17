@@ -128,7 +128,7 @@ export default function TestimonialsSection({ initialTestimonials }: { initialTe
         {/* Bouton Voir Tous les Avis */}
         <div className="text-center mt-12">
           <Link
-            href="/avis"
+            href={'/avis' as never} // page inexistante (section avis désactivée)
             className="inline-block font-body text-sm px-8 py-3 bg-or text-noir hover:bg-black hover:text-white transition-all duration-300"
           >
             {t.cta}

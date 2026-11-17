@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { SITE_URL } from '@/lib/seo';
+import { SITE_URL, localizedUrl } from '@/lib/seo';
 import { HOTEL, cleanText, getHotelData, pick } from '@/lib/hotel-info';
 
 // Fichier llms.txt (https://llmstxt.org) : résumé factuel du site pour les assistants IA.
@@ -84,7 +84,7 @@ export async function GET() {
         const booking = pick(r, 'bookingUrl', EN);
         if (booking) push(`  - Book: ${booking}`);
     }
-    push(`- Full details: ${SITE_URL}/en/chambres`);
+    push(`- Full details: ${localizedUrl('en', '/chambres')}`);
 
     if (upcomingEvents.length) {
         section('Packages, brunches and events');
@@ -98,7 +98,7 @@ export async function GET() {
             const url = pick(e, 'bookingUrl', EN);
             if (url) push(`  Book: ${url}`);
         }
-        push(`- Current offers: ${SITE_URL}/en/evenements`);
+        push(`- Current offers: ${localizedUrl('en', '/evenements')}`);
     }
 
     if (seminarPage || seminarPackages.length) {
@@ -116,7 +116,7 @@ export async function GET() {
                 (p.details.length ? `: ${p.details.map((d) => d.trim()).join(', ')}` : ''),
             );
         }
-        push(`- Details and quote request: ${SITE_URL}/en/seminaires`);
+        push(`- Details and quote request: ${localizedUrl('en', '/seminaires')}`);
     }
 
     if (giftCardPage || giftCardPackages.length) {
@@ -126,7 +126,7 @@ export async function GET() {
         for (const g of giftCardPackages) {
             push(`- **${txt(g, 'title')}**: ${txt(g, 'price')}${txt(g, 'description') ? ` — ${txt(g, 'description')}` : ''}`);
         }
-        push(`- ${SITE_URL}/en/carte-cadeau`);
+        push(`- ${localizedUrl('en', '/carte-cadeau')}`);
     }
 
     const access = [
@@ -158,19 +158,19 @@ export async function GET() {
     section('Pages');
     push(
         `- [Home](${SITE_URL}/en): overview of the hotel`,
-        `- [Rooms & Suites](${SITE_URL}/en/chambres): rooms, prices, amenities`,
-        `- [Packages](${SITE_URL}/en/evenements): stays, brunches and events`,
-        `- [Seminars](${SITE_URL}/en/seminaires): business meetings and seminars`,
-        `- [Gift card](${SITE_URL}/en/carte-cadeau): gift vouchers`,
-        `- [About](${SITE_URL}/en/a-propos): story, access and surroundings`,
-        `- [Gallery](${SITE_URL}/en/galerie): photos`,
-        `- [Contact](${SITE_URL}/en/contact): contact form and directions`,
+        `- [Rooms & Suites](${localizedUrl('en', '/chambres')}): rooms, prices, amenities`,
+        `- [Packages](${localizedUrl('en', '/evenements')}): stays, brunches and events`,
+        `- [Seminars](${localizedUrl('en', '/seminaires')}): business meetings and seminars`,
+        `- [Gift card](${localizedUrl('en', '/carte-cadeau')}): gift vouchers`,
+        `- [About](${localizedUrl('en', '/a-propos')}): story, access and surroundings`,
+        `- [Gallery](${localizedUrl('en', '/galerie')}): photos`,
+        `- [Contact](${localizedUrl('en', '/contact')}): contact form and directions`,
     );
     section('Optional');
     push(
         `- [Version française](${SITE_URL}/fr)`,
         `- [Nederlandse versie](${SITE_URL}/nl)`,
-        `- [Terms and conditions](${SITE_URL}/en/cgv)`,
+        `- [Terms and conditions](${localizedUrl('fr', '/cgv')})`,
         '',
     );
 

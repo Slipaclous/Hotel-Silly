@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { SITE_URL, type SeoPageKey } from '@/lib/seo';
+import { localizedUrl, type SeoPageKey } from '@/lib/seo';
 
 /**
  * Fil d'Ariane en données structurées (schema.org BreadcrumbList) :
@@ -21,8 +21,8 @@ export default async function BreadcrumbJsonLd({
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-            { '@type': 'ListItem', position: 1, name: nav('home'), item: `${SITE_URL}/${locale}` },
-            { '@type': 'ListItem', position: 2, name: seo(`${page}.title`), item: `${SITE_URL}/${locale}${path}` },
+            { '@type': 'ListItem', position: 1, name: nav('home'), item: localizedUrl(locale, '') },
+            { '@type': 'ListItem', position: 2, name: seo(`${page}.title`), item: localizedUrl(locale, path) },
         ],
     };
 

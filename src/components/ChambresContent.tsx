@@ -219,7 +219,7 @@ export default function ChambresContent({ rooms, pageHero, roomServices }: { roo
                                                 </a>
                                             ) : (
                                                 <Link
-                                                    href={`/contact?room=${room.id}&subject=reservation`}
+                                                    href={{ pathname: '/contact', query: { room: String(room.id), subject: 'reservation' } }}
                                                     className="block w-full bg-[#2c3840] text-white px-8 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 text-center shadow-lg hover:shadow-xl border border-[#2c3840] hover:border-[#C6ad7a]"
                                                 >
                                                     {c('bookStay')}

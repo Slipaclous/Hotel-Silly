@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Star, Bed, Maximize, User, Check, PawPrint, Info } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { Link } from '@/i18n/routing';
 import ImageSlides from './ImageSlides';
 import { useLocale, useTranslations } from 'next-intl';
 
@@ -303,12 +304,12 @@ export default function RoomDetailsModal({ room, isOpen, onClose }: RoomDetailsM
                                             {c('bookStay')}
                                         </a>
                                     ) : (
-                                        <a
-                                            href={`/contact?room=${room.id}&subject=reservation`}
+                                        <Link
+                                            href={{ pathname: '/contact', query: { room: String(room.id), subject: 'reservation' } }}
                                             className="w-full bg-[#2c3840] text-white px-8 py-5 font-body text-xs font-bold uppercase tracking-widest hover:bg-[#C6ad7a] transition-all duration-500 text-center shadow-lg rounded-xl"
                                         >
                                             {c('bookStay')}
-                                        </a>
+                                        </Link>
                                     )}
                                     <p className="text-[10px] text-center text-noir/40 font-body italic">
                                         {t('reservationDisclaimer')}
