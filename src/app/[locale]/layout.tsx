@@ -91,7 +91,7 @@ export default async function RootLayout({
     <html lang={locale} className={`${cormorant.variable} ${montserrat.variable}`}>
       <body className="font-body antialiased transition-colors duration-300">
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <StructuredData />
+          <StructuredData locale={locale} />
           <Header />
           <div className="min-h-screen">
             {children}
