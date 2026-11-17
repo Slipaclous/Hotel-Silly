@@ -75,6 +75,7 @@ export default async function HeroSection({ initialData }: { initialData?: HeroD
             <span className="block relative h-32 sm:h-40 md:h-48 xl:h-56 w-full max-w-md mx-auto mb-2 brightness-0 invert">
               <Image
                 src="/images/logo-clef.png"
+                unoptimized
                 alt="Villa Dolce"
                 fill
                 sizes="(min-width: 640px) 448px, 90vw"

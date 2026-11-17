@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Star, Bed, Maximize, User, Check, PawPrint, Info } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import ImageSlides from './ImageSlides';
 import { useLocale, useTranslations } from 'next-intl';
 
 interface GalleryImage {
@@ -121,24 +122,12 @@ export default function RoomDetailsModal({ room, isOpen, onClose }: RoomDetailsM
                     {/* Image Section (Left/Top) */}
                     <div className="w-full lg:w-[60%] h-[300px] sm:h-[400px] lg:h-auto relative bg-noir flex flex-col shrink-0">
                         <div className="relative flex-1 overflow-hidden group">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={currentIndex}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.5 }}
-                                    className="absolute inset-0"
-                                >
-                                    <Image
-                                        src={allImages[currentIndex]}
-                                        alt={`${roomName} - Photo ${currentIndex + 1}`}
-                                        fill
-                                        className="object-cover"
-                                        priority
-                                    />
-                                </motion.div>
-                            </AnimatePresence>
+                            <ImageSlides
+                                slides={allImages.map((src, i) => ({ src, alt: `${roomName} - Photo ${i + 1}` }))}
+                                index={currentIndex}
+                                sizes="(min-width: 1024px) 60vw, 100vw"
+                                imageClassName="object-cover"
+                            />
 
                             {/* Gallery Navigation Overlay */}
                             {allImages.length > 1 && (

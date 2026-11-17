@@ -77,6 +77,7 @@ export default function Footer({ heroData }: { heroData?: any }) {
               <Link href="/">
                 <Image
                   src="/images/logo-clef.png"
+                  unoptimized
                   alt="Villa Dolce"
                   fill
                   sizes="184px"
@@ -312,6 +313,7 @@ export default function Footer({ heroData }: { heroData?: any }) {
                   <div className="relative bg-white p-3 rounded-xl shadow-2xl w-[140px] h-[140px]">
                     <Image
                       src="/images/qr.png"
+                      unoptimized
                       alt="QR Code Google"
                       fill
                       sizes="140px"

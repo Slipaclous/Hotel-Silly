@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
   images: {
+    // Images servies et redimensionnées par Cloudinary (voir src/lib/image-loader.ts)
+    loader: 'custom',
+    loaderFile: './src/lib/image-loader.ts',
     remotePatterns: [
       {
         protocol: 'https',

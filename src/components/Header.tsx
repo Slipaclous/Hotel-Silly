@@ -95,6 +95,7 @@ export default function Header() {
                   }`}>
                   <Image
                     src="/images/logo-clef.png"
+                    unoptimized
                     alt="Villa Dolce"
                     fill
                     sizes="(min-width: 1280px) 112px, (min-width: 1024px) 96px, 80px"

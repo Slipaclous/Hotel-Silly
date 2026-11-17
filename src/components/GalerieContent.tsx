@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ZoomIn, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import ImageSlides from './ImageSlides';
 import { useLocale, useTranslations } from 'next-intl';
 
 interface GalleryImage {
@@ -268,24 +269,15 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
                             </div>
 
                             <div className="relative w-full h-[70vh] rounded-[40px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
-                                <AnimatePresence mode='wait'>
-                                    <motion.div
-                                        key={activeImage.id}
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: -20 }}
-                                        transition={{ duration: 0.4 }}
-                                        className="w-full h-full"
-                                    >
-                                        <Image
-                                            src={activeImage.url}
-                                            alt={`${getLocalized(activeImage.title, activeImage.titleEn, activeImage.titleNl)} - Villa Dolce Silly`}
-                                            fill
-                                            className="object-contain"
-                                            priority
-                                        />
-                                    </motion.div>
-                                </AnimatePresence>
+                                <ImageSlides
+                                    slides={filteredImages.map((img) => ({
+                                        src: img.url,
+                                        alt: `${getLocalized(img.title, img.titleEn, img.titleNl)} - Villa Dolce Silly`,
+                                    }))}
+                                    index={selectedIndex ?? 0}
+                                    sizes="(min-width: 1280px) 1200px, 100vw"
+                                    imageClassName="object-contain"
+                                />
                             </div>
 
                             <div className="text-center text-white max-w-2xl px-6">
