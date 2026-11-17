@@ -2,7 +2,6 @@ import HeroSection from '@/components/HeroSection';
 import BookingWidget from '@/components/BookingWidget';
 import AboutSection from '@/components/AboutSection';
 import RoomSection from '@/components/RoomSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -19,29 +18,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations('nav');
 
   // Récupération de toutes les données sur le serveur (SSR)
-  let heroData: any = null;
-  let aboutData: any = null;
-  let roomsData: any[] = [];
-  let featuresData: any[] = [];
-  let testimonialsData: any[] = [];
-  let roomSectionData: any = null;
-
-  try {
-    [heroData, aboutData, roomsData, featuresData, testimonialsData, roomSectionData] = await Promise.all([
-      prisma.hero.findFirst(),
-      prisma.about.findFirst(),
-      prisma.room.findMany({
-        orderBy: { order: 'asc' },
-        take: 3
-      }),
-      prisma.feature.findMany(),
-      prisma.testimonial.findMany(),
-      (prisma as any).homeRoomSection?.findFirst() || null,
-    ]);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    // Les valeurs par défaut sont déjà définies ci-dessus
-  }
+  // Pas de try/catch : si la base est momentanément injoignable, Next.js garde la
+  // version précédente de la page (ISR) au lieu de publier un accueil vide.
+  const [heroData, aboutData, roomsData, featuresData, roomSectionData] = await Promise.all([
+    prisma.hero.findFirst(),
+    prisma.about.findFirst(),
+    prisma.room.findMany({
+      orderBy: { order: 'asc' },
+      take: 3
+    }),
+    prisma.feature.findMany(),
+    prisma.homeRoomSection.findFirst(),
+  ]);
 
   return (
     <main className="min-h-screen">

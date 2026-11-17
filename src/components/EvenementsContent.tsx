@@ -241,7 +241,9 @@ function EventCard({
     const locale = useLocale();
 
     const title = getLocalized(event.title, event.titleEn, event.titleNl);
-    const description = getLocalized(event.description, event.descriptionEn, event.descriptionNl);
+    // Les titres saisis dans l'éditeur deviennent des h3 : la page ne garde qu'un seul h1 (SEO)
+    const description = getLocalized(event.description, event.descriptionEn, event.descriptionNl)
+        .replace(/<(\/?)h[12](\s|>)/gi, '<$1h3$2');
     const lines = description.split('\n').filter(l => l.trim() !== '');
 
     return (

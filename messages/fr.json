@@ -136,7 +136,8 @@
         "filterSpa": "Spa",
         "filterInterior": "Intérieur",
         "filterExterior": "Extérieur",
-        "noImages": "Aucune image trouvée"
+        "noImages": "Aucune image trouvée",
+        "sectionTitle": "Photos de la Villa Dolce à Silly : chambres, espaces et environs"
     },
     "contact": {
         "heroTitle": "Contact",

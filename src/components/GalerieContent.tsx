@@ -135,6 +135,7 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
             {/* Section Filtres - Sticky on scroll? */}
             <section id="filters" className="py-16 bg-blanc border-b border-noir/5">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="sr-only">{t('sectionTitle')}</h2>
                     <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                         {categories.map((category, idx) => (
                             <motion.button

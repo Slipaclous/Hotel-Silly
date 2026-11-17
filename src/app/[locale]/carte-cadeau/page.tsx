@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { buildPageMetadata } from '@/lib/seo';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 // Active le cache statique avec revalidation toutes les heures
 export const revalidate = 3600;
@@ -28,6 +29,7 @@ export default async function CarteCadeauPage({ params }: { params: Promise<{ lo
 
     return (
         <main className="min-h-screen bg-blanc">
+          <BreadcrumbJsonLd locale={locale} page="giftCard" path="/carte-cadeau" />
             <CarteCadeauContent
                 pageHero={pageHero}
                 initialData={giftCardPage}

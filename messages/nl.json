@@ -136,7 +136,8 @@
         "filterSpa": "Spa",
         "filterInterior": "Interieur",
         "filterExterior": "Exterieur",
-        "noImages": "Geen afbeeldingen gevonden"
+        "noImages": "Geen afbeeldingen gevonden",
+        "sectionTitle": "Foto's van Villa Dolce in Silly: kamers, ruimtes en omgeving"
     },
     "contact": {
         "heroTitle": "Contact",

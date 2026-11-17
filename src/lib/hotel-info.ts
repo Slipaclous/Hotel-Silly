@@ -52,19 +52,18 @@ export function parsePrice(text: string | null | undefined): number | undefined 
   return m ? Number(m[1].replace(',', '.')) : undefined;
 }
 
-/** Données de l'établissement issues du back-office (dédupliquées par rendu). */
+/**
+ * Données de l'établissement issues du back-office (dédupliquées par rendu).
+ * Pas de try/catch : en cas d'erreur base, Next.js garde la version précédente
+ * de la page (ISR) au lieu de publier des données vides.
+ */
 export const getHotelData = cache(async () => {
-  try {
-    const [hero, about, rooms] = await Promise.all([
-      prisma.hero.findFirst(),
-      prisma.about.findFirst(),
-      prisma.room.findMany({ orderBy: { order: 'asc' } }),
-    ]);
-    return { hero, about, rooms };
-  } catch (error) {
-    console.error('Error fetching hotel data:', error);
-    return { hero: null, about: null, rooms: [] };
-  }
+  const [hero, about, rooms] = await Promise.all([
+    prisma.hero.findFirst(),
+    prisma.about.findFirst(),
+    prisma.room.findMany({ orderBy: { order: 'asc' } }),
+  ]);
+  return { hero, about, rooms };
 });
 
 export function absoluteUrl(url: string | null | undefined): string | undefined {

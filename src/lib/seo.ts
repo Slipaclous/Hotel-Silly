@@ -34,6 +34,21 @@ export type SeoPageKey =
   | 'legal'
   | 'privacy';
 
+/** Pages dont le texte n'existe qu'en français (contenu identique dans les 3 langues). */
+export const FRENCH_ONLY_PAGES: SeoPageKey[] = ['cgv', 'legal', 'privacy'];
+
+// Image d'en-tête propre à une page (PageHero du back-office), pour l'aperçu de partage
+const getPageHeroImage = cache(async (page: string): Promise<string | null> => {
+  try {
+    const hero = await prisma.pageHero.findUnique({ where: { page }, select: { imageUrl: true } });
+    const url = hero?.imageUrl;
+    if (!url) return null;
+    return url.startsWith('http') ? url : `${SITE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
+  } catch {
+    return null;
+  }
+});
+
 // Image du Hero utilisée comme image de partage par défaut (dédupliquée par rendu)
 const getDefaultOgImage = cache(async (): Promise<string> => {
   try {
@@ -51,7 +66,14 @@ const getDefaultOgImage = cache(async (): Promise<string> => {
  * Alternates hreflang pour un chemin donné (sans préfixe de langue).
  * Ex: path = '/chambres' -> /fr/chambres, /en/chambres, /nl/chambres + x-default.
  */
-export function buildAlternates(locale: string, path: string): Metadata['alternates'] {
+export function buildAlternates(locale: string, path: string, frenchOnly = false): Metadata['alternates'] {
+  // Pages rédigées uniquement en français : une seule version de référence
+  if (frenchOnly) {
+    return {
+      canonical: `/fr${path}`,
+      languages: { [HREFLANGS.fr]: `/fr${path}`, 'x-default': `/fr${path}` },
+    };
+  }
   const languages: Record<string, string> = {};
   for (const l of routing.locales) {
     languages[HREFLANGS[l]] = `/${l}${path}`;
@@ -84,13 +106,17 @@ export async function buildPageMetadata({
   const isHome = page === 'home';
   const title = isHome ? t('home.title') : `${t(`${page}.title`)} | ${SITE_NAME}`;
   const description = t(`${page}.description`);
-  const ogImage = image || (await getDefaultOgImage());
-  const url = `${SITE_URL}/${locale}${path}`;
+  const frenchOnly = FRENCH_ONLY_PAGES.includes(page);
+  const ogImage =
+    image ||
+    (path ? await getPageHeroImage(path.replace(/^\//, '')) : null) ||
+    (await getDefaultOgImage());
+  const url = `${SITE_URL}/${frenchOnly ? 'fr' : locale}${path}`;
 
   return {
     title,
     description,
-    alternates: buildAlternates(locale, path),
+    alternates: buildAlternates(locale, path, frenchOnly),
     openGraph: {
       title,
       description,

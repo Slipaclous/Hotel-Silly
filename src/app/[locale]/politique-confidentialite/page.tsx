@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
 
 export default async function PolitiqueConfidentialite({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
@@ -7,6 +8,7 @@ export default async function PolitiqueConfidentialite({ params }: { params: Pro
 
     return (
         <main className="min-h-screen bg-white">
+          <BreadcrumbJsonLd locale={locale} page="privacy" path="/politique-confidentialite" />
             {/* Header Section */}
             <div className="bg-[#2c3840] pt-40 pb-24 px-4 text-center">
                 <div className="animate-hero-rise max-w-4xl mx-auto">

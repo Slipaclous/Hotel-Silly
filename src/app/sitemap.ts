@@ -99,6 +99,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // Date exacte si connue, sinon pas de <lastmod> (mieux qu'une date fausse)
         const lastmod = lastModified[path] ?? (STATIC_LASTMOD[path] ? new Date(STATIC_LASTMOD[path]) : undefined);
 
+        // Pages légales rédigées en français uniquement : seule la version /fr est déclarée
+        if (path in STATIC_LASTMOD) {
+            return [{
+                url: `${SITE_URL}/fr${path}`,
+                ...(lastmod ? { lastModified: lastmod } : {}),
+                changeFrequency,
+                priority,
+            }];
+        }
+
         return routing.locales.map((locale) => ({
             url: `${SITE_URL}/${locale}${path}`,
             ...(lastmod ? { lastModified: lastmod } : {}),

@@ -28,10 +28,7 @@ export async function GET() {
             prisma.seminarPackage.findMany({ orderBy: { order: 'asc' } }),
             prisma.giftCardPage.findFirst(),
             prisma.giftCardPackage.findMany({ orderBy: { order: 'asc' } }),
-        ]).catch((error) => {
-            console.error('llms.txt: error fetching content', error);
-            return [[], [], null, [], [], null, []] as const;
-        });
+        ]);
 
     // Événements datés déjà passés : exclus (ceux sans date sont permanents)
     const startOfToday = new Date();
