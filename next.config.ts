@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from 'next-intl/plugin';
+import { DEVICE_SIZES, IMAGE_SIZES } from './src/lib/image-sizes';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
@@ -16,6 +17,9 @@ const nextConfig: NextConfig = {
     // Images servies et redimensionnées par Cloudinary (voir src/lib/image-loader.ts)
     loader: 'custom',
     loaderFile: './src/lib/image-loader.ts',
+    // Peu de tailles, max 1920 px (voir src/lib/image-sizes.ts)
+    deviceSizes: DEVICE_SIZES,
+    imageSizes: IMAGE_SIZES,
     remotePatterns: [
       {
         protocol: 'https',

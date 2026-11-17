@@ -48,6 +48,8 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
 
     const [selectedCategory, setSelectedCategory] = useState('Toutes');
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    // Photos visibles dès le HTML serveur ; l'animation d'entrée ne joue qu'après un filtrage
+    const [hasFiltered, setHasFiltered] = useState(false);
 
     const getLocalized = (fr: string, en?: string | null, nl?: string | null) => {
         if (locale === 'nl') return nl || fr;
@@ -143,7 +145,7 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 * idx }}
                                 key={category.id}
-                                onClick={() => setSelectedCategory(category.id)}
+                                onClick={() => { setSelectedCategory(category.id); setHasFiltered(true); }}
                                 className={`group relative px-8 py-4 text-[10px] font-bold uppercase tracking-[0.25em] transition-all duration-500 overflow-hidden ${selectedCategory === category.id
                                     ? 'text-white'
                                     : 'text-noir/60 hover:text-noir'
@@ -181,7 +183,7 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
                                     return (
                                         <motion.div
                                             layout
-                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            initial={hasFiltered ? { opacity: 0, scale: 0.9 } : false}
                                             animate={{ opacity: 1, scale: 1 }}
                                             exit={{ opacity: 0, scale: 0.9 }}
                                             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}

@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
+import { warmImage } from '@/lib/warm-images';
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
 
 // Configuration avec l'URL complète Cloudinary
@@ -64,6 +65,9 @@ export async function POST(request: NextRequest) {
 
       uploadStream.end(buffer);
     });
+
+    // Génère les variantes Cloudinary après la réponse : le premier visiteur n'attend pas
+    after(() => warmImage(result.secure_url));
 
     return NextResponse.json({
       url: result.secure_url,
