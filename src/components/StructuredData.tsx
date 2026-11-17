@@ -5,9 +5,9 @@ import { HOTEL, absoluteUrl, getHotelData, parsePrice, parseTime, pick } from '@
 const IN_LANGUAGE: Record<string, string> = { fr: 'fr-BE', en: 'en', nl: 'nl-BE' };
 
 const AMENITIES: Record<string, string[]> = {
-    fr: ['WiFi gratuit', 'Parking privé', 'Borne de recharge', 'Climatisation', 'Petit-déjeuner local', 'Local vélos couvert'],
-    en: ['Free WiFi', 'Private parking', 'EV charging station', 'Air conditioning', 'Local breakfast', 'Covered bike storage'],
-    nl: ['Gratis wifi', 'Privéparking', 'Laadpaal', 'Airconditioning', 'Lokaal ontbijt', 'Overdekte fietsenstalling'],
+    fr: ['WiFi gratuit', 'Parking privé', 'Borne de recharge', 'Climatisation', 'Petit-déjeuner local', 'Local vélos couvert', 'Accès autonome 24h/24', 'Salle de réunion'],
+    en: ['Free WiFi', 'Private parking', 'EV charging station', 'Air conditioning', 'Local breakfast', 'Covered bike storage', '24/7 self check-in', 'Meeting room'],
+    nl: ['Gratis wifi', 'Privéparking', 'Laadpaal', 'Airconditioning', 'Lokaal ontbijt', 'Overdekte fietsenstalling', 'Zelfstandige toegang 24/7', 'Vergaderzaal'],
 };
 
 /** Dernier nombre d'une chaîne ("2-3 personnes" -> 3). */
@@ -69,6 +69,8 @@ export default async function StructuredData({ locale }: { locale: string }) {
         image: [absoluteUrl(hero?.imageUrl), HOTEL.image].filter(Boolean),
         logo: HOTEL.logo,
         telephone: HOTEL.telephone,
+        email: HOTEL.email,
+        starRating: { '@type': 'Rating', ratingValue: HOTEL.starRating },
         address: { '@type': 'PostalAddress', ...HOTEL.address },
         geo: { '@type': 'GeoCoordinates', ...HOTEL.geo },
         hasMap: HOTEL.mapUrl,

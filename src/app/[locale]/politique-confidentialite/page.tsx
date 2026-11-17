@@ -1,37 +1,26 @@
-'use client';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
-
-export default function PolitiqueConfidentialite() {
-    const t = useTranslations('footer');
+export default async function PolitiqueConfidentialite({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
+    const t = await getTranslations('footer');
 
     return (
         <main className="min-h-screen bg-white">
             {/* Header Section */}
             <div className="bg-[#2c3840] pt-40 pb-24 px-4 text-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-4xl mx-auto"
-                >
+                <div className="animate-hero-rise max-w-4xl mx-auto">
                     <div className="w-12 h-px bg-[#C6ad7a] mx-auto mb-6"></div>
                     <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white mb-4 italic">
                         {t('privacy')}
                     </h1>
                     <p className="font-body text-white/60 uppercase tracking-widest text-xs">Protection & Confidentialité</p>
-                </motion.div>
+                </div>
             </div>
 
             {/* Content Section */}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pb-32">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="space-y-20 font-body"
-                >
+                <div className="animate-page-fade space-y-20 font-body">
                     {/* Responsable du traitement */}
                     <section>
                         <div className="flex items-center space-x-4 mb-8">
@@ -169,7 +158,7 @@ export default function PolitiqueConfidentialite() {
                             </p>
                         </div>
                     </section>
-                </motion.div>
+                </div>
             </div>
         </main>
     );

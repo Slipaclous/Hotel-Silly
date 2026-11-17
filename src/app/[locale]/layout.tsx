@@ -82,7 +82,8 @@ export default async function RootLayout({
 
   // Providing all messages to the client
   // side is the easiest way to get started
-  const messages = await getMessages({ locale });
+  // Messages envoyés au navigateur : tout sauf les textes SEO (utilisés uniquement côté serveur)
+  const { seo: _seo, ...messages } = await getMessages({ locale });
 
   // Fetch hero data for footer
   const heroData = await prisma.hero.findFirst();

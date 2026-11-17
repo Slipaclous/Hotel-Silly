@@ -9,6 +9,8 @@ import { SITE_URL } from '@/lib/seo';
 export const HOTEL = {
   name: 'Villa Dolce',
   telephone: '+32 470 13 73 13',
+  email: 'info@dolcehotel-silly.com',
+  starRating: 3,
   address: {
     streetAddress: 'Place Communale 9',
     addressLocality: 'Silly',
@@ -72,4 +74,21 @@ export function absoluteUrl(url: string | null | undefined): string | undefined 
 
 export function localeOf(locale: string): Loc {
   return locale === 'en' || locale === 'nl' ? locale : 'fr';
+}
+
+/** Texte brut depuis le HTML de l'éditeur riche (balises, entités, emojis-lettres). */
+export function cleanText(html: string | null | undefined): string {
+  return (html ?? '')
+    .replace(/<\/(p|div|li|h\d)>|<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/[\u{1F100}-\u{1F1FF}]/gu, '')
+    .replace(/[ \t\u00a0]+/g, ' ')
+    .replace(/\s*\n\s*/g, '\n')
+    .trim();
 }

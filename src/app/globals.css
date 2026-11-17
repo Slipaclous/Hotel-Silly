@@ -472,4 +472,48 @@ h6 {
 .rich-text-content strong {
   color: var(--color-noir);
   font-weight: 600;
-}
+}
+/* ========================================
+   ANIMATIONS CSS (sans JavaScript)
+   Hero : contenu visible dès le premier rendu, léger glissement seulement
+   ======================================== */
+
+@keyframes hero-rise {
+  from { transform: translateY(20px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.animate-hero-rise {
+  animation: hero-rise 0.8s ease-out both;
+}
+
+.animate-scroll-hint {
+  animation: fade-in 1s ease-out 1s both, scroll-hint 2s ease-in-out 2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-rise,
+  .animate-scroll-hint {
+    animation: none;
+  }
+}
+
+.animate-page-fade {
+  animation: fade-in 0.8s ease-out 0.2s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-page-fade {
+    animation: none;
+  }
+}
