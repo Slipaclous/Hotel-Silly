@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 export async function GET(
   request: NextRequest,
@@ -33,7 +33,7 @@ export async function PUT(
     });
 
     // Invalider le cache des pages concernées
-    revalidatePath('/[locale]', 'layout');
+    revalidateSite();
 
     return NextResponse.json(image);
   } catch (error) {
@@ -58,7 +58,7 @@ export async function DELETE(
     });
 
     // Invalider le cache des pages concernées
-    revalidatePath('/[locale]', 'layout');
+    revalidateSite();
 
     return NextResponse.json({ success: true });
   } catch (error) {

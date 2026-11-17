@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 // GET - Récupérer les données About
 export async function GET() {
@@ -34,7 +34,7 @@ export async function PUT(request: NextRequest) {
     }
 
     // Invalider le cache des pages concernées
-    revalidatePath('/[locale]', 'layout');
+    revalidateSite();
 
     return NextResponse.json(result);
   } catch (error) {

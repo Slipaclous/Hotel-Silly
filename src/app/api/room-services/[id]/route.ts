@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 export async function GET(
   request: NextRequest,
@@ -42,7 +42,7 @@ export async function PUT(
             },
         });
 
-        revalidatePath('/[locale]', 'layout');
+        revalidateSite();
         return NextResponse.json(service);
     } catch (error) {
         console.error('Erreur PUT room-service:', error);
@@ -65,7 +65,7 @@ export async function DELETE(
             where: { id },
         });
 
-        revalidatePath('/[locale]', 'layout');
+        revalidateSite();
         return NextResponse.json({ message: 'Supprimé avec succès' });
     } catch (error) {
         console.error('Erreur DELETE room-service:', error);

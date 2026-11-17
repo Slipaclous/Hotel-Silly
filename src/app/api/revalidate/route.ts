@@ -1,5 +1,5 @@
-import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidateSite } from '@/lib/revalidate';
 
 export async function POST(request: NextRequest) {
     try {
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
         // Revalider toutes les pages, dans toutes les langues
         // (les routes réelles sont préfixées par la locale : /fr, /en, /nl)
-        revalidatePath('/[locale]', 'layout');
+        revalidateSite();
         const pathsToRevalidate = paths || ['all'];
 
         return NextResponse.json({

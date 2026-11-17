@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 export async function PATCH(
   request: NextRequest,
@@ -24,7 +24,7 @@ export async function PATCH(
       },
     });
 
-    revalidatePath('/[locale]', 'layout');
+    revalidateSite();
     return NextResponse.json(collaboration);
   } catch (error) {
     console.error('Erreur PATCH collaboration:', error);
@@ -46,7 +46,7 @@ export async function DELETE(
       where: { id: parseInt(id) },
     });
 
-    revalidatePath('/[locale]', 'layout');
+    revalidateSite();
     return NextResponse.json({ message: 'Collaboration supprimée avec succès' });
   } catch (error) {
     console.error('Erreur DELETE collaboration:', error);

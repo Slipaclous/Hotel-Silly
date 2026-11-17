@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 export async function GET() {
     try {
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     try {
         const data = await request.json();
         const pkg = await (prisma as any).giftCardPackage.create({ data });
-        revalidatePath('/[locale]', 'layout');
+        revalidateSite();
         return NextResponse.json(pkg);
     } catch (error) {
         return NextResponse.json({ error: 'Erreur lors de la création' }, { status: 500 });

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 export async function GET(
   request: NextRequest,
@@ -30,7 +30,7 @@ export async function PUT(
             where: { id: numericId },
             data,
         });
-        revalidatePath('/[locale]', 'layout');
+        revalidateSite();
         return NextResponse.json(result);
     } catch (error) {
         return NextResponse.json({ error: 'Erreur lors de la mise à jour' }, { status: 500 });
@@ -47,7 +47,7 @@ export async function DELETE(
         await (prisma as any).giftCardPackage.delete({
             where: { id: numericId },
         });
-        revalidatePath('/[locale]', 'layout');
+        revalidateSite();
         return NextResponse.json({ success: true });
     } catch (error) {
         return NextResponse.json({ error: 'Erreur lors de la suppression' }, { status: 500 });

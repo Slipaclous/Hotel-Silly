@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 export async function GET() {
     try {
@@ -31,7 +31,7 @@ export async function PUT(request: NextRequest) {
             });
         }
 
-        revalidatePath('/[locale]', 'layout');
+        revalidateSite();
         return NextResponse.json(result);
     } catch (error) {
         console.error('Erreur PUT gift-card-page:', error);

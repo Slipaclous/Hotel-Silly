@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 // GET - Récupérer tous les événements
 export async function GET() {
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     const event = await prisma.event.create({ data });
 
     // Invalider le cache de la page événements
-    revalidatePath('/[locale]', 'layout');
+    revalidateSite();
 
     return NextResponse.json(event, { status: 201 });
   } catch (error) {

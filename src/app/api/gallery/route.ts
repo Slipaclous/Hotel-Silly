@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 // GET - Récupérer toutes les images de la galerie
 export async function GET() {
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     const image = await prisma.galleryImage.create({ data });
 
     // Invalider le cache de la page galerie et chambres
-    revalidatePath('/[locale]', 'layout');
+    revalidateSite();
 
     return NextResponse.json(image, { status: 201 });
   } catch (error) {

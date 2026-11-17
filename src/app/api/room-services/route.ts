@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 // GET - Récupérer tous les services de chambre
 export async function GET() {
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         const service = await prisma.roomService.create({ data });
 
         // Invalider le cache de la page chambres
-        revalidatePath('/[locale]', 'layout');
+        revalidateSite();
 
         return NextResponse.json(service, { status: 201 });
     } catch (error) {

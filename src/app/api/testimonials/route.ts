@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidateSite } from '@/lib/revalidate';
 
 // GET - Récupérer tous les témoignages
 export async function GET() {
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     const testimonial = await prisma.testimonial.create({ data });
 
     // Invalider le cache de la page d'accueil
-    revalidatePath('/[locale]', 'layout');
+    revalidateSite();
 
     return NextResponse.json(testimonial, { status: 201 });
   } catch (error) {
