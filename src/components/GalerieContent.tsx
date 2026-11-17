@@ -115,24 +115,15 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
                 <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                        <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: 60 }}
-                            transition={{ delay: 0.4, duration: 0.8 }}
-                            className="h-px bg-or mx-auto mb-8"
-                        />
+                    <div className="animate-hero-rise">
+                        <div className="w-[60px] h-px bg-or mx-auto mb-8" />
                         <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-medium mb-8 text-or tracking-tight">
                             {pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
                         </h1>
                         <p className="font-body text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
                             {pageHero ? (locale === 'en' ? (pageHero.subtitleEn || pageHero.subtitle) : locale === 'nl' ? (pageHero.subtitleNl || pageHero.subtitle) : pageHero.subtitle) : t('heroSubtitle')}
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -141,11 +132,8 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className="sr-only">{t('sectionTitle')}</h2>
                     <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
-                        {categories.map((category, idx) => (
+                        {categories.map((category) => (
                             <motion.button
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 * idx }}
                                 key={category.id}
                                 onClick={() => { setSelectedCategory(category.id); setHasFiltered(true); }}
                                 className={`group relative px-8 py-4 text-[10px] font-bold uppercase tracking-[0.25em] transition-all duration-500 overflow-hidden ${selectedCategory === category.id

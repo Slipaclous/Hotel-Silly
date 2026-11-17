@@ -109,14 +109,10 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
                 <div className="relative z-10 text-center text-white">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
+                    <div className="animate-hero-rise">
                         <h1 className="font-display text-5xl lg:text-7xl font-medium mb-4 text-[#C6ad7a]">{heroTitle}</h1>
                         <p className="font-body text-white/80 text-lg font-light tracking-wide">{heroSubtitle}</p>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 

@@ -116,11 +116,7 @@ export default function ChambresContent({ rooms, pageHero, roomServices }: { roo
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                    >
+                    <div className="animate-hero-rise">
                         <div className="w-12 h-px bg-[#C6ad7a] mx-auto mb-6"></div>
                         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium mb-6 text-[#C6ad7a]">
                             {pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('title')}
@@ -128,7 +124,7 @@ export default function ChambresContent({ rooms, pageHero, roomServices }: { roo
                         <p className="font-body text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
                             {pageHero ? (locale === 'en' ? (pageHero.subtitleEn || pageHero.subtitle) : locale === 'nl' ? (pageHero.subtitleNl || pageHero.subtitle) : pageHero.subtitle) : t('subtitle')}
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 

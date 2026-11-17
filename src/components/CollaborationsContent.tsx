@@ -64,11 +64,7 @@ export default function CollaborationsContent({ collaborations, pageHero }: { co
                 <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #C6ad7a 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
                 <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
+                    <div className="animate-hero-rise">
                         <div className="w-16 h-0.5 bg-[#C6ad7a] mx-auto mb-10 shadow-[0_0_15px_rgba(198,173,122,0.5)]"></div>
                         <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-medium mb-8 text-[#C6ad7a] drop-shadow-2xl">
                             {pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
@@ -76,7 +72,7 @@ export default function CollaborationsContent({ collaborations, pageHero }: { co
                         <p className="font-body text-xl sm:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed font-light tracking-wide">
                             {pageHero ? (locale === 'en' ? (pageHero.subtitleEn || pageHero.subtitle) : locale === 'nl' ? (pageHero.subtitleNl || pageHero.subtitle) : pageHero.subtitle) : t('heroSubtitle')}
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
