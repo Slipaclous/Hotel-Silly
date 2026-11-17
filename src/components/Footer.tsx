@@ -79,6 +79,7 @@ export default function Footer({ heroData }: { heroData?: any }) {
                   src="/images/logo-clef.png"
                   alt="Villa Dolce"
                   fill
+                  sizes="184px"
                   className="object-contain"
                 />
               </Link>
@@ -313,6 +314,7 @@ export default function Footer({ heroData }: { heroData?: any }) {
                       src="/images/qr.png"
                       alt="QR Code Google"
                       fill
+                      sizes="140px"
                       className="object-contain p-2"
                     />
                   </div>

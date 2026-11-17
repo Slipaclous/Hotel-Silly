@@ -93,6 +93,7 @@ export default function HeroSection({ initialData }: { initialData?: HeroData | 
                 src="/images/logo-clef.png"
                 alt="Logo Villa Dolce - Hôtel d'Exception"
                 fill
+                sizes="(min-width: 640px) 448px, 90vw"
                 className="object-contain"
                 priority
               />

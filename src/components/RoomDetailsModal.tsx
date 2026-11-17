@@ -178,6 +178,7 @@ export default function RoomDetailsModal({ room, isOpen, onClose }: RoomDetailsM
                                             src={img}
                                             alt="Thumbnail"
                                             fill
+                                            sizes="64px"
                                             className="object-cover"
                                         />
                                     </button>

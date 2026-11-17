@@ -6,7 +6,7 @@ import { routing } from '@/i18n/routing';
 
 export const SITE_URL = 'https://www.villadolce-hotel.com';
 const SITE_NAME = 'Villa Dolce';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/images/logo.png`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/images/logo-512.png`;
 
 const OG_LOCALES: Record<string, string> = {
   fr: 'fr_BE',

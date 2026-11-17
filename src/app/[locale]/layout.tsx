@@ -47,10 +47,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },
-        { url: "/images/logo-simple.png", sizes: "32x32", type: "image/png" },
+        { url: "/images/icon-32.png", sizes: "32x32", type: "image/png" },
       ],
       apple: [
-        { url: "/images/logo-simple.png", sizes: "180x180", type: "image/png" },
+        { url: "/images/icon-180.png", sizes: "180x180", type: "image/png" },
       ],
       shortcut: "/favicon.ico",
     },

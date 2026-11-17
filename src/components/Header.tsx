@@ -97,8 +97,8 @@ export default function Header() {
                     src="/images/logo-clef.png"
                     alt="Villa Dolce"
                     fill
+                    sizes="(min-width: 1280px) 112px, (min-width: 1024px) 96px, 80px"
                     className="object-contain"
-                    priority
                   />
                 </div>
               </div>

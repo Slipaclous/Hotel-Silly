@@ -4,7 +4,7 @@ export default function StructuredData() {
         "@type": "Hotel",
         "name": "Villa Dolce",
         "description": "Hôtel d'exception au cœur de Silly, Belgique, à proximité d'Enghien. Élégance et raffinement pour un séjour inoubliable.",
-        "image": "https://www.villadolce-hotel.com/images/logo.png",
+        "image": "https://www.villadolce-hotel.com/images/logo-512.png",
         "keywords": "hotel, silly, enghien, hebergement, belgique, wallonie",
         "areaServed": [
             {
@@ -55,7 +55,7 @@ export default function StructuredData() {
         "@type": "WebSite",
         "name": "Villa Dolce",
         "url": "https://www.villadolce-hotel.com",
-        "logo": "https://www.villadolce-hotel.com/images/logo-simple.png"
+        "logo": "https://www.villadolce-hotel.com/images/icon-512.png"
     };
 
     const organizationData = {
@@ -63,7 +63,7 @@ export default function StructuredData() {
         "@type": "Organization",
         "name": "Villa Dolce",
         "url": "https://www.villadolce-hotel.com",
-        "logo": "https://www.villadolce-hotel.com/images/logo-simple.png",
+        "logo": "https://www.villadolce-hotel.com/images/icon-512.png",
         "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+32 470 13 73 13",
