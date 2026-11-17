@@ -25,8 +25,7 @@ export async function POST(request: NextRequest) {
     const feature = await prisma.feature.create({ data });
 
     // Invalider le cache des pages concernées
-    revalidatePath('/');
-    revalidatePath('/a-propos');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(feature, { status: 201 });
   } catch (error) {

@@ -47,9 +47,8 @@ export async function PUT(
       },
     });
 
-    // Invalider le cache de la page concernée
-    const path = decodedPage === 'accueil' ? '/' : `/${decodedPage}`;
-    revalidatePath(path);
+    // Invalider le cache de toutes les pages (toutes langues)
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(pageHero);
   } catch (error) {

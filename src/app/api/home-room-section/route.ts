@@ -36,7 +36,6 @@ export async function PUT(request: NextRequest) {
         }
 
         // Invalider le cache de la page d'accueil
-        revalidatePath('/');
         revalidatePath('/[locale]', 'layout');
 
         return NextResponse.json(result);

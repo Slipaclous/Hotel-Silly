@@ -33,9 +33,7 @@ export async function PUT(
     });
 
     // Invalider le cache des pages concernées
-    revalidatePath('/galerie');
-    revalidatePath('/chambres');
-    revalidatePath('/');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(image);
   } catch (error) {
@@ -60,9 +58,7 @@ export async function DELETE(
     });
 
     // Invalider le cache des pages concernées
-    revalidatePath('/galerie');
-    revalidatePath('/chambres');
-    revalidatePath('/');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -41,8 +41,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Invalider le cache pour les pages concernées
-    revalidatePath('/');
-    revalidatePath('/chambres');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(room, { status: 201 });
   } catch (error) {

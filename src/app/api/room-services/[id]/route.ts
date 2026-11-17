@@ -42,7 +42,7 @@ export async function PUT(
             },
         });
 
-        revalidatePath('/chambres');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json(service);
     } catch (error) {
         console.error('Erreur PUT room-service:', error);
@@ -65,7 +65,7 @@ export async function DELETE(
             where: { id },
         });
 
-        revalidatePath('/chambres');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json({ message: 'Supprimé avec succès' });
     } catch (error) {
         console.error('Erreur DELETE room-service:', error);

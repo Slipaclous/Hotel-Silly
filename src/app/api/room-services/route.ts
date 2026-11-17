@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         const service = await prisma.roomService.create({ data });
 
         // Invalider le cache de la page chambres
-        revalidatePath('/chambres');
+        revalidatePath('/[locale]', 'layout');
 
         return NextResponse.json(service, { status: 201 });
     } catch (error) {

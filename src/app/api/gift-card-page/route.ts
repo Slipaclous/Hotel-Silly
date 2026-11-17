@@ -31,7 +31,7 @@ export async function PUT(request: NextRequest) {
             });
         }
 
-        revalidatePath('/[locale]/carte-cadeau', 'page');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json(result);
     } catch (error) {
         console.error('Erreur PUT gift-card-page:', error);

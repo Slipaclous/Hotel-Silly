@@ -308,7 +308,57 @@
     },
     "seo": {
         "title": "Villa Dolce - Exceptional Boutique Hotel in Silly, near Enghien",
-        "description": "Discover Villa Dolce, a charming hotel in the heart of Silly, near Enghien. Elegance, comfort, and refinement for an unforgettable stay in Wallonia."
+        "description": "Discover Villa Dolce, a charming hotel in the heart of Silly, near Enghien. Elegance, comfort, and refinement for an unforgettable stay in Wallonia.",
+        "pages": {
+            "home": {
+                "title": "Villa Dolce - Exceptional Boutique Hotel in Silly, near Enghien",
+                "description": "Discover Villa Dolce, a charming hotel in the heart of Silly, near Enghien. Elegance, comfort, and refinement for an unforgettable stay in Wallonia."
+            },
+            "rooms": {
+                "title": "Rooms & Suites",
+                "description": "Discover our charming rooms and suites in Silly, near Enghien: refined comfort, premium bedding and a local breakfast."
+            },
+            "about": {
+                "title": "About us",
+                "description": "The story of Villa Dolce, an exceptional guesthouse in the heart of Silly: our philosophy, services and hospitality."
+            },
+            "gallery": {
+                "title": "Photo gallery",
+                "description": "Tour Villa Dolce in pictures: rooms, lounges, garden and the surroundings of Silly and Enghien."
+            },
+            "events": {
+                "title": "Our packages",
+                "description": "Stays, getaways and tailor-made packages at Villa Dolce in Silly: discover our offers for an exceptional time in Wallonia."
+            },
+            "seminars": {
+                "title": "Seminars & meetings",
+                "description": "Host your seminar or business meeting at Villa Dolce in Silly near Enghien: inspiring setting, accommodation and tailored services."
+            },
+            "giftCard": {
+                "title": "Gift card",
+                "description": "Give a stay at Villa Dolce: gift cards for a night, a weekend or an exceptional experience in Silly."
+            },
+            "contact": {
+                "title": "Contact & directions",
+                "description": "Contact Villa Dolce, Place Communale 9, 7830 Silly, Belgium. Bookings, questions and directions from Enghien, Brussels and Mons."
+            },
+            "collaborations": {
+                "title": "Partners",
+                "description": "Our partners around Villa Dolce in Silly: local producers, craftspeople and recommended places."
+            },
+            "cgv": {
+                "title": "Terms and conditions",
+                "description": "Villa Dolce terms and conditions: booking, payment, cancellation and stay."
+            },
+            "legal": {
+                "title": "Legal notice",
+                "description": "Legal notice for the Villa Dolce website, hotel in Silly (Belgium)."
+            },
+            "privacy": {
+                "title": "Privacy policy",
+                "description": "Villa Dolce privacy policy and personal data handling."
+            }
+        }
     },
     "booking": {
         "arrival": "Arrival",

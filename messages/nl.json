@@ -310,7 +310,57 @@
     },
     "seo": {
         "title": "Villa Dolce - Uitzonderlijk Charmant Hotel in Silly, nabij Edingen",
-        "description": "Ontdek Villa Dolce, een charmant hotel in het hart van Silly, nabij Edingen (Enghien). Elegantie, comfort en raffinement voor een onvergetelijk verblijf in Wallonië."
+        "description": "Ontdek Villa Dolce, een charmant hotel in het hart van Silly, nabij Edingen (Enghien). Elegantie, comfort en raffinement voor een onvergetelijk verblijf in Wallonië.",
+        "pages": {
+            "home": {
+                "title": "Villa Dolce - Uitzonderlijk Charmant Hotel in Silly, nabij Edingen",
+                "description": "Ontdek Villa Dolce, een charmant hotel in het hart van Silly, nabij Edingen (Enghien). Elegantie, comfort en raffinement voor een onvergetelijk verblijf in Wallonië."
+            },
+            "rooms": {
+                "title": "Kamers & Suites",
+                "description": "Ontdek onze charmante kamers en suites in Silly, vlak bij Edingen: verfijnd comfort, kwaliteitsbedden en een lokaal ontbijt."
+            },
+            "about": {
+                "title": "Over ons",
+                "description": "Het verhaal van Villa Dolce, een uitzonderlijk gastenverblijf in het hart van Silly: onze filosofie, diensten en gastvrijheid."
+            },
+            "gallery": {
+                "title": "Fotogalerij",
+                "description": "Ontdek Villa Dolce in beeld: kamers, gemeenschappelijke ruimtes, tuin en de omgeving van Silly en Edingen."
+            },
+            "events": {
+                "title": "Onze formules",
+                "description": "Verblijven, uitstapjes en formules op maat in Villa Dolce in Silly: ontdek onze aanbiedingen voor een uitzonderlijk moment in Wallonië."
+            },
+            "seminars": {
+                "title": "Seminaries & vergaderingen",
+                "description": "Organiseer uw seminarie of zakelijke vergadering in Villa Dolce in Silly bij Edingen: inspirerend kader, overnachting en diensten op maat."
+            },
+            "giftCard": {
+                "title": "Cadeaubon",
+                "description": "Schenk een verblijf in Villa Dolce: cadeaubonnen voor een nacht, een weekend of een uitzonderlijke ervaring in Silly."
+            },
+            "contact": {
+                "title": "Contact & route",
+                "description": "Contacteer Villa Dolce, Place Communale 9, 7830 Silly, België. Reservaties, vragen en route vanuit Edingen, Brussel en Bergen."
+            },
+            "collaborations": {
+                "title": "Partners",
+                "description": "Onze partners rond Villa Dolce in Silly: lokale producenten, ambachtslui en aanbevolen adressen."
+            },
+            "cgv": {
+                "title": "Algemene verkoopsvoorwaarden",
+                "description": "Algemene verkoopsvoorwaarden van Villa Dolce: reservatie, betaling, annulering en verblijf."
+            },
+            "legal": {
+                "title": "Wettelijke vermeldingen",
+                "description": "Wettelijke vermeldingen van de website van Villa Dolce, hotel in Silly (België)."
+            },
+            "privacy": {
+                "title": "Privacybeleid",
+                "description": "Privacybeleid en verwerking van persoonsgegevens door Villa Dolce."
+            }
+        }
     },
     "booking": {
         "arrival": "Aankomst",

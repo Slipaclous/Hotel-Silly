@@ -1,10 +1,20 @@
 import CarteCadeauContent from '@/components/CarteCadeauContent';
 import { prisma } from '@/lib/prisma';
+import type { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
+import { buildPageMetadata } from '@/lib/seo';
 
 // Active le cache statique avec revalidation toutes les heures
 export const revalidate = 3600;
 
-export default async function CarteCadeauPage() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, page: 'giftCard', path: '/carte-cadeau' });
+}
+
+export default async function CarteCadeauPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
     // Récupération sécurisée des données sur le serveur (SSR)
     const [pageHero, giftCardPage, giftCardPackages] = await Promise.all([
         prisma.pageHero.findFirst({

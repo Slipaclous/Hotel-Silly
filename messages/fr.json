@@ -310,7 +310,57 @@
     },
     "seo": {
         "title": "Villa Dolce - Hôtel d'Exception à Silly, près d'Enghien",
-        "description": "Découvrez la Villa Dolce, hôtel de charme au cœur de Silly, à deux pas d'Enghien. Élégance et confort pour un séjour inoubliable en Wallonie."
+        "description": "Découvrez la Villa Dolce, hôtel de charme au cœur de Silly, à deux pas d'Enghien. Élégance et confort pour un séjour inoubliable en Wallonie.",
+        "pages": {
+            "home": {
+                "title": "Villa Dolce - Hôtel d'Exception à Silly, près d'Enghien",
+                "description": "Découvrez la Villa Dolce, hôtel de charme au cœur de Silly, à deux pas d'Enghien. Élégance et confort pour un séjour inoubliable en Wallonie."
+            },
+            "rooms": {
+                "title": "Chambres & Suites",
+                "description": "Découvrez nos chambres et suites de charme à Silly, près d'Enghien : confort raffiné, literie haut de gamme et petit-déjeuner local."
+            },
+            "about": {
+                "title": "À propos",
+                "description": "L'histoire de la Villa Dolce, maison d'hôtes d'exception au cœur de Silly : notre philosophie, nos services et notre art de recevoir."
+            },
+            "gallery": {
+                "title": "Galerie photos",
+                "description": "Visitez la Villa Dolce en images : chambres, espaces communs, jardin et environs de Silly et d'Enghien."
+            },
+            "events": {
+                "title": "Nos formules",
+                "description": "Séjours, escapades et formules sur mesure à la Villa Dolce, à Silly : découvrez nos offres pour un moment d'exception en Wallonie."
+            },
+            "seminars": {
+                "title": "Séminaires & réunions",
+                "description": "Organisez votre séminaire ou réunion d'entreprise à la Villa Dolce, à Silly près d'Enghien : cadre inspirant, hébergement et services sur mesure."
+            },
+            "giftCard": {
+                "title": "Carte-cadeau",
+                "description": "Offrez un séjour à la Villa Dolce : cartes-cadeaux pour une nuit, un week-end ou une expérience d'exception à Silly."
+            },
+            "contact": {
+                "title": "Contact & accès",
+                "description": "Contactez la Villa Dolce, Place Communale 9, 7830 Silly. Réservations, questions et itinéraire depuis Enghien, Bruxelles et Mons."
+            },
+            "collaborations": {
+                "title": "Collaborations",
+                "description": "Nos partenaires et collaborations autour de la Villa Dolce à Silly : producteurs locaux, artisans et adresses recommandées."
+            },
+            "cgv": {
+                "title": "Conditions générales de vente",
+                "description": "Conditions générales de vente de la Villa Dolce : réservation, paiement, annulation et séjour."
+            },
+            "legal": {
+                "title": "Mentions légales",
+                "description": "Mentions légales du site de la Villa Dolce, hôtel à Silly (Belgique)."
+            },
+            "privacy": {
+                "title": "Politique de confidentialité",
+                "description": "Politique de confidentialité et gestion des données personnelles de la Villa Dolce."
+            }
+        }
     },
     "booking": {
         "arrival": "Arrivée",

@@ -32,7 +32,7 @@ export async function PUT(
     });
 
     // Invalider le cache de la page d'accueil
-    revalidatePath('/');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(testimonial);
   } catch (error) {
@@ -56,7 +56,7 @@ export async function DELETE(
     });
 
     // Invalider le cache de la page d'accueil
-    revalidatePath('/');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json({ success: true });
   } catch (error) {

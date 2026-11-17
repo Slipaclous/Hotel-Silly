@@ -31,7 +31,7 @@ export async function PUT(request: NextRequest) {
             });
         }
 
-        revalidatePath('/[locale]/seminaires', 'page');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json(result);
     } catch (error) {
         console.error('Erreur PUT seminar-page:', error);

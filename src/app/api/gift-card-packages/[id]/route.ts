@@ -30,7 +30,7 @@ export async function PUT(
             where: { id: numericId },
             data,
         });
-        revalidatePath('/[locale]/carte-cadeau', 'page');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json(result);
     } catch (error) {
         return NextResponse.json({ error: 'Erreur lors de la mise à jour' }, { status: 500 });
@@ -47,7 +47,7 @@ export async function DELETE(
         await (prisma as any).giftCardPackage.delete({
             where: { id: numericId },
         });
-        revalidatePath('/[locale]/carte-cadeau', 'page');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json({ success: true });
     } catch (error) {
         return NextResponse.json({ error: 'Erreur lors de la suppression' }, { status: 500 });

@@ -33,8 +33,7 @@ export async function PUT(
     });
 
     // Invalider le cache des pages concernées
-    revalidatePath('/');
-    revalidatePath('/a-propos');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(feature);
   } catch (error) {
@@ -58,8 +57,7 @@ export async function DELETE(
     });
 
     // Invalider le cache des pages concernées
-    revalidatePath('/');
-    revalidatePath('/a-propos');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    revalidatePath('/collaborations');
+    revalidatePath('/[locale]', 'layout');
     return NextResponse.json(collaboration, { status: 201 });
   } catch (error) {
     console.error('Erreur POST collaboration:', error);

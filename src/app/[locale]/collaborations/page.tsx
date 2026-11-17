@@ -1,21 +1,17 @@
 import CollaborationsContent from '@/components/CollaborationsContent';
 import { prisma } from '@/lib/prisma';
-import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
+import { buildPageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'seo' });
-  
-  return {
-    title: `Collaborations - ${t('title')}`,
-    description: t('description'),
-  };
+  return buildPageMetadata({ locale, page: 'collaborations', path: '/collaborations' });
 }
 
 export default async function CollaborationsPage({ params }: { params: Promise<{ locale: string }> }) {
-  // Await params to avoid type error in Next.js 15
-  await params;
+  const { locale } = await params;
+  setRequestLocale(locale);
 
   // Récupération des données sur le serveur (SSR)
   const [collaborations, pageHero] = await Promise.all([

@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     try {
         const data = await request.json();
         const result = await (prisma as any).seminarFeature.create({ data });
-        revalidatePath('/[locale]/seminaires', 'page');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json(result);
     } catch (error) {
         return NextResponse.json({ error: 'Erreur lors de la création' }, { status: 500 });

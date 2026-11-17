@@ -34,8 +34,7 @@ export async function PUT(request: NextRequest) {
     }
 
     // Invalider le cache des pages concernées
-    revalidatePath('/');
-    revalidatePath('/a-propos');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(result);
   } catch (error) {

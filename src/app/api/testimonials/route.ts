@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     const testimonial = await prisma.testimonial.create({ data });
 
     // Invalider le cache de la page d'accueil
-    revalidatePath('/');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(testimonial, { status: 201 });
   } catch (error) {

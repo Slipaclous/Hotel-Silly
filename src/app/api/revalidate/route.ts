@@ -10,23 +10,10 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: 'Invalid secret' }, { status: 401 });
         }
 
-        // Revalider toutes les pages ou des pages spécifiques
-        const pathsToRevalidate = paths || [
-            '/',
-            '/chambres',
-            '/galerie',
-            '/a-propos',
-            '/contact',
-            '/evenements',
-            '/carte-cadeau',
-            '/seminaires',
-        ];
-
-        for (const path of pathsToRevalidate) {
-            revalidatePath(path);
-            revalidatePath(`/en${path}`);
-            revalidatePath(`/nl${path}`);
-        }
+        // Revalider toutes les pages, dans toutes les langues
+        // (les routes réelles sont préfixées par la locale : /fr, /en, /nl)
+        revalidatePath('/[locale]', 'layout');
+        const pathsToRevalidate = paths || ['all'];
 
         return NextResponse.json({
             revalidated: true,

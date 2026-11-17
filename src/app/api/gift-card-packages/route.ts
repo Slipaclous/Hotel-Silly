@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     try {
         const data = await request.json();
         const pkg = await (prisma as any).giftCardPackage.create({ data });
-        revalidatePath('/[locale]/carte-cadeau', 'page');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json(pkg);
     } catch (error) {
         return NextResponse.json({ error: 'Erreur lors de la création' }, { status: 500 });

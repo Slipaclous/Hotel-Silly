@@ -33,7 +33,7 @@ export async function PUT(
     });
 
     // Invalider le cache de la page événements
-    revalidatePath('/evenements');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(event);
   } catch (error) {
@@ -58,7 +58,7 @@ export async function DELETE(
     });
 
     // Invalider le cache de la page événements
-    revalidatePath('/evenements');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json({ success: true });
   } catch (error) {

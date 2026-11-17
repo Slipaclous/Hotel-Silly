@@ -31,7 +31,7 @@ export async function PUT(
             where: { id: numericId },
             data,
         });
-        revalidatePath('/[locale]/seminaires', 'page');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json(result);
     } catch (error) {
         return NextResponse.json({ error: 'Erreur lors de la mise à jour' }, { status: 500 });
@@ -48,7 +48,7 @@ export async function DELETE(
         await (prisma as any).seminarPackage.delete({
             where: { id: numericId },
         });
-        revalidatePath('/[locale]/seminaires', 'page');
+        revalidatePath('/[locale]', 'layout');
         return NextResponse.json({ success: true });
     } catch (error) {
         return NextResponse.json({ error: 'Erreur lors de la suppression' }, { status: 500 });

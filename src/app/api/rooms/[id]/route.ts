@@ -47,8 +47,7 @@ export async function PUT(
     });
 
     // Invalider le cache pour les pages concernées
-    revalidatePath('/');
-    revalidatePath('/chambres');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(room);
   } catch (error) {
@@ -72,8 +71,7 @@ export async function DELETE(
     });
 
     // Invalider le cache pour les pages concernées
-    revalidatePath('/');
-    revalidatePath('/chambres');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json({ success: true });
   } catch (error) {

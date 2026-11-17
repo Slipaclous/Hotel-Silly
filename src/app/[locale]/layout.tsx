@@ -23,63 +23,27 @@ const montserrat = Montserrat({
   preload: true,
 });
 
-import { getTranslations } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
+import { buildPageMetadata, SITE_URL } from '@/lib/seo';
+
+// Pré-génère /fr, /en, /nl au build (rendu statique + ISR)
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+// Contenu modifiable depuis l'admin : régénéré au plus toutes les heures,
+// et immédiatement via revalidatePath après chaque modification.
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'seo' });
-
-  // Récupérer l'image du Hero pour l'utiliser comme image de partage (OG Image)
-  let ogImage = 'https://www.villadolce-hotel.com/images/logo.png';
-  try {
-    const hero = await prisma.hero.findFirst();
-    if (hero?.imageUrl) {
-      ogImage = hero.imageUrl;
-    }
-  } catch (error) {
-    console.error('Error fetching hero for metadata:', error);
-  }
-
-  // S'assurer que l'URL est absolue pour les réseaux sociaux
-  const fullOgImageUrl = ogImage.startsWith('http')
-    ? ogImage
-    : `https://www.villadolce-hotel.com${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
+  // Valeurs par défaut (page d'accueil). Chaque page surcharge titre, description et canonical.
+  const base = await buildPageMetadata({ locale, page: 'home', path: '' });
 
   return {
-    title: t('title'),
-    description: t('description'),
+    ...base,
+    metadataBase: new URL(SITE_URL),
     keywords: ["hotel silly", "hotel enghien", "hôtel de luxe silly", "logement enghien", "villa dolce", "hotel belgique", "chambre d'hotes silly", "chambre d'hotes enghien"],
-    metadataBase: new URL('https://www.villadolce-hotel.com'),
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        'fr-BE': '/fr',
-        'en-BE': '/en',
-        'nl-BE': '/nl',
-      },
-    },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      url: `https://www.villadolce-hotel.com/${locale}`,
-      siteName: 'Villa Dolce',
-      locale: locale === 'en' ? 'en_US' : locale === 'nl' ? 'nl_BE' : 'fr_BE',
-      type: 'website',
-      images: [
-        {
-          url: fullOgImageUrl,
-          width: 1200,
-          height: 630,
-          alt: t('title'),
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
-      images: [fullOgImageUrl],
-    },
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },
@@ -90,7 +54,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       ],
       shortcut: "/favicon.ico",
     },
-
   };
 }
 
@@ -114,9 +77,12 @@ export default async function RootLayout({
     notFound();
   }
 
+  // Active le rendu statique pour next-intl
+  setRequestLocale(locale);
+
   // Providing all messages to the client
   // side is the easiest way to get started
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   // Fetch hero data for footer
   const heroData = await prisma.hero.findFirst();

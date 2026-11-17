@@ -25,9 +25,7 @@ export async function POST(request: NextRequest) {
     const image = await prisma.galleryImage.create({ data });
 
     // Invalider le cache de la page galerie et chambres
-    revalidatePath('/galerie');
-    revalidatePath('/chambres');
-    revalidatePath('/');
+    revalidatePath('/[locale]', 'layout');
 
     return NextResponse.json(image, { status: 201 });
   } catch (error) {
