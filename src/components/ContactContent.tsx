@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { heroBlurProps } from '@/lib/blur-props';
 import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -92,6 +93,7 @@ export default function ContactContent({ pageHero }: ContactContentProps) {
                     <>
                         <Image
                             src={pageHero.imageUrl}
+                            {...heroBlurProps(pageHero)}
                             alt={heroTitle}
                             fill
                             className="object-cover"

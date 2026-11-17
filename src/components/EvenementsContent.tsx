@@ -5,6 +5,7 @@ import { Calendar as CalendarIcon, Users, MapPin, Clock, ArrowRight, Utensils, H
 import { Link } from '@/i18n/routing';
 import { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
+import { heroBlurProps } from '@/lib/blur-props';
 import { useLocale, useTranslations } from 'next-intl';
 
 interface Event {
@@ -88,6 +89,7 @@ export default function EvenementsContent({ events, pageHero }: { events: Event[
                     <>
                         <Image
                             src={pageHero.imageUrl}
+                            {...heroBlurProps(pageHero)}
                             alt={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
                             fill
                             className="object-cover"

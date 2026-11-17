@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { buildPageMetadata } from '@/lib/seo';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import { withBlur } from '@/lib/blur';
 
 // Active le cache statique avec revalidation toutes les heures
 export const revalidate = 3600;
@@ -34,7 +35,7 @@ export default async function SeminairesPage({ params }: { params: Promise<{ loc
         <main className="min-h-screen bg-blanc">
           <BreadcrumbJsonLd locale={locale} page="seminars" path="/seminaires" />
             <SeminairesContent
-                pageHero={pageHero}
+                pageHero={await withBlur(pageHero)}
                 initialData={seminarPage}
                 initialFeatures={seminarFeatures}
                 initialPackages={seminarPackages}

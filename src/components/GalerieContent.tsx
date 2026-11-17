@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ZoomIn, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { heroBlurProps } from '@/lib/blur-props';
 import ImageSlides from './ImageSlides';
 import { useLocale, useTranslations } from 'next-intl';
 
@@ -98,6 +99,7 @@ export default function GalerieContent({ initialImages, pageHero }: GalerieConte
                     <>
                         <Image
                             src={pageHero.imageUrl}
+                            {...heroBlurProps(pageHero)}
                             alt={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
                             fill
                             className="object-cover"

@@ -62,6 +62,7 @@ import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import StructuredData from "@/components/StructuredData";
 import ScrollToTop from "@/components/ScrollToTop";
+import HeroImagePreloader from "@/components/HeroImagePreloader";
 
 export default async function RootLayout({
   children,
@@ -86,7 +87,17 @@ export default async function RootLayout({
   const { seo: _seo, ...messages } = await getMessages({ locale });
 
   // Fetch hero data for footer
-  const heroData = await prisma.hero.findFirst();
+  const [heroData, pageHeroes] = await Promise.all([
+    prisma.hero.findFirst(),
+    prisma.pageHero.findMany({ select: { page: true, imageUrl: true } }),
+  ]);
+
+  // Photo d'en-tête de chaque page, préchargée au survol des liens
+  const heroImages: Record<string, string> = {};
+  if (heroData?.imageUrl) heroImages[''] = heroData.imageUrl;
+  for (const ph of pageHeroes) {
+    if (ph.imageUrl) heroImages[`/${ph.page}`] = ph.imageUrl;
+  }
 
   return (
     <html lang={locale} className={`${cormorant.variable} ${montserrat.variable}`}>
@@ -100,6 +111,7 @@ export default async function RootLayout({
           <Footer heroData={heroData} />
           <CookieConsent />
           <ScrollToTop />
+          <HeroImagePreloader heroImages={heroImages} />
         </NextIntlClientProvider>
       </body>
     </html>

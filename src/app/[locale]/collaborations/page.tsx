@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { buildPageMetadata } from '@/lib/seo';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import { withBlur } from '@/lib/blur';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -23,7 +24,7 @@ export default async function CollaborationsPage({ params }: { params: Promise<{
   return (
     <main className="min-h-screen bg-white">
       <BreadcrumbJsonLd locale={locale} page="collaborations" path="/collaborations" />
-      <CollaborationsContent collaborations={collaborations} pageHero={pageHero} />
+      <CollaborationsContent collaborations={collaborations} pageHero={await withBlur(pageHero)} />
     </main>
   );
 }

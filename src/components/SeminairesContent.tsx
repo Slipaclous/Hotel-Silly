@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { heroBlurProps } from '@/lib/blur-props';
 import { Users, Wifi, Monitor, Coffee, Clock, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { useLocale, useTranslations } from 'next-intl';
@@ -108,6 +109,7 @@ export default function SeminairesContent({ pageHero, initialData, initialFeatur
                     <>
                         <Image
                             src={pageHero.imageUrl}
+                            {...heroBlurProps(pageHero)}
                             alt={`${pageHero.title} - Séminaires & Business à Silly`}
                             fill
                             className="object-cover"

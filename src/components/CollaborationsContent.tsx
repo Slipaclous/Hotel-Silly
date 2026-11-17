@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Phone, Globe, ArrowRight, CheckCircle2, ShieldCheck, Heart, Sparkles } from 'lucide-react';
 import Image from 'next/image';
+import { heroBlurProps } from '@/lib/blur-props';
 import { useLocale, useTranslations } from 'next-intl';
 
 interface Collaboration {
@@ -46,6 +47,7 @@ export default function CollaborationsContent({ collaborations, pageHero }: { co
                     <>
                         <Image
                             src={pageHero.imageUrl}
+                            {...heroBlurProps(pageHero)}
                             alt={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
                             fill
                             className="object-cover opacity-60"

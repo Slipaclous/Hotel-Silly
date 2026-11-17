@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { heroBlurProps } from '@/lib/blur-props';
 import { Gift, Heart, Star, Check } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { useLocale, useTranslations } from 'next-intl';
@@ -74,6 +75,7 @@ export default function CarteCadeauContent({ pageHero, initialData, initialPacka
                     <>
                         <Image
                             src={pageHero.imageUrl}
+                            {...heroBlurProps(pageHero)}
                             alt={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
                             fill
                             className="object-cover"

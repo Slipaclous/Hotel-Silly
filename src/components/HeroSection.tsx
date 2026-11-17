@@ -2,6 +2,7 @@ import { ArrowRight, MapPin } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { getLocale, getTranslations } from 'next-intl/server';
+import { getBlurDataURL } from '@/lib/blur';
 
 interface HeroData {
   badge: string;
@@ -33,6 +34,7 @@ export default async function HeroSection({ initialData }: { initialData?: HeroD
   const ct = await getTranslations('common');
   const seo = await getTranslations('seo.pages');
   const data = initialData;
+  const blurDataURL = await getBlurDataURL(data.imageUrl);
 
   const getLocalized = (fr: string, en?: string | null, nl?: string | null) => {
     if (locale === 'nl') return nl || fr;
@@ -55,6 +57,7 @@ export default async function HeroSection({ initialData }: { initialData?: HeroD
             alt={titleFinal}
             fill
             priority
+            {...(blurDataURL ? { placeholder: 'blur' as const, blurDataURL } : {})}
             className="object-cover"
             sizes="100vw"
           />

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { heroBlurProps } from '@/lib/blur-props';
 import { Award, Heart, Shield, Star, MapPin, Clock, Users } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -186,6 +187,7 @@ export default function AboutContent({ aboutData, features, pageHero }: AboutCon
                     <>
                         <Image
                             src={pageHero.imageUrl}
+                            {...heroBlurProps(pageHero)}
                             alt={pageHero ? (locale === 'en' ? (pageHero.titleEn || pageHero.title) : locale === 'nl' ? (pageHero.titleNl || pageHero.title) : pageHero.title) : t('heroTitle')}
                             fill
                             className="object-cover"

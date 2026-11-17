@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { buildPageMetadata } from '@/lib/seo';
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd';
+import { withBlur } from '@/lib/blur';
 
 // Active le cache statique avec revalidation toutes les heures
 export const revalidate = 3600;
@@ -31,7 +32,7 @@ export default async function CarteCadeauPage({ params }: { params: Promise<{ lo
         <main className="min-h-screen bg-blanc">
           <BreadcrumbJsonLd locale={locale} page="giftCard" path="/carte-cadeau" />
             <CarteCadeauContent
-                pageHero={pageHero}
+                pageHero={await withBlur(pageHero)}
                 initialData={giftCardPage}
                 initialPackages={giftCardPackages}
             />

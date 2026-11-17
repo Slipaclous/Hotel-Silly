@@ -4,6 +4,7 @@ import { Link } from '@/i18n/routing';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { heroBlurProps } from '@/lib/blur-props';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 
@@ -99,6 +100,7 @@ export default function ChambresContent({ rooms, pageHero, roomServices }: { roo
                     <>
                         <Image
                             src={pageHero.imageUrl}
+                            {...heroBlurProps(pageHero)}
                             alt={`${pageHero?.title || t('welcome')} - Hôtel de Luxe Silly`}
                             fill
                             className="object-cover"
